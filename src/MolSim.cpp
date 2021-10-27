@@ -29,14 +29,14 @@ void calculateV();
 void plotParticles(int iteration);
 
 std::array<double, 3>
-calculateFij(double m, double m1, const std::array<double, 3> &array, const std::array<double, 3> &array1);
+calculateFij(double& m, double& m1, const std::array<double, 3> &array, const std::array<double, 3> &array1);
 
 constexpr double start_time = 0;
 constexpr double end_time = 1000;
 constexpr double delta_t = 0.014;
 
 // TODO: what data structure to pick?
-std::list<Particle> particles;
+std::vector<Particle> particles;
 
 int main(int argc, char *argsv[]) {
 
@@ -76,33 +76,42 @@ int main(int argc, char *argsv[]) {
 }
 
 void calculateF() {
-    std::list<Particle>::iterator iterator;
-    iterator = particles.begin();
-    std::array<double, 3> fi;
-
-    for (auto &p1: particles) {
-        std::fill(std::begin(fi), std::end(fi), 0);
-        for (auto &p2: particles) {
-            // @TODO: insert calculation of force here!
-            if (!(p1 == p2)) {
-                fi = calculateFij(p1.getM(), p2.getM(), p1.getX(), p2.getX());
+    //std::list<Particle>::iterator iterator;
+    //iterator = particles.begin();
+    std::vector<std::array<double, 3>> savedFijs(particles.size()-1*(particles.size())/2);
+    int currentIndexInSavedFijs = 0;
+    int indexForFji;
+    for (int i=0; i<particles.size(); i++) {
+        std::array<double, 3> fNew{};
+        //f1,1
+        //f1,2
+        //f1,3
+        for (int j=0; j<particles.size(); j++) {
+            std::array<double, 3> fij{};
+            //use the stored Fij
+            if(j < i){
+                indexForFji = (j*particles.size()+i-(j+1)*(j+2)/2);
+                fNew = fNew + -1*savedFijs[indexForFji];
+            }
+            else if (!(particles[i] == particles[j])) {
+                double normalizedDistance = ArrayUtils::L2Norm(particles[i].getX() - particles[j].getX());
+                double scalar = particles[i].getM() * particles[j].getM() / pow(normalizedDistance, 3);
+                fij = scalar * (particles[j].getX() - particles[i].getX());
+                fNew = fNew + fij;
+                //save fij if it could later be used
+                if(j > i){
+                    savedFijs[currentIndexInSavedFijs] = fij;
+                    currentIndexInSavedFijs++;
+                }
             }
         }
-
+        //p1.setF(f_new);
     }
 }
 
-//Wird das Array hier kopiert?
-//Warum darf ich mi und mj nicht als reference übergeben?
-inline
-std::array<double, 3> calculateFij(double mi, double mj, const std::array<double, 3> &xi, const std::array<double, 3> &xj) {
-    std::array<double, 3> result;
-    double coefficient =
-            (mi * mj) / pow(sqrt(pow(xi[0] - xj[0], 2) + pow(xi[1] - xj[1], 2) + pow(xi[2] - xj[2], 2)), 3);
-    result[0] = coefficient * (xj[0] - xi[0]);
-    result[1] = coefficient * (xj[1] - xi[1]);
-    result[2] = coefficient * (xj[2] - xi[2]);
-    return result;
+bool testOptimizedFormula(){
+    //TODO write a test if the optimized formula does the same
+    return true;
 }
 
 void calculateX() {
