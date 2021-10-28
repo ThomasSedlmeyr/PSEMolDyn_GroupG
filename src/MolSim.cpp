@@ -31,9 +31,11 @@ void plotParticles(int iteration);
 std::array<double, 3>
 calculateFij(double& m, double& m1, const std::array<double, 3> &array, const std::array<double, 3> &array1);
 
+void show_help();
+
 constexpr double start_time = 0;
-constexpr double end_time = 1000;
-constexpr double delta_t = 0.014;
+double end_time = 1000; // not const because of possible parameter over console
+double delta_t = 0.014; // not const because of possible parameter over console
 
 // TODO: what data structure to pick?
 std::vector<Particle> particles;
@@ -41,9 +43,42 @@ std::vector<Particle> particles;
 int main(int argc, char *argsv[]) {
 
     std::cout << "Hello from MolSim for PSE!" << std::endl;
-    if (argc != 2) {
+    if (argc < 2 || argc > 6 || argc % 2 == 1) { // cases in which correct programme call is not possible
         std::cout << "Erroneous programme call! " << std::endl;
         std::cout << "./molsym filename" << std::endl;
+        show_help();
+        return 0;
+    }
+
+    // parse potential parameters t_end or delta_t or print help
+    bool endReset = false;
+    bool deltaReset = false;
+    for (int i = 2; i < argc; i++) {
+        std::string temp = argsv[i];
+        std::string next = argsv[i+1];
+        if (temp == "-h") {
+            show_help();
+            return 0;
+        } else if (temp == "-t_end") {
+            if (endReset || next == "-t_end" || next == "-delta_t" || atof(next.c_str()) <= 0){
+                show_help();
+                return 0;
+            }
+            temp = argsv[++i];
+            end_time = atof(temp.c_str());
+            endReset = true;
+        } else if (temp == "-delta_t") {
+            if (deltaReset || next == "-t_end" || next == "-delta_t" || atof(next.c_str()) <= 0){
+                show_help();
+                return 0;
+            }
+            temp = argsv[++i];
+            delta_t = atof(temp.c_str());
+            deltaReset = true;
+        } else {
+            show_help();
+            return 0;
+        }
     }
 
     FileReader fileReader;
@@ -73,6 +108,15 @@ int main(int argc, char *argsv[]) {
 
     std::cout << "output written. Terminating..." << std::endl;
     return 0;
+}
+
+void show_help() {
+    // prints how to make correct programme call
+    std::cout << "Please enter e correct programme call!" << std::endl;
+    std::cout << "-h : help page " << std::endl;
+    std::cout << "-t_end : end value, defaults to 1000" << std::endl;
+    std::cout << "-delta_t : stepsize, defaults to 0.014" << std::endl;
+    std::cout << "Exemple : ./molsym ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
 }
 
 void calculateF() {
