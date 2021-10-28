@@ -91,7 +91,7 @@ void calculateF() {
             //use the stored Fij
             if(j < i){
                 indexForFji = (j*particles.size()+i-(j+1)*(j+2)/2);
-                fNew = fNew + -1*savedFijs[indexForFji];
+                fNew = fNew + -1* savedFijs[indexForFji];
             }
             else if (!(particles[i] == particles[j])) {
                 double normalizedDistance = ArrayUtils::L2Norm(particles[i].getX() - particles[j].getX());
@@ -100,7 +100,7 @@ void calculateF() {
                 fNew = fNew + fij;
                 //save fij if it could later be used
                 if(j > i){
-                    savedFijs[currentIndexInSavedFijs] = fij;
+                    savedFijs.insert(savedFijs.begin()+currentIndexInSavedFijs, fij);;
                     currentIndexInSavedFijs++;
                 }
             }
