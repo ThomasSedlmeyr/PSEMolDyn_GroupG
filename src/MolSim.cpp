@@ -13,6 +13,8 @@
  */
 void calculateF();
 
+void calculateFslower();
+
 /**
  * calculate the position for all particles
  */
@@ -30,9 +32,10 @@ void plotParticles(int iteration);
 
 std::array<double, 3>
 calculateFij(double& m, double& m1, const std::array<double, 3> &array, const std::array<double, 3> &array1);
+bool testOptimizedFormula();
 
 constexpr double start_time = 0;
-constexpr double end_time = 1000;
+constexpr double end_time = 0;
 constexpr double delta_t = 0.014;
 
 // TODO: what data structure to pick?
@@ -49,10 +52,10 @@ int main(int argc, char *argsv[]) {
     FileReader fileReader;
     fileReader.readFile(particles, argsv[1]);
 
+    //testOptimizedFormula();
     double current_time = start_time;
 
     int iteration = 0;
-
     // for this loop, we assume: current x, current f and current v are known
     while (current_time < end_time) {
         // calculate new x
@@ -105,13 +108,52 @@ void calculateF() {
                 }
             }
         }
+        particles[i].setOldF(particles[i].getF());
         particles[i].setF(fNew);
     }
 }
 
+void calculateFslower() {
+    std::list<Particle>::iterator iterator;
+    particles.begin();
+
+    for (auto &p1 : particles) {
+        std::array<double, 3> fNew{};
+        for (auto &p2 : particles) {
+            if (!(p1 == p2)) {
+                double normalizedDistance{ArrayUtils::L2Norm(p1.getX() - p2.getX())};
+                double scalar{p1.getM() * p2.getM() / pow(normalizedDistance, 3)};
+                fNew = fNew + scalar * (p2.getX() - p1.getX());
+            }
+        }
+        p1.setOldF(p1.getF());
+        p1.setF(fNew);
+    }
+}
+
 bool testOptimizedFormula(){
-    //TODO write a test if the optimized formula does the same
-    return true;
+    bool isCorrect = true;
+    for (int i = 0; i < 1000; ++i) {
+        //Store the original configuration
+        std::vector<Particle> particlesOriginal = particles;
+        //calculate the new force on particles with optimized Method
+        calculateF();
+        //store result for comparison with slower implementation
+        std::vector<Particle> resultFast = particles;
+        //reset particles to original state
+        particles = particlesOriginal;
+        calculateFslower();
+        //Now compare particles with resultFast
+        for (int j = 0; j < particles.size(); ++j) {
+            if (!(particles[j] == resultFast[j])) {
+                std::cout << "Error in Fast Calculation\n";
+                isCorrect = false;
+            }
+        }
+        calculateX();
+        calculateV();
+    }
+    return isCorrect;
 }
 
 void calculateX() {
