@@ -53,6 +53,22 @@ double Particle::getM() const { return m; }
 
 int Particle::getType() const { return type; }
 
+void Particle::setX(const std::array<double, 3> &x) {
+    Particle::x = x;
+}
+
+void Particle::setV(const std::array<double, 3> &v) {
+    Particle::v = v;
+}
+
+void Particle::setF(const std::array<double, 3> &f) {
+    Particle::f = f;
+}
+
+void Particle::setOldF(const std::array<double, 3> &oldF) {
+    old_f = oldF;
+}
+
 std::string Particle::toString() const {
   std::stringstream stream;
   stream << "Particle: X:" << x << " v: " << v << " f: " << f

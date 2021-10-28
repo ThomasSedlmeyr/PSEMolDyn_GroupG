@@ -105,7 +105,7 @@ void calculateF() {
                 }
             }
         }
-        //p1.setF(f_new);
+        particles[i].setF(fNew);
     }
 }
 
@@ -116,14 +116,14 @@ bool testOptimizedFormula(){
 
 void calculateX() {
     for (auto &p: particles) {
-        // @TODO: insert calculation of force here!
+        p.setX(p.getX() + delta_t * p.getV() + pow(delta_t, 2) / (2 * p.getM()) * p.getF());
 
     }
 }
 
 void calculateV() {
     for (auto &p: particles) {
-        // @TODO: insert calculation of force here!
+        p.setV(p.getV() + (delta_t / (2 * p.getM())) * (p.getOldF() + p.getF()));
     }
 }
 
