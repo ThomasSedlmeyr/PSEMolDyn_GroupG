@@ -34,11 +34,26 @@ std::array<double, 3>
 calculateFij(double& m, double& m1, const std::array<double, 3> &array, const std::array<double, 3> &array1);
 bool testOptimizedFormula();
 
+/**
+ * shows guidelines for correct programme calls
+ */
 void show_help();
 
 constexpr double start_time = 0;
-double end_time = 1000; // not const because of possible parameter over console
-double delta_t = 0.014; // not const because of possible parameter over console
+
+/**
+ * public variable for end of calculation
+ *
+ * not const because of optional passing of arguments through command line
+ */
+double end_time = 1000;
+
+/**
+ * public varialbe for stepsize of calculation
+ *
+ * not const because of optional passing of arguments through command line
+ */
+double delta_t = 0.014;
 
 // TODO: what data structure to pick?
 std::vector<Particle> particles;
@@ -53,7 +68,11 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
 
-    // parse potential parameters t_end or delta_t or print help
+    /**
+     * parsing of potential parameters t_end or delta_t
+     *
+     * prints help in case of wrong call
+     */
     bool endReset = false;
     bool deltaReset = false;
     for (int i = 2; i < argc; i++) {
