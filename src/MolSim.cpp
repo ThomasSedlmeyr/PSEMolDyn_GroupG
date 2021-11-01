@@ -35,21 +35,21 @@ calculateFij(double& m, double& m1, const std::array<double, 3> &array, const st
 bool testOptimizedFormula();
 
 /**
- * shows guidelines for correct programme calls
+ * @brief shows guidelines for correct programme calls
  */
 void show_help();
 
 constexpr double start_time = 0;
 
 /**
- * public variable for end of calculation
+ * @brief public variable for end of calculation
  *
  * not const because of optional passing of arguments through command line
  */
 double end_time = 1000;
 
 /**
- * public varialbe for stepsize of calculation
+ * @brief public variable for stepsize of calculation
  *
  * not const because of optional passing of arguments through command line
  */
@@ -68,11 +68,8 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
 
-    /**
-     * parsing of potential parameters t_end or delta_t
-     *
-     * prints help in case of wrong call
-     */
+    // parsing of potential parameters t_end or delta_t
+    // prints help in case of wrong call
     bool endReset = false;
     bool deltaReset = false;
     for (int i = 2; i < argc; i++) {
@@ -138,7 +135,7 @@ void show_help() {
     std::cout << "-h : help page " << std::endl;
     std::cout << "-t_end : end value, defaults to 1000" << std::endl;
     std::cout << "-delta_t : stepsize, defaults to 0.014" << std::endl;
-    std::cout << "Exemple : ./molsym ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
+    std::cout << "Example : ./MolSim ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
 }
 
 void calculateF() {
