@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <list>
+#include <outputWriter/VTKWriter.h>
 
 /**** forward declaration of the calculation functions ****/
 
@@ -233,6 +234,11 @@ void plotParticles(int iteration) {
 
     std::string out_name("MD_vtk");
 
-    outputWriter::XYZWriter writer;
-    writer.plotParticles(particles, out_name, iteration);
+    outputWriter::VTKWriter writer;
+    writer.initializeOutput(particles.size());
+    for (Particle &particle : particles) {
+        writer.plotParticle(particle);
+    }
+    writer.writeFile(out_name, iteration);
+
 }
