@@ -30,9 +30,6 @@ void ParticleContainer::calculateV(const double &delta_t) {
     }
 }
 
-/**
- * @brief calculates the force for every particle
- */
 void ParticleContainer::calculateF() {
     std::vector<std::array<double, 3>> savedFijs(particles.size()-1*(particles.size())/2);
     int currentIndexInSavedFijs = 0;
@@ -65,9 +62,6 @@ void ParticleContainer::calculateF() {
     }
 }
 
-/**
- * @brief calculates the force for every particle in an easy but inefficient way
- */
 void ParticleContainer::calculateFslower() {
     for (auto &p1 : particles) {
         std::array<double, 3> fNew{};

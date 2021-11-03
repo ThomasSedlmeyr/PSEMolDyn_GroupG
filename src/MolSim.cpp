@@ -1,8 +1,9 @@
 /**
+ * @file MolSim.cpp
  * @brief Main class for Simulation
  */
-#include "FileReader.h"
 
+#include "FileReader.h"
 #include "utils/ArrayUtils.h"
 #include "ParticleContainer.h"
 
