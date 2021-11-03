@@ -138,7 +138,9 @@ void show_help() {
     std::cout << "-delta_t : stepsize, defaults to 0.014" << std::endl;
     std::cout << "Example : ./MolSim ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
 }
-
+/**
+ * @brief calculates the force for every particle
+ */
 void calculateF() {
     //std::list<Particle>::iterator iterator;
     //iterator = particles.begin();
@@ -173,7 +175,9 @@ void calculateF() {
         particles[i].setF(fNew);
     }
 }
-
+/**
+ * @brief calculates the force for every particle in an easy but inefficient way
+ */
 void calculateFslower() {
     std::list<Particle>::iterator iterator;
     particles.begin();
@@ -192,6 +196,9 @@ void calculateFslower() {
     }
 }
 
+/**
+ * @brief tests if calculateFslower and calculateF are equal
+ */
 bool testOptimizedFormula(){
     bool isCorrect = true;
     for (int i = 0; i < 1000; ++i) {
@@ -229,9 +236,12 @@ void calculateV() {
         p.setV(p.getV() + (delta_t / (2 * p.getM())) * (p.getOldF() + p.getF()));
     }
 }
-
+/**
+ * @brief Writes the actual information of the particles into a vtk file
+ *
+ * @param iteration the iteration in which the information of the particles were saved
+ */
 void plotParticles(int iteration) {
-
     std::string out_name("MD_vtk");
 
     outputWriter::VTKWriter writer;
@@ -240,5 +250,4 @@ void plotParticles(int iteration) {
         writer.plotParticle(particle);
     }
     writer.writeFile(out_name, iteration);
-
 }
