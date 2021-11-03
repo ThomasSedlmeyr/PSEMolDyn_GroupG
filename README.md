@@ -20,7 +20,7 @@ Members:
 * example run: ./MolSim eingabe-sonne.txt -t_end 1000 -delta_t 0.014
 
 ## Crating a doxygen ##
-* Compile with "Build Doxygen"=On
+* Compile with BUILD_DOXYGEN=ON
 * run make doc_doxygen
 
 # Media #
