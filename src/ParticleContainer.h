@@ -25,17 +25,19 @@ public:
     void calculateF();
 
     /**
-     * @brief slower and easier implementation of force calculation
-     */
+    * @brief calculates the force for every particle in an easy but inefficient way
+    */
     void calculateFslower();
 
     /**
     * @brief calculate the position for all particles
+    * @param delta_t timestep to use for calculation
     */
     void calculateX(const double &delta_t);
 
     /**
     * @brief calculate the velocity for all particles
+    * @param delta_t timestep to use for calculation
     */
     void calculateV(const double &delta_t);
 
