@@ -11,16 +11,17 @@ Members:
 
 # Run Instructions #
 ## Standard Run ##
-* Compile with all options
+* compile with all options
 * run ./MolSim eingabe-sonne.txt
 
 ## Run with passing optional command line arguments ##
-* Compile with all options
+* compile with all options
 * pass desired values for t_end and delta_t
 * example run: ./MolSim eingabe-sonne.txt -t_end 1000 -delta_t 0.014
+* for additional planets use eingabe-sonnen_system.txt
 
 ## Crating a doxygen ##
-* Compile with BUILD_DOXYGEN=ON
+* compile with BUILD_DOXYGEN=ON
 * run make doc_doxygen
 
 # Media #
