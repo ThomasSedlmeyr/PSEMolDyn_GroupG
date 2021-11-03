@@ -2,13 +2,11 @@
  * @brief Main class for Simulation
  */
 #include "FileReader.h"
-#include "outputWriter/XYZWriter.h"
+
 #include "utils/ArrayUtils.h"
 #include "ParticleContainer.h"
 
 #include <iostream>
-#include <list>
-#include <outputWriter/VTKWriter.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -31,8 +29,8 @@ double end_time = 1000;
  */
 double delta_t = 0.014;
 
-// TODO: what data structure to pick?
-std::vector<Particle> particles;
+
+ParticleContainer particleContainer;
 
 int main(int argc, char *argsv[]) {
 
@@ -69,7 +67,7 @@ int main(int argc, char *argsv[]) {
                 return 0;
             }
             temp = argsv[++i];
-            delta_t = atof(temp.c_str());
+            delta_t = strtod(temp.c_str(), nullptr);
             deltaReset = true;
         } else {
             show_help();
