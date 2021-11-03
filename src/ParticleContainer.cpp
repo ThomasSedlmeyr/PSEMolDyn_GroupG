@@ -7,11 +7,6 @@ std::vector<Particle> &ParticleContainer::getParticles() {
     return particles;
 }
 
-/**
- * @brief Writes the actual information of the particles into a vtk file
- *
- * @param iteration the iteration in which the information of the particles were saved
- */
 void ParticleContainer::plotParticles(int &iteration) {
     std::string out_name("MD_vtk");
     outputWriter::VTKWriter writer;

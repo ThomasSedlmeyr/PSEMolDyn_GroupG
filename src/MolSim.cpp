@@ -29,7 +29,6 @@ double end_time = 1000;
  */
 double delta_t = 0.014;
 
-
 ParticleContainer particleContainer;
 
 int main(int argc, char *argsv[]) {
@@ -77,7 +76,7 @@ int main(int argc, char *argsv[]) {
 
     FileReader fileReader;
     fileReader.readFile(particleContainer.getParticles(), argsv[1]);
-
+    //test won't get executed unless runTest boolean is set to true
     if (runTest){
         bool success = particleContainer.testOptimizedFormula();
         if(success){
@@ -113,8 +112,8 @@ int main(int argc, char *argsv[]) {
 }
 
 void show_help() {
-    // prints how to make correct programme call
-    std::cout << "Please enter e correct programme call!" << std::endl;
+    // prints how to make correct program call
+    std::cout << "Please enter a correct program call!" << std::endl;
     std::cout << "-h : help page " << std::endl;
     std::cout << "-t_end : end value, defaults to 1000" << std::endl;
     std::cout << "-delta_t : stepsize, defaults to 0.014" << std::endl;
