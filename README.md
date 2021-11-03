@@ -18,16 +18,13 @@ Members:
 * Compile with all options
 * pass desired values for t_end and delta_t
 * example run: ./MolSim eingabe-sonne.txt -t_end 1000 -delta_t 0.014
-* for run with additional planets use eingabe-sonnen_system.txt
 
 ## Crating a doxygen ##
 * Compile with BUILD_DOXYGEN=ON
 * run make doc_doxygen
 
 # Media #
-## Example Task B ##
-* Either pack here
-* Or provide link: https://www.youtube.com/watch?v=oHg5SJYRHA0
-
-# Misc #
-If you have any further comments for your submission...
+## Videos ##
+* https://www.youtube.com/watch?v=hQs3Ax64O4M
+* https://www.youtube.com/watch?v=JlyPV9d5dWk
+* https://youtu.be/J2yViHKYwHM
