@@ -24,6 +24,9 @@ Members:
 * compile with BUILD_DOXYGEN=ON
 * run make doc_doxygen
 
+## Run with test ##
+* change variable runTest to true
+
 # Media #
 ## Videos ##
 * https://www.youtube.com/watch?v=hQs3Ax64O4M
