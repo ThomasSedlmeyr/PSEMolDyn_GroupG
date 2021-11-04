@@ -7,7 +7,8 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: e9486507bbc6a6669ce3457c33672ab95d6e7576
+* Revision: 3bee6e86826153042def5e2eb651f019e3d8a161
+* Compiler: g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
 
 # Run Instructions #
 ## Standard Run ##
@@ -25,7 +26,7 @@ Members:
 * run make doc_doxygen
 
 ## Run with test ##
-* change variable runTest to true
+* change variable runTest in MolSim.cpp to true
 
 # Media #
 ## Videos ##
