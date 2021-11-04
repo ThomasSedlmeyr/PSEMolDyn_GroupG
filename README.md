@@ -31,5 +31,5 @@ Members:
 # Media #
 ## Videos ##
 * https://www.youtube.com/watch?v=hQs3Ax64O4M
-* https://www.youtube.com/watch?v=JlyPV9d5dWk
+* https://youtu.be/b3tPPH1S0P8
 * https://youtu.be/J2yViHKYwHM
