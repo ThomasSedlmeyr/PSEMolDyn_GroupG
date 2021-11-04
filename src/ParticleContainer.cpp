@@ -35,10 +35,10 @@ void ParticleContainer::calculateF() {
     int currentIndexInSavedFijs = 0;
     int indexForFji;
 
-    for (int i=0; i<particles.size(); i++) {
+    for (std::size_t i=0; i<particles.size(); i++) {
         std::array<double, 3> fNew{};
 
-        for (int j=0; j<particles.size(); j++) {
+        for (std::size_t j=0; j<particles.size(); j++) {
             std::array<double, 3> fij{};
             //use the stored Fij
             if(j < i){
@@ -89,7 +89,7 @@ bool ParticleContainer::testOptimizedFormula(){
         particles = particlesOriginal;
         calculateFslower();
         //Now compare particles with resultFast
-        for (int j = 0; j < particles.size(); ++j) {
+        for (std::size_t j = 0; j < particles.size(); ++j) {
             if (!(particles[j] == resultFast[j])) {
                 std::cout << "Error in Fast Calculation\n";
                 isCorrect = false;
