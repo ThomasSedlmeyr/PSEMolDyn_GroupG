@@ -6,15 +6,19 @@
  */
 
 #include "outputWriter/XYZWriter.h"
+#include "Writer.h"
 #include <iomanip>
 #include <sstream>
 #include <vector>
 
-namespace outputWriter {
 
 XYZWriter::XYZWriter() = default;
 
 XYZWriter::~XYZWriter() = default;
+
+void XYZWriter :: writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles) {
+
+}
 
 void XYZWriter::plotParticles(std::vector<Particle> particles,
                               const std::string &filename, int iteration) {
@@ -43,4 +47,3 @@ void XYZWriter::plotParticles(std::vector<Particle> particles,
   file.close();
 }
 
-} // namespace outputWriter

@@ -6,6 +6,7 @@
  */
 
 #include "VTKWriter.h"
+#include "SimulationLogic/Particle.h"
 
 #include <cstdlib>
 #include <fstream>
@@ -13,14 +14,23 @@
 #include <iostream>
 #include <string>
 
-namespace outputWriter {
-
 VTKWriter::VTKWriter() = default;
-
 VTKWriter::~VTKWriter() = default;
 
-void VTKWriter::initializeOutput(int numParticles) {
+void VTKWriter :: writeParticlesToFile(const std::string &fileName, int iteration, const std::vector<Particle> &particles) {
+    std::string out_name(fileName);
+    VTKWriter writer;
 
+    writer.initializeOutput(particles.size());
+
+    for (Particle particle : particles) {
+        writer.plotParticle(particle);
+    }
+
+    writer.writeFile(out_name, iteration);
+}
+
+void VTKWriter::initializeOutput(int numParticles) {
   vtkFile = new VTKFile_t("UnstructuredGrid");
 
   // per point, we add type, position, velocity and force
@@ -98,4 +108,5 @@ void VTKWriter::plotParticle(Particle &p) {
   pointsIterator->push_back(p.getX()[2]);
 }
 
-} // namespace outputWriter
+
+

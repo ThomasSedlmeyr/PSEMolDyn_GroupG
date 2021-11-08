@@ -7,23 +7,22 @@
 
 #pragma once
 
-#include "Particle.h"
+#include "SimulationLogic/Particle.h"
+#include "Writer.h"
 
 #include <fstream>
 #include <list>
 #include <vector>
 
-namespace outputWriter {
-
-class XYZWriter {
+class XYZWriter: public Writer {
 
 public:
   XYZWriter();
 
   virtual ~XYZWriter();
 
-  void plotParticles(std::vector<Particle> particles, const std::string &filename,
-                     int iteration);
+  void plotParticles(std::vector<Particle> particles, const std::string &filename, int iteration);
+  void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles);
 };
 
-} // namespace outputWriter
+

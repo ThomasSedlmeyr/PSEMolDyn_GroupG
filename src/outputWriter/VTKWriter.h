@@ -7,23 +7,24 @@
 
 #pragma once
 
-#include "Particle.h"
+#include "SimulationLogic/Particle.h"
 #include "outputWriter/vtk-unstructured.h"
-
+#include "Writer.h"
 #include <list>
 
-namespace outputWriter {
 
 /**
  * This class implements the functionality to generate vtk output from
  * particles.
  */
-class VTKWriter {
+class VTKWriter: public Writer{
 
 public:
   VTKWriter();
 
   virtual ~VTKWriter();
+
+  void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles);
 
   /**
    * set up internal data structures and prepare to plot a particle.
@@ -50,4 +51,4 @@ private:
   VTKFile_t *vtkFile;
 };
 
-} // namespace outputWriter
+

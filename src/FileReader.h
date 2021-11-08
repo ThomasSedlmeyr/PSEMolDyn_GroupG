@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Particle.h"
+#include "SimulationLogic/Particle.h"
 
 #include <list>
 #include <vector>

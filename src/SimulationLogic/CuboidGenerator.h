@@ -1,0 +1,14 @@
+//
+// Created by thomas on 05.11.21.
+//
+
+#ifndef PSEMOLDYN_GROUPG_CUBOIDGENERATOR_H
+#define PSEMOLDYN_GROUPG_CUBOIDGENERATOR_H
+
+
+class CuboidGenerator {
+
+};
+
+
+#endif //PSEMOLDYN_GROUPG_CUBOIDGENERATOR_H

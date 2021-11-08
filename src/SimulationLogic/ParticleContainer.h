@@ -17,37 +17,26 @@ public:
     * @brief writes the actual information of the particles into a vtk file
     * @param iteration iteration in which the information of the particles were saved
     */
-    void plotParticles(int &iteration);
-
-    /**
-    * @brief calculate the force for all particles
-    */
-    void calculateF();
+    //void plotParticles(int &iteration);
 
     /**
     * @brief calculates the force for every particle in an easy but inefficient way
     */
-    void calculateFslower();
+    //std::array<double, 3> v; calculateFslower();
 
     /**
-    * @brief calculate the position for all particles
-    * @param delta_t timestep to use for calculation
+    * @brief calculate the force for all particles
     */
-    void calculateX(const double &delta_t);
-
-    /**
-    * @brief calculate the velocity for all particles
-    * @param delta_t timestep to use for calculation
-    */
-    void calculateV(const double &delta_t);
+    //void calculateF();
 
     /**
      * test the fast force calculation compared to slower implementation
      * @return true if results of both calculations match
      */
-    bool testOptimizedFormula();
-
+    //bool testOptimizedFormula();
+    void printParticles();
 private:
     std::vector<Particle> particles;
+
 
 };

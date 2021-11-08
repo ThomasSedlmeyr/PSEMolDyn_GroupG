@@ -5,9 +5,12 @@
 
 #include "FileReader.h"
 #include "utils/ArrayUtils.h"
-#include "ParticleContainer.h"
+#include "SimulationLogic/ParticleContainer.h"
+#include "SimulationLogic/GravitationSimulation.h"
+#include "outputWriter/Writer.h"
 
 #include <iostream>
+#include <outputWriter/VTKWriter.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -46,7 +49,7 @@ int main(int argc, char *argsv[]) {
     // prints help in case of wrong call
     bool endReset = false;
     bool deltaReset = false;
-    bool runTest = false;
+    //bool runTest = false;
     for (int i = 2; i < argc; i++) {
         std::string temp = argsv[i];
         std::string next = argsv[i+1];
@@ -75,10 +78,9 @@ int main(int argc, char *argsv[]) {
         }
     }
 
-    FileReader fileReader;
-    fileReader.readFile(particleContainer.getParticles(), argsv[1]);
+
     //test won't get executed unless runTest boolean is set to true
-    if (runTest){
+    /*if (runTest){
         bool success = particleContainer.testOptimizedFormula();
         if(success){
             std::cout << "No errors in fast force calculation\n";
@@ -86,29 +88,13 @@ int main(int argc, char *argsv[]) {
             std::cout << "Errors in fast force calculation\n";
         }
         return 0;
-    }
-    double current_time = start_time;
+    }*/
+    //double current_time = start_time;
 
-    int iteration = 0;
-    // for this loop, we assume: current x, current f and current v are known
-    while (current_time < end_time) {
-        // calculate new x
-        particleContainer.calculateX(delta_t);
-        // calculate new f
-        particleContainer.calculateF();
-        // calculate new v
-        particleContainer.calculateV(delta_t);
+    auto s = GravitationSimulation();
+    Writer w = VTKWriter();
+    s.simulate(1000, 0.01, w,10, argsv[1]);
 
-        iteration++;
-        if (iteration % 10 == 0) {
-            particleContainer.plotParticles(iteration);
-        }
-        std::cout << "Iteration " << iteration << " finished." << std::endl;
-
-        current_time += delta_t;
-    }
-
-    std::cout << "output written. Terminating..." << std::endl;
     return 0;
 }
 
