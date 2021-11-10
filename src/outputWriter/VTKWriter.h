@@ -21,10 +21,9 @@ class VTKWriter: public Writer{
 
 public:
   VTKWriter();
+  ~VTKWriter() override;
 
-  virtual ~VTKWriter();
-
-  void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles);
+  void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles) override;
 
   /**
    * set up internal data structures and prepare to plot a particle.

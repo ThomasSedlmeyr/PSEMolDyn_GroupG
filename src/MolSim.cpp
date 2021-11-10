@@ -92,7 +92,8 @@ int main(int argc, char *argsv[]) {
     //double current_time = start_time;
 
     auto s = GravitationSimulation();
-    Writer w = VTKWriter();
+    //TODO zurück ändern zu Writer aber geht irgendwie nicht
+    VTKWriter w = VTKWriter();
     s.simulate(1000, 0.01, w,10, argsv[1]);
 
     return 0;

@@ -9,10 +9,25 @@
 
 void GravitationSimulation::calculateF() {
     calculateFold();
+    //TODO funktioniert nicht wegen referenzen?
+    /*
+    auto particles = particleContainer.getParticles();
+    for (auto p1 = particles.begin(); p1 != particles.end(); ++p1){
+        for (auto p2 = p1 + 1; p2 != particles.end(); ++p2){
+            double normalizedDistance{ArrayUtils::L2Norm(p1->getX() - p2->getX())};
+            double scalar{p1->getM() * p2->getM() / pow(normalizedDistance, 3)};
+            auto result = scalar * (p2->getX() - p1->getX());
+            p1->setOldF(p1->getF());
+            p1->setF(p1->getF()+result);
+            p2->setOldF(p2->getF());
+            p2->setF(p2->getF()-result);
+        }
+    }
+     */
 }
 
-GravitationSimulation::GravitationSimulation() {}
-GravitationSimulation::~GravitationSimulation() {}
+GravitationSimulation::GravitationSimulation() = default;
+GravitationSimulation::~GravitationSimulation() = default;
 
 void GravitationSimulation::readInputFile(char *filename){
     FileReader fileReader;

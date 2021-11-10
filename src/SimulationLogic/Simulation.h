@@ -30,8 +30,9 @@ private:
     void calculateV(const double &delta_t);
 
 protected:
-    virtual void calculateF();
-    virtual void readInputFile(char *filename);
+    //TODO default implementierung wieder entfernen wenn sie in allen unterklassen implementiert ist
+    virtual void calculateF(){}
+    virtual void readInputFile(char *filename){}
 
 
 public:
@@ -39,9 +40,9 @@ public:
     virtual~Simulation();
 
     const ParticleContainer getParticleContainer() const;
-    void calculateOneTimeStep(const int &delta_t);
+    void calculateOneTimeStep(const double &delta_t);
 
-    void simulate(const double &endTime, const int &delta_t, Writer &writer, const int &numberSkippedIterations,
+    void simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations,
              char *filename);
 };
 

@@ -8,6 +8,8 @@
 #include "Simulation.h"
 
 class LenardJonesSimulation: Simulation{
+    void calculateF() override;
+
 private:
     //In dieser Klasse wird die Kraftberechnung überschrieben,damit der Particle Container die Kraft berechnen kann.
     double epsilon;

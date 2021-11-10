@@ -15,11 +15,10 @@ private:
     std::string fileName;
 public:
     Writer();
+    virtual ~Writer();
 
     Writer(const std::string &fileName);
-
-    virtual ~Writer();
-    virtual void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles);
+    virtual void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles){};
 
 };
 

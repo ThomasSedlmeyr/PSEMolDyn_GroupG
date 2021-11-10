@@ -3,8 +3,8 @@
 #include "Simulation.h"
 #include <utils/ArrayUtils.h>
 
-Simulation::Simulation() {}
-Simulation::~Simulation() {}
+Simulation::Simulation() = default;
+Simulation::~Simulation() = default;
 
 void Simulation::calculateX(const double &delta_t) {
     for (auto &p: particleContainer.getParticles()) {
@@ -18,14 +18,14 @@ void Simulation::calculateV(const double &delta_t) {
     }
 }
 
-void Simulation::calculateOneTimeStep(const int &delta_t){
+void Simulation::calculateOneTimeStep(const double &delta_t){
     calculateX(delta_t);
     calculateF();
     calculateV(delta_t);
 }
 
-void Simulation::simulate(const double &endTime, const int &delta_t, Writer &writer, const int &numberSkippedIterations, char *filename){
-    int iteration;
+void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations, char *filename){
+    int iteration = 0;
     double currentTime = 0;
 
     readInputFile(filename);
