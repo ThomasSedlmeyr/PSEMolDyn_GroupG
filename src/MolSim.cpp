@@ -93,8 +93,8 @@ int main(int argc, char *argsv[]) {
 
     auto s = GravitationSimulation();
     //TODO zurück ändern zu Writer aber geht irgendwie nicht
-    VTKWriter w = VTKWriter();
-    s.simulate(1000, 0.01, w,10, argsv[1]);
+    Writer *w = new VTKWriter();
+    s.simulate(1000, 0.01, *w, 10, argsv[1]);
 
     return 0;
 }
