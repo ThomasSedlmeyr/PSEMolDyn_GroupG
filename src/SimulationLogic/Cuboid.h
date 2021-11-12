@@ -11,14 +11,14 @@
 
 class Cuboid: public Body {
 private:
-    Cuboid(double leftFrontSideCornerX, double leftFrontSideCornerY, double leftFrontSideCornerZ, double dimensionsX,
-           double dimensionsY, double dimensionsZ);
-
-    std::array<double, 3> leftFrontSideCorner;
     std::array<double, 3> dimensions;
 
 public:
+    Cuboid();
+    ~Cuboid();
 
+    void parseStructure(const std::string& line) override;
+    std::vector<Particle> generateParticles();
 };
 
 

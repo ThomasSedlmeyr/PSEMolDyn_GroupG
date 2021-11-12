@@ -3,15 +3,17 @@
 //
 
 #include "Cuboid.h"
-Cuboid :: Cuboid(double leftFrontSideCornerX, double leftFrontSideCornerY, double leftFrontSideCornerZ,
-                 double dimensionsX, double dimensionsY, double dimensionsZ){
-    leftFrontSideCorner[0] = leftFrontSideCornerX;
-    leftFrontSideCorner[1] = leftFrontSideCornerY;
-    leftFrontSideCorner[2] = leftFrontSideCornerZ;
-
-    dimensions[0] = dimensionsX;
-    dimensions[1] = dimensionsY;
-    dimensions[2] = dimensionsZ;
+Cuboid :: Cuboid(){}
 
 
+
+
+
+void Cuboid::parseStructure(const std::string &line) {
+
+}
+
+std::vector<Particle> Cuboid::generateParticles() {
+    //TODO Hier sollen mit Hilfe der Dimensionen und der anderen Eigeschaftena alle Partikel des Quaders erstellt werden
+    return std::vector<Particle>();
 }

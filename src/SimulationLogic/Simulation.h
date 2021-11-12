@@ -9,12 +9,17 @@
 #include <outputWriter/Writer.h>
 #include "ParticleContainer.h"
 #include "Particle.h"
+#include <vector>
+#include <string>
+#include <InputReader/ArgumentContainer.h>
 
 class Simulation {
 
 protected:
-    Particle particle1;
+    std::vector<std::string> paramNames;
     ParticleContainer particleContainer;
+    ArgumentContainer argumentContainer;
+
 
 private:
     /**
@@ -29,10 +34,22 @@ private:
     */
     void calculateV(const double &delta_t);
 
+    /**
+     * reads the specific arguments for every simulation from file
+     * @param filename
+     */
+    void readParamsAndValues(const std::string &filename);
+
 protected:
-    //TODO default implementierung wieder entfernen wenn sie in allen unterklassen implementiert ist
-    virtual void calculateF(){}
-    virtual void readInputFile(char *filename){}
+    virtual void calculateF() = 0;
+
+    /**
+    * @brief Reads the particles from a txt-file into the simulation process
+    * @param filename the name of the txt-file were the particles were saved
+    */
+    virtual void readParticles(const std::string &filename) = 0;
+    virtual void setParamsWithValues() = 0;
+    virtual void initializeParamNames() = 0;
 
 
 public:
@@ -43,7 +60,8 @@ public:
     void calculateOneTimeStep(const double &delta_t);
 
     void simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations,
-             char *filename);
+                  const std::string &parametersFileName, const std::string &particlesFileName,
+                  const std::string &outPutFileName);
 };
 
 

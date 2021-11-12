@@ -1,0 +1,13 @@
+#First Line: Type
+#Second Line: Position
+#Third Line: Velocity
+#Fourth Line: object specific
+Cuboid
+0,0,0
+0,0,0
+40,8,1
+Cuboid
+15,15,0
+0,-10,0
+8,8,1
+

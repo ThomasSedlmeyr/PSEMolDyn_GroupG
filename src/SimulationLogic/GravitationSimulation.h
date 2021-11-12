@@ -17,8 +17,11 @@ public:
 private:
     void calculateFslower();
     void calculateFold();
-    void calculateF();
-    void readInputFile(char *filename);
+    void calculateF() override;
+    void readParticles(const std::string &filename) override;
+    void setParamsWithValues() override;
+    void initializeParamNames() override;
+    void readFile(std::vector<Particle> &particles, const std::string &fileName);
 };
 
 

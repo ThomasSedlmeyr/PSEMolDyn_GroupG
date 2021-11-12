@@ -24,11 +24,16 @@ void Simulation::calculateOneTimeStep(const double &delta_t){
     calculateV(delta_t);
 }
 
-void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations, char *filename){
+void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations, const std::string &parametersFileName,
+                          const std::string &particlesFileName, const std::string &outPutFileName){
     int iteration = 0;
     double currentTime = 0;
 
-    readInputFile(filename);
+    initializeParamNames();
+    readParamsAndValues(parametersFileName);
+    //this methode could only be implemented in the subclasses
+    setParamsWithValues();
+    readParticles(particlesFileName);
 
     while (currentTime < endTime) {
         calculateOneTimeStep(delta_t);
@@ -36,9 +41,8 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         iteration++;
         if (iteration % numberSkippedIterations == 0) {
             //particleContainer.plotParticles(iteration);
-            writer.writeParticlesToFile("Grav", iteration, particleContainer.getParticles());
+            writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         }
-
         std::cout << "Iteration " << iteration << " finished." << std::endl;
         currentTime += delta_t;
     }
@@ -46,4 +50,15 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
 
 const ParticleContainer Simulation::getParticleContainer() const {
     return particleContainer;
+}
+
+
+void Simulation::readParamsAndValues(const std::string &fileName) {
+    argumentContainer = ArgumentContainer();
+    argumentContainer.readParamsAndValues(fileName);
+
+    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
+        //Fehlerbehandlung mit throws oder so änlich
+    }
+
 }

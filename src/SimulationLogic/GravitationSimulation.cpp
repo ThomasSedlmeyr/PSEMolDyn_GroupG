@@ -4,13 +4,16 @@
 
 #include <valarray>
 #include <utils/ArrayUtils.h>
-#include <FileReader.h>
 #include "GravitationSimulation.h"
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 void GravitationSimulation::calculateF() {
     calculateFold();
     //TODO funktioniert nicht wegen referenzen?
-    /*
+
     auto particles = particleContainer.getParticles();
     for (auto p1 = particles.begin(); p1 != particles.end(); ++p1){
         for (auto p2 = p1 + 1; p2 != particles.end(); ++p2){
@@ -23,17 +26,10 @@ void GravitationSimulation::calculateF() {
             p2->setF(p2->getF()-result);
         }
     }
-     */
 }
 
 GravitationSimulation::GravitationSimulation() = default;
 GravitationSimulation::~GravitationSimulation() = default;
-
-void GravitationSimulation::readInputFile(char *filename){
-    FileReader fileReader;
-    fileReader.readFile(particleContainer.getParticles(), filename);
-    particleContainer.printParticles();
-}
 
 void GravitationSimulation::calculateFold() {
     std::vector<std::array<double, 3>> savedFijs(particleContainer.getParticles().size()-1*(particleContainer.getParticles().size())/2);
@@ -82,4 +78,69 @@ void GravitationSimulation::calculateFslower() {
         p1.setOldF(p1.getF());
         p1.setF(fNew);
     }
+}
+
+void GravitationSimulation::readParticles(const std::string &filename) {
+    readFile(particleContainer.getParticles(), filename);
+    particleContainer.printParticles();
+}
+
+void GravitationSimulation::readFile(std::vector<Particle> &particles, const std::string &fileName) {
+    std::array<double, 3> x;
+    std::array<double, 3> v;
+    double m;
+    int num_particles = 0;
+
+    std::ifstream input_file(fileName);
+    std::string tmp_string;
+
+    if (input_file.is_open()) {
+
+        getline(input_file, tmp_string);
+        std::cout << "Read line: " << tmp_string << std::endl;
+
+        while (tmp_string.empty() or tmp_string[0] == '#') {
+            getline(input_file, tmp_string);
+            std::cout << "Read line: " << tmp_string << std::endl;
+        }
+
+        std::istringstream numstream(tmp_string);
+        numstream >> num_particles;
+        std::cout << "Reading " << num_particles << "." << std::endl;
+        getline(input_file, tmp_string);
+        std::cout << "Read line: " << tmp_string << std::endl;
+
+        for (int i = 0; i < num_particles; i++) {
+            std::istringstream datastream(tmp_string);
+
+            for (auto &xj: x) {
+                datastream >> xj;
+            }
+            for (auto &vj: v) {
+                datastream >> vj;
+            }
+            if (datastream.eof()) {
+                std::cout
+                        << "Error reading file: eof reached unexpectedly reading from line "
+                        << i << std::endl;
+                exit(-1);
+            }
+            datastream >> m;
+            particles.emplace_back(x, v, m);
+
+            getline(input_file, tmp_string);
+            std::cout << "Read line: " << tmp_string << std::endl;
+        }
+    } else {
+        std::cout << "Error: could not open file " << fileName << std::endl;
+        exit(-1);
+    }
+}
+
+void GravitationSimulation::setParamsWithValues() {
+    //The GraviationSimulation does not contain anyParameterers. This is the reason why
+}
+
+void GravitationSimulation::initializeParamNames() {
+    paramNames = {};
 }

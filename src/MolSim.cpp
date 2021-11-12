@@ -3,7 +3,6 @@
  * @brief Main class for Simulation
  */
 
-#include "FileReader.h"
 #include "utils/ArrayUtils.h"
 #include "SimulationLogic/ParticleContainer.h"
 #include "SimulationLogic/GravitationSimulation.h"
@@ -11,6 +10,7 @@
 
 #include <iostream>
 #include <outputWriter/VTKWriter.h>
+#include <outputWriter/XYZWriter.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -93,8 +93,8 @@ int main(int argc, char *argsv[]) {
 
     auto s = GravitationSimulation();
     //TODO zurück ändern zu Writer aber geht irgendwie nicht
-    Writer *w = new VTKWriter();
-    s.simulate(1000, 0.01, *w, 10, argsv[1]);
+    Writer *w = new XYZWriter();
+    s.simulate(1, 0.01, *w, 10, "", argsv[1], "Grav");
 
     return 0;
 }
