@@ -35,10 +35,18 @@ target_include_directories(MolSim
             ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
+)
+FetchContent_MakeAvailable(googletest)
+
 target_link_libraries(MolSim
         # stuff that is used in headers and source files
         PUBLIC
             xerces-c
+            gtest_main
 )
 
 # activate all compiler warnings. Clean up your code :P
