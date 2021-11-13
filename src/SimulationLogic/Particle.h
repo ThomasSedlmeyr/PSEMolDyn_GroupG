@@ -82,6 +82,11 @@ public:
     void setF(const std::array<double, 3> &f);
 
     void setOldF(const std::array<double, 3> &oldF);
+
+    /**
+     * @brief sets old_f to f and sets f to zeroes to allow for new calculation of f
+     */
+    void prepareForNewForce();
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);

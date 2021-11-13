@@ -35,13 +35,26 @@ private:
     void calculateV(const double &delta_t);
 
     /**
+     * @brief calculate force for particles by using calculateFBetweenPair of specific sub-class
+     */
+    void calculateF();
+
+    /**
+     * @brief a function to pass to applyFToParticlePairs in calculateF() and call the actual force calculation implementation
+     * @param p1, p2 particle pair to calculate force of
+     */
+    std::function<std::array<double, 3> (Particle,Particle)> callForceCalculation = [=](Particle p1, Particle p2) {
+        return this->calculateFBetweenPair(p1, p2);
+    };
+
+    /**
      * reads the specific arguments for every simulation from file
      * @param filename
      */
     void readParamsAndValues(const std::string &filename);
 
+
 protected:
-    virtual void calculateF() = 0;
 
     /**
     * @brief Reads the particles from a txt-file into the simulation process
@@ -51,6 +64,13 @@ protected:
     virtual void setParamsWithValues() = 0;
     virtual void initializeParamNames() = 0;
 
+    /**
+     * @brief the actual implementation of force calculation between p1 and p2, has to be implemented by every sub-class
+     * @param p1 particle 1
+     * @param p2 particle 2
+     * @return force between p1 and p2
+     */
+    virtual std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) = 0;
 
 public:
     Simulation();

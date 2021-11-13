@@ -17,15 +17,12 @@ private:
     double mass;
     double rho;
     double h;
-
     std::list<Body*> bodies;
 
-
-    void calculateF();
+    std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
     void readParticles(const std::string &filename) override;
     void setParamsWithValues() override;
     void initializeParamNames() override;
-
 };
 
 

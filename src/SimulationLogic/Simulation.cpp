@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Simulation.h"
 #include <utils/ArrayUtils.h>
+#include <functional>
 
 Simulation::Simulation() = default;
 Simulation::~Simulation() = default;
@@ -61,4 +62,8 @@ void Simulation::readParamsAndValues(const std::string &fileName) {
         //Fehlerbehandlung mit throws oder so änlich
     }
 
+}
+
+void Simulation::calculateF() {
+    particleContainer.applyFToParticlePairs(callForceCalculation);
 }

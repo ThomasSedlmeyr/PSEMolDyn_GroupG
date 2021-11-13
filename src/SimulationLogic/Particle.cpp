@@ -68,6 +68,11 @@ void Particle::setOldF(const std::array<double, 3> &oldF) {
     old_f = oldF;
 }
 
+void Particle::prepareForNewForce() {
+    old_f = f;
+    std::fill(f.begin(), f.end(), 0);
+}
+
 std::string Particle::toString() const {
   std::stringstream stream;
   stream << "Particle: X:" << x << " v: " << v << " f: " << f
