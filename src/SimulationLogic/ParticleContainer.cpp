@@ -15,7 +15,7 @@ void ParticleContainer :: printParticles(){
     }
 }
 
-void ParticleContainer::applyFToParticlePairs(std::function<std::array<double, 3>(Particle, Particle)> f) {
+void ParticleContainer::applyFToParticlePairs(const std::function<std::array<double, 3>(Particle&, Particle&)>& f) {
     particles[0].prepareForNewForce();
     for (auto p1 = particles.begin(); p1 != particles.end(); ++p1){
         for (auto p2 = p1 + 1; p2 != particles.end(); ++p2){

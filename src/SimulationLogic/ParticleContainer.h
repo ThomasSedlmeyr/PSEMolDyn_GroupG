@@ -36,7 +36,7 @@ public:
      * @brief applies f to all distinct pairs of particles to calculate new force
      * @param f function to apply to the pairs
      */
-    void applyFToParticlePairs(std::function<std::array<double, 3>(Particle, Particle)> f);
+    void applyFToParticlePairs(const std::function<std::array<double, 3>(Particle&, Particle&)>& f);
 
 private:
     std::vector<Particle> particles;

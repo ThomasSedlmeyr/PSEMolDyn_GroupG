@@ -41,9 +41,9 @@ private:
 
     /**
      * @brief a function to pass to applyFToParticlePairs in calculateF() and call the actual force calculation implementation
-     * @param p1, p2 particle pair to calculate force of
+     * @param p1, p2 particle pair for force calculation
      */
-    std::function<std::array<double, 3> (Particle,Particle)> callForceCalculation = [=](Particle p1, Particle p2) {
+    std::function<std::array<double, 3> (Particle&,Particle&)> callForceCalculation = [=](Particle &p1, Particle &p2) {
         return this->calculateFBetweenPair(p1, p2);
     };
 
