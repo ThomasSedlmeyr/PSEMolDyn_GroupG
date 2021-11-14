@@ -3,14 +3,13 @@
  * @brief Main class for Simulation
  */
 
-#include "utils/ArrayUtils.h"
 #include "SimulationLogic/ParticleContainer.h"
 #include "SimulationLogic/GravitationSimulation.h"
 #include "outputWriter/Writer.h"
-
 #include <iostream>
 #include <outputWriter/VTKWriter.h>
 #include <outputWriter/XYZWriter.h>
+#include <spdlog/spdlog.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -36,11 +35,10 @@ double delta_t = 0.014;
 ParticleContainer particleContainer;
 
 int main(int argc, char *argsv[]) {
-
-    std::cout << "Hello from MolSim for PSE!" << std::endl;
+    spdlog::info("Hello from MolSim for PSE!\n");
     if (argc < 2 || argc > 6 || argc % 2 == 1) { // cases in which correct programme call is not possible
-        std::cout << "Erroneous programme call! " << std::endl;
-        std::cout << "./molsym filename" << std::endl;
+        spdlog::info("Erroneous programme call!\n");
+        spdlog::info("./molsym filename\n");
         show_help();
         return 0;
     }
@@ -101,9 +99,9 @@ int main(int argc, char *argsv[]) {
 
 void show_help() {
     // prints how to make correct program call
-    std::cout << "Please enter a correct program call!" << std::endl;
-    std::cout << "-h : help page " << std::endl;
-    std::cout << "-t_end : end value, defaults to 1000" << std::endl;
-    std::cout << "-delta_t : stepsize, defaults to 0.014" << std::endl;
-    std::cout << "Example : ./MolSim ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
+    spdlog::info("Please enter a correct program call!\n");
+    spdlog::info("-h : help page \n");
+    spdlog::info("-t_end : end value, defaults to 1000\n");
+    spdlog::info("-delta_t : stepsize, defaults to 0.014\n");
+    spdlog::info("Example : ./MolSim ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014\n");
 }
