@@ -16,7 +16,7 @@ private:
     double epsilon;
     double mass;
     double rho;
-    double h;
+    double meshWidth;
     std::list<Body*> bodies;
 
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;

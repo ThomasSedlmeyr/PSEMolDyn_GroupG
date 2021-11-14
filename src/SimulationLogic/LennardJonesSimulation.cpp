@@ -24,17 +24,17 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
     std::string line;
     int bodiesCounter = 0;
     numberParticles = 0;
-    //TODO wenn die Datei Leerzeichen enthaehlt gibt es ein Problem
+    //TODO wenn die Datei Leerzeichen enthaelt gibt es ein Problem
     if(file.is_open()) {
         while ((std::getline(file, line))) {
             //Skip Header
             if (line.at(0) == '#' || line.empty()) continue;
             if (line.compare("Cuboid") == 0) {
-                body = new Cuboid(bodiesCounter);
+                body = new Cuboid(bodiesCounter, meshWidth, mass);
             }
-            if (line.compare("Tetrahedron") == 0) {
-                body = new Tetrahedron();
-            }
+            /*if (line.compare("Tetrahedron") == 0) {
+                body = new Tetrahedron(bodiesCounter, meshWidth);
+            }*/
             if (!std::getline(file, line)) return false;
             body->parsePosition(line);
             if (!std::getline(file, line)) return false;
@@ -43,7 +43,7 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
             body->parseStructure(line);
             body->generateParticles();
 
-            numberParticles++;
+            numberParticles += body->getParticles().size();
             bodies.push_back(body);
             bodiesCounter++;
         }
@@ -62,13 +62,14 @@ void LennardJonesSimulation::generateAllParticles(){
             // behind each other in the memory
             particles.push_back(particle);
     }
+    particleContainer.setParticles(particles);
 }
 
 void LennardJonesSimulation::setParamsWithValues() {
     epsilon = argumentContainer.getValueToParam("epsilon");
     mass = argumentContainer.getValueToParam("mass");
     rho = argumentContainer.getValueToParam("rho");
-    h = argumentContainer.getValueToParam("h");
+    meshWidth = argumentContainer.getValueToParam("h");
 
 }
 

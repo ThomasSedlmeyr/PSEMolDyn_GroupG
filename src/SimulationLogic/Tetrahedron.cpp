@@ -8,7 +8,7 @@
 #include <vector>
 
 Tetrahedron::~Tetrahedron() {}
-Tetrahedron:: Tetrahedron()  {}
+
 
 void Tetrahedron::generateParticles() {
     meshWidth = edgeLength / numberParticlesPerEdge;
@@ -28,6 +28,10 @@ void Tetrahedron::generateParticles() {
 }
 
 void Tetrahedron::parseStructure(const std::string &line) {
+
+}
+
+Tetrahedron::Tetrahedron(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
 
 }
 

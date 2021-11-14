@@ -9,11 +9,12 @@
 #include "Tetrahedron.h"
 
 class Tetrahedron: public Body {
+    Tetrahedron(int ID, double meshWidth, double massPerParticle);
+
     double edgeLength;
     int numberParticlesPerEdge;
 
 public:
-    Tetrahedron();
     ~Tetrahedron();
 protected:
     void parseStructure(const std::string& line) override;

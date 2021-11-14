@@ -38,6 +38,8 @@ public:
      */
     void applyFToParticlePairs(const std::function<std::array<double, 3>(Particle&, Particle&)>& f);
 
+    void setParticles(const std::vector<Particle> &particles);
+
 private:
     std::vector<Particle> particles;
 

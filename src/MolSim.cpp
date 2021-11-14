@@ -93,9 +93,10 @@ int main(int argc, char *argsv[]) {
     //double current_time = start_time;
 
     //auto s = GravitationSimulation();
+
     auto s = LennardJonesSimulation();
-    Writer *w = new XYZWriter();
-    s.simulate(1, 0.01, *w, 10, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
+    Writer *w = new VTKWriter();
+    //s.simulate(1, 0.1, *w, 1, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
     //s.simulate(1, 0.01, *w, 10, "", "../eingabe-sonne.txt", "Grav");
     return 0;
 }

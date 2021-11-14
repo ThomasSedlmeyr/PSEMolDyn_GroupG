@@ -15,6 +15,7 @@
 
 class Simulation {
 
+
 protected:
     std::vector<std::string> paramNames;
     ParticleContainer particleContainer;
@@ -68,6 +69,8 @@ protected:
     virtual std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) = 0;
 
 public:
+    static const int GRAVITATION = 0;
+    static const int LENNARDJONES = 0;
     Simulation();
     virtual~Simulation();
 

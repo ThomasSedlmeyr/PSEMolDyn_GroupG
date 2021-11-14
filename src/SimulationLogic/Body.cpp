@@ -44,3 +44,7 @@ const std::vector<Particle> &Body::getParticles() const {
     return particles;
 }
 
+Body::~Body() {
+
+}
+
