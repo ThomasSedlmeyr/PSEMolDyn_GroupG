@@ -3,6 +3,8 @@
 //
 
 #include "Body.h"
+#include <string>
+#include <sstream>
 
 void Body::setInitialV(const std::array<double, 3> &initialV) {
     Body::initialV = initialV;
@@ -13,8 +15,16 @@ void Body::setPosition(const std::array<double, 3> &position) {
 }
 
 std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
-    //TODO diese Methode soll in der Lage sein eine string der drei werte enhält in einen Vector aus double Werten zu parsen
-    return std::array<double, 3>();
+    std::string stringValue;
+    std::stringstream ss(line);
+    std::array<double, 3> resultArray;
+
+    int counter = 0;
+    while(getline(ss, stringValue, ',')){
+        resultArray[counter] += std::stod(stringValue);
+        counter++;
+    }
+    return resultArray;
 }
 
 void Body::parseInitialV(const std::string &line) {
@@ -23,7 +33,14 @@ void Body::parseInitialV(const std::string &line) {
 }
 
 void Body::parsePosition(const std::string &line) {
+    //TODO ich glaube hier werden die Werte kopiert eigntlich sollte eine Referenz übergabe ausreichen
     position = parseLineWithThreeValues(line);
 }
+int Body::getNumberParticles() const {
+    return numberParticles;
+}
 
+const std::vector<Particle> &Body::getParticles() const {
+    return particles;
+}
 

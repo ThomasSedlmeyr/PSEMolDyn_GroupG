@@ -15,7 +15,7 @@ private:
 
 public:
     bool checkIfParamsMatchParamsAndValues(std::vector<std::string> params);
-    void readParamsAndValues(const std::string& filename);
+    bool readParamsAndValues(const std::string& filename);
     double getValueToParam(const std::string& param);
 
 

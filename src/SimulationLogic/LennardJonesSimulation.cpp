@@ -5,6 +5,7 @@
 #include "LennardJonesSimulation.h"
 #include "utils/ArrayUtils.h"
 #include "Cuboid.h"
+#include "Tetrahedron.h"
 #include <string>
 #include <list>
 #include <fstream>
@@ -17,47 +18,50 @@ std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1
     return term1 * term3 * (p2.getX() - p1.getX());
 }
 
-void LennardJonesSimulation::readParticles(const std::string &filename) {
-    //TODO hier müsste mit irgendeinem Writer Zeile für Zeile die Datei eingelesen werden
+bool LennardJonesSimulation::readParticles(const std::string &fileName) {
+    Body* body;
+    std::ifstream file(fileName);
+    std::string line;
+    int bodiesCounter = 0;
+    numberParticles = 0;
+    //TODO wenn die Datei Leerzeichen enthaehlt gibt es ein Problem
+    if(file.is_open()) {
+        while ((std::getline(file, line))) {
+            //Skip Header
+            if (line.at(0) == '#' || line.empty()) continue;
+            if (line.compare("Cuboid") == 0) {
+                body = new Cuboid(bodiesCounter);
+            }
+            if (line.compare("Tetrahedron") == 0) {
+                body = new Tetrahedron();
+            }
+            if (!std::getline(file, line)) return false;
+            body->parsePosition(line);
+            if (!std::getline(file, line)) return false;
+            body->parseInitialV(line);
+            if (!std::getline(file, line)) return false;
+            body->parseStructure(line);
+            body->generateParticles();
 
-    std::ifstream file(filename);
-    int amount = 0;
-    std::string type;
-    double a, b, c;
-    file >> amount;
-    for (int i = 0; i < amount; ++i) {
-        file >> type;
-        Body *body;
-        if (type.compare("Cuboid")){
-            body = new Cuboid();
+            numberParticles++;
+            bodies.push_back(body);
+            bodiesCounter++;
         }
-        //TODO Fehlerbehandlung falls andere Bezeichnung
-        file >> a >> b >> c;
-        body->setPosition({a, b, c});
-        file >> a >> b >> c;
-        body->setInitialV({a, b, c});
-        file >> a >> b >> c;
-
+        file.close();
     }
-    /*
-    for(int i=0; i< 4; i++){
-        std::string line = "Cuboid"; //readLine()
-        Body *body;
-        if(line.compare("Cuboid")){
-            body = new Cuboid();
-        }
-        line = "0,0,0"; //readLine()
-        body->parsePosition(line);
-        line = "0,0,0"; //readLine()
-        body->parseInitialV(line);
-        line = "40,8,1"; //readLine()
-        body->parseStructure(line);
-        bodies.push_back(body);
-    }
-    */
+    generateAllParticles();
+    return true;
+}
 
-    //TODO hier sollen die einzelnen Bodies dann ihre Partikel erstellen und dem Particel Container übergeben
-    //ich glaube aus Performancegründen ist es wichtig das die Partikel alle hintereinander im Speicher stehen
+void LennardJonesSimulation::generateAllParticles(){
+    std::vector<Particle> particles(numberParticles);
+    for (Body* body : bodies) {
+        for(Particle particle : body->getParticles())
+            //TODO bitte alle anschauen
+            //Here we create copies for every particle, because we we want all particles to be
+            // behind each other in the memory
+            particles.push_back(particle);
+    }
 }
 
 void LennardJonesSimulation::setParamsWithValues() {

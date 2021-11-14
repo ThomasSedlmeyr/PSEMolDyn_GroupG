@@ -44,8 +44,6 @@ private:
    */
   int type;
 
-  int ID;
-
 public:
   explicit Particle(int type = 0);
 

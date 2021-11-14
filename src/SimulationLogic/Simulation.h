@@ -19,7 +19,7 @@ protected:
     std::vector<std::string> paramNames;
     ParticleContainer particleContainer;
     ArgumentContainer argumentContainer;
-
+    int numberParticles;
 
 private:
     /**
@@ -35,11 +35,6 @@ private:
     void calculateV(const double &delta_t);
 
     /**
-     * @brief calculate force for particles by using calculateFBetweenPair of specific sub-class
-     */
-    void calculateF();
-
-    /**
      * @brief a function to pass to applyFToParticlePairs in calculateF() and call the actual force calculation implementation
      * @param p1, p2 particle pair for force calculation
      */
@@ -51,7 +46,7 @@ private:
      * reads the specific arguments for every simulation from file
      * @param filename
      */
-    void readParamsAndValues(const std::string &filename);
+    bool readParamsAndValues(const std::string &filename);
 
 
 protected:
@@ -60,7 +55,7 @@ protected:
     * @brief Reads the particles from a txt-file into the simulation process
     * @param filename the name of the txt-file were the particles were saved
     */
-    virtual void readParticles(const std::string &filename) = 0;
+    virtual bool readParticles(const std::string &filename) = 0;
     virtual void setParamsWithValues() = 0;
     virtual void initializeParamNames() = 0;
 

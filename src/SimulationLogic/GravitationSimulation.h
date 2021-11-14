@@ -18,10 +18,10 @@ private:
     void calculateFslower();
     void calculateFold();
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
-    void readParticles(const std::string &filename) override;
+    bool readParticles(const std::string &filename) override;
     void setParamsWithValues() override;
     void initializeParamNames() override;
-    void readFile(std::vector<Particle> &particles, const std::string &fileName);
+    bool readFile(std::vector<Particle> &particles, const std::string &fileName);
 };
 
 

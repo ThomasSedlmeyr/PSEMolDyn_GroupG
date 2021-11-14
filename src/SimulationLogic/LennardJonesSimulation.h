@@ -8,7 +8,7 @@
 #include "Simulation.h"
 #include "Body.h"
 #include <vector>
-class LennardJonesSimulation: Simulation{
+class LennardJonesSimulation: public Simulation{
 
 
 private:
@@ -20,9 +20,11 @@ private:
     std::list<Body*> bodies;
 
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
-    void readParticles(const std::string &filename) override;
+    bool readParticles(const std::string &filename) override;
     void setParamsWithValues() override;
     void initializeParamNames() override;
+
+    void generateAllParticles();
 };
 
 

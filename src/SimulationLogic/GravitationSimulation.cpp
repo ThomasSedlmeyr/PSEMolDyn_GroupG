@@ -71,12 +71,11 @@ void GravitationSimulation::calculateFslower() {
     }
 }
 
-void GravitationSimulation::readParticles(const std::string &filename) {
-    readFile(particleContainer.getParticles(), filename);
-    particleContainer.printParticles();
+bool GravitationSimulation::readParticles(const std::string &filename) {
+    return readFile(particleContainer.getParticles(), filename);
 }
 
-void GravitationSimulation::readFile(std::vector<Particle> &particles, const std::string &fileName) {
+bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std::string &fileName) {
     std::array<double, 3> x;
     std::array<double, 3> v;
     double m;
@@ -114,7 +113,7 @@ void GravitationSimulation::readFile(std::vector<Particle> &particles, const std
                 std::cout
                         << "Error reading file: eof reached unexpectedly reading from line "
                         << i << std::endl;
-                exit(-1);
+                return false;
             }
             datastream >> m;
             particles.emplace_back(x, v, m);
@@ -124,7 +123,7 @@ void GravitationSimulation::readFile(std::vector<Particle> &particles, const std
         }
     } else {
         std::cout << "Error: could not open file " << fileName << std::endl;
-        exit(-1);
+        return false;
     }
 }
 

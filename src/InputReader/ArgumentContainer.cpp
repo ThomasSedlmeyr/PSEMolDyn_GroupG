@@ -7,32 +7,43 @@
 #include <fstream>
 
 bool ArgumentContainer::checkIfParamsMatchParamsAndValues(std::vector<std::string> params) {
-    //TODO Methode schreiben, die checkt ob alle params in der paramsAndValues enthalten sind
-    return false;
+    bool isCorrect = false;
+    for(auto param : params){
+        isCorrect = false;
+        for(auto paramAndValue : paramsAndValues){
+            if(std::get<0>(paramAndValue).compare(param) == 0){
+                isCorrect = true;
+                break;
+            }
+        }
+        if(!isCorrect){
+            return false;
+        }
+    }
+    return true;
 }
 
-void ArgumentContainer::readParamsAndValues(const std::string &filename) {
+bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
     //if the fileName is empty this means for this simulation type there does not exist anyParams
     if(filename.empty()){
         paramsAndValues = {};
-        return;
+        return true;
     }
-    //TODO Methode schreiben, die paramsAndValues aus einer Datei einlesen kann. Beispieldatei ParamsLenardJonesSimulation.txt
     std::ifstream file(filename);
     std::string x;
     double y;
     while (file >> x >> y) {
-        // clang says to use emplace instead of push
         paramsAndValues.emplace_back(x, y);
     }
+    //TODO hier sollte eine Fehlerbehandlung erfolgen
+    return true;
 }
 
 double ArgumentContainer::getValueToParam(const std::string &param) {
-    //TODO Methode schreiben, die den zugehörigen param den richtigen float Wert zurückgibt
     auto temp = paramsAndValues;
     double erg = 0;
-    for (int i = 0; i < paramsAndValues.size(); ++i) {
-        if (param == std::get<0>(temp.back())){
+    for (long unsigned int i = 0; i < paramsAndValues.size(); ++i) {
+        if (param.compare(std::get<0>(temp.back())) == 0){
             erg = std::get<1>(temp.back());
             break;
         }

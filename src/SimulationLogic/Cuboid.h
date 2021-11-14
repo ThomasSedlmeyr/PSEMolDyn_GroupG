@@ -13,12 +13,13 @@ class Cuboid: public Body {
 private:
     std::array<double, 3> dimensions;
 
+
 public:
-    Cuboid();
+    Cuboid(int ID);
     ~Cuboid();
 
     void parseStructure(const std::string& line) override;
-    std::vector<Particle> generateParticles();
+    void generateParticles();
 
     void setStructure(const std::array<double, 3> &dim);
 };

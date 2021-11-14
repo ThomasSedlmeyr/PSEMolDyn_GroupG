@@ -21,7 +21,7 @@ void Simulation::calculateV(const double &delta_t) {
 
 void Simulation::calculateOneTimeStep(const double &delta_t){
     calculateX(delta_t);
-    calculateF();
+    particleContainer.applyFToParticlePairs(callForceCalculation);
     calculateV(delta_t);
 }
 
@@ -31,11 +31,15 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
     double currentTime = 0;
 
     initializeParamNames();
-    readParamsAndValues(parametersFileName);
-    //this methode could only be implemented in the subclasses
+    //read Paramsfile
+    bool couldParseFile = readParamsAndValues(parametersFileName);
+    if(!couldParseFile) return;
     setParamsWithValues();
-    readParticles(particlesFileName);
-
+    //read particles file
+    couldParseFile =  readParticles(particlesFileName);
+    if(!couldParseFile){
+        std::cout << "Error in File: "<< particlesFileName << std::endl;
+    }
     while (currentTime < endTime) {
         calculateOneTimeStep(delta_t);
 
@@ -54,16 +58,17 @@ const ParticleContainer Simulation::getParticleContainer() const {
 }
 
 
-void Simulation::readParamsAndValues(const std::string &fileName) {
+bool Simulation::readParamsAndValues(const std::string &fileName) {
     argumentContainer = ArgumentContainer();
-    argumentContainer.readParamsAndValues(fileName);
-
-    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
-        //Fehlerbehandlung mit throws oder so änlich
+    bool couldRaedFile = argumentContainer.readParamsAndValues(fileName);
+    if(!couldRaedFile){
+        std::cout << "Could not read Parameter file" << std::endl;
+        return false;
     }
-
+    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
+        std::cout << "The Parameter file contains not enough or wrong parameters" << std::endl;
+        return false;
+    }
+    return true;
 }
 
-void Simulation::calculateF() {
-    particleContainer.applyFToParticlePairs(callForceCalculation);
-}

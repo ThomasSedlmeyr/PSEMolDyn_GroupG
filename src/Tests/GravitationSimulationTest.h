@@ -7,7 +7,7 @@
 
 
 class GravitationSimulationTest {
-
+    bool testWholeSimulationProcess();
 };
 
 

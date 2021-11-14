@@ -3,13 +3,11 @@
 #Second Line of block: Position
 #Third Line of block: Velocity
 #Fourth Line of block: object specific
-2
 Cuboid
-0 0 0
-0 0 0
-40 8 1
+0,0,0
+0,0,0
+40,8,1
 Cuboid
-15 15 0
-0 -10 0
-8 8 1
-
+15,15,0
+0,-10,0
+8,8,1

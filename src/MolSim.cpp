@@ -11,6 +11,7 @@
 #include <iostream>
 #include <outputWriter/VTKWriter.h>
 #include <outputWriter/XYZWriter.h>
+#include <SimulationLogic/LennardJonesSimulation.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -91,11 +92,11 @@ int main(int argc, char *argsv[]) {
     }*/
     //double current_time = start_time;
 
-    auto s = GravitationSimulation();
-    //TODO zurück ändern zu Writer aber geht irgendwie nicht
+    //auto s = GravitationSimulation();
+    auto s = LennardJonesSimulation();
     Writer *w = new XYZWriter();
-    s.simulate(1, 0.01, *w, 10, "", argsv[1], "Grav");
-
+    s.simulate(1, 0.01, *w, 10, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
+    //s.simulate(1, 0.01, *w, 10, "", "../eingabe-sonne.txt", "Grav");
     return 0;
 }
 
