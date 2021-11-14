@@ -19,6 +19,8 @@ public:
 
     void parseStructure(const std::string& line) override;
     std::vector<Particle> generateParticles();
+
+    void setStructure(const std::array<double, 3> &dim);
 };
 
 

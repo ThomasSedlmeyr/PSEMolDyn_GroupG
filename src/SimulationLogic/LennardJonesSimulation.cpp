@@ -7,6 +7,7 @@
 #include "Cuboid.h"
 #include <string>
 #include <list>
+#include <fstream>
 
 std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
     auto norm = ArrayUtils::L2Norm(p1.getX() - p2.getX());
@@ -19,6 +20,26 @@ std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1
 void LennardJonesSimulation::readParticles(const std::string &filename) {
     //TODO hier müsste mit irgendeinem Writer Zeile für Zeile die Datei eingelesen werden
 
+    std::ifstream file(filename);
+    int amount = 0;
+    std::string type;
+    double a, b, c;
+    file >> amount;
+    for (int i = 0; i < amount; ++i) {
+        file >> type;
+        Body *body;
+        if (type.compare("Cuboid")){
+            body = new Cuboid();
+        }
+        //TODO Fehlerbehandlung falls andere Bezeichnung
+        file >> a >> b >> c;
+        body->setPosition({a, b, c});
+        file >> a >> b >> c;
+        body->setInitialV({a, b, c});
+        file >> a >> b >> c;
+
+    }
+    /*
     for(int i=0; i< 4; i++){
         std::string line = "Cuboid"; //readLine()
         Body *body;
@@ -33,6 +54,7 @@ void LennardJonesSimulation::readParticles(const std::string &filename) {
         body->parseStructure(line);
         bodies.push_back(body);
     }
+    */
 
     //TODO hier sollen die einzelnen Bodies dann ihre Partikel erstellen und dem Particel Container übergeben
     //ich glaube aus Performancegründen ist es wichtig das die Partikel alle hintereinander im Speicher stehen
