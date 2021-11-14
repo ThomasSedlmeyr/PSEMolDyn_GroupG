@@ -15,7 +15,7 @@ std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1
     double term1 = -24*epsilon/pow(norm, 2);
     double term2 =  pow(rho/norm, 6);
     double term3 =  term2 - 2 * pow(term2, 2);
-    return term1 * term3 * (p2.getX() - p1.getX());
+    return term1 * term3 * (p1.getX() - p2.getX());
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {

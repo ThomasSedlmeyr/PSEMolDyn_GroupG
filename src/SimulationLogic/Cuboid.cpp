@@ -3,12 +3,7 @@
 //
 
 #include "Cuboid.h"
-Cuboid :: Cuboid(int id){
-    ID = id;
-}
-
-
-
+Cuboid :: Cuboid(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle){}
 
 
 void Cuboid::parseStructure(const std::string &line) {

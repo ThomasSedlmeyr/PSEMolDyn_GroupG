@@ -15,7 +15,7 @@ private:
 
 
 public:
-    Cuboid(int ID);
+    Cuboid(int ID, double meshWidth, double massPerParticle);
     ~Cuboid();
 
     void parseStructure(const std::string& line) override;

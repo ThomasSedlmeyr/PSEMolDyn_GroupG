@@ -12,6 +12,7 @@
 #include <outputWriter/VTKWriter.h>
 #include <outputWriter/XYZWriter.h>
 #include <SimulationLogic/LennardJonesSimulation.h>
+#include <spdlog/spdlog.h>
 
 /**
  * @brief shows guidelines for correct program calls
@@ -37,7 +38,7 @@ double delta_t = 0.014;
 ParticleContainer particleContainer;
 
 int main(int argc, char *argsv[]) {
-
+    spdlog::info("Logger Test");
     std::cout << "Hello from MolSim for PSE!" << std::endl;
     if (argc < 2 || argc > 6 || argc % 2 == 1) { // cases in which correct programme call is not possible
         std::cout << "Erroneous programme call! " << std::endl;

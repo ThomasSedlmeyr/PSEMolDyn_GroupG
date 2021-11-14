@@ -6,6 +6,11 @@
 #include <string>
 #include <sstream>
 
+Body::Body(int ID, double meshWidth, double massPerParticle) {
+    this->ID = ID;
+    this->meshWidth = meshWidth;
+    this->massPerParticle = massPerParticle;
+}
 void Body::setInitialV(const std::array<double, 3> &initialV) {
     Body::initialV = initialV;
 }

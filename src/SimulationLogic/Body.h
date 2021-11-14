@@ -10,7 +10,7 @@
 #include <vector>
 
 class Body{
-protected:
+    protected:
     /**
      * Position of the particle
      */
@@ -22,6 +22,8 @@ protected:
     double meshWidth;
     double massPerParticle;
 public:
+    Body(int ID, double meshWidth, double massPerParticle);
+    ~Body();
     const std::vector<Particle> &getParticles() const;
 
 protected:
