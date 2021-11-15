@@ -19,7 +19,7 @@ public:
     ~Cuboid();
 
     void parseStructure(const std::string& line) override;
-    void generateParticles();
+    void generateParticles(int startID);
 
     void setStructure(const std::array<double, 3> &dim);
 };

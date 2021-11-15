@@ -43,7 +43,7 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
             body->parseInitialV(line);
             if (!std::getline(file, line)) return false;
             body->parseStructure(line);
-            body->generateParticles();
+            body->generateParticles(numberParticles);
 
             numberParticles += body->getParticles().size();
             bodies.push_back(body);

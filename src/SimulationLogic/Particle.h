@@ -16,22 +16,22 @@ private:
   /**
    * Position of the particle
    */
-  std::array<double, 3> x;
+  std::array<double, 3> x{};
 
   /**
    * Velocity of the particle
    */
-  std::array<double, 3> v;
+  std::array<double, 3> v{};
 
   /**
    * Force effective on this particle
    */
-  std::array<double, 3> f;
+  std::array<double, 3> f{};
 
   /**
    * Force which was effective on this particle
    */
-  std::array<double, 3> old_f;
+  std::array<double, 3> old_f{};
 
   /**
    * Mass of this particle
@@ -43,6 +43,10 @@ private:
    * molecules belonging to different bodies, matters, and so on)
    */
   int type;
+  /**
+   * Unique identifier for everyParticle
+   */
+  int ID;
 
 public:
   explicit Particle(int type = 0);
@@ -53,7 +57,7 @@ public:
       // for visualization, we need always 3 coordinates
       // -> in case of 2d, we use only the first and the second
       std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg,
-      int type = 0);
+      int type = 0, int ID = -1);
 
   virtual ~Particle();
 

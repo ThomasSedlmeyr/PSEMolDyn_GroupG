@@ -38,7 +38,7 @@ public:
     void parsePosition(const std::string& line);
     virtual void parseStructure(const std::string& line) = 0;
 
-    virtual void generateParticles() = 0;
+    virtual void generateParticles(int statID) = 0;
 
     //Die sollten wir eigentlich nicht mehr brauchen
     void setInitialV(const std::array<double, 3> &initialV);

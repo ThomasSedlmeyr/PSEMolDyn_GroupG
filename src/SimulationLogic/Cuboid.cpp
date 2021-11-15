@@ -10,7 +10,7 @@ void Cuboid::parseStructure(const std::string &line) {
     dimensions = parseLineWithThreeValues(line);
 }
 
-void Cuboid::generateParticles() {
+void Cuboid::generateParticles(int startIndex) {
     particles = std::vector<Particle>(dimensions[0] * dimensions[1] * dimensions[2]);
     //Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg,
     //        double m_arg, int type_arg
@@ -22,7 +22,8 @@ void Cuboid::generateParticles() {
                 newPosition[1] = position[1] + meshWidth * j;
                 newPosition[2] = position[2] + meshWidth * k;
                 int pos = i * dimensions[1] + j * dimensions[2] + k;
-                particles[pos] = Particle(newPosition, initialV, massPerParticle, ID);
+                particles[pos] = Particle(newPosition, initialV, massPerParticle, ID, startIndex);
+                startIndex++;
             }
         }
     }

@@ -8,6 +8,9 @@
 #include "Body.h"
 #include "Tetrahedron.h"
 
+/**
+ * This tetrahedron consists of four equilateral triangles of equal size
+ */
 class Tetrahedron: public Body {
     Tetrahedron(int ID, double meshWidth, double massPerParticle);
 
@@ -18,7 +21,7 @@ public:
     ~Tetrahedron();
 protected:
     void parseStructure(const std::string& line) override;
-    void generateParticles();
+    void generateParticles(int startID);
 
 };
 
