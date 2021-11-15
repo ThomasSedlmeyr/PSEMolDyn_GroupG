@@ -35,19 +35,17 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
     if(!couldParseFile) return;
     setParamsWithValues();
     //read particles file
-    couldParseFile =  readParticles(particlesFileName);
+    couldParseFile = readParticles(particlesFileName);
     if(!couldParseFile){
         std::cout << "Error in File: "<< particlesFileName << std::endl;
     }
     while (currentTime < endTime) {
-        particleContainer.printParticles();
-        writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         calculateOneTimeStep(delta_t);
 
         iteration++;
         if (iteration % numberSkippedIterations == 0) {
             //particleContainer.plotParticles(iteration);
-            //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
+            writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         }
         std::cout << "Iteration " << iteration << " finished." << std::endl;
         currentTime += delta_t;

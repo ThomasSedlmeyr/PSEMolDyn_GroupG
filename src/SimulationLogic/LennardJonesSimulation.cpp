@@ -12,11 +12,12 @@
 #include "utils/MaxwellBoltzmannDistribution.h"
 
 std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    auto norm = ArrayUtils::L2Norm(p1.getX() - p2.getX());
+    auto diff = p1.getX() - p2.getX();
+    auto norm = ArrayUtils::L2Norm(diff);
     double term1 = -24*epsilon/pow(norm, 2);
     double term2 =  pow(rho/norm, 6);
     double term3 =  term2 - 2 * pow(term2, 2);
-    return term1 * term3 * (p1.getX() - p2.getX());
+    return term1 * term3 * diff;
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
@@ -63,7 +64,7 @@ void LennardJonesSimulation::generateAllParticles(){
             //Here we create copies for every particle, because we we want all particles to be
             // behind each other in the memory
             //TODO average velocity sollte parameter sein glaub ich
-            particle.setV(maxwellBoltzmannDistributedVelocity(0.1, 3));
+            particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 3));
             particles[pos] = particle;
             pos++;
         }
