@@ -12,12 +12,13 @@
  * This tetrahedron consists of four equilateral triangles of equal size
  */
 class Tetrahedron: public Body {
-    Tetrahedron(int ID, double meshWidth, double massPerParticle);
+
 
     double edgeLength;
     int numberParticlesPerEdge;
 
 public:
+    Tetrahedron(int ID, double meshWidth, double massPerParticle);
     ~Tetrahedron();
 protected:
     void parseStructure(const std::string& line) override;

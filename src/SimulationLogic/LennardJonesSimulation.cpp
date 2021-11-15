@@ -34,9 +34,9 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
             if (line.compare("Cuboid") == 0) {
                 body = new Cuboid(bodiesCounter, meshWidth, mass);
             }
-            /*if (line.compare("Tetrahedron") == 0) {
-                body = new Tetrahedron(bodiesCounter, meshWidth);
-            }*/
+            if (line.compare("Tetrahedron") == 0) {
+                body = new Tetrahedron(bodiesCounter, meshWidth, mass);
+            }
             if (!std::getline(file, line)) return false;
             body->parsePosition(line);
             if (!std::getline(file, line)) return false;
