@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Simulation.h"
 #include <utils/ArrayUtils.h>
+#include <spdlog/spdlog.h>
 
 Simulation::Simulation() = default;
 Simulation::~Simulation() = default;
@@ -37,7 +38,7 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
     //read particles file
     couldParseFile = readParticles(particlesFileName);
     if(!couldParseFile){
-        std::cout << "Error in File: "<< particlesFileName << std::endl;
+        spdlog::error("Error in File: " + particlesFileName);
     }
     while (currentTime < endTime) {
         writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
@@ -48,7 +49,7 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
             //particleContainer.plotParticles(iteration);
             //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         }
-        std::cout << "Iteration " << iteration << " finished." << std::endl;
+        spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
 }
@@ -62,11 +63,11 @@ bool Simulation::readParamsAndValues(const std::string &fileName) {
     argumentContainer = ArgumentContainer();
     bool couldRaedFile = argumentContainer.readParamsAndValues(fileName);
     if(!couldRaedFile){
-        std::cout << "Could not read Parameter file" << std::endl;
+        spdlog::error("Could not read Parameter file");
         return false;
     }
     if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
-        std::cout << "The Parameter file contains not enough or wrong parameters" << std::endl;
+        spdlog::error("The Parameter file contains not enough or wrong parameters");
         return false;
     }
     return true;

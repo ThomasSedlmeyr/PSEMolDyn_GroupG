@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <spdlog/spdlog.h>
 
 
 GravitationSimulation::GravitationSimulation() = default;
@@ -87,18 +88,18 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
     if (input_file.is_open()) {
 
         getline(input_file, tmp_string);
-        std::cout << "Read line: " << tmp_string << std::endl;
+        spdlog::info("Read line: " + tmp_string);
 
         while (tmp_string.empty() or tmp_string[0] == '#') {
             getline(input_file, tmp_string);
-            std::cout << "Read line: " << tmp_string << std::endl;
+            spdlog::info("Read line: " + tmp_string);
         }
 
         std::istringstream numstream(tmp_string);
         numstream >> num_particles;
-        std::cout << "Reading " << num_particles << "." << std::endl;
+        spdlog::info("Reading " + std::to_string(num_particles) + ".");
         getline(input_file, tmp_string);
-        std::cout << "Read line: " << tmp_string << std::endl;
+        spdlog::info("Read line: " + tmp_string);
 
         for (int i = 0; i < num_particles; i++) {
             std::istringstream datastream(tmp_string);
@@ -110,19 +111,17 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
                 datastream >> vj;
             }
             if (datastream.eof()) {
-                std::cout
-                        << "Error reading file: eof reached unexpectedly reading from line "
-                        << i << std::endl;
+                spdlog::error("Error reading file: eof reached unexpectedly reading from line " + std::to_string(i));
                 return false;
             }
             datastream >> m;
             particles.emplace_back(x, v, m);
 
             getline(input_file, tmp_string);
-            std::cout << "Read line: " << tmp_string << std::endl;
+            spdlog::info("Read line: " + tmp_string);
         }
     } else {
-        std::cout << "Error: could not open file " << fileName << std::endl;
+        spdlog::error("Error: could not open file " + fileName);
         return false;
     }
 }
