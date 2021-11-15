@@ -2,7 +2,6 @@
 #include <iostream>
 #include "Simulation.h"
 #include <utils/ArrayUtils.h>
-#include <functional>
 
 Simulation::Simulation() = default;
 Simulation::~Simulation() = default;
@@ -73,4 +72,3 @@ bool Simulation::readParamsAndValues(const std::string &fileName) {
     }
     return true;
 }
-

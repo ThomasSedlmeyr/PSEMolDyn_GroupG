@@ -35,4 +35,5 @@ void ParticleContainer::applyFToParticlePairs(const std::function<std::array<dou
             p2->setF(p2->getF()-fij);
         }
     }
+
 }

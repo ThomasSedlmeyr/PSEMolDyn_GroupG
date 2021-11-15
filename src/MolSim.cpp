@@ -3,7 +3,6 @@
  * @brief Main class for Simulation
  */
 
-#include "utils/ArrayUtils.h"
 #include "SimulationLogic/ParticleContainer.h"
 #include "SimulationLogic/GravitationSimulation.h"
 #include "outputWriter/Writer.h"
@@ -97,7 +96,7 @@ int main(int argc, char *argsv[]) {
 
     auto s = LennardJonesSimulation();
     Writer *w = new VTKWriter();
-    //s.simulate(1, 0.1, *w, 1, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
+    s.simulate(1, 0.1, *w, 1, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
     //s.simulate(1, 0.01, *w, 10, "", "../eingabe-sonne.txt", "Grav");
     return 0;
 }
