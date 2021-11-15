@@ -4,52 +4,36 @@
 
 #include "XYZReader.h"
 #include <fstream>
+#include <sstream>
+#include <vector>
+#include <tuple>
 
-/*bool XYZReader::readFile(const std::string &fileName) {
-
+bool XYZReader::readFile(const std::string &fileName) {
     std::ifstream input_file(fileName);
-    std::string tmp_string;
+    std::string line;
+    int numberElements;
 
     if (input_file.is_open()) {
+        getline(input_file, line);
+        std::istringstream iss(line);
+        if(!(iss >> numberElements)) return false;
+        //Skipp the next line
+        getline(input_file, line);
 
-        getline(input_file, tmp_string);
-        std::cout << "Read line: " << tmp_string << std::endl;
-
-        while (tmp_string.empty() or tmp_string[0] == '#') {
-            getline(input_file, tmp_string);
-            std::cout << "Read line: " << tmp_string << std::endl;
+        for (int i = 0; i < numberElements; i++) {
+            getline(input_file, line);
+            std::istringstream iss(line);
+            if(!(iss >> std::get<0>(molecules[i]) >> std::get<1>(molecules[i])[0] >> std::get<1>(molecules[i])[1] >> std::get<1>(molecules[i])[2])) return false;
         }
-
-        std::istringstream numstream(tmp_string);
-
-        for (int i = 0; i < num_particles; i++) {
-            std::istringstream datastream(tmp_string);
-
-            for (auto &xj: x) {
-                datastream >> xj;
-            }
-            for (auto &vj: v) {
-                datastream >> vj;
-            }
-            if (datastream.eof()) {
-                std::cout
-                        << "Error reading file: eof reached unexpectedly reading from line "
-                        << i << std::endl;
-                exit(-1);
-            }
     }
+    return true;
+}
+
+const std::vector<std::tuple<std::string, std::array<double, 3>>> &XYZReader::getMolecules() const {
+    return molecules;
 }
 
 
 
 
 
-    size_t pos = 0;
-    std::string token;
-    while ((pos = line.find(" ")) != std::string::npos) {
-        token = line.substr(0, pos);
-        std::cout << token << std::endl;
-        line.erase(0, pos + 1);
-    }
-    std::cout << line << std::endl;
-*/

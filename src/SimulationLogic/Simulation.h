@@ -70,7 +70,7 @@ protected:
 
 public:
     static const int GRAVITATION = 0;
-    static const int LENNARDJONES = 0;
+    static const int LENNARDJONES = 1;
     Simulation();
     virtual~Simulation();
 

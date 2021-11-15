@@ -10,7 +10,10 @@
 
 class XYZReader {
 public:
-    void readFile(const std::string& fileName);
+    bool readFile(const std::string& fileName);
+
+    const std::vector<std::tuple<std::string, std::array<double, 3>>> &getMolecules() const;
+
 private:
     std::vector<std::tuple<std::string,std::array<double, 3>>> molecules;
 };

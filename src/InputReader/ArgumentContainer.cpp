@@ -40,14 +40,12 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
 }
 
 double ArgumentContainer::getValueToParam(const std::string &param) {
-    auto temp = paramsAndValues;
-    double erg = 0;
     for (long unsigned int i = 0; i < paramsAndValues.size(); ++i) {
-        if (param.compare(std::get<0>(temp.back())) == 0){
-            erg = std::get<1>(temp.back());
-            break;
+        std::tuple<std::string, double> &paramAndValue = paramsAndValues[i];
+        if (param.compare(std::get<0>(paramAndValue)) == 0){
+            return std::get<1>(paramAndValue);
         }
-        temp.pop_back();
     }
-    return erg;
+    //TODO was machen wir, wenn hier ein Fehler auftritt?
+    return 0.0;
 }
