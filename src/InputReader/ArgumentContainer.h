@@ -19,6 +19,7 @@ public:
     double getValueToParam(const std::string& param);
 
 
+    void printErrorMessage();
 };
 
 

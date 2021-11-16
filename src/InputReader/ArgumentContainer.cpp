@@ -5,6 +5,7 @@
 #include "ArgumentContainer.h"
 #include <string>
 #include <fstream>
+#include <iostream>
 
 bool ArgumentContainer::checkIfParamsMatchParamsAndValues(std::vector<std::string> params) {
     bool isCorrect = false;
@@ -29,14 +30,26 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
         paramsAndValues = {};
         return true;
     }
-    std::ifstream file(filename);
-    std::string x;
-    double y;
-    while (file >> x >> y) {
-        paramsAndValues.emplace_back(x, y);
+    try {
+        std::ifstream file(filename);
+        std::string x;
+        double y;
+        while (file >> x >> y) {
+            paramsAndValues.emplace_back(x, y);
+        }
+    } catch (std::bad_exception) {
+        // hier sollte eine Fehlerbehandlung erfolgen
+        printErrorMessage();
+        // programm beenden
+        exit(EXIT_FAILURE);
     }
-    //TODO hier sollte eine Fehlerbehandlung erfolgen
     return true;
+}
+
+void ArgumentContainer::printErrorMessage(){
+    std::cout << "File for reading parameters is faulty!" << std::endl;
+    std::cout << "Please try again with correctly formatted file with the required parameters." << std::endl;
+    std::cout << "For help consult the readMe." << std::endl;
 }
 
 double ArgumentContainer::getValueToParam(const std::string &param) {
@@ -47,5 +60,7 @@ double ArgumentContainer::getValueToParam(const std::string &param) {
         }
     }
     //TODO was machen wir, wenn hier ein Fehler auftritt?
-    return 0.0;
+    printErrorMessage();
+    // soll hier terminiert werden?
+    exit(EXIT_FAILURE);
 }
