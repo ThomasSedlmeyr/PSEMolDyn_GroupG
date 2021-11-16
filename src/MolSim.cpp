@@ -96,7 +96,7 @@ int main(int argc, char *argsv[]) {
 
     auto s = LennardJonesSimulation();
     Writer *w = new VTKWriter();
-    s.simulate(1, 0.1, *w, 1, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
+    s.simulate(5, 0.002, *w, 10, "../ParamsLennardJonesSimulation.txt", "../TwoCuboidsLJ.txt", "Lenard");
     //s.simulate(1, 0.01, *w, 10, "", "../eingabe-sonne.txt", "Grav");
     return 0;
 }

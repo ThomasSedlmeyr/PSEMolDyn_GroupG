@@ -41,13 +41,13 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         spdlog::error("Error in File: " + particlesFileName);
     }
     while (currentTime < endTime) {
-        writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
+        //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         calculateOneTimeStep(delta_t);
 
         iteration++;
         if (iteration % numberSkippedIterations == 0) {
             //particleContainer.plotParticles(iteration);
-            //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
+            writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         }
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;

@@ -13,8 +13,8 @@
 
 std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
     auto diff = p1.getX() - p2.getX();
-    auto norm = ArrayUtils::L2Norm(diff);
-    double term1 = -24*epsilon/pow(norm, 2);
+    double norm = ArrayUtils::L2Norm(diff);
+    double term1 = -24.0*epsilon/pow(norm, 2);
     double term2 =  pow(rho/norm, 6);
     double term3 =  term2 - 2 * pow(term2, 2);
     return term1 * term3 * diff;
