@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # define project name, version
 project(PSEMolDyn_GroupG VERSION 0.0.1)
+enable_testing()
 
 # let ccmake and cmake-gui offer the default build type options
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug;Release;RelWithDebInfo;MinSizeRel")
@@ -18,7 +19,6 @@ file(GLOB_RECURSE MY_SRC
     # header don't need to be included but this might be necessary for some IDEs
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
-
 # create make target
 add_executable(MolSim ${MY_SRC})
 
@@ -31,16 +31,16 @@ target_compile_features(MolSim
 target_include_directories(MolSim
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/libs/libxsd
-            ${CMAKE_CURRENT_SOURCE_DIR}/libs/
+            ${CMAKE_CURRENT_SOURCE_DIR}/libs
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
-
 include(FetchContent)
 FetchContent_Declare(
         googletest
         URL https://github.com/google/googletest/archive/609281088cfefc76f9d0ce82e1ff6c30cc3591e5.zip
 )
+
 FetchContent_MakeAvailable(googletest)
 
 target_link_libraries(MolSim
@@ -49,6 +49,32 @@ target_link_libraries(MolSim
             xerces-c
             gtest_main
 )
+
+file(GLOB_RECURSE TEST_SRC
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/InputReader/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/outputWriter/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
+        )
+
+add_executable(Tests ${TEST_SRC})
+
+target_include_directories(Tests
+        PUBLIC
+            ${CMAKE_CURRENT_SOURCE_DIR}/libs/libxsd
+            ${CMAKE_CURRENT_SOURCE_DIR}/libs
+        PRIVATE
+            src
+)
+
+target_link_libraries(Tests
+        PUBLIC
+            xerces-c
+            gtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(Tests)
 
 # activate all compiler warnings. Clean up your code :P
 # depending on the compiler different flags are used
