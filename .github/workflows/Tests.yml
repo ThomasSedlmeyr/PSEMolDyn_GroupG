@@ -13,7 +13,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: RunTest
-      run: ctest
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        ctest
       
 
 
