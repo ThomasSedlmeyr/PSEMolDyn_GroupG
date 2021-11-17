@@ -25,8 +25,8 @@ void Simulation::calculateOneTimeStep(const double &delta_t){
     calculateV(delta_t);
 }
 
-void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedIterations, const std::string &parametersFileName,
-                          const std::string &particlesFileName, const std::string &outPutFileName){
+void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations, const std::string &parametersFileName,
+                          const std::string &particlesFileName, const std::string &outputFileName){
     int iteration = 0;
     double currentTime = 0;
 
@@ -49,19 +49,14 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         calculateOneTimeStep(delta_t);
 
         iteration++;
-        if (iteration % numberSkippedIterations == 0) {
+        if (iteration % numberSkippedPrintedIterations == 0) {
             //particleContainer.plotParticles(iteration);
-            writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
+            writer.writeParticlesToFile(outputFileName, iteration, particleContainer.getParticles());
         }
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
 }
-
-const ParticleContainer Simulation::getParticleContainer() const {
-    return particleContainer;
-}
-
 
 bool Simulation::readParamsAndValues(const std::string &fileName) {
     argumentContainer = ArgumentContainer();

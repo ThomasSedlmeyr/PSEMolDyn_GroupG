@@ -13,7 +13,6 @@ class LennardJonesSimulation: public Simulation{
 
 
 private:
-    //In dieser Klasse wird die Kraftberechnung überschrieben,damit der Particle Container die Kraft berechnen kann.
     double epsilon;
     double mass;
     double rho;

@@ -1,10 +1,4 @@
-//
-// Created by thomas on 07.11.21.
-//
-
-#include "Tests.h"
 #include <vector>
-#include <string>
 #include <tuple>
 #include <InputReader/XYZReader.h>
 #include <gtest/gtest.h>
@@ -17,6 +11,10 @@
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include <chrono>
 
+/**
+ * @brief Starts a GravitationSimulation and compares the result of two time steps with two files
+ * containing the correct values
+ */
 TEST(Tests, GravitationSimulationTest) {
     XYZReader reader = XYZReader();
     GravitationSimulation gravitationSimulation = GravitationSimulation();
@@ -24,10 +22,37 @@ TEST(Tests, GravitationSimulationTest) {
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
         gravitationSimulation.simulate(10, 0.01, *w, 500, "", "../src/Tests/TestInputFiles/eingabe-sonne.txt", "Grav_Test");
-        particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/MD_vtk_0500.xyz");
-        particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/MD_vtk_1000.xyz");
+        particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Grav_Test_0500.xyz");
+        particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Grav_Test_1000.xyz");
         particles_1_test= reader.readOnlyPositions("Grav_Test_0500.xyz");
         particles_2_test = reader.readOnlyPositions("Grav_Test_1000.xyz");
+    }catch(const std::exception& e){
+        FAIL();
+    }
+    for (int i = 0; i < particles_2_Expected.size(); ++i) {
+        EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.0000001);
+        EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.0000001);
+        EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.0000001);
+        EXPECT_NEAR(particles_2_Expected[i][0], particles_2_test[i][0], 0.0000001);
+        EXPECT_NEAR(particles_2_Expected[i][1], particles_2_test[i][1], 0.0000001);
+        EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.0000001);
+    }
+}
+/**
+ * @brief Starts a LenardJonesSimulationTest and compares the result of two time steps with two files
+ * containing the correct values
+ */
+TEST(Tests, LennardJonesSimulationTest) {
+    XYZReader reader = XYZReader();
+    LennardJonesSimulation gravitationSimulation = LennardJonesSimulation();
+    Writer *w = new XYZWriter();
+    std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
+    try {
+        gravitationSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt", "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test");
+        particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0100.xyz");
+        particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0200.xyz");
+        particles_1_test= reader.readOnlyPositions("Lenard_Test_0100.xyz");
+        particles_2_test = reader.readOnlyPositions("Lenard_Test_0200.xyz");
     }catch(const std::exception& e){
         FAIL();
     }
@@ -101,14 +126,9 @@ TEST(Tests, LennardJonesOptimization){
         }
     }
 }
-
-/**
- * @brief Test for reading parameter file
- */
-
 TEST(Tests, readParamsTest) {
     ArgumentContainer container;
-    bool ret = container.readParamsAndValues("../src/Tests/TestInputFiles/ParamsLennardJonesSimulation.txt");
+    bool ret = container.readParamsAndValues("../src/Tests/TestInputFiles/ParamsLJtest.txt");
     EXPECT_EQ(ret, true);
     EXPECT_DOUBLE_EQ(container.getValueToParam("epsilon"), 5.0);
     EXPECT_DOUBLE_EQ(container.getValueToParam("mass"), 1.0);

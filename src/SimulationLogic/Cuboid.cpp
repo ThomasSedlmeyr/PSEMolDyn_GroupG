@@ -1,7 +1,3 @@
-//
-// Created by thomas on 05.11.21.
-//
-
 #include "Cuboid.h"
 Cuboid :: Cuboid(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle){}
 
@@ -15,15 +11,16 @@ void Cuboid::generateParticles(int startIndex) {
     //Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg,
     //        double m_arg, int type_arg
     std::array<double, 3> newPosition{};
+    int counter = 0;
     for (int i = 0; i < dimensions[0]; ++i) {
         for (int j = 0; j < dimensions[1]; ++j) {
             for (int k = 0; k < dimensions[2]; ++k) {
                 newPosition[0] = position[0] + meshWidth * i;
                 newPosition[1] = position[1] + meshWidth * j;
                 newPosition[2] = position[2] + meshWidth * k;
-                int pos = i * dimensions[1] + j * dimensions[2] + k;
-                particles[pos] = Particle(newPosition, initialV, massPerParticle, ID, startIndex);
+                particles[counter] = Particle(newPosition, initialV, massPerParticle, ID, startIndex);
                 startIndex++;
+                counter++;
             }
         }
     }
