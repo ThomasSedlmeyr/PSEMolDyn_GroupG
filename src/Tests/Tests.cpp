@@ -59,7 +59,7 @@ std::array<double, 3> trivialLennardJonesCalculation(Particle &p1, Particle &p2,
 }
 
 TEST(Tests, LennardJonesOptimization){
-    int numberOfTestRuns = 1000;
+    int numberOfTestRuns = 100000;
 
     double epsilon = 5;
     double rho = 1;
@@ -68,8 +68,8 @@ TEST(Tests, LennardJonesOptimization){
     simulation.setEpsilon(epsilon);
     simulation.setRho(rho);
 
-    std::uniform_real_distribution<double> positionDistribution(0.1, 3);
-    std::uniform_real_distribution<double> velocityDistribution(1, 10);
+    std::uniform_real_distribution<double> positionDistribution(0, 10);
+    std::uniform_real_distribution<double> velocityDistribution(1, 5);
     std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
 
     std::array<double, 3> randomPos1{};
@@ -85,7 +85,7 @@ TEST(Tests, LennardJonesOptimization){
 
     for (int i = 0; i < numberOfTestRuns; ++i) {
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
-        randomPos2 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
+        randomPos2 = {positionDistribution(re)+11, positionDistribution(re)+11, positionDistribution(re)+11};
 
         randomVelocity1 = {velocityDistribution(re), velocityDistribution(re), velocityDistribution(re)};
         randomVelocity2 = {velocityDistribution(re), velocityDistribution(re), velocityDistribution(re)};
