@@ -10,12 +10,8 @@
 
 class XYZReader {
 public:
-    bool readFile(const std::string& fileName);
-
-    const std::vector<std::tuple<std::string, std::array<double, 3>>> &getMolecules() const;
-
-private:
-    std::vector<std::tuple<std::string,std::array<double, 3>>> molecules;
+    std::vector<std::tuple<std::string, std::array<double, 3>>>  readParticles(const std::string& fileName);
+    std::vector<std::array<double, 3>>  readOnlyPositions(const std::string& fileName);
 };
 
 

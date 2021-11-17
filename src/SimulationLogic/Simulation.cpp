@@ -33,12 +33,16 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
     initializeParamNames();
     //read Paramsfile
     bool couldParseFile = readParamsAndValues(parametersFileName);
-    if(!couldParseFile) return;
+    if(!couldParseFile){
+        spdlog::error("Could not parse file" + parametersFileName);
+        exit(EXIT_FAILURE);;
+    }
     setParamsWithValues();
     //read particles file
     couldParseFile = readParticles(particlesFileName);
     if(!couldParseFile){
         spdlog::error("Error in File: " + particlesFileName);
+        exit(EXIT_FAILURE);;
     }
     while (currentTime < endTime) {
         //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());

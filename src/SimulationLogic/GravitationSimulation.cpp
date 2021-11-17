@@ -120,6 +120,7 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
             getline(input_file, tmp_string);
             spdlog::info("Read line: " + tmp_string);
         }
+        return true;
     } else {
         spdlog::error("Error: could not open file " + fileName);
         return false;
@@ -127,7 +128,7 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
 }
 
 void GravitationSimulation::setParamsWithValues() {
-    //The GraviationSimulation does not contain anyParameterers. This is the reason why
+    //The GraviationSimulation does not contain any parameters. This is the reason why this methode ist empty
 }
 
 void GravitationSimulation::initializeParamNames() {
