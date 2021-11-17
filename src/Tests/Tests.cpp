@@ -101,6 +101,11 @@ TEST(Tests, LennardJonesOptimization){
         }
     }
 }
+
+/**
+ * @brief Test for reading parameter file
+ */
+
 TEST(Tests, readParamsTest) {
     ArgumentContainer container;
     bool ret = container.readParamsAndValues("../src/Tests/TestInputFiles/ParamsLennardJonesSimulation.txt");
