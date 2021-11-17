@@ -7,17 +7,13 @@ on:
     branches: [ main ]
     
 jobs:
-  checkout-and-check-formatting:
+  run-tests:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Run unit tests
-      uses: ThomasSedlmeyr/action-ctest@1.1
-      # These are optional (defaults displayed)
-      with:
-        sourcedir: '.'
-        builddir: 'build'
-        cmakeoptions: '--config Release'
-        ctestoptions: ''
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: RunTest
+      run: ctest
+      
+
 
