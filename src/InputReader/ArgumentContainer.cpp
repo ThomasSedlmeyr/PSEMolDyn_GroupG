@@ -38,9 +38,9 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
             paramsAndValues.emplace_back(x, y);
         }
     } catch (std::bad_exception) {
-        // hier sollte eine Fehlerbehandlung erfolgen
+        // error handling, filename faulty
         printErrorMessage();
-        // programm beenden
+        // terminate program as further run not possible
         exit(EXIT_FAILURE);
     }
     return true;

@@ -44,7 +44,9 @@ TEST(Tests, CuboidTest){
     cuboid.generateParticles(0);
     EXPECT_EQ(cuboid.getParticles().size(), structure[0]*structure[1]*structure[2]);
 }
-
+/**
+ * @brief Test for reading parameter file
+ */
 TEST(Tests, readParamsTest) {
     ArgumentContainer container;
     bool ret = container.readParamsAndValues("../src/Tests/TestInputFiles/ParamsLennardJonesSimulation.txt");

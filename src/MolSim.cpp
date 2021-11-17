@@ -77,14 +77,16 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
 
-    // parsing of potential parameters t_end or delta_t
+    // parsing of potential parameters
     bool success = parseCommandLineArguments(argc, argsv);
+
     // prints help in case of wrong call
     if (!success) {
         show_help();
         return 0;
     }
 
+    // execution of simulation based to default or selection
     Writer *w = new VTKWriter();
     switch (calcType) {
         case Simulation::GRAVITATION: {
@@ -115,6 +117,11 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
     bool paramReset = false;
     bool partReset = false;
 
+    /*
+     * loop for retrieving command line arguments
+     * if program call was faulty help will be printed and program aborted
+     * not possible to mix exclusive flags from both simulation types
+    */
     for (int i = 1; i < argc; i++) {
         std::string temp = argsv[i];
         std::string next = argsv[i+1];
@@ -171,6 +178,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             i++;
             partReset = true;
         } else {
+            // case of unexpected input
             return false;
         }
     }

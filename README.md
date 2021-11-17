@@ -29,8 +29,8 @@ Members:
   * -delta_t : stepsize
   * -calcType : 2 for 'Collision of two bodies' (default), 1 for Gravitation Simulation
   * for Lennard Jones Simulation:
-    * -param_path : file for parameters epsilon, mass, rho, mesh width (h)
-    * -particles_path : file for parameters of bodies (position, velocity, number of particles per dimension)
+    * -param_path : file for parameters epsilon, mass, rho, mesh width (h), see ParamsLennardJonesSimulation.txt as example
+    * -particles_path : file for parameters of bodies (position, velocity, number of particles per dimension), see TwoCuboidsLJ.txt as example
   * for Gravitation Simulation:
     * -input : input file (coordinates, velocity, mass)
 
@@ -43,7 +43,6 @@ Members:
 * run make doc_doxygen
 
 ## Run with test ##
-* change variable runTest in MolSim.cpp to true
 * TODO
 
 # Media #

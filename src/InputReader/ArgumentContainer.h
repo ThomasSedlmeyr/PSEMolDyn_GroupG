@@ -18,7 +18,9 @@ public:
     bool readParamsAndValues(const std::string& filename);
     double getValueToParam(const std::string& param);
 
-
+    /**
+     * @brief prints error message when parameter file is faulty
+     */
     void printErrorMessage();
 };
 
