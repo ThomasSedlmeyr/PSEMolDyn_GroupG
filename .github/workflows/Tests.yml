@@ -15,8 +15,8 @@ jobs:
     - name: RunTest
       run: |
         mkdir build
+        cmake -D BUILD_DOXYGEN=OFF -B build
         cd build
-        cmake -D BUILD_DOXYGEN=OFF -B ..
         make Tests
         ctest
       
