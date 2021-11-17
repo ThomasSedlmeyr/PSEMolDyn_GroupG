@@ -69,8 +69,8 @@ protected:
     virtual std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) = 0;
 
 public:
-    static const int GRAVITATION = 0;
-    static const int LENNARDJONES = 1;
+    static const int GRAVITATION = 1;
+    static const int LENNARDJONES = 2;
     Simulation();
     virtual~Simulation();
 

@@ -48,7 +48,7 @@ double delta_t = 0.0002;
  * 1 for GravitationSimulation
  * 2 for LennardJonesSimulation (default)
  */
-int calcType = 2;
+int calcType = Simulation::LENNARDJONES;
 
 /**
  * @brief path to file for parameters for Lennard Jones Simulation
@@ -68,7 +68,6 @@ std::string gravitation_path = "../eingabe-sonne.txt";
 ParticleContainer particleContainer;
 
 int main(int argc, char *argsv[]) {
-    spdlog::info("Logger Test");
     std::cout << "Hello from MolSim for PSE!" << std::endl;
 
     // cases in which correct programme call is not possible
@@ -86,28 +85,14 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
 
-    //bool runTest = false;
-    //test won't get executed unless runTest boolean is set to true
-    /*if (runTest){
-        bool success = particleContainer.testOptimizedFormula();
-        if(success){
-            std::cout << "No errors in fast force calculation\n";
-        }else{
-            std::cout << "Errors in fast force calculation\n";
-        }
-        return 0;
-    }*/
-    //double current_time = start_time;
-
     Writer *w = new VTKWriter();
     switch (calcType) {
-        case 1: {
+        case Simulation::GRAVITATION: {
             auto gS = GravitationSimulation();
             gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav");
             break;
         }
-        case 2: {
-
+        case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
             ljS.simulate(end_time, delta_t, *w, 10, param_pathLJ, particles_pathLJ, "Lenard");
             break;
@@ -161,7 +146,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             i++;
             calcReset = true;
         } else if (temp == "-input") {
-            if (inputReset || (calcReset && calcType == 2) || paramReset || partReset || next == "-t_end"
+            if (inputReset || (calcReset && calcType == Simulation::LENNARDJONES) || paramReset || partReset || next == "-t_end"
                 || next == "-delta_t" || next == "-calcType" || next == "-input"|| next == "-param_path"
                 || next == "-particles_path") {
                 return false;
@@ -170,7 +155,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             i++;
             inputReset = true;
         } else if (temp == "-param_path") {
-            if (paramReset || (calcReset && calcType == 1) || inputReset || next == "-t_end" || next == "-delta_t"
+            if (paramReset || (calcReset && calcType == Simulation::GRAVITATION) || inputReset || next == "-t_end" || next == "-delta_t"
                 || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
                 return false;
             }
@@ -178,7 +163,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             i++;
             paramReset = true;
         } else if (temp == "-particles_path") {
-            if (partReset || (calcReset && calcType == 1) || inputReset || next == "-t_end" || next == "-delta_t"
+            if (partReset || (calcReset && calcType == Simulation::GRAVITATION) || inputReset || next == "-t_end" || next == "-delta_t"
                 || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
                 return false;
             }
