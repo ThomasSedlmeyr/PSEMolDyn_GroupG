@@ -31,10 +31,13 @@ void ParticleContainer::applyFToParticlePairs(const std::function<std::array<dou
             }
             //fij is force between the particles p1 and p2
             auto fij = f(*p1, *p2);
-            p1->setF(p1->getF()+fij);
-            //since Fij = -Fji - is used here instead of +
-            p2->setF(p2->getF()-fij);
+            auto &f1 = p1->getFRef();
+            auto &f2 = p2->getFRef();
+            //faster than using ArrayUtils
+            for (int i = 0; i < 3; ++i) {
+                f1[i] += fij[i];
+                f2[i] -= fij[i];
+            }
         }
     }
-
 }

@@ -88,6 +88,10 @@ bool Particle::operator==(Particle &other) {
          (type == other.type) and (m == other.m) and (old_f == other.old_f);
 }
 
+std::array<double, 3> &Particle::getFRef() {
+    return f;
+}
+
 std::ostream &operator<<(std::ostream &stream, Particle &p) {
   stream << p.toString();
   return stream;

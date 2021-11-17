@@ -61,6 +61,8 @@ public:
 
   virtual ~Particle();
 
+  std::array<double, 3> &getFRef();
+
   const std::array<double, 3> &getX() const;
 
   const std::array<double, 3> &getV() const;
