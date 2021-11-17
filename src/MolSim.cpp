@@ -183,7 +183,7 @@ void show_help() {
     std::cout << "\t-h : help page " << std::endl;
     std::cout << "\t-t_end : end value, defaults to 5" << std::endl;
     std::cout << "\t-delta_t : stepsize, defaults to 0.0002" << std::endl;
-    std::cout << "\t-calcType : 1 for Gravitation Simulation, 2 for Lennard Jones Simulation, defaults to 2 " << std::endl;
+    std::cout << "\t-calcType : 1 for Gravitation Simulation, 2 for 'Collision of two bodies', defaults to 2 " << std::endl;
     std::cout << "Only for Gravitation Simulation:" << std::endl;
     std::cout << "\t-input : path to input file, defaults to ../eingabe-sonne.txt" << std::endl;
     std::cout << "Only for Lennard Jones Simulation:" << std::endl;
