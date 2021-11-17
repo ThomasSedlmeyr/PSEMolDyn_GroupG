@@ -12,12 +12,24 @@
 #include "utils/MaxwellBoltzmannDistribution.h"
 
 std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    auto diff = p1.getX() - p2.getX();
-    double norm = ArrayUtils::L2Norm(diff);
-    double term1 = -24.0*epsilon/pow(norm, 2);
-    double term2 =  pow(rho/norm, 6);
-    double term3 =  term2 - 2 * pow(term2, 2);
-    return term1 * term3 * diff;
+    auto x1 = p1.getX();
+    auto x2 = p2.getX();
+    std::array<double, 3> diff{};
+    double squaredNorm = 0;
+    double singleDiff;
+    for (int i = 0; i < 3; ++i) {
+        singleDiff = x1[i] - x2[i];
+        diff[i] = singleDiff;
+        squaredNorm += singleDiff*singleDiff;
+    }
+    double term1 = -24.0*epsilon/squaredNorm;
+    double term2 =  pow(rho/sqrt(squaredNorm), 6);
+    double term3 =  term2 - 2 * term2 * term2;
+    double scalar = term1 * term3;
+    for (double &d:diff) {
+        d *= scalar;
+    }
+    return diff;
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
@@ -84,4 +96,10 @@ void LennardJonesSimulation::initializeParamNames() {
     paramNames = {"epsilon", "mass", "rho", "h"};
 }
 
+void LennardJonesSimulation::setEpsilon(double epsilon) {
+    LennardJonesSimulation::epsilon = epsilon;
+}
 
+void LennardJonesSimulation::setRho(double rho) {
+    LennardJonesSimulation::rho = rho;
+}

@@ -8,6 +8,7 @@
 #include "Simulation.h"
 #include "Body.h"
 #include <vector>
+#include <gtest/gtest.h>
 class LennardJonesSimulation: public Simulation{
 
 
@@ -18,13 +19,17 @@ private:
     double rho;
     double meshWidth;
     std::list<Body*> bodies;
-
+    FRIEND_TEST(Tests, LennardJonesOptimization);
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
     bool readParticles(const std::string &filename) override;
     void setParamsWithValues() override;
     void initializeParamNames() override;
-
     void generateAllParticles();
+
+public:
+    void setEpsilon(double epsilon);
+
+    void setRho(double rho);
 };
 
 

@@ -65,9 +65,11 @@ std::string particles_pathLJ = "../TwoCuboidsLJ.txt";
  */
 std::string gravitation_path = "../eingabe-sonne.txt";
 
-ParticleContainer particleContainer;
-
 int main(int argc, char *argsv[]) {
+    //useful for testing performance
+    //spdlog::set_level(spdlog::level::off);
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    spdlog::info("Logger Test");
     std::cout << "Hello from MolSim for PSE!" << std::endl;
 
     // cases in which correct programme call is not possible
@@ -104,6 +106,8 @@ int main(int argc, char *argsv[]) {
             return 0;
         }
     }
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Simulation took: " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "s" << std::endl;
 
     return 0;
 }

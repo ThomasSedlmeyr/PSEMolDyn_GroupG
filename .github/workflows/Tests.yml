@@ -13,7 +13,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: RunTest
-      run: ctest
+      run: |
+        sudo apt install libxerces-c-dev
+        mkdir build
+        cmake -D BUILD_DOXYGEN=OFF -B build
+        cd build
+        make Tests
+        ctest
       
 
 
