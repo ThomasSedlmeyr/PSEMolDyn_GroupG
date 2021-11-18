@@ -38,7 +38,6 @@ class Body{
 
 public:
     Body(int ID, double meshWidth, double massPerParticle);
-    ~Body();
     /**
      * @brief returns the particles of the body
      * @return vector of particles of body
