@@ -93,7 +93,7 @@ int main(int argc, char *argsv[]) {
     switch (calcType) {
         case Simulation::GRAVITATION: {
             auto gS = GravitationSimulation();
-            gS.simulate(end_time, delta_t, *w, 100000, "", gravitation_path, "Grav");
+            gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav");
             break;
         }
         case Simulation::LENNARDJONES: {
