@@ -11,25 +11,16 @@
 #include <fstream>
 #include "utils/MaxwellBoltzmannDistribution.h"
 
-std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    auto x1 = p1.getX();
-    auto x2 = p2.getX();
-    std::array<double, 3> diff{};
-    double squaredNorm = 0;
-    double singleDiff;
-    for (int i = 0; i < 3; ++i) {
-        singleDiff = x1[i] - x2[i];
-        diff[i] = singleDiff;
-        squaredNorm += singleDiff*singleDiff;
-    }
-    double term1 = -24.0*epsilon/squaredNorm;
-    double term2 =  pow(rho/sqrt(squaredNorm), 6);
-    double term3 =  term2 - 2 * term2 * term2;
-    double scalar = term1 * term3;
-    for (double &d:diff) {
-        d *= scalar;
-    }
-    return diff;
+void LennardJonesSimulation::initializeParamNames() {
+    paramNames = {"epsilon", "mass", "rho", "h"};
+}
+
+void LennardJonesSimulation::setParamsWithValues() {
+    epsilon = argumentContainer.getValueToParam("epsilon");
+    mass = argumentContainer.getValueToParam("mass");
+    rho = argumentContainer.getValueToParam("rho");
+    meshWidth = argumentContainer.getValueToParam("h");
+
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
@@ -63,19 +54,17 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
         }
         file.close();
     }
-    generateAllParticles();
+    uniteParticlesFromBodies();
     return true;
 }
 
-void LennardJonesSimulation::generateAllParticles(){
+void LennardJonesSimulation::uniteParticlesFromBodies() {
     std::vector<Particle> particles(numberParticles);
     int pos = 0;
     for (Body* body : bodies) {
         for(Particle particle : body->getParticles()){
-            //TODO bitte alle anschauen
-            //Here we create copies for every particle, because we we want all particles to be
+            //Here we create copies for every particle, because we want all particles to be
             // behind each other in the memory
-            //TODO average velocity sollte parameter sein glaub ich
             particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 3));
             particles[pos] = particle;
             pos++;
@@ -84,16 +73,28 @@ void LennardJonesSimulation::generateAllParticles(){
     particleContainer.setParticles(particles);
 }
 
-void LennardJonesSimulation::setParamsWithValues() {
-    epsilon = argumentContainer.getValueToParam("epsilon");
-    mass = argumentContainer.getValueToParam("mass");
-    rho = argumentContainer.getValueToParam("rho");
-    meshWidth = argumentContainer.getValueToParam("h");
+std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
+    auto x1 = p1.getX();
+    auto x2 = p2.getX();
+    std::array<double, 3> diff{};
+    double squaredNorm = 0;
 
-}
+    double singleDiff;
+    for (int i = 0; i < 3; ++i) {
+        singleDiff = x1[i] - x2[i];
+        diff[i] = singleDiff;
+        squaredNorm += singleDiff*singleDiff;
+    }
 
-void LennardJonesSimulation::initializeParamNames() {
-    paramNames = {"epsilon", "mass", "rho", "h"};
+    double term1 = -24.0*epsilon/squaredNorm;
+    double term2 =  pow(rho/sqrt(squaredNorm), 6);
+    double term3 =  term2 - 2 * term2 * term2;
+    double scalar = term1 * term3;
+
+    for (double &d:diff) {
+        d *= scalar;
+    }
+    return diff;
 }
 
 void LennardJonesSimulation::setEpsilon(double epsilon) {

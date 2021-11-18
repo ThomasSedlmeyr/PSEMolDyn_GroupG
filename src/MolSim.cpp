@@ -69,9 +69,8 @@ int main(int argc, char *argsv[]) {
     //useful for testing performance
     //spdlog::set_level(spdlog::level::off);
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    spdlog::info("Logger Test");
-    std::cout << "Hello from MolSim for PSE!" << std::endl;
 
+    std::cout << "Hello from MolSim for PSE!" << std::endl;
     // cases in which correct programme call is not possible
     if (argc < 1) {
         std::cout << "Erroneous programme call! " << std::endl;

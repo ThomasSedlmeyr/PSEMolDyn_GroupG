@@ -9,17 +9,17 @@
 #include "Simulation.h"
 
 class GravitationSimulation : public Simulation {
+
+private:
+    void initializeParamNames() override;
+    void setParamsWithValues() override;
+    bool readFile(std::vector<Particle> &particles, const std::string &fileName);
+    bool readParticles(const std::string &filename) override;
+    std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
+
 public:
     GravitationSimulation();
     virtual ~GravitationSimulation();
-
-
-private:
-    std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
-    bool readParticles(const std::string &filename) override;
-    void setParamsWithValues() override;
-    void initializeParamNames() override;
-    bool readFile(std::vector<Particle> &particles, const std::string &fileName);
 };
 
 

@@ -19,7 +19,6 @@ public:
 
     /**
      * @brief writes the particles of specific simulation time step to a file
-     *
      * @param filename the name of the File which should be created
      * @param iteration the current iteration in the simulation process
      * @param particles the particles which should be written to the file

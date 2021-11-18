@@ -5,9 +5,6 @@
 #include "XYZReader.h"
 #include <fstream>
 #include <sstream>
-#include <vector>
-#include <tuple>
-#include <iostream>
 
 std::vector<std::tuple<std::string, std::array<double, 3>>>  XYZReader::readParticles(const std::string &fileName) {
     std::ifstream input_file(fileName);
@@ -20,7 +17,7 @@ std::vector<std::tuple<std::string, std::array<double, 3>>>  XYZReader::readPart
         std::istringstream iss(line);
         if(!(iss >> numberElements)) throw std::runtime_error("Error by reading the file: " +  fileName);
 
-        //Skipp the next line
+        //Skip the next line
         getline(input_file, line);
 
         molecules = std::vector<std::tuple<std::string, std::array<double, 3>>>(numberElements);

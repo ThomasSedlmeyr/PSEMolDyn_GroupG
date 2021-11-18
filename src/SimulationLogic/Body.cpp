@@ -1,5 +1,4 @@
 #include "Body.h"
-#include <string>
 #include <sstream>
 
 Body::Body(int ID, double meshWidth, double massPerParticle) {
@@ -7,6 +6,7 @@ Body::Body(int ID, double meshWidth, double massPerParticle) {
     this->meshWidth = meshWidth;
     this->massPerParticle = massPerParticle;
 }
+
 std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
     std::string stringValue;
     std::stringstream ss(line);
@@ -32,7 +32,5 @@ const std::vector<Particle> &Body::getParticles() const {
     return particles;
 }
 
-Body::~Body() {
-
-}
+Body::~Body() {}
 

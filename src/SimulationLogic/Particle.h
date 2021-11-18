@@ -61,6 +61,9 @@ public:
 
   virtual ~Particle();
 
+  /**
+   * @return reference of f
+   */
   std::array<double, 3> &getFRef();
 
   const std::array<double, 3> &getX() const;

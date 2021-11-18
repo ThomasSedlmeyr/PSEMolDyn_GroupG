@@ -8,7 +8,7 @@ Members:
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
 * Revision: 9dc027e71be040175c7c6a8e0fec8294a1ab9212
-* Compiler: g++ (Ubuntu 9.3.0-17ubuntu1~20.04) 11.1
+* Compiler: g++ 11.1.0
 
 # Run Instructions #
 ## Standard Run of 'Collision of two bodies' ##
@@ -42,8 +42,10 @@ Members:
 * compile with BUILD_DOXYGEN=ON
 * run make doc_doxygen
 
-## Run with test ##
-* TODO
+## Execute Tests ##
+* compile with all options
+* run make Tests
+* run ctest in build directory
 
 # Media #
 ## Videos ##

@@ -15,11 +15,12 @@
 GravitationSimulation::GravitationSimulation() = default;
 GravitationSimulation::~GravitationSimulation() = default;
 
-std::array<double, 3> GravitationSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    double normalizedDistance{ArrayUtils::L2Norm(p1.getX() - p2.getX())};
-    double scalar{p1.getM() * p2.getM() / pow(normalizedDistance, 3)};
-    std::array<double, 3> result {scalar * (p2.getX() - p1.getX())};
-    return result;
+void GravitationSimulation::initializeParamNames() {
+    paramNames = {};
+}
+
+void GravitationSimulation::setParamsWithValues() {
+    //The GraviationSimulation does not contain any parameters. This is the reason why this methode ist empty
 }
 
 bool GravitationSimulation::readParticles(const std::string &filename) {
@@ -77,10 +78,9 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
     }
 }
 
-void GravitationSimulation::setParamsWithValues() {
-    //The GraviationSimulation does not contain any parameters. This is the reason why this methode ist empty
-}
-
-void GravitationSimulation::initializeParamNames() {
-    paramNames = {};
+std::array<double, 3> GravitationSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
+    double normalizedDistance{ArrayUtils::L2Norm(p1.getX() - p2.getX())};
+    double scalar{p1.getM() * p2.getM() / pow(normalizedDistance, 3)};
+    std::array<double, 3> result {scalar * (p2.getX() - p1.getX())};
+    return result;
 }

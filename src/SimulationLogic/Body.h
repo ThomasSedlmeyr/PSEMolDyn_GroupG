@@ -35,9 +35,14 @@ class Body{
      * @ the mass of every particle in the body
      */
     double massPerParticle;
+
 public:
     Body(int ID, double meshWidth, double massPerParticle);
     ~Body();
+    /**
+     * @brief returns the particles of the body
+     * @return vector of particles of body
+     */
     const std::vector<Particle> &getParticles() const;
 
 protected:

@@ -7,6 +7,20 @@
 Simulation::Simulation() = default;
 Simulation::~Simulation() = default;
 
+bool Simulation::readParamsAndValues(const std::string &fileName) {
+    argumentContainer = ArgumentContainer();
+    bool couldRaedFile = argumentContainer.readParamsAndValues(fileName);
+    if(!couldRaedFile){
+        spdlog::error("Could not read Parameter file");
+        return false;
+    }
+    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
+        spdlog::error("The Parameter file contains not enough or wrong parameters");
+        return false;
+    }
+    return true;
+}
+
 void Simulation::calculateX(const double &delta_t) {
     for (auto &p: particleContainer.getParticles()) {
         p.setX(p.getX() + delta_t * p.getV() + pow(delta_t, 2) / (2 * p.getM()) * p.getF());
@@ -45,29 +59,12 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         exit(EXIT_FAILURE);;
     }
     while (currentTime < endTime) {
-        //writer.writeParticlesToFile(outPutFileName, iteration, particleContainer.getParticles());
         calculateOneTimeStep(delta_t);
-
         iteration++;
         if (iteration % numberSkippedPrintedIterations == 0) {
-            //particleContainer.plotParticles(iteration);
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer.getParticles());
         }
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
-}
-
-bool Simulation::readParamsAndValues(const std::string &fileName) {
-    argumentContainer = ArgumentContainer();
-    bool couldRaedFile = argumentContainer.readParamsAndValues(fileName);
-    if(!couldRaedFile){
-        spdlog::error("Could not read Parameter file");
-        return false;
-    }
-    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
-        spdlog::error("The Parameter file contains not enough or wrong parameters");
-        return false;
-    }
-    return true;
 }

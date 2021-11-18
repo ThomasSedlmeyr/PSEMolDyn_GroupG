@@ -29,7 +29,7 @@ TEST(Tests, GravitationSimulationTest) {
     }catch(const std::exception& e){
         FAIL();
     }
-    for (int i = 0; i < particles_2_Expected.size(); ++i) {
+    for (std::size_t i = 0; i < particles_2_Expected.size(); ++i) {
         EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.0000001);
         EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.0000001);
         EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.0000001);
@@ -38,6 +38,7 @@ TEST(Tests, GravitationSimulationTest) {
         EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.0000001);
     }
 }
+
 /**
  * @brief Starts a LenardJonesSimulationTest and compares the result of two time steps with two files
  * containing the correct values
@@ -56,7 +57,7 @@ TEST(Tests, LennardJonesSimulationTest) {
     }catch(const std::exception& e){
         FAIL();
     }
-    for (int i = 0; i < particles_2_Expected.size(); ++i) {
+    for (std::size_t i = 0; i < particles_2_Expected.size(); ++i) {
         EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.0000001);
         EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.0000001);
         EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.0000001);
@@ -66,6 +67,9 @@ TEST(Tests, LennardJonesSimulationTest) {
     }
 }
 
+/**
+ * @brief Tests if Cuboid generates the correct number of particles
+ */
 TEST(Tests, CuboidGenerationTest){
     Cuboid cuboid = Cuboid(0, 1, 1);
     std::array<double, 3> structure = {40, 16, 8};
@@ -74,7 +78,14 @@ TEST(Tests, CuboidGenerationTest){
     EXPECT_EQ(cuboid.getParticles().size(), structure[0]*structure[1]*structure[2]);
 }
 
-
+/**
+ * @brief reference implementation of Lennard Jones force calculation
+ * @param p1
+ * @param p2
+ * @param epsilon
+ * @param rho
+ * @return force between p1 and p2
+ */
 std::array<double, 3> trivialLennardJonesCalculation(Particle &p1, Particle &p2, double epsilon, double rho) {
     double norm = ArrayUtils::L2Norm(p1.getX() - p2.getX());
     double term1 = -24.0*epsilon/pow(norm, 2);
@@ -83,8 +94,11 @@ std::array<double, 3> trivialLennardJonesCalculation(Particle &p1, Particle &p2,
     return term1 * (term2 - term3) * (p1.getX() - p2.getX());
 }
 
+/**
+ * @brief Tests the current implementation Lennard Jones force calculation with the reference implementation
+ */
 TEST(Tests, LennardJonesOptimization){
-    int numberOfTestRuns = 100000;
+    int numberOfTries = 100000;
 
     double epsilon = 5;
     double rho = 1;
@@ -108,7 +122,7 @@ TEST(Tests, LennardJonesOptimization){
     std::array<double, 3> result1{};
     std::array<double, 3> result2{};
 
-    for (int i = 0; i < numberOfTestRuns; ++i) {
+    for (int i = 0; i < numberOfTries; ++i) {
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
         randomPos2 = {positionDistribution(re)+11, positionDistribution(re)+11, positionDistribution(re)+11};
 
@@ -126,6 +140,10 @@ TEST(Tests, LennardJonesOptimization){
         }
     }
 }
+
+/**
+ * @brief Tests if ArgumentContainer parses file correctly
+ */
 TEST(Tests, readParamsTest) {
     ArgumentContainer container;
     bool ret = container.readParamsAndValues("../src/Tests/TestInputFiles/ParamsLJtest.txt");

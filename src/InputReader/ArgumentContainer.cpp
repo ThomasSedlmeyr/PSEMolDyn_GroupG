@@ -3,26 +3,9 @@
 //
 
 #include "ArgumentContainer.h"
-#include <string>
 #include <fstream>
 #include <iostream>
 
-bool ArgumentContainer::checkIfParamsMatchParamsAndValues(std::vector<std::string> params) {
-    bool isCorrect = false;
-    for(auto param : params){
-        isCorrect = false;
-        for(auto paramAndValue : paramsAndValues){
-            if(std::get<0>(paramAndValue).compare(param) == 0){
-                isCorrect = true;
-                break;
-            }
-        }
-        if(!isCorrect){
-            return false;
-        }
-    }
-    return true;
-}
 
 bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
     //if the fileName is empty this means for this simulation type there does not exist anyParams
@@ -46,10 +29,21 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
     return true;
 }
 
-void ArgumentContainer::printErrorMessage(){
-    std::cout << "File for reading parameters or file path is faulty!" << std::endl;
-    std::cout << "Please try again with correctly formatted file with the required parameters." << std::endl;
-    std::cout << "For help consult the readMe." << std::endl;
+bool ArgumentContainer::checkIfParamsMatchParamsAndValues(std::vector<std::string> params) {
+    bool isCorrect;
+    for(auto param : params){
+        isCorrect = false;
+        for(auto paramAndValue : paramsAndValues){
+            if(std::get<0>(paramAndValue).compare(param) == 0){
+                isCorrect = true;
+                break;
+            }
+        }
+        if(!isCorrect){
+            return false;
+        }
+    }
+    return true;
 }
 
 double ArgumentContainer::getValueToParam(const std::string &param) {
@@ -59,8 +53,12 @@ double ArgumentContainer::getValueToParam(const std::string &param) {
             return std::get<1>(paramAndValue);
         }
     }
-    //TODO was machen wir, wenn hier ein Fehler auftritt?
     printErrorMessage();
-    // soll hier terminiert werden?
     exit(EXIT_FAILURE);
+}
+
+void ArgumentContainer::printErrorMessage(){
+    std::cout << "File for reading parameters or file path is faulty!" << std::endl;
+    std::cout << "Please try again with correctly formatted file with the required parameters." << std::endl;
+    std::cout << "For help consult the readMe." << std::endl;
 }

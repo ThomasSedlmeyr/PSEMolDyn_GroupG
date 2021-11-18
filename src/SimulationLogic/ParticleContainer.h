@@ -10,27 +10,14 @@
 #include <functional>
 
 class ParticleContainer {
+
+private:
+    /**
+     * @brief vector containing all particles
+     */
+    std::vector<Particle> particles;
+
 public:
-
-    /**
-     * @return vector of particles
-     */
-    std::vector<Particle> &getParticles();
-
-    /**
-    * @brief writes the actual information of the particles into a vtk file
-    * @param iteration iteration in which the information of the particles were saved
-    */
-    //void plotParticles(int &iteration);
-
-    //TODO delete?
-    /**
-     * test the fast force calculation compared to slower implementation
-     * @return true if results of both calculations match
-     */
-    //bool testOptimizedFormula();
-
-    void printParticles();
 
     /**
      * @brief applies f to all distinct pairs of particles to calculate new force
@@ -38,9 +25,15 @@ public:
      */
     void applyFToParticlePairs(const std::function<std::array<double, 3>(Particle&, Particle&)>& f);
 
-    void setParticles(const std::vector<Particle> &particles);
+    /**
+     * @return vector of particles
+     */
+    std::vector<Particle> &getParticles();
 
-private:
-    std::vector<Particle> particles;
+    /**
+     * @brief set particles to new vector
+     * @param particles new particle vector
+     */
+    void setParticles(const std::vector<Particle> &particles);
 
 };
