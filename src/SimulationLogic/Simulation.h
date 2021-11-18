@@ -16,9 +16,24 @@
 class Simulation {
 
 protected:
+    /**
+     *@brief the expected parameters
+     */
     std::vector<std::string> paramNames;
+
+    /**
+     * the particleContainer containing the particles which were used for the simulation process
+     */
     ParticleContainer particleContainer;
+
+    /**
+     *@brief The argumentContainer which is used to parse the arguments
+     */
     ArgumentContainer argumentContainer;
+
+    /**
+     *@brief the number of particles which were used for the simulation process
+     */
     int numberParticles;
 
 private:

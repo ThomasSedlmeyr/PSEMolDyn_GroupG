@@ -7,14 +7,6 @@ Body::Body(int ID, double meshWidth, double massPerParticle) {
     this->meshWidth = meshWidth;
     this->massPerParticle = massPerParticle;
 }
-void Body::setInitialV(const std::array<double, 3> &initialV) {
-    Body::initialV = initialV;
-}
-
-void Body::setPosition(const std::array<double, 3> &position) {
-    Body::position = position;
-}
-
 std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
     std::string stringValue;
     std::stringstream ss(line);
@@ -29,16 +21,11 @@ std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
 }
 
 void Body::parseInitialV(const std::string &line) {
-    //TODO ich glaube hier werden die Werte kopiert eigntlich sollte eine Referenz übergabe ausreichen
     initialV = parseLineWithThreeValues(line);
 }
 
 void Body::parsePosition(const std::string &line) {
-    //TODO ich glaube hier werden die Werte kopiert eigntlich sollte eine Referenz übergabe ausreichen
     position = parseLineWithThreeValues(line);
-}
-int Body::getNumberParticles() const {
-    return numberParticles;
 }
 
 const std::vector<Particle> &Body::getParticles() const {

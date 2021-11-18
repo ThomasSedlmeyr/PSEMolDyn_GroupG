@@ -17,8 +17,14 @@ public:
     Writer();
     virtual ~Writer();
 
-    Writer(const std::string &fileName);
-    virtual void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles){};
+    /**
+     * @brief writes the particles of specific simulation time step to a file
+     *
+     * @param filename the name of the File which should be created
+     * @param iteration the current iteration in the simulation process
+     * @param particles the particles which should be written to the file
+     */
+    virtual void writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles) = 0;
 
 };
 

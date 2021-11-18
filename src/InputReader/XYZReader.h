@@ -16,6 +16,12 @@ public:
      * @return a vector containing tuples which contain the name of the particle and the position
      */
     std::vector<std::tuple<std::string, std::array<double, 3>>>  readParticles(const std::string& fileName);
+
+    /**
+     * @brief
+     * @param fileName the name of the xyz-file which should be read
+     * @return a vector containing an array which contains the position of every particle
+     */
     std::vector<std::array<double, 3>>  readOnlyPositions(const std::string& fileName);
 };
 

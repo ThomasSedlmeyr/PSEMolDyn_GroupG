@@ -12,14 +12,28 @@
 class Body{
     protected:
     /**
-     * Position of the particle
+     * @brief Initial velocity of the body
      */
     std::array<double, 3> initialV;
+
+    /**
+     * @brief the initial position of the body
+     */
     std::array<double, 3> position;
 
-    //std::vector<Particle*> particles;
+    /**
+     *@brief the particles which were created by the Body
+     */
     std::vector<Particle> particles;
+
+    /**
+     *@brief the mesh width of the particles in the body
+     */
     double meshWidth;
+
+    /**
+     * @ the mass of every particle in the body
+     */
     double massPerParticle;
 public:
     Body(int ID, double meshWidth, double massPerParticle);
@@ -33,18 +47,29 @@ protected:
     std::array<double, 3> parseLineWithThreeValues(const std::string& line);
 
 public:
-
+    /**
+     * @brief  parse the initialV for one Line
+     * @param line the line in the file which contains the comma seperated values
+     */
     void parseInitialV(const std::string& line);
+
+    /**
+     * @brief  parse the initial position for one Line
+     * @param line the line in the file which contains the comma seperated values
+     */
     void parsePosition(const std::string& line);
+
+    /**
+     * @brief parses the body specific structure
+     * @param line the line which contains the comma seperated values
+     */
     virtual void parseStructure(const std::string& line) = 0;
 
-    virtual void generateParticles(int statID) = 0;
-
-    //Die sollten wir eigentlich nicht mehr brauchen
-    void setInitialV(const std::array<double, 3> &initialV);
-    void setPosition(const std::array<double, 3> &position);
-
-    int getNumberParticles() const;
+    /**
+     * @brief generates all particles which are in the body
+     * @param startID the startId with which the first particle is initialized
+     */
+    virtual void generateParticles(int startID) = 0;
 };
 
 
