@@ -24,7 +24,7 @@ void LennardJonesSimulation::setParamsWithValues() {
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
-    Body* body;
+    Body* body = nullptr;
     std::ifstream file(fileName);
     std::string line;
     int bodiesCounter = 0;

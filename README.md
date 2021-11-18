@@ -44,7 +44,7 @@ Members:
 
 ## Execute Tests ##
 * compile with all options
-* run make Tests
+* run make or make Tests
 * run ctest in build directory
 
 # Media #
