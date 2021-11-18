@@ -10,7 +10,7 @@ Body::Body(int ID, double meshWidth, double massPerParticle) {
 std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
     std::string stringValue;
     std::stringstream ss(line);
-    std::array<double, 3> resultArray;
+    std::array<double, 3> resultArray{};
 
     int counter = 0;
     while(getline(ss, stringValue, ',')){
@@ -32,5 +32,4 @@ const std::vector<Particle> &Body::getParticles() const {
     return particles;
 }
 
-Body::~Body() {}
 
