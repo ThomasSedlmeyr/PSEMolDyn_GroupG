@@ -30,6 +30,7 @@ private:
     //Allows test to access private method
     FRIEND_TEST(Tests, LennardJonesOptimization);
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
+    void calculateFFast() override;
 
 public:
     void setEpsilon(double epsilon);

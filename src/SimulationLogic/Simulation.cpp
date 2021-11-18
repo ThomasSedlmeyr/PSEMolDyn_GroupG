@@ -35,6 +35,7 @@ void Simulation::calculateV(const double &delta_t) {
 
 void Simulation::calculateOneTimeStep(const double &delta_t){
     calculateX(delta_t);
+    //to use faster force calculation change the following line to calculateFFast()
     particleContainer.applyFToParticlePairs(callForceCalculation);
     calculateV(delta_t);
 }

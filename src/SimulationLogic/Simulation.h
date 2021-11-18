@@ -88,6 +88,11 @@ protected:
      */
     virtual std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) = 0;
 
+    /**
+     * @brief faster but not so nice implementation of force calculation
+     */
+    virtual void calculateFFast() = 0;
+
 public:
     static const int GRAVITATION = 1;
     static const int LENNARDJONES = 2;

@@ -17,9 +17,11 @@ void ParticleContainer::applyFToParticlePairs(const std::function<std::array<dou
             auto &f1 = p1->getFRef();
             auto &f2 = p2->getFRef();
             //faster than using ArrayUtils
+            double temp;
             for (int i = 0; i < 3; ++i) {
-                f1[i] += fij[i];
-                f2[i] -= fij[i];
+                temp = fij[i];
+                f1[i] += temp;
+                f2[i] -= temp;
             }
         }
     }

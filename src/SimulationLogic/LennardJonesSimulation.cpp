@@ -29,7 +29,6 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
     std::string line;
     int bodiesCounter = 0;
     numberParticles = 0;
-    //TODO wenn die Datei Leerzeichen enthaelt gibt es ein Problem
     if(file.is_open()) {
         while ((std::getline(file, line))) {
             //Skip Header
@@ -95,6 +94,31 @@ std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1
         d *= scalar;
     }
     return diff;
+}
+
+void LennardJonesSimulation::calculateFFast(){
+    std::vector<Particle> &particles = particleContainer.getParticles();
+    particles[0].prepareForNewForce();
+    auto firstParticle = particles.begin();
+    for (auto p1 = firstParticle; p1 != particles.end(); ++p1){
+        for (auto p2 = p1 + 1; p2 != particles.end(); ++p2){
+            if (p1==firstParticle){
+                //this is only reached the first time the Particle p2 is used, so it has to be prepared here
+                p2->prepareForNewForce();
+            }
+            //fij is force between the particles p1 and p2
+            auto fij = calculateFBetweenPair(*p1, *p2);
+            auto &f1 = p1->getFRef();
+            auto &f2 = p2->getFRef();
+            //faster than using ArrayUtils
+            double temp;
+            for (int i = 0; i < 3; ++i) {
+                temp = fij[i];
+                f1[i] += temp;
+                f2[i] -= temp;
+            }
+        }
+    }
 }
 
 void LennardJonesSimulation::setEpsilon(double epsilon) {

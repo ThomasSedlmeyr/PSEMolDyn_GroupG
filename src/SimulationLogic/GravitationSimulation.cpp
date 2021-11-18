@@ -84,3 +84,7 @@ std::array<double, 3> GravitationSimulation::calculateFBetweenPair(Particle &p1,
     std::array<double, 3> result {scalar * (p2.getX() - p1.getX())};
     return result;
 }
+
+void GravitationSimulation::calculateFFast() {
+    //only implemented for LennardJonesSimulation
+}

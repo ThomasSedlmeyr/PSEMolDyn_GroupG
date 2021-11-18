@@ -16,6 +16,7 @@ private:
     bool readFile(std::vector<Particle> &particles, const std::string &fileName);
     bool readParticles(const std::string &filename) override;
     std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
+    void calculateFFast() override;
 
 public:
     GravitationSimulation();
