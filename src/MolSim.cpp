@@ -91,7 +91,7 @@ int main(int argc, char *argsv[]) {
     switch (calcType) {
         case Simulation::GRAVITATION: {
             auto gS = GravitationSimulation();
-            gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav");
+            gS.simulate(end_time, delta_t, *w, 100000, "", gravitation_path, "Grav");
             break;
         }
         case Simulation::LENNARDJONES: {
@@ -121,10 +121,14 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
 
     for (int i = 1; i < argc; i++) {
         std::string temp = argsv[i];
+        if (argc % 2 == 0){
+            return false;
+        }
         std::string next = argsv[i+1];
         if (temp == "-h") {
             return false;
-        } else if (temp == "-t_end") {
+        }
+        if (temp == "-t_end") {
             if (endReset || strtod(next.c_str(), nullptr) <= 0 || next == "-t_end" || next == "-delta_t"
                 || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
                 return false;
