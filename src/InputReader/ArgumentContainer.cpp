@@ -37,7 +37,7 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
         while (file >> x >> y) {
             paramsAndValues.emplace_back(x, y);
         }
-    } catch (std::bad_exception) {
+    } catch (const std::exception& e) {
         // error handling, filename faulty
         printErrorMessage();
         // terminate program as further run not possible
