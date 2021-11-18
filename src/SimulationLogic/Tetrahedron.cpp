@@ -34,7 +34,7 @@ void Tetrahedron::generateParticles(int startID) {
 }
 
 void Tetrahedron::parseStructure(const std::string &line) {
-    numberParticlesPerEdge = std::stod(line);
+    numberParticlesPerEdge = std::stoi(line);
 }
 
 Tetrahedron::Tetrahedron(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {

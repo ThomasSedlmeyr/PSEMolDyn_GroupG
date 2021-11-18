@@ -79,14 +79,16 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
 
-    // parsing of potential parameters t_end or delta_t
+    // parsing of potential parameters
     bool success = parseCommandLineArguments(argc, argsv);
+
     // prints help in case of wrong call
     if (!success) {
         show_help();
         return 0;
     }
 
+    // execution of simulation based to default or selection
     Writer *w = new VTKWriter();
     switch (calcType) {
         case Simulation::GRAVITATION: {
@@ -119,6 +121,11 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
     bool paramReset = false;
     bool partReset = false;
 
+    /*
+     * loop for retrieving command line arguments
+     * if program call was faulty help will be printed and program aborted
+     * not possible to mix exclusive flags from both simulation types
+    */
     for (int i = 1; i < argc; i++) {
         std::string temp = argsv[i];
         if (argc % 2 == 0){
@@ -179,6 +186,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             i++;
             partReset = true;
         } else {
+            // case of unexpected input
             return false;
         }
     }
@@ -191,7 +199,7 @@ void show_help() {
     std::cout << "\t-h : help page " << std::endl;
     std::cout << "\t-t_end : end value, defaults to 5" << std::endl;
     std::cout << "\t-delta_t : stepsize, defaults to 0.0002" << std::endl;
-    std::cout << "\t-calcType : 1 for Gravitation Simulation, 2 for Lennard Jones Simulation, defaults to 2 " << std::endl;
+    std::cout << "\t-calcType : 1 for Gravitation Simulation, 2 for 'Collision of two bodies', defaults to 2 " << std::endl;
     std::cout << "Only for Gravitation Simulation:" << std::endl;
     std::cout << "\t-input : path to input file, defaults to ../eingabe-sonne.txt" << std::endl;
     std::cout << "Only for Lennard Jones Simulation:" << std::endl;

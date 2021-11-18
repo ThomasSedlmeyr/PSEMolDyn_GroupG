@@ -38,16 +38,16 @@ bool ArgumentContainer::readParamsAndValues(const std::string &filename) {
             paramsAndValues.emplace_back(x, y);
         }
     } catch (std::bad_exception) {
-        // hier sollte eine Fehlerbehandlung erfolgen
+        // error handling, filename faulty
         printErrorMessage();
-        // programm beenden
+        // terminate program as further run not possible
         exit(EXIT_FAILURE);
     }
     return true;
 }
 
 void ArgumentContainer::printErrorMessage(){
-    std::cout << "File for reading parameters is faulty!" << std::endl;
+    std::cout << "File for reading parameters or file path is faulty!" << std::endl;
     std::cout << "Please try again with correctly formatted file with the required parameters." << std::endl;
     std::cout << "For help consult the readMe." << std::endl;
 }
