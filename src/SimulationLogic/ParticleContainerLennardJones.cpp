@@ -2,26 +2,32 @@
 // Created by thomas on 24.11.21.
 //
 
+#include <outputWriter/XYZWriter.h>
+#include <outputWriter/VTKWriter.h>
+#include <iostream>
 #include "ParticleContainerLennardJones.h"
 
 
 void ParticleContainerLennardJones::createCells() {
-    //Two is added because of the HaloCells
-    numberCellsX = int(domainSizeX / cutOffRadius) + 2;
-    numberCellsY = int(domainSizeY / cutOffRadius) + 2;
-    numberCellsZ = int(domainSizeZ / cutOffRadius) + 2;
-
-    cells.resize(numberCellsX * numberCellsY * numberCellsZ);
-
+    numberCellsX = int(domainSizeX / cutOffRadius);
+    numberCellsY = int(domainSizeY / cutOffRadius);
+    numberCellsZ = int(domainSizeZ / cutOffRadius);
 
     Cell::sizeX = double(domainSizeX) / numberCellsX;
     Cell::sizeY = double(domainSizeY) / numberCellsY;
     Cell::sizeZ = double(domainSizeZ) / numberCellsZ;
 
+    //Two is added because of the HaloCells
+    numberCellsX += 2;
+    numberCellsY += 2;
+    numberCellsZ += 2;
+
+    cells.resize(numberCellsX * numberCellsY * numberCellsZ);
+
     //The currentPosition has to be adapted according to the cell dimensions
-    currentPosition = {domainStartPosition[0] - numberCellsX,
-                       domainStartPosition[1] - numberCellsY,
-                       domainStartPosition[2] + numberCellsZ};
+    currentPosition = {domainStartPosition[0] - Cell::sizeX,
+                       domainStartPosition[1] - Cell::sizeY,
+                       domainStartPosition[2] + Cell::sizeZ};
 
     setDimensionsOfCellPointerVectors();
 
@@ -73,8 +79,8 @@ void ParticleContainerLennardJones::addSingleHaloCell() {
 }
 
 void ParticleContainerLennardJones::addSingleBoundaryCell() {
-    cells[currentIndexInCells] = Cell(currentPosition, Cell::HALO_CELL);
-    haloCells[currentIndexBoundaryCells] = &cells[currentIndexInCells];
+    cells[currentIndexInCells] = Cell(currentPosition, Cell::BOUNDARY_CELL);
+    boundaryCells[currentIndexBoundaryCells] = &cells[currentIndexInCells];
     currentIndexInCells++;
     currentIndexBoundaryCells++;
     currentPosition[0] += Cell::sizeX;
@@ -93,12 +99,12 @@ void ParticleContainerLennardJones::buildOneRowInXdirection(int numberStonesInXd
                 currentIndexInnerCells++;
                 break;
             case Cell::HALO_CELL:
-                boundaryCells[currentIndexHaloCells] = &cells[currentIndexInCells];
+                haloCells[currentIndexHaloCells] = &cells[currentIndexInCells];
                 currentIndexHaloCells++;
                 break;
             case Cell::BOUNDARY_CELL:
-                innerCells[currentIndexHaloCells] = &cells[currentIndexInCells];
-                currentIndexHaloCells++;
+                boundaryCells[currentIndexBoundaryCells] = &cells[currentIndexInCells];
+                currentIndexBoundaryCells++;
                 break;
         }
         currentIndexInCells++;
@@ -175,4 +181,42 @@ int ParticleContainerLennardJones::movePositionsInY(int index, int numberPositio
 
 int ParticleContainerLennardJones::movePositionsInZ(int index, int numberPositionsInZ) {
     return index + numberCellsX * numberCellsY * numberPositionsInZ;
+}
+
+void ParticleContainerLennardJones::cellsToXYZ() {
+    std::vector<Particle> linkedCellParticles;
+    //std::vector<Particle> linkedCellParticles = std::vector<Particle>(cells.size());
+    createCells();
+    for (int i = 0; i < cells.size(); ++i) {
+        linkedCellParticles.emplace_back(cells[i].getPosition(), std::array<double, 3>{1,1,1}, 100, cells[i].getCellType(),i);
+    }
+    //At this index we get an error in the VTKWriter
+    std::cout << linkedCellParticles[21].getX()[1] << std::endl;
+    VTKWriter writer = VTKWriter();
+    writer.writeParticlesToFile("LinkedCells", 1, linkedCellParticles);
+    std::cout << "Fertig" << std::endl;
+}
+
+ParticleContainerLennardJones::ParticleContainerLennardJones(double domainSizeX, double domainSizeY, double domainSizeZ,
+                                                             double cutOffRadius,
+                                                             const std::array<double, 3> &domainStartPosition)
+        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius),
+          domainStartPosition(domainStartPosition) {}
+
+ParticleContainerLennardJones::ParticleContainerLennardJones() {}
+
+const std::vector<Cell *> &ParticleContainerLennardJones::getBoundaryCells() const {
+    return boundaryCells;
+}
+
+const std::vector<Cell *> &ParticleContainerLennardJones::getHaloCells() const {
+    return haloCells;
+}
+
+const std::vector<Cell *> &ParticleContainerLennardJones::getInnerCells() const {
+    return innerCells;
+}
+
+const std::vector<Cell>& ParticleContainerLennardJones::getCells() const {
+    return cells;
 }

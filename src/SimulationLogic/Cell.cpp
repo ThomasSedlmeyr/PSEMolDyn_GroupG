@@ -21,3 +21,23 @@ Cell::Cell(const std::array<double, 3> &position, int cellType) :
 Cell::Cell() {
 
 }
+
+int Cell::getCellType() const {
+    return cellType;
+}
+
+const std::array<double, 3> &Cell::getPosition() const {
+    return position;
+}
+
+const int Cell::getInnerCellValue() {
+    return INNER_CELL;
+}
+
+const int Cell::getBoundaryCellValue() {
+    return BOUNDARY_CELL;
+}
+
+const int Cell::getHaloCellValue() {
+    return HALO_CELL;
+}

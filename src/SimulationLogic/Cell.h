@@ -40,7 +40,17 @@ private:
      * @brief position of left front side corner
      */
     std::array<double, 3> position;
+public:
+    const std::array<double, 3> &getPosition() const;
+
+    static const int getInnerCellValue();
+    static const int getBoundaryCellValue();
+    static const int getHaloCellValue();
+
+private:
     int cellType = INNER_CELL;
+public:
+    int getCellType() const;
 
 };
 

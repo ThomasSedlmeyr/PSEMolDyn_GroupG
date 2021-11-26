@@ -19,12 +19,11 @@ private:
     //std::vector<std::unique_ptr<Cell>> boundaryCells;
     //std::vector<std::unique_ptr<Cell>> haloCells;
     //std::vector<std::unique_ptr<Cell>> innerCells;
-    std::vector<Cell *> boundaryCells;
-    std::vector<Cell *> haloCells;
-    std::vector<Cell *> innerCells;
+    std::vector<Cell*> boundaryCells;
+    std::vector<Cell*> haloCells;
+    std::vector<Cell*> innerCells;
 
     int currentIndexInCells = 0;
-
     int currentIndexHaloCells = 0;
     int currentIndexBoundaryCells = 0;
     int currentIndexInnerCells = 0;
@@ -36,6 +35,16 @@ private:
     int numberCellsX;
     int numberCellsY;
     int numberCellsZ;
+public:
+    const std::vector<Cell> &getCells() const;
+
+    const std::vector<Cell *> &getBoundaryCells() const;
+
+    const std::vector<Cell *> &getHaloCells() const;
+
+    const std::vector<Cell *> &getInnerCells() const;
+
+private:
 
     double cutOffRadius;
 
@@ -48,10 +57,6 @@ private:
     std::array<double, 3> domainStartPosition;
 
 private:
-    void createCells();
-
-    void cellsToXYZ();
-
     void buildOneRowInXdirection(int numberStonesInXdirection, int cellType);
 
     void setDimensionsOfCellPointerVectors();
@@ -81,6 +86,15 @@ private:
     int movePositionsInY(int index, int numberPositionsInY);
 
     int movePositionsInZ(int index, int numberPositionsInZ);
+
+public:
+    ParticleContainerLennardJones();
+
+    ParticleContainerLennardJones(double domainSizeX, double domainSizeY, double domainSizeZ, double cutOffRadius,
+                                  const std::array<double, 3> &domainStartPosition = std::array<double, 3>{0.0, 0.0, 0.0});
+
+    void createCells();
+    void cellsToXYZ();
 };
 
 

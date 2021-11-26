@@ -10,6 +10,8 @@
 #include <random>
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include <chrono>
+#include <SimulationLogic/ParticleContainerLennardJones.h>
+#include "SimulationLogic/Cell.h"
 
 /**
  * @brief Starts a GravitationSimulation and compares the result of two time steps with two files
@@ -152,4 +154,24 @@ TEST(Tests, readParamsTest) {
     EXPECT_DOUBLE_EQ(container.getValueToParam("mass"), 1.0);
     EXPECT_DOUBLE_EQ(container.getValueToParam("rho"), 1.0);
     EXPECT_DOUBLE_EQ(container.getValueToParam("h"), 1.125);
+}
+
+TEST(Test, checkLinkedCellStucture){
+    //ParticleContainerLennardJones particleContainer = ParticleContainerLennardJones(10, 10, 10, 3.0);
+    //particleContainer.cellsToXYZ();
+}
+
+TEST(Test, checkHaloBoundaryAndInnerCells){
+    ParticleContainerLennardJones particleContainer = ParticleContainerLennardJones(10, 10, 10, 3.0);
+    particleContainer.createCells();
+
+    for (int i = 0; i < particleContainer.getHaloCells().size(); ++i) {
+        EXPECT_EQ(particleContainer.getHaloCells()[i]->getCellType(),Cell::getHaloCellValue());
+    }
+    for (int i = 0; i < particleContainer.getBoundaryCells().size(); ++i) {
+        EXPECT_EQ(particleContainer.getBoundaryCells()[i]->getCellType(),Cell::getBoundaryCellValue());
+    }
+    for (int i = 0; i < particleContainer.getInnerCells().size(); ++i) {
+        EXPECT_EQ(particleContainer.getInnerCells()[i]->getCellType(),Cell::getInnerCellValue());
+    }
 }
