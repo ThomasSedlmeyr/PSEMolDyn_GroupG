@@ -86,7 +86,7 @@ std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1
     }
 
     double term1 = -24.0*epsilon/squaredNorm;
-    double term2 =  pow(rho/sqrt(squaredNorm), 6);
+    double term2 =  (rho*rho*rho*rho*rho*rho) / (squaredNorm * squaredNorm * squaredNorm);
     double term3 =  term2 - 2 * term2 * term2;
     double scalar = term1 * term3;
 

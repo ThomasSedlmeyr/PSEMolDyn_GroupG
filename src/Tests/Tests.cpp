@@ -60,12 +60,12 @@ TEST(Tests, LennardJonesSimulationTest) {
         FAIL();
     }
     for (std::size_t i = 0; i < particles_2_Expected.size(); ++i) {
-        EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.0000001);
-        EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.0000001);
-        EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.0000001);
-        EXPECT_NEAR(particles_2_Expected[i][0], particles_2_test[i][0], 0.0000001);
-        EXPECT_NEAR(particles_2_Expected[i][1], particles_2_test[i][1], 0.0000001);
-        EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.0000001);
+        EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.00001);
+        EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.00001);
+        EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.00001);
+        EXPECT_NEAR(particles_2_Expected[i][0], particles_2_test[i][0], 0.00001);
+        EXPECT_NEAR(particles_2_Expected[i][1], particles_2_test[i][1], 0.00001);
+        EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.00001);
     }
 }
 
