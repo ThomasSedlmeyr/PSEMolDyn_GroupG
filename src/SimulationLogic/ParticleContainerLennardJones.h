@@ -77,9 +77,8 @@ private:
 
     void buildLineOneHaloMultipleBoundariesOneHalo();
 
-    std::array<int, 26> getNeighbourIndexes();
 
-    std::array<int, 26> getNeighbourIndexes(int index);
+    std::array<int, 26> getNeighbourIndices(int index);
 
     int movePositionsInX(int index, int numberOfPositions);
 

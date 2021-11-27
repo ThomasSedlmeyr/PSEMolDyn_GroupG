@@ -162,14 +162,35 @@ void ParticleContainerLennardJones::buildLineOneHaloMultipleBoundariesOneHalo() 
     currentPosition[1] += Cell::sizeY;
 }
 
-std::array<int, 26> ParticleContainerLennardJones::getNeighbourIndexes(int index) {
+std::array<int, 26> ParticleContainerLennardJones::getNeighbourIndices(int index) {
     std::array<int, 26> resultArray{};
-    int numbersCellsPerSlice = numberCellsX * numberCellsY;
-    //z-1
-    resultArray[0] = index - numbersCellsPerSlice;
-
-    resultArray;
+    int currentXIndex;
+    int currentYIndex;
+    int currentNeighbourIndex;
+    int counter = 0;
+    for (int i = -1; i < 2; ++i) {
+        //move by i in x direction
+        currentXIndex = movePositionsInX(index, i);
+        for (int j = -1; j < 2; ++j) {
+            //move by j in y direction
+            currentYIndex = movePositionsInY(currentXIndex, j);
+            for (int k = -1; k < 2; ++k) {
+                if (i == 0 && j == 0 && k == 0){
+                    continue;
+                }
+                //move by k in z direction
+                currentNeighbourIndex = movePositionsInZ(currentYIndex, k);
+                if (currentNeighbourIndex < 0 || currentNeighbourIndex > cells.size()){
+                    currentNeighbourIndex = -1;
+                }
+                resultArray[counter] = currentNeighbourIndex;
+                counter++;
+            }
+        }
+    }
+    return resultArray;
 }
+
 
 int ParticleContainerLennardJones::movePositionsInX(int index, int numberPositionsInX) {
     return index + numberPositionsInX;
