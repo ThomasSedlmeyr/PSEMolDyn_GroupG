@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<input>
+
+    <t_end>5</t_end>
+    <delta_t>0.0002</delta_t>
+    <calcType>lennardJones</calcType>
+    <baseNameOutputFiles>Lennard</baseNameOutputFiles>
+    <writeFrequency>10</writeFrequency>
+    <gravInput>../eingabe-sonne.txt</gravInput>
+
+    <paramsLJ>
+        <epsilon>5.0</epsilon>
+        <mass>1.0</mass>
+        <rho>1.0</rho>
+        <h>1.125</h>
+    </paramsLJ>
+
+    <boundaryConditions>
+        <top>0</top>
+        <right>0</right>
+        <bottom>0</bottom>
+        <left>0</left>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>0,0,0</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>40,8,1</objectSpecificFormat>
+        </body>
+
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>15,15,0</position>
+            <velocity>0,-10,0</velocity>
+            <objectSpecificFormat>8,8,1</objectSpecificFormat>
+        </body>
+    </particlesLJ>
+
+</input>

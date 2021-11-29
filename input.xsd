@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:simpleType name="calcType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="lennardJones"/>
+            <xsd:enumeration value="gravitation"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="paramsLJ">
+    <xsd:sequence>
+        <xsd:element name="epsilon" type="xsd:double"/>
+        <xsd:element name="mass" type="xsd:double"/>
+        <xsd:element name="rho" type="xsd:double"/>
+        <xsd:element name="h" type="xsd:double"/>
+    </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="boundaryConditions">
+    <xsd:sequence>
+        <xsd:element name="top" type="xsd:int"/>
+        <xsd:element name="right" type="xsd:int"/>
+        <xsd:element name="bottom" type="xsd:int"/>
+        <xsd:element name="left" type="xsd:int"/>
+    </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="particlesLJ">
+    <xsd:sequence>
+        <xsd:element name="body" minOccurs="0" maxOccurs="unbounded">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="bodyType" type="xsd:string"/>
+                    <xsd:element name="position" type="xsd:string"/>
+                    <xsd:element name="velocity" type="xsd:string"/>
+                    <xsd:element name="objectSpecificFormat" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="input">
+        <xsd:sequence>
+            <xsd:element name="t_end" type="xsd:double"/>
+            <xsd:element name="delta_t" type="xsd:double"/>
+            <xsd:element name="calcType" type="calcType"/>
+            <xsd:element name="baseNameOutputFiles" type="xsd:string"/>
+            <xsd:element name="writeFrequency" type="xsd:int"/>
+            <xsd:element name="gravInput" type="xsd:string"/>
+            <xsd:element name="paramsLJ" type="paramsLJ"/>
+            <xsd:element name="boundaryConditions" type="boundaryConditions"/>
+            <xsd:element name="particlesLJ" type="particlesLJ"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="input" type="input"/>
+
+</xsd:schema>
