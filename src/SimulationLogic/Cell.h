@@ -33,24 +33,39 @@ public:
     Cell();
 
 private:
-    std::vector<std::unique_ptr<Particle>> neighbours;
+    /**
+     * contains a pointer to every neighbour cell
+     */
+    std::vector<Cell *> neighbourCells;
 
+    /**
+     * particles contained in the cell
+     */
     std::vector<Particle> particles;
+
     /**
      * @brief position of left front side corner
      */
     std::array<double, 3> position;
+
+    int cellType = INNER_CELL;
+
 public:
     const std::array<double, 3> &getPosition() const;
-
+    std::vector<Cell *> &getNeighbourCells();
     static const int getInnerCellValue();
     static const int getBoundaryCellValue();
     static const int getHaloCellValue();
-
-private:
-    int cellType = INNER_CELL;
-public:
     int getCellType() const;
+    std::vector<Particle> &getParticles();
+    void addCellToNeighbours(Cell *pCell);
+
+    /**
+     * Tests if cell is equal to another, based on position
+     * @param other
+     * @return whether cells are equal
+     */
+    bool operator==(Cell &other);
 
 };
 

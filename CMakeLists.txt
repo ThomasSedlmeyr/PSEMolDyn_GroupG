@@ -56,6 +56,7 @@ file(GLOB_RECURSE TEST_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
         )
 
 add_executable(Tests ${TEST_SRC})

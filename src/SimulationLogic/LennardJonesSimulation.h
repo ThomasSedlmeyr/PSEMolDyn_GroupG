@@ -9,6 +9,8 @@
 #include "Body.h"
 #include <vector>
 #include <gtest/gtest.h>
+#include "Visitors/LJForceVisitor.h"
+
 class LennardJonesSimulation: public Simulation{
 
 private:
@@ -16,6 +18,11 @@ private:
     double mass;
     double rho;
     double meshWidth;
+    /**
+     * Implementation of the force calculation
+     */
+    LJForceVisitor forceCalcVisitor;
+
     /**
      * @brief list of bodies relevant for the simulation
      */
@@ -29,8 +36,7 @@ private:
     void uniteParticlesFromBodies();
     //Allows test to access private method
     FRIEND_TEST(Tests, LennardJonesOptimization);
-    std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
-    void calculateFFast() override;
+    void calculateF() override;
 
 public:
     void setEpsilon(double epsilon);

@@ -7,20 +7,24 @@
 
 
 #include "Simulation.h"
+#include "Visitors/GravForceVisitor.h"
 
 class GravitationSimulation : public Simulation {
 
 private:
+    /**
+     * Implementation of the force calculation
+     */
+    GravForceVisitor forceCalcVisitor;
     void initializeParamNames() override;
     void setParamsWithValues() override;
-    bool readFile(std::vector<Particle> &particles, const std::string &fileName);
+    bool readFile(const std::string &fileName);
     bool readParticles(const std::string &filename) override;
-    std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) override;
-    void calculateFFast() override;
+    void calculateF() override;
 
 public:
     GravitationSimulation();
-    virtual ~GravitationSimulation();
+    ~GravitationSimulation() override;
 };
 
 

@@ -6,11 +6,14 @@
 #define PSEMOLDYN_GROUPG_SIMULATION_H
 
 #include <outputWriter/Writer.h>
-#include "ParticleContainer.h"
+#include "ParticleContainerDirectSum.h"
 #include "Particle.h"
+#include "ParticleContainerLinkedCells.h"
 #include <vector>
 #include <string>
 #include <InputReader/ArgumentContainer.h>
+#include <Visitors/PosCalculationVisitor.h>
+#include <Visitors/VelCalculationVisitor.h>
 
 class Simulation {
 
@@ -20,27 +23,15 @@ private:
      * @param filename
      */
     bool readParamsAndValues(const std::string &filename);
-
     /**
-    * @brief update the position of all particles
-    * @param delta_t timestep to use for calculation
-    */
-    void calculateX(const double &delta_t);
-
-    /**
-    * @brief update the velocity for all particles
-    * @param delta_t timestep to use for calculation
-    */
-    void calculateV(const double &delta_t);
-
-    /**
-     * @brief a function to pass to applyFToParticlePairs in calculateF() and call the actual force calculation implementation
-     * @param p1, p2 particle pair for force calculation
+     * @brief Calculates the new position, the new force and the new velocity for one time step
      */
-    std::function<std::array<double, 3> (Particle&,Particle&)> callForceCalculation = [=](Particle &p1, Particle &p2) {
-        return this->calculateFBetweenPair(p1, p2);
-    };
+    void calculateOneTimeStep();
 
+    /**
+     * calculates the force depending on the type of simulation
+     */
+    virtual void calculateF() = 0;
 
 protected:
     /**
@@ -51,7 +42,16 @@ protected:
     /**
      * the particleContainer containing all particles used for the simulation process
      */
-    ParticleContainer particleContainer;
+    ParticleContainer *particleContainer;
+    /**
+     * @brief Implementation of the position calculation
+     */
+    PosCalculationVisitor posCalcVisitor;
+
+    /**
+     * @brief Implementation of the velocity calculation
+     */
+    VelCalculationVisitor velCalcVisitor;
 
     /**
      *@brief The argumentContainer used to parse the arguments
@@ -80,30 +80,11 @@ protected:
      */
     virtual void setParamsWithValues() = 0;
 
-    /**
-     * @brief calculates the force between the two given particles
-     * @param p1 particle 1
-     * @param p2 particle 2
-     * @return force between p1 and p2
-     */
-    virtual std::array<double, 3> calculateFBetweenPair(Particle &p1, Particle &p2) = 0;
-
-    /**
-     * @brief faster but not so nice implementation of force calculation
-     */
-    virtual void calculateFFast() = 0;
-
 public:
     static const int GRAVITATION = 1;
     static const int LENNARDJONES = 2;
-    Simulation();
-    virtual~Simulation();
 
-    /**
-     * @brief Calculates the new position, the new force and the new velocity for one time step
-     * @param delta_t the difference between two time steps
-     */
-    void calculateOneTimeStep(const double &delta_t);
+    virtual~Simulation();
 
     /**
      * @brief Performs the whole simulation process

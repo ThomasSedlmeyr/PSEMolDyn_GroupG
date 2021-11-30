@@ -7,6 +7,7 @@
 
 #include "Particle.h"
 #include "utils/ArrayUtils.h"
+#include <iostream>
 
 Particle::Particle(int type_arg) {
   type = type_arg;
@@ -86,8 +87,17 @@ bool Particle::operator==(Particle &other) {
          (type == other.type) and (m == other.m) and (old_f == other.old_f);
 }
 
+bool Particle::operator==(const Particle& other) {
+    return (x == other.x) and (v == other.v) and (f == other.f) and
+           (type == other.type) and (m == other.m) and (old_f == other.old_f);
+}
+
 std::array<double, 3> &Particle::getFRef() {
     return f;
+}
+
+int Particle::getId() const {
+    return ID;
 }
 
 std::ostream &operator<<(std::ostream &stream, Particle &p) {

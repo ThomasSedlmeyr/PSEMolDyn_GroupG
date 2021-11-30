@@ -41,3 +41,19 @@ const int Cell::getBoundaryCellValue() {
 const int Cell::getHaloCellValue() {
     return HALO_CELL;
 }
+
+std::vector<Particle> &Cell::getParticles() {
+    return particles;
+}
+
+std::vector<Cell *> &Cell::getNeighbourCells() {
+    return neighbourCells;
+}
+
+void Cell::addCellToNeighbours(Cell *pCell) {
+    neighbourCells.push_back(pCell);
+}
+
+bool Cell::operator==(Cell &other) {
+    return position == other.getPosition();
+}

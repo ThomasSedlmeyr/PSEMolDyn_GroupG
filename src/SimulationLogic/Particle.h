@@ -61,9 +61,11 @@ public:
 
   virtual ~Particle();
 
-  /**
-   * @return reference of f
-   */
+    int getId() const;
+
+    /**
+     * @return reference of f
+     */
   std::array<double, 3> &getFRef();
 
   const std::array<double, 3> &getX() const;
@@ -79,6 +81,7 @@ public:
   int getType() const;
 
   bool operator==(Particle &other);
+  bool operator==(const Particle &other);
 
   std::string toString() const;
 

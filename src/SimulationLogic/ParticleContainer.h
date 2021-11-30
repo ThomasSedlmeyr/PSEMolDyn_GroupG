@@ -1,39 +1,38 @@
-/**
- * @brief Class that manages all Particles
- */
-#pragma once
-#include <vector>
-#include <list>
-#include "Particle.h"
-#include <iterator>
-#include <cstddef>
+//
+// Created by philip on 27.11.21.
+//
 #include <functional>
+#include <Visitors/ParticleVisitor.h>
+#include <Visitors/ParticlePairVisitor.h>
+
+#ifndef PSEMOLDYN_GROUPG_PARTICLECONTAINER_H
+#define PSEMOLDYN_GROUPG_PARTICLECONTAINER_H
+
 
 class ParticleContainer {
-
-private:
-    /**
-     * @brief vector containing all particles
-     */
-    std::vector<Particle> particles;
-
 public:
-
     /**
-     * @brief applies f to all distinct pairs of particles to calculate new force
-     * @param f function to apply to the pairs
+     * @brief Updates the position for every particle using visitor
+     * @param visitor Implementation of the position calculation
      */
-    void applyFToParticlePairs(const std::function<std::array<double, 3>(Particle&, Particle&)>& f);
-
+    virtual void updateParticlePositions(ParticleVisitor &visitor) = 0;
     /**
-     * @return vector of particles
+     * @brief Iterates over all particles and applies the visitor to them
+     * @param visitor
      */
-    std::vector<Particle> &getParticles();
-
+    virtual void walkOverParticles(ParticleVisitor &visitor) = 0;
     /**
-     * @brief set particles to new vector
-     * @param particles new particle vector
+     * Iterates over all distinct particle pairs and applies the visitor to them
+     * @param visitor
      */
-    void setParticles(const std::vector<Particle> &particles);
+    virtual void walkOverParticlePairs(ParticlePairVisitor &visitor) = 0;
+    virtual std::vector<Particle> & getParticles() = 0;
+    /**
+     * @brief Adds the given particle to the internal representation of the particles
+     * @param p Particle to be added
+     */
+    virtual void addParticleToContainer(Particle &p) = 0;
 
 };
+
+#endif //PSEMOLDYN_GROUPG_PARTICLECONTAINER_H

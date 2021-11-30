@@ -10,9 +10,11 @@
 #include <iostream>
 #include <sstream>
 #include <spdlog/spdlog.h>
+#include <Visitors/GravForceVisitor.h>
 
 
 GravitationSimulation::GravitationSimulation() = default;
+
 GravitationSimulation::~GravitationSimulation() = default;
 
 void GravitationSimulation::initializeParamNames() {
@@ -24,10 +26,10 @@ void GravitationSimulation::setParamsWithValues() {
 }
 
 bool GravitationSimulation::readParticles(const std::string &filename) {
-    return readFile(particleContainer.getParticles(), filename);
+    return readFile(filename);
 }
 
-bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std::string &fileName) {
+bool GravitationSimulation::readFile(const std::string &fileName) {
     std::array<double, 3> x;
     std::array<double, 3> v;
     double m;
@@ -66,7 +68,8 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
                 return false;
             }
             datastream >> m;
-            particles.emplace_back(x, v, m);
+            Particle p = Particle(x, v, m);
+            particleContainer->addParticleToContainer(p);
 
             getline(input_file, tmp_string);
             spdlog::info("Read line: " + tmp_string);
@@ -78,13 +81,7 @@ bool GravitationSimulation::readFile(std::vector<Particle> &particles, const std
     }
 }
 
-std::array<double, 3> GravitationSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    double normalizedDistance{ArrayUtils::L2Norm(p1.getX() - p2.getX())};
-    double scalar{p1.getM() * p2.getM() / pow(normalizedDistance, 3)};
-    std::array<double, 3> result {scalar * (p2.getX() - p1.getX())};
-    return result;
-}
+void GravitationSimulation::calculateF() {
+    particleContainer->walkOverParticlePairs(forceCalcVisitor);
 
-void GravitationSimulation::calculateFFast() {
-    //only implemented for LennardJonesSimulation
 }

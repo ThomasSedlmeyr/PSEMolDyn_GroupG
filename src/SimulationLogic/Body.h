@@ -42,7 +42,7 @@ public:
      * @brief returns the particles of the body
      * @return vector of particles of body
      */
-    const std::vector<Particle> &getParticles() const;
+    std::vector<Particle> & getParticles();
 
 protected:
     int numberParticles;

@@ -20,7 +20,8 @@ void LennardJonesSimulation::setParamsWithValues() {
     mass = argumentContainer.getValueToParam("mass");
     rho = argumentContainer.getValueToParam("rho");
     meshWidth = argumentContainer.getValueToParam("h");
-
+    forceCalcVisitor.setEpsilon(epsilon);
+    forceCalcVisitor.setRho(rho);
 }
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
@@ -58,68 +59,14 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
 }
 
 void LennardJonesSimulation::uniteParticlesFromBodies() {
-    std::vector<Particle> particles(numberParticles);
-    int pos = 0;
     for (Body* body : bodies) {
-        for(Particle particle : body->getParticles()){
-            //Here we create copies for every particle, because we want all particles to be
-            // behind each other in the memory
+        for(Particle &particle : body->getParticles()){
             particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 3));
-            particles[pos] = particle;
-            pos++;
-        }
-    }
-    particleContainer.setParticles(particles);
-}
-
-std::array<double, 3> LennardJonesSimulation::calculateFBetweenPair(Particle &p1, Particle &p2) {
-    auto x1 = p1.getX();
-    auto x2 = p2.getX();
-    std::array<double, 3> diff{};
-    double squaredNorm = 0;
-
-    double singleDiff;
-    for (int i = 0; i < 3; ++i) {
-        singleDiff = x1[i] - x2[i];
-        diff[i] = singleDiff;
-        squaredNorm += singleDiff*singleDiff;
-    }
-
-    double term1 = -24.0*epsilon/squaredNorm;
-    double term2 =  (rho*rho*rho*rho*rho*rho) / (squaredNorm * squaredNorm * squaredNorm);
-    double term3 =  term2 - 2 * term2 * term2;
-    double scalar = term1 * term3;
-
-    for (double &d:diff) {
-        d *= scalar;
-    }
-    return diff;
-}
-
-void LennardJonesSimulation::calculateFFast(){
-    std::vector<Particle> &particles = particleContainer.getParticles();
-    particles[0].prepareForNewForce();
-    auto firstParticle = particles.begin();
-    for (auto p1 = firstParticle; p1 != particles.end(); ++p1){
-        for (auto p2 = p1 + 1; p2 != particles.end(); ++p2){
-            if (p1==firstParticle){
-                //this is only reached the first time the Particle p2 is used, so it has to be prepared here
-                p2->prepareForNewForce();
-            }
-            //fij is force between the particles p1 and p2
-            auto fij = calculateFBetweenPair(*p1, *p2);
-            auto &f1 = p1->getFRef();
-            auto &f2 = p2->getFRef();
-            //faster than using ArrayUtils
-            double temp;
-            for (int i = 0; i < 3; ++i) {
-                temp = fij[i];
-                f1[i] += temp;
-                f2[i] -= temp;
-            }
+            particleContainer->addParticleToContainer(particle);
         }
     }
 }
+
 
 void LennardJonesSimulation::setEpsilon(double epsilon) {
     LennardJonesSimulation::epsilon = epsilon;
@@ -127,4 +74,8 @@ void LennardJonesSimulation::setEpsilon(double epsilon) {
 
 void LennardJonesSimulation::setRho(double rho) {
     LennardJonesSimulation::rho = rho;
+}
+
+void LennardJonesSimulation::calculateF() {
+    particleContainer->walkOverParticlePairs(forceCalcVisitor);
 }

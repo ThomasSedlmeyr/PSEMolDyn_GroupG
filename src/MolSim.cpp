@@ -3,7 +3,6 @@
  * @brief Main class for Simulation
  */
 
-#include "SimulationLogic/ParticleContainer.h"
 #include "SimulationLogic/GravitationSimulation.h"
 #include "outputWriter/Writer.h"
 

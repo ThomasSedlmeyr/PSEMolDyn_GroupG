@@ -28,8 +28,6 @@ void Body::parsePosition(const std::string &line) {
     position = parseLineWithThreeValues(line);
 }
 
-const std::vector<Particle> &Body::getParticles() const {
+std::vector<Particle> & Body::getParticles() {
     return particles;
 }
-
-

@@ -10,7 +10,7 @@
 #include <random>
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include <chrono>
-#include <SimulationLogic/ParticleContainerLennardJones.h>
+#include <SimulationLogic/ParticleContainerLinkedCells.h>
 #include "SimulationLogic/Cell.h"
 
 /**
@@ -134,7 +134,7 @@ TEST(Tests, LennardJonesOptimization){
         p1 = Particle(randomPos1, randomVelocity1, positionDistribution(re), 0, 0);
         p2 = Particle(randomPos2, randomVelocity2, positionDistribution(re), 0, 0);
 
-        result1 = simulation.calculateFBetweenPair(p1, p2);
+        //result1 = simulation.calculateFBetweenPair(p1, p2);
         result2 = trivialLennardJonesCalculation(p1, p2, epsilon, rho);
 
         for (int j = 0; j < 3; ++j) {
@@ -157,12 +157,12 @@ TEST(Tests, readParamsTest) {
 }
 
 TEST(Test, checkLinkedCellStucture){
-    //ParticleContainerLennardJones particleContainer = ParticleContainerLennardJones(10, 10, 10, 3.0);
-    //particleContainer.cellsToXYZ();
+    ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 6, 3.0);
+    particleContainer.cellsToXYZ();
 }
 
 TEST(Test, checkHaloBoundaryAndInnerCells){
-    ParticleContainerLennardJones particleContainer = ParticleContainerLennardJones(10, 10, 10, 3.0);
+    ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(10, 10, 10, 3.0);
     particleContainer.createCells();
 
     for (int i = 0; i < particleContainer.getHaloCells().size(); ++i) {
@@ -173,5 +173,17 @@ TEST(Test, checkHaloBoundaryAndInnerCells){
     }
     for (int i = 0; i < particleContainer.getInnerCells().size(); ++i) {
         EXPECT_EQ(particleContainer.getInnerCells()[i]->getCellType(),Cell::getInnerCellValue());
+    }
+}
+
+TEST(Tests, addParticleToContainerTest){
+    ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(6, 6, 6, 2.0);
+    for (int i = 0; i < 7; ++i) {
+        for (int j = 0; j < 7; ++j) {
+            for (int k = 0; k < 7; ++k) {
+                Particle p = Particle({static_cast<double>(i), static_cast<double>(j), static_cast<double>(k)}, {0, 0, 0}, 1);
+                particleContainer.addParticleToContainer(p);
+            }
+        }
     }
 }
