@@ -30,7 +30,7 @@ public:
 
     //virtual void calculateBoundaryConditionForCell(Cell* cell) = 0;
 
-    virtual void calculateBoundaryCondition();
+    virtual void calculateBoundaryCondition() = 0;
 
 private:
     void setSpecificCells();
@@ -56,7 +56,6 @@ protected:
     void reflectPointAtX(std::array<double, 3>& point, double xPosition);
     void reflectPointAtY(std::array<double, 3>& point, double yPosition);
     void reflectPointAtZ(std::array<double, 3>& point, double zPosition);
-
 
 };
 

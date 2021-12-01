@@ -48,3 +48,11 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
         }
     }
 }
+
+/**
+ * @brief tests if for different ParticleContainers the simulation result after one
+ * time steps is the same
+ */
+TEST(ParticleContainerTests, compareContainers) {
+
+}
