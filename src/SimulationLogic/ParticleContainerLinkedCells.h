@@ -133,7 +133,7 @@ public:
      * @param p Particle
      * @return Cell the particle belongs to
      */
-    Cell &getCellOfParticle(const Particle &p);
+    int getCellIndexForParticle(const Particle &p);
 };
 
 

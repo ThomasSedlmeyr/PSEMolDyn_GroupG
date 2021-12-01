@@ -33,10 +33,10 @@ void ParticleContainerLinkedCells::createCells() {
 
     cells.resize(numberCellsX * numberCellsY * numberCellsZ);
 
-    //The currentPosition has to be adapted according to the cell dimensions
+    //The curreontPosition has to be adapted according to the cell dimensions
     currentPosition = {domainStartPosition[0] - Cell::sizeX,
                        domainStartPosition[1] - Cell::sizeY,
-                       domainStartPosition[2] + Cell::sizeZ};
+                       domainStartPosition[2] - Cell::sizeZ};
 
     setDimensionsOfCellPointerVectors();
 
@@ -65,7 +65,7 @@ void ParticleContainerLinkedCells::buildStandardSlice() {
     buildFullLineHaloCells();
     //building the second line containing halo and boundary cells
     currentPosition[1] = oldPositionY;
-    currentPosition[2] -= Cell::sizeZ;
+    currentPosition[2] += Cell::sizeZ;
 }
 
 void ParticleContainerLinkedCells::buildStandardLine() {
@@ -138,7 +138,7 @@ void ParticleContainerLinkedCells::buildHaloSlice() {
     }
     currentPosition[0] = oldPositionX;
     currentPosition[1] = oldPositionY;
-    currentPosition[2] -= Cell::sizeZ;
+    currentPosition[2] += Cell::sizeZ;
 
 }
 
@@ -152,7 +152,7 @@ void ParticleContainerLinkedCells::buildHaloAndBoundarySlice() {
     buildFullLineHaloCells();
     //building the second line containing halo and boundary cells
     currentPosition[1] = oldPositionY;
-    currentPosition[2] -= Cell::sizeZ;
+    currentPosition[2] += Cell::sizeZ;
 }
 
 void ParticleContainerLinkedCells::buildFullLineHaloCells() {
@@ -256,19 +256,18 @@ int ParticleContainerLinkedCells::movePositionsInZ(int index, int numberPosition
     return index + numberCellsX * numberCellsY * numberPositionsInZ;
 }
 
-//TODO Könnte falsch sein, aber ich bin mir nicht sicher
-Cell& ParticleContainerLinkedCells::getCellOfParticle(const Particle &p){
-    int indexX = int(p.getX()[0] / Cell::sizeX);
-    int indexY = int(p.getX()[1] / Cell::sizeY);
-    int indexZ = int(p.getX()[2] / Cell::sizeZ);
+int ParticleContainerLinkedCells::getCellIndexForParticle(const Particle &p){
+    int indexX = int(p.getX()[0] / Cell::sizeX)+1;
+    int indexY = int(p.getX()[1] / Cell::sizeY)+1;
+    int indexZ = int(p.getX()[2] / Cell::sizeZ)+1;
     int indexCombined = indexX + indexY * numberCellsX + indexZ * numberCellsX * numberCellsY;
-    return cells[indexCombined];
+    return indexCombined;
 }
 
 void ParticleContainerLinkedCells::addParticleToContainer(Particle &p) {
     //calculate index of cell this particle belongs to
-    Cell &c = getCellOfParticle(p);
-    c.getParticles().push_back(p);
+    int index = getCellIndexForParticle(p);
+    cells[index].getParticles().push_back(p);
 }
 
 void ParticleContainerLinkedCells::cellsToXYZ() {
@@ -311,13 +310,23 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells() {}
 void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visitor) {
     for (Cell &c : cells) {
         std::vector<Particle>& particlesInCell = c.getParticles();
-        for (Particle &p : particlesInCell) {
-            visitor.visitParticle(p);
-            Cell &newCell = getCellOfParticle(p);
-            if (!(newCell == c)){
+        for (int i = 0; i < particlesInCell.size(); ++i) {
+            //apply actual implementation of position calculation
+            visitor.visitParticle(particlesInCell[i]);
+            //calculate new cell the particle belongs to
+            int indexNewCell = getCellIndexForParticle(particlesInCell[i]);
+            if (indexNewCell >= cells.size() || indexNewCell < 0){
+                //TODO das sollte die boundary condition verhindern, hier wird jetzt einfach gelöscht
+                particlesInCell.erase(particlesInCell.begin()+i);
+                i--;
+                continue;
+            }
+            if (!(cells[indexNewCell] == c)){
                 //Particle p has to be moved from c to newCell
-                particlesInCell.erase(std::remove(particlesInCell.begin(), particlesInCell.end(), p), particlesInCell.end());
-                newCell.getParticles().push_back(p);
+                //TODO hier wird kopiert
+                cells[indexNewCell].getParticles().push_back(particlesInCell[i]);
+                particlesInCell.erase(particlesInCell.begin()+i);
+                i--;
             }
         }
     }

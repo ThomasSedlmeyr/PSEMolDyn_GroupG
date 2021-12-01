@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Simulation.h"
 #include <spdlog/spdlog.h>
+#include <Visitors/ParticleCollector.h>
 
 
 bool Simulation::readParamsAndValues(const std::string &fileName) {
@@ -27,7 +28,7 @@ void Simulation::calculateOneTimeStep() {
 void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations, const std::string &parametersFileName,
                           const std::string &particlesFileName, const std::string &outputFileName){
     int iteration = 0;
-    particleContainer = new ParticleContainerLinkedCells(100, 100, 6, 3);
+    particleContainer = new ParticleContainerLinkedCells(100, 100, 10, 3);
     //particleContainer = new ParticleContainerDirectSum();
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);

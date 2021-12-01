@@ -7,7 +7,8 @@
 PosCalculationVisitor::PosCalculationVisitor(double deltaT) : delta_t(deltaT) {}
 
 void PosCalculationVisitor::visitParticle(Particle &p) {
-    p.setX(p.getX() + delta_t * p.getV() + pow(delta_t, 2) / (2 * p.getM()) * p.getF());
+    auto newPos = p.getX() + delta_t * p.getV() + pow(delta_t, 2) / (2 * p.getM()) * p.getF();
+    p.setX(newPos);
     p.prepareForNewForce();
 }
 

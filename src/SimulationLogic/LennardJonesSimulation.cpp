@@ -61,7 +61,7 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
 void LennardJonesSimulation::uniteParticlesFromBodies() {
     for (Body* body : bodies) {
         for(Particle &particle : body->getParticles()){
-            particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 3));
+            particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 2));
             particleContainer->addParticleToContainer(particle);
         }
     }
