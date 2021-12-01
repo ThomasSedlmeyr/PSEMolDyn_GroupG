@@ -134,6 +134,8 @@ public:
      * @return Cell the particle belongs to
      */
     int getCellIndexForParticle(const Particle &p);
+
+    void setRelativeDomainPositionsInCells();
 };
 
 

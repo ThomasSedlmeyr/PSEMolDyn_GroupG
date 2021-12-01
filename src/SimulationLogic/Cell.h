@@ -26,22 +26,33 @@ public:
 
     void calculateDimensions(double cutOffRadius);
 
-    Cell(const std::vector<Particle> &particles, const std::array<double, 3> &position, int cellType);
+    Cell(std::vector<Particle> particles, const std::array<double, 3> &position, int cellType);
+
+    Cell(std::vector<Particle> particles, const std::array<double, 3> &position, std::array<int, 3> relativePositionInDomain, int cellType);
 
     Cell(const std::array<double, 3> &position, int cellType);
 
+    Cell(const std::array<double, 3> &position, std::array<int, 3> relativePositionInDomain, int cellType);
+
     Cell();
 
+    const std::array<int, 3> &getRelativePositionInDomain() const;
+
 private:
+    std::array<int, 3> relativePositionInDomain;
     /**
      * contains a pointer to every neighbour cell
      */
-    std::vector<Cell *> neighbourCells;
+    std::vector<Cell*> neighbourCells;
 
     /**
      * particles contained in the cell
      */
     std::vector<Particle> particles;
+public:
+    void setRelativePositionInDomain(const std::array<int, 3> &relativePositionInDomain);
+
+private:
 
     /**
      * @brief position of left front side corner

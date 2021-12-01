@@ -47,9 +47,7 @@ void ParticleContainerLinkedCells::createCells() {
     }
     buildHaloAndBoundarySlice();
     buildHaloSlice();
-    //x Rechts
-    //y hoch runter
-    //z raus
+    setRelativeDomainPositionsInCells();
     setNeighbourCells();
 }
 
@@ -169,6 +167,18 @@ void ParticleContainerLinkedCells::buildLineOneHaloMultipleBoundariesOneHalo() {
     addSingleHaloCell();
     currentPosition[0] = oldPositionX;
     currentPosition[1] += Cell::sizeY;
+}
+
+void ParticleContainerLinkedCells::setRelativeDomainPositionsInCells(){
+    int index = 0;
+    for (int z = 0; z < numberCellsZ; ++z) {
+        for(int y = 0; y < numberCellsY; y++){
+            for(int x = 0; x < numberCellsX; x++){
+                cells[index].setRelativePositionInDomain(std::array<int, 3>{x, y, z});
+                index++;
+            }
+        }
+    }
 }
 
 void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
