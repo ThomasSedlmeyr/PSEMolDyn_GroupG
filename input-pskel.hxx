@@ -265,7 +265,7 @@ class calcType_pskel: public virtual ::xml_schema::string_pskel
   // virtual void
   // pre ();
 
-  virtual void
+  virtual std::string
   post_calcType ();
 };
 
@@ -289,7 +289,7 @@ class paramsLJ_pskel: public ::xml_schema::complex_content
   virtual void
   h (double);
 
-  virtual void
+  virtual paramsLJ_pskel
   post_paramsLJ ();
 
   // Parser construction API.
