@@ -70,6 +70,7 @@ public:
     int getCellType() const;
     std::vector<Particle> &getParticles();
     void addCellToNeighbours(Cell *pCell);
+    bool particleLiesInCell(Particle &p);
 
     /**
      * Tests if cell is equal to another, based on position

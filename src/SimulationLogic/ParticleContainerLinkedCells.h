@@ -10,12 +10,14 @@
 #include <memory>
 #include "Cell.h"
 #include "ParticleContainer.h"
+#include "BoundaryConditionContainer.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer{
     /**
      * @brief all cells of the domain inner-, boundary-, halo-cells
      */
 private:
+    std::unique_ptr<BoundaryConditionContainer> boundaryContainer;
     std::vector<Cell> cells;
     //std::vector<std::unique_ptr<Cell>> boundaryCells;
     //std::vector<std::unique_ptr<Cell>> haloCells;

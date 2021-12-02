@@ -31,21 +31,17 @@ TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells){
 }
 
 TEST(ParticleContainerTests, addParticleToContainerTest){
-    std::uniform_real_distribution<double> positionDistribution(0, 100);
+    std::uniform_real_distribution<double> positionDistribution(0, 80);
     std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
-    ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 100, 3.0);
+    ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 100, 3.0, {0, -10, 0});
     std::array<double, 3> randomPos1{};
     Particle p{};
-    for (int i = 0; i < 100000; ++i) {
+    for (int i = 0; i < 1000; ++i) {
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
         p.setX(randomPos1);
         particleContainer.addParticleToContainer(p);
         Cell cellContainingParticle = particleContainer.getCells()[particleContainer.getCellIndexForParticle(p)];
-        for (int j = 0; j < 3; ++j) {
-            if (cellContainingParticle.getPosition()[j] > randomPos1[j] || cellContainingParticle.getPosition()[j]+Cell::sizeX < randomPos1[j]){
-                FAIL();
-            }
-        }
+        EXPECT_TRUE(cellContainingParticle.particleLiesInCell(p));
     }
 }
 

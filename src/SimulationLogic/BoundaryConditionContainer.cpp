@@ -8,8 +8,8 @@
 #include <utility>
 
 void BoundaryConditionContainer::calculateBoundaryConditions() {
-    for(BoundaryCondition* boundary : boundaryConditions){
-        boundary->calculateBoundaryCondition();
+    for (auto &boundaryCondition : boundaryConditions) {
+        boundaryCondition->calculateBoundaryCondition();
     }
 }
 
@@ -34,14 +34,13 @@ BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& bound
                                                        numberCellsInX(numberCellsInX),
                                                        numberCellsInY(numberCellsInY),
                                                        numberCellsInZ(numberCellsInZ) {
-    boundaryConditions.reserve(6);
     for (int i = 0; i < boundaryConditionTypes.size(); i++) {
         switch(boundaryConditionTypes[i]){
-            case BoundaryCondition::OUTFLOW_TYPE:
-                boundaryConditions[i] = new OutFlowCondition(BoundaryCondition::OUTFLOW_TYPE, i+1, allBoundaryCells,
+            case 1:
+                boundaryConditions[i] = new OutFlowCondition(1, i+1, allBoundaryCells,
                                                          allHaloCells, numberCellsInX, numberCellsInY, numberCellsInZ);
                 break;
-            case BoundaryCondition::REFLECTING_TYPE:
+            case 2:
                 break;
         }
     }

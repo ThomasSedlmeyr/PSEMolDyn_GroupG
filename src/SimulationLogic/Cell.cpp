@@ -60,6 +60,19 @@ bool Cell::operator==(Cell &other) {
     return position == other.getPosition();
 }
 
+bool Cell::particleLiesInCell(Particle &p) {
+    if (p.getX()[0] < position[0] || p.getX()[0] > position[0] + sizeX){
+        return false;
+    }
+    if (p.getX()[1] < position[1] || p.getX()[1] > position[1] + sizeY){
+        return false;
+    }
+    if (p.getX()[2] < position[2] || p.getX()[2] > position[2] + sizeZ){
+        return false;
+    }
+    return true;
+}
+
 const std::array<int, 3> &Cell::getRelativePositionInDomain() const {
     return relativePositionInDomain;
 }

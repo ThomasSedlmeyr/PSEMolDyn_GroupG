@@ -25,7 +25,7 @@ private:
      * boundaryCondition[4]: top side
      * boundaryCondition[5]: bottom side
      */
-    std::vector<BoundaryCondition*> boundaryConditions;
+    std::array<BoundaryCondition*, 6> boundaryConditions;
 public:
     BoundaryConditionContainer(std::array<int, 6>& boundaryConditionTypes, std::vector<Cell *> allBoundaryCells, std::vector<Cell *> allHaloCells,
                                int numberCellsInX, int numberCellsInY, int numberCellsInZ);
