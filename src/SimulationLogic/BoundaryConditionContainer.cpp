@@ -8,8 +8,8 @@
 #include <utility>
 
 void BoundaryConditionContainer::calculateBoundaryConditions() {
-    for (int i = 0; i < boundaryConditions.size(); ++i) {
-        //boundaryConditions[i].calculateBoundaryCondition();
+    for(BoundaryCondition* boundary : boundaryConditions){
+        boundary->calculateBoundaryCondition();
     }
 }
 
@@ -23,7 +23,8 @@ BoundaryConditionContainer::BoundaryConditionContainer(int frontAndBackSide, int
                                                        int topAndBottomSide) {
     BoundaryConditionContainer(frontAndBackSide, rightAndLeftSide, frontAndBackSide, rightAndLeftSide, topAndBottomSide, topAndBottomSide);
 }
-
+//Very import the order of the types in boundaryConditionTypes has to be the same as the numerical oder of side types
+//which were defined in the class BoundaryCondition.h
 BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& boundaryConditionTypes,
                                                        std::vector<Cell *> allBoundaryCells,
                                                        std::vector<Cell *> allHaloCells, int numberCellsInX,
