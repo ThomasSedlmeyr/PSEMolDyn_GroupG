@@ -54,7 +54,7 @@ void BoundaryCondition::setSpecificCells() {
 }
 
 void BoundaryCondition::setSpecificCells(std::array<int, 3> relativePositionMask, int relativePositionValue,
-                                         std::vector<Cell *>& cells, std::vector<Cell*> matchingCells) {
+                                         std::vector<Cell *>& cells, std::vector<Cell*>& matchingCells) {
     std::array<int, 3> vector{};
     for (auto cell : cells) {
         vector[0] = cell->getRelativePositionInDomain()[0]*relativePositionMask[0];
@@ -65,6 +65,11 @@ void BoundaryCondition::setSpecificCells(std::array<int, 3> relativePositionMask
         if(relativePositionValue == sum){
             matchingCells.push_back(cell);
         }
+    }
+}
+void BoundaryCondition::deleteAllParticlesInHaloCells() {
+    for (auto & specificHaloCell : specificHaloCells) {
+        specificHaloCell->getParticles().clear();
     }
 }
 

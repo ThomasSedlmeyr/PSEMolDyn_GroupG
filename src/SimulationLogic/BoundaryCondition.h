@@ -55,6 +55,11 @@ protected:
     void reflectPointAtY(std::array<double, 3>& point, double yPosition);
     void reflectPointAtZ(std::array<double, 3>& point, double zPosition);
 
+    void
+    setSpecificCells(std::array<int, 3> relativePositionMask, int relativePositionValue, std::vector<Cell *> &cells,
+                     std::vector<Cell *> &matchingCells);
+
+    void deleteAllParticlesInHaloCells();
 };
 
 

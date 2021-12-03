@@ -15,10 +15,14 @@ void Cell::calculateDimensions(double cutOffRadius) {
 }
 
 Cell::Cell(std::vector<Particle> particles, const std::array<double, 3> &position, std::array<int, 3> relativePositionInDomain, int cellType) :
-        particles(std::move(particles)), position(position), relativePositionInDomain(relativePositionInDomain), cellType(cellType) {}
+        particles(std::move(particles)), position(position), relativePositionInDomain(relativePositionInDomain), cellType(cellType) {
+    calculateBoundaries();
+}
 
 Cell::Cell(const std::array<double, 3> &position, std::array<int, 3> relativePositionInDomain, int cellType) :
-        position(position), relativePositionInDomain(relativePositionInDomain), cellType(cellType) {}
+        position(position), relativePositionInDomain(relativePositionInDomain), cellType(cellType) {
+    calculateBoundaries();
+}
 
 Cell::Cell() {
 
@@ -32,15 +36,15 @@ const std::array<double, 3> &Cell::getPosition() const {
     return position;
 }
 
-const int Cell::getInnerCellValue() {
+int Cell::getInnerCellValue() {
     return INNER_CELL;
 }
 
-const int Cell::getBoundaryCellValue() {
+int Cell::getBoundaryCellValue() {
     return BOUNDARY_CELL;
 }
 
-const int Cell::getHaloCellValue() {
+int Cell::getHaloCellValue() {
     return HALO_CELL;
 }
 
@@ -78,13 +82,57 @@ const std::array<int, 3> &Cell::getRelativePositionInDomain() const {
 }
 
 Cell::Cell(std::vector<Particle> particles, const std::array<double, 3> &position, int cellType):
-    particles(std::move(particles)), position(position),  cellType(cellType) {}
+        particles(std::move(particles)), position(position),  cellType(cellType) {}
 
 
 Cell::Cell(const std::array<double, 3> &position, int cellType) :
-    position(position), cellType(cellType) {}
+        position(position), cellType(cellType) {}
 
 void Cell::setRelativePositionInDomain(const std::array<int, 3> &relativePositionInDomain) {
     Cell::relativePositionInDomain = relativePositionInDomain;
 }
+
+void Cell::calculateBoundaries() {
+    xBoundary = position[0] + sizeX;
+    yBoundary = position[1] + sizeY;
+    zBoundary = position[2] + sizeZ;
+
+}
+
+void Cell::reflectXtoRightCell(std::array<double, 3>& point) {
+    point[0] += 2*(xBoundary-position[0]);
+    point[1] = position[1];
+    point[2] = position[2];
+}
+
+void Cell::reflectXtoLeftCell(std::array<double, 3> &point) {
+    point[0] += 2*(position[0]-position[0]);
+    point[1] = position[1];
+    point[2] = position[2];
+}
+
+void Cell::reflectYtoTopCell(std::array<double, 3> &point) {
+    point[0] = position[0];
+    point[1] += 2*(yBoundary-position[1]);
+    point[2] = position[2];
+}
+
+void Cell::reflectYtoBottomCell(std::array<double, 3> &point) {
+    point[0] = position[0];
+    point[1] += 2*(position[1]-position[1]);
+    point[2] = position[2];
+}
+
+void Cell::reflectZtoFrontCell(std::array<double, 3> &point) {
+    point[0] = position[0];
+    point[1] = position[1];
+    point[2] += 2*(zBoundary-position[2]);
+}
+
+void Cell::reflectZtoBackCell(std::array<double, 3> &point) {
+    point[0] = position[0];
+    point[1] = position[1];
+    point[2] += 2*(position[2]-position[2]);
+}
+
 

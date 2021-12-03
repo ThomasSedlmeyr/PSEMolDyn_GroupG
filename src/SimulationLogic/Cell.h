@@ -1,7 +1,3 @@
-//
-// Created by thomas on 24.11.21.
-//
-
 #ifndef PSEMOLDYN_GROUPG_CELL_H
 #define PSEMOLDYN_GROUPG_CELL_H
 
@@ -23,6 +19,19 @@ public:
     static double sizeX;
     static double sizeY;
     static double sizeZ;
+
+    /**
+     * @brief the right boundary of the cell
+     */
+    double xBoundary;
+    /**
+     *@brief the top boundary of the cell
+     */
+    double yBoundary;
+    /**
+     * @brief the front boundary of the cell
+     */
+    double zBoundary;
 
     void calculateDimensions(double cutOffRadius);
 
@@ -53,9 +62,9 @@ public:
     void setRelativePositionInDomain(const std::array<int, 3> &relativePositionInDomain);
 
 private:
-
+    void calculateBoundaries();
     /**
-     * @brief position of left front side corner
+     * @brief position of left back side corner
      */
     std::array<double, 3> position;
 
@@ -64,9 +73,9 @@ private:
 public:
     const std::array<double, 3> &getPosition() const;
     std::vector<Cell *> &getNeighbourCells();
-    static const int getInnerCellValue();
-    static const int getBoundaryCellValue();
-    static const int getHaloCellValue();
+    static int getInnerCellValue();
+    static int getBoundaryCellValue();
+    static int getHaloCellValue();
     int getCellType() const;
     std::vector<Particle> &getParticles();
     void addCellToNeighbours(Cell *pCell);
@@ -79,7 +88,11 @@ public:
      */
     bool operator==(Cell &other);
 
+    void reflectXtoRightCell(std::array<double, 3> &point);
+    void reflectXtoLeftCell(std::array<double, 3> &point);
+    void reflectYtoTopCell(std::array<double, 3> &point);
+    void reflectYtoBottomCell(std::array<double, 3> &point);
+    void reflectZtoFrontCell(std::array<double, 3> &point);
+    void reflectZtoBackCell(std::array<double, 3> &point);
 };
-
-
 #endif //PSEMOLDYN_GROUPG_CELL_H
