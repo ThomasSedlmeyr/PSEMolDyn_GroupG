@@ -9,6 +9,11 @@
 #include "ParticleContainerLinkedCells.h"
 #include "utils/ArrayUtils.h"
 
+std::vector<Cell> ParticleContainerLinkedCells::cells;
+int ParticleContainerLinkedCells::numberCellsX;
+int ParticleContainerLinkedCells::numberCellsY;
+int ParticleContainerLinkedCells::numberCellsZ;
+
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
                                                            const std::array<double, 3> &domainStartPosition)
@@ -391,4 +396,10 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
         }
     }
     boundaryContainer->calculateBoundaryConditions();
+}
+
+void ParticleContainerLinkedCells::addGhostParticle(std::array<double, 3> position) {
+    Particle p = Particle(position, {0, 0, 0}, 0, -1);
+    auto index = getCellIndexForParticle(p);
+    cells[index].getParticles().push_back(p);
 }

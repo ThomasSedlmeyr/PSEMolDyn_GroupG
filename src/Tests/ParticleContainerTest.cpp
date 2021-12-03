@@ -40,7 +40,7 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
         p.setX(randomPos1);
         particleContainer.addParticleToContainer(p);
-        Cell cellContainingParticle = particleContainer.getCells()[particleContainer.getCellIndexForParticle(p)];
+        Cell cellContainingParticle = particleContainer.getCells()[ParticleContainerLinkedCells::getCellIndexForParticle(p)];
         EXPECT_TRUE(cellContainingParticle.particleLiesInCell(p));
     }
 }

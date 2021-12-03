@@ -34,8 +34,6 @@ public:
 
 private:
     void setSpecificCells();
-    static void setSpecificCells(std::array<int, 3> relativePositionMask, int relativePositionValue, std::vector<Cell *> &cells,
-                          std::vector<Cell *> matchingCells);
 
 private:
     std::vector<Cell*> allBoundaryCells;

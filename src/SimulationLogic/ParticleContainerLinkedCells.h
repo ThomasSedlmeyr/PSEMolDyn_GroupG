@@ -18,7 +18,7 @@ class ParticleContainerLinkedCells : public ParticleContainer{
      */
 private:
     std::unique_ptr<BoundaryConditionContainer> boundaryContainer;
-    std::vector<Cell> cells;
+    static std::vector<Cell> cells;
     //std::vector<std::unique_ptr<Cell>> boundaryCells;
     //std::vector<std::unique_ptr<Cell>> haloCells;
     //std::vector<std::unique_ptr<Cell>> innerCells;
@@ -35,9 +35,9 @@ private:
     double domainSizeY;
     double domainSizeZ;
 
-    int numberCellsX;
-    int numberCellsY;
-    int numberCellsZ;
+    static int numberCellsX;
+    static int numberCellsY;
+    static int numberCellsZ;
 
     double cutOffRadius;
 
@@ -125,7 +125,7 @@ public:
     void setNeighbourCells();
 
     void addParticleToContainer(Particle &p) override;
-
+    static void addGhostParticle(std::array<double, 3> position);
     void updateParticlePositions(ParticleVisitor &visitor) override;
     void walkOverParticles(ParticleVisitor &visitor) override;
     void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
@@ -135,7 +135,7 @@ public:
      * @param p Particle
      * @return Cell the particle belongs to
      */
-    int getCellIndexForParticle(const Particle &p);
+    static int getCellIndexForParticle(const Particle &p);
 
     void setRelativeDomainPositionsInCells();
 };
