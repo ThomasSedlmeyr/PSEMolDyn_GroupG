@@ -29,7 +29,9 @@ private:
     int currentIndexBoundaryCells = 0;
     int currentIndexInnerCells = 0;
 
-
+    double domainSizeX;
+    double domainSizeY;
+    double domainSizeZ;
 
 
     double cutOffRadius;
@@ -100,9 +102,6 @@ public:
     static int numberCellsX;
     static int numberCellsY;
     static int numberCellsZ;
-    static double domainSizeX;
-    static double domainSizeY;
-    static double domainSizeZ;
 
     const std::vector<Cell> &getCells() const;
 

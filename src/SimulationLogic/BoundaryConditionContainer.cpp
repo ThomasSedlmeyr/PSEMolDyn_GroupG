@@ -29,19 +29,20 @@ BoundaryConditionContainer::BoundaryConditionContainer(int frontAndBackSide, int
 BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& boundaryConditionTypes,
                                                        std::vector<Cell *> allBoundaryCells,
                                                        std::vector<Cell *> allHaloCells, int numberCellsInX,
-                                                       int numberCellsInY, int numberCellsInZ) :
+                                                       int numberCellsInY, int numberCellsInZ, const std::array<double, 3> domainSize) :
                                                        allBoundaryCells(std::move(allBoundaryCells)),
                                                        allHaloCells(std::move(allHaloCells)),
                                                        numberCellsInX(numberCellsInX),
                                                        numberCellsInY(numberCellsInY),
-                                                       numberCellsInZ(numberCellsInZ) {
+                                                       numberCellsInZ(numberCellsInZ),
+                                                       domainSize(domainSize){
     for (int i = 0; i < boundaryConditionTypes.size(); i++) {
         switch(boundaryConditionTypes[i]){
             case 1:
                 boundaryConditions[i] = new OutFlowCondition(1, i+1);
                 break;
             case 2:
-                boundaryConditions[i] = new ReflectingCondition(2, i+1);
+                boundaryConditions[i] = new ReflectingCondition(2, i+1, domainSize);
                 break;
         }
     }

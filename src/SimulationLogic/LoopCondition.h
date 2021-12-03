@@ -6,8 +6,10 @@
 #define PSEMOLDYN_GROUPG_LOOPCONDITION_H
 
 
-class LoopCondition {
+#include "BoundaryCondition.h"
 
+class LoopCondition : public BoundaryCondition{
+    void calculateBoundaryCondition() override;
 };
 
 

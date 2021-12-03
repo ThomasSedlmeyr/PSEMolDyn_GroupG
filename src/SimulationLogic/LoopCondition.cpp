@@ -3,3 +3,7 @@
 //
 
 #include "LoopCondition.h"
+
+void LoopCondition::calculateBoundaryCondition() {
+
+}

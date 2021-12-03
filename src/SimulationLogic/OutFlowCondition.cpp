@@ -10,6 +10,11 @@ void OutFlowCondition::calculateBoundaryCondition() {
     }
 }
 
+
 OutFlowCondition::OutFlowCondition(int conditionType, int side) : BoundaryCondition(conditionType, side) {
+
+}
+
+void OutFlowCondition::doWorkAfterCalculationStep() {
 
 }

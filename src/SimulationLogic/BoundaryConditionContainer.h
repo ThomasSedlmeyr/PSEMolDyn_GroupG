@@ -11,11 +11,14 @@
 class BoundaryConditionContainer {
 
 private:
+
+
     std::vector<Cell*> allBoundaryCells;
     std::vector<Cell*> allHaloCells;
     int numberCellsInX;
     int numberCellsInY;
     int numberCellsInZ;
+    std::array<double, 3> domainSize;
     /**
      * @brief the six different conditions for every side of the domain
      * boundaryCondition[0]: front side
@@ -27,8 +30,10 @@ private:
      */
     std::array<BoundaryCondition*, 6> boundaryConditions;
 public:
-    BoundaryConditionContainer(std::array<int, 6>& boundaryConditionTypes, std::vector<Cell *> allBoundaryCells, std::vector<Cell *> allHaloCells,
-                               int numberCellsInX, int numberCellsInY, int numberCellsInZ);
+    BoundaryConditionContainer(std::array<int, 6> &boundaryConditionTypes, std::vector<Cell *> allBoundaryCells,
+                               std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
+                               int numberCellsInZ, const std::array<double, 3> domainSize);
+
 
 public:
     /**

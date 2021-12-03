@@ -6,11 +6,7 @@
 #include "ParticleContainerLinkedCells.h"
 #include <utility>
 
-void BoundaryCondition::calculateBoundaryCondition() {
-    for (int i = 0; i < specificBoundaryCells.size(); i++) {
-        //calculateBoundaryConditionForCell(specificBoundaryCells[i]);
-    }
-}
+
 
 inline void BoundaryCondition::reflectPointAtX(std::array<double, 3>& point, double xPosition) {
     point[0] += 2*(xPosition-point[0]);

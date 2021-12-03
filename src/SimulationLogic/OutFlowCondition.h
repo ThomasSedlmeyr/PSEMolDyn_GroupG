@@ -14,8 +14,10 @@ protected:
 
     void calculateBoundaryCondition();
 
+
 public:
     OutFlowCondition(int conditionType, int side);
+    void doWorkAfterCalculationStep() override;
 };
 
 

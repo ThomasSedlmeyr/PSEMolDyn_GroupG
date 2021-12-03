@@ -13,7 +13,6 @@ class BoundaryCondition {
 
 protected:
 
-
     int conditionType;
     int side;
     std::vector<Cell*> specificBoundaryCells;
@@ -22,6 +21,7 @@ protected:
 public:
     static const int OUTFLOW_TYPE = 1;
     static const int REFLECTING_TYPE = 2;
+
 
     static const int FRONT = 1;
     static const int RIGHT = 2;
@@ -33,8 +33,9 @@ public:
     //virtual void calculateBoundaryConditionForCell(Cell* cell) = 0;
 
     virtual void calculateBoundaryCondition() = 0;
-
+    virtual void doWorkAfterCalculationStep() = 0;
 private:
+
     void setSpecificCells();
 
 public:

@@ -16,9 +16,7 @@ int ParticleContainerLinkedCells::numberCellsZ;
 std::vector<Cell*> ParticleContainerLinkedCells::boundaryCells;
 std::vector<Cell*> ParticleContainerLinkedCells::haloCells;
 std::vector<Cell*> ParticleContainerLinkedCells::innerCells;
-double domainSizeX;
-double domainSizeY;
-double domainSizeZ;
+
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
@@ -27,7 +25,8 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, d
           domainStartPosition(domainStartPosition) {
     createCells();
     std::array<int, 6> ones = {2,2,2,2,2,2};
-    boundaryContainer = std::make_unique<BoundaryConditionContainer>(ones, boundaryCells, haloCells, numberCellsX, numberCellsY, numberCellsZ);
+    std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
+    boundaryContainer = std::make_unique<BoundaryConditionContainer>(ones, boundaryCells, haloCells, numberCellsX, numberCellsY, numberCellsZ, domainSize);
 }
 
 void ParticleContainerLinkedCells::createCells() {
@@ -402,6 +401,7 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
         }
     }
     boundaryContainer->calculateBoundaryConditions();
+    //TODO direkt nach der berechnung muss boundaryContainer->doWorkAfterCalculationStep()
 }
 
 void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> &position, double m) {
