@@ -3,7 +3,7 @@
 //
 
 #include "BoundaryCondition.h"
-
+#include "ParticleContainerLinkedCells.h"
 #include <utility>
 
 void BoundaryCondition::calculateBoundaryCondition() {
@@ -27,28 +27,28 @@ inline void BoundaryCondition::reflectPointAtZ(std::array<double, 3>& point, dou
 void BoundaryCondition::setSpecificCells() {
     switch (side) {
         case FRONT:
-            setSpecificCells(std::array<int, 3>{0,0,1}, numberCellsInZ-1, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{0,0,1}, numberCellsInZ-2, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{0,0,1}, ParticleContainerLinkedCells::numberCellsZ-1, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{0,0,1}, ParticleContainerLinkedCells::numberCellsZ-2, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
         case RIGHT:
-            setSpecificCells(std::array<int, 3>{1,0,0}, numberCellsInX-1, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{1,0,0}, numberCellsInX-2, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{1,0,0}, ParticleContainerLinkedCells::numberCellsX-1, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{1,0,0}, ParticleContainerLinkedCells::numberCellsX-2, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
         case BACK:
-            setSpecificCells(std::array<int, 3>{0,0,1}, 0, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{0,0,1}, 1, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{0,0,1}, 0, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{0,0,1}, 1, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
         case LEFT:
-            setSpecificCells(std::array<int, 3>{1,0,0}, 0, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{1,0,0}, 1, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{1,0,0}, 0, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{1,0,0}, 1, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
         case TOP:
-            setSpecificCells(std::array<int, 3>{0,1,0}, numberCellsInY-1, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{0,1,0}, numberCellsInY-2, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{0,1,0}, ParticleContainerLinkedCells::numberCellsY-1, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{0,1,0}, ParticleContainerLinkedCells::numberCellsY-2, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
         case BOTTOM:
-            setSpecificCells(std::array<int, 3>{0,1,0}, 0, allHaloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{0,1,0}, 0, allBoundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{0,1,0}, 0, ParticleContainerLinkedCells::haloCells, specificHaloCells);
+            setSpecificCells(std::array<int, 3>{0,1,0}, 0, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
             break;
     }
 }
@@ -73,13 +73,7 @@ void BoundaryCondition::deleteAllParticlesInHaloCells() {
     }
 }
 
-BoundaryCondition::BoundaryCondition(int conditionType, int side, std::vector<Cell *> allBoundaryCells,
-                                     std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
-                                     int numberCellsInZ) : conditionType(conditionType), side(side),
-                                                           allBoundaryCells(std::move(allBoundaryCells)),
-                                                           allHaloCells(std::move(allHaloCells)), numberCellsInX(numberCellsInX),
-                                                           numberCellsInY(numberCellsInY),
-                                                           numberCellsInZ(numberCellsInZ) {
+BoundaryCondition::BoundaryCondition(int conditionType, int side) : conditionType(conditionType), side(side) {
     setSpecificCells();
 }
 

@@ -12,10 +12,10 @@
 #Fourth Line Cuboid: number of blocks x, number of blocks y, number of blocks z
 #Fourth Line Tetrahedron: numberParticles per edge
 Cuboid
-0,30,0
+1,31,1
 0,-8,0
 15,2,15
 Tetrahedron
-0,0,0
+1,1,1
 0,6,0
 15

@@ -11,12 +11,11 @@
 class OutFlowCondition : public BoundaryCondition{
 
 protected:
+
     void calculateBoundaryCondition();
 
 public:
-    OutFlowCondition(int conditionType, int side, std::vector<Cell *> allBoundaryCells,
-                      std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
-                      int numberCellsInZ);
+    OutFlowCondition(int conditionType, int side);
 };
 
 

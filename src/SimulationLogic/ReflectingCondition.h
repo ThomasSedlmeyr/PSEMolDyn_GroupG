@@ -13,15 +13,16 @@
 
 class ReflectingCondition : public BoundaryCondition {
 
-private:
-    ReflectingCondition(int conditionType, int side, std::vector<Cell *> allBoundaryCells,
-                        std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY, int numberCellsInZ);
-
+public:
+    ReflectingCondition(int conditionType, int side);
     double h;
 
 protected:
     std::vector<Particle*> counterParticles;
-    void calculateBoundaryConditionForCell(Cell* cell);
+    void calculateBoundaryCondition() override;
+
+private:
+    void calculateBoundaryConditionForCell(Cell *cell);
 };
 
 

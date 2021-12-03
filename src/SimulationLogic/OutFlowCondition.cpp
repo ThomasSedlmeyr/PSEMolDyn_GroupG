@@ -10,10 +10,6 @@ void OutFlowCondition::calculateBoundaryCondition() {
     }
 }
 
-OutFlowCondition::OutFlowCondition(int conditionType, int side, std::vector<Cell *> allBoundaryCells,
-                                   std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
-                                   int numberCellsInZ) : BoundaryCondition(conditionType, side, allBoundaryCells,
-                                                                           allHaloCells, numberCellsInX, numberCellsInY,
-                                                                           numberCellsInZ) {
+OutFlowCondition::OutFlowCondition(int conditionType, int side) : BoundaryCondition(conditionType, side) {
 
 }

@@ -22,9 +22,7 @@ private:
     //std::vector<std::unique_ptr<Cell>> boundaryCells;
     //std::vector<std::unique_ptr<Cell>> haloCells;
     //std::vector<std::unique_ptr<Cell>> innerCells;
-    std::vector<Cell*> boundaryCells;
-    std::vector<Cell*> haloCells;
-    std::vector<Cell*> innerCells;
+
 
     int currentIndexInCells = 0;
     int currentIndexHaloCells = 0;
@@ -35,9 +33,7 @@ private:
     double domainSizeY;
     double domainSizeZ;
 
-    static int numberCellsX;
-    static int numberCellsY;
-    static int numberCellsZ;
+
 
     double cutOffRadius;
 
@@ -101,7 +97,14 @@ private:
     int movePositionsInZ(int index, int numberPositionsInZ);
 
 public:
-const std::vector<Cell> &getCells() const;
+    static std::vector<Cell*> boundaryCells;
+    static std::vector<Cell*> haloCells;
+    static std::vector<Cell*> innerCells;
+    static int numberCellsX;
+    static int numberCellsY;
+    static int numberCellsZ;
+
+    const std::vector<Cell> &getCells() const;
 
     const std::vector<Cell *> &getBoundaryCells() const;
 
@@ -138,6 +141,8 @@ public:
     static int getCellIndexForParticle(const Particle &p);
 
     void setRelativeDomainPositionsInCells();
+
+    int getNumberOfParticles();
 };
 
 

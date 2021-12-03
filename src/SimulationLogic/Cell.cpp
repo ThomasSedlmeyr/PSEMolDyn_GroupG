@@ -99,40 +99,40 @@ void Cell::calculateBoundaries() {
 
 }
 
-void Cell::reflectXtoRightCell(std::array<double, 3>& point) {
-    point[0] += 2*(xBoundary-position[0]);
-    point[1] = position[1];
-    point[2] = position[2];
+void Cell::reflectXtoRightCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] += 2*(xBoundary-pointWhichShouldBeReflected[0]);
+    resultPoint[1] = pointWhichShouldBeReflected[1];
+    resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectXtoLeftCell(std::array<double, 3> &point) {
-    point[0] += 2*(position[0]-position[0]);
-    point[1] = position[1];
-    point[2] = position[2];
+void Cell::reflectXtoLeftCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] += 2*(position[0]-pointWhichShouldBeReflected[0]);
+    resultPoint[1] = pointWhichShouldBeReflected[1];
+    resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectYtoTopCell(std::array<double, 3> &point) {
-    point[0] = position[0];
-    point[1] += 2*(yBoundary-position[1]);
-    point[2] = position[2];
+void Cell::reflectYtoTopCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] = pointWhichShouldBeReflected[0];
+    resultPoint[1] += 2*(yBoundary-pointWhichShouldBeReflected[1]);
+    resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectYtoBottomCell(std::array<double, 3> &point) {
-    point[0] = position[0];
-    point[1] += 2*(position[1]-position[1]);
-    point[2] = position[2];
+void Cell::reflectYtoBottomCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] = pointWhichShouldBeReflected[0];
+    resultPoint[1] += 2*(position[1]-pointWhichShouldBeReflected[1]);
+    resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectZtoFrontCell(std::array<double, 3> &point) {
-    point[0] = position[0];
-    point[1] = position[1];
-    point[2] += 2*(zBoundary-position[2]);
+void Cell::reflectZtoFrontCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] = pointWhichShouldBeReflected[0];
+    resultPoint[1] = pointWhichShouldBeReflected[1];
+    resultPoint[2] += 2*(zBoundary-pointWhichShouldBeReflected[2]);
 }
 
-void Cell::reflectZtoBackCell(std::array<double, 3> &point) {
-    point[0] = position[0];
-    point[1] = position[1];
-    point[2] += 2*(position[2]-position[2]);
+void Cell::reflectZtoBackCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+    resultPoint[0] = pointWhichShouldBeReflected[0];
+    resultPoint[1] = pointWhichShouldBeReflected[1];
+    resultPoint[2] += 2*(position[2]-pointWhichShouldBeReflected[2]);
 }
 
 

@@ -88,11 +88,11 @@ public:
      */
     bool operator==(Cell &other);
 
-    void reflectXtoRightCell(std::array<double, 3> &point);
-    void reflectXtoLeftCell(std::array<double, 3> &point);
-    void reflectYtoTopCell(std::array<double, 3> &point);
-    void reflectYtoBottomCell(std::array<double, 3> &point);
-    void reflectZtoFrontCell(std::array<double, 3> &point);
-    void reflectZtoBackCell(std::array<double, 3> &point);
+    void reflectXtoRightCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectXtoLeftCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectYtoTopCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectYtoBottomCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectZtoFrontCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectZtoBackCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
 };
 #endif //PSEMOLDYN_GROUPG_CELL_H

@@ -12,6 +12,8 @@
 class BoundaryCondition {
 
 protected:
+
+
     int conditionType;
     int side;
     std::vector<Cell*> specificBoundaryCells;
@@ -35,20 +37,9 @@ public:
 private:
     void setSpecificCells();
 
-private:
-    std::vector<Cell*> allBoundaryCells;
-    std::vector<Cell*> allHaloCells;
-    int numberCellsInX;
-    int numberCellsInY;
-    int numberCellsInZ;
-
 public:
-    BoundaryCondition(int conditionType, int side, std::vector<Cell *> allBoundaryCells,
-                      std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
-                      int numberCellsInZ);
-
     BoundaryCondition();
-
+    BoundaryCondition(int conditionType, int side);
 
 protected:
     void reflectPointAtX(std::array<double, 3>& point, double xPosition);

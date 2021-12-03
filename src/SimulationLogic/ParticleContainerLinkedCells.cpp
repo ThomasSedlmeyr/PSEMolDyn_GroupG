@@ -13,6 +13,9 @@ std::vector<Cell> ParticleContainerLinkedCells::cells;
 int ParticleContainerLinkedCells::numberCellsX;
 int ParticleContainerLinkedCells::numberCellsY;
 int ParticleContainerLinkedCells::numberCellsZ;
+std::vector<Cell*> ParticleContainerLinkedCells::boundaryCells;
+std::vector<Cell*> ParticleContainerLinkedCells::haloCells;
+std::vector<Cell*> ParticleContainerLinkedCells::innerCells;
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
@@ -20,7 +23,7 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, d
         : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius),
           domainStartPosition(domainStartPosition) {
     createCells();
-    std::array<int, 6> ones = {BoundaryCondition::OUTFLOW_TYPE,1,1,1,1,1};
+    std::array<int, 6> ones = {2,2,2,2,2,2};
     boundaryContainer = std::make_unique<BoundaryConditionContainer>(ones, boundaryCells, haloCells, numberCellsX, numberCellsY, numberCellsZ);
 }
 
@@ -402,4 +405,12 @@ void ParticleContainerLinkedCells::addGhostParticle(std::array<double, 3> positi
     Particle p = Particle(position, {0, 0, 0}, 0, -1);
     auto index = getCellIndexForParticle(p);
     cells[index].getParticles().push_back(p);
+}
+
+int ParticleContainerLinkedCells::getNumberOfParticles(){
+    int result = 0;
+    for (auto& cell : cells) {
+        result += cell.getParticles().size();
+    }
+    return result;
 }
