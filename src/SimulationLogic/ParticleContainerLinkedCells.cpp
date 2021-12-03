@@ -16,6 +16,9 @@ int ParticleContainerLinkedCells::numberCellsZ;
 std::vector<Cell*> ParticleContainerLinkedCells::boundaryCells;
 std::vector<Cell*> ParticleContainerLinkedCells::haloCells;
 std::vector<Cell*> ParticleContainerLinkedCells::innerCells;
+double domainSizeX;
+double domainSizeY;
+double domainSizeZ;
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
@@ -401,8 +404,8 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
     boundaryContainer->calculateBoundaryConditions();
 }
 
-void ParticleContainerLinkedCells::addGhostParticle(std::array<double, 3> position) {
-    Particle p = Particle(position, {0, 0, 0}, 0, -1);
+void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> &position, double m) {
+    Particle p = Particle(position, {0, 0, 0}, m, -1);
     auto index = getCellIndexForParticle(p);
     cells[index].getParticles().push_back(p);
 }

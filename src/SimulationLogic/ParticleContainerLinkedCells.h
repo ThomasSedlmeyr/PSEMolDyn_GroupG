@@ -29,9 +29,6 @@ private:
     int currentIndexBoundaryCells = 0;
     int currentIndexInnerCells = 0;
 
-    double domainSizeX;
-    double domainSizeY;
-    double domainSizeZ;
 
 
 
@@ -103,6 +100,9 @@ public:
     static int numberCellsX;
     static int numberCellsY;
     static int numberCellsZ;
+    static double domainSizeX;
+    static double domainSizeY;
+    static double domainSizeZ;
 
     const std::vector<Cell> &getCells() const;
 
@@ -128,7 +128,7 @@ public:
     void setNeighbourCells();
 
     void addParticleToContainer(Particle &p) override;
-    static void addGhostParticle(std::array<double, 3> position);
+    static void addGhostParticle(const std::array<double, 3> &position, double m);
     void updateParticlePositions(ParticleVisitor &visitor) override;
     void walkOverParticles(ParticleVisitor &visitor) override;
     void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
