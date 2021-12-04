@@ -7,7 +7,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
     {
         case FRONT:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (domainSize[2] - cell->getParticles()[i].getX()[2] < pow(2, 1 / 6)) {
+                if (domainSize[2] - cell->getParticles()[i].getX()[2] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectZtoFrontCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -16,7 +16,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             break;
         case BACK:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (cell->getParticles()[i].getX()[2] < pow(2, 1 / 6)) {
+                if (cell->getParticles()[i].getX()[2] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectZtoBackCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -25,7 +25,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             break;
         case RIGHT:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (domainSize[0] - cell->getParticles()[i].getX()[0] < pow(2, 1 / 6)) {
+                if (domainSize[0] - cell->getParticles()[i].getX()[0] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectXtoRightCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -34,7 +34,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             break;
         case LEFT:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (cell->getParticles()[i].getX()[0] < pow(2, 1 / 6)) {
+                if (cell->getParticles()[i].getX()[0] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectXtoLeftCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -43,7 +43,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             break;
         case TOP:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (domainSize[1] - cell->getParticles()[i].getX()[1] < pow(2, 1 / 6)) {
+                if (domainSize[1] - cell->getParticles()[i].getX()[1] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectYtoTopCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -52,7 +52,7 @@ void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             break;
         case BOTTOM:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
-                if (cell->getParticles()[i].getX()[1] < pow(2, 1 / 6)) {
+                if (cell->getParticles()[i].getX()[1] < pow(2, 1.0 / 6)) {
                     std::array<double, 3> reflectedPoint{};
                     cell->reflectYtoBottomCell(cell->getParticles()[i].getX(), reflectedPoint);
                     ParticleContainerLinkedCells::addGhostParticle(reflectedPoint, cell->getParticles()[i].getM());
@@ -84,4 +84,3 @@ void ReflectingCondition::doWorkAfterCalculationStep() {
 void ReflectingCondition::setIsDebug(bool isDebug) {
     ReflectingCondition::isDebug = isDebug;
 }
-

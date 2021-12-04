@@ -51,11 +51,11 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         exit(EXIT_FAILURE);;
     }
     while (currentTime < endTime) {
-        calculateOneTimeStep();
-        iteration++;
         if (iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
+        calculateOneTimeStep();
+        iteration++;
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }

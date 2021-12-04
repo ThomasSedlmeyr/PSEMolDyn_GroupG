@@ -16,6 +16,7 @@ int ParticleContainerLinkedCells::numberCellsZ;
 std::vector<Cell*> ParticleContainerLinkedCells::boundaryCells;
 std::vector<Cell*> ParticleContainerLinkedCells::haloCells;
 std::vector<Cell*> ParticleContainerLinkedCells::innerCells;
+ParticleCollector pc;
 
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
@@ -27,7 +28,7 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, d
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
     std::array<int, 6> twos = {2, 2, 2, 2, 2, 2};
     std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
-    boundaryContainer = std::make_unique<BoundaryConditionContainer>(ones, boundaryCells, haloCells, numberCellsX,
+    boundaryContainer = std::make_unique<BoundaryConditionContainer>(twos, boundaryCells, haloCells, numberCellsX,
                                                                      numberCellsY, numberCellsZ, domainSize);
 }
 
@@ -370,7 +371,7 @@ const std::vector<Cell>& ParticleContainerLinkedCells::getCells() const {
 }
 
 std::vector<Particle> & ParticleContainerLinkedCells::getParticles() {
-    ParticleCollector pc;
+    pc.getParticles().clear();
     walkOverParticles(pc);
     return pc.getParticles();
 }
