@@ -44,7 +44,8 @@ void BoundaryCondition::setSpecificCells() {
             break;
         case BOTTOM:
             setSpecificCells(std::array<int, 3>{0,1,0}, 0, ParticleContainerLinkedCells::haloCells, specificHaloCells);
-            setSpecificCells(std::array<int, 3>{0,1,0}, 0, ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
+            setSpecificCells(std::array<int, 3>{0, 1, 0}, 1, ParticleContainerLinkedCells::boundaryCells,
+                             specificBoundaryCells);
             break;
     }
 }

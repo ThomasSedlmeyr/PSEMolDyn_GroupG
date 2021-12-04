@@ -28,6 +28,7 @@ void XYZWriter :: writeParticlesToFile(const std::string &filename, int iteratio
          << std::endl;
 
 
+    int size = particles.size();
     for (int i = 0; i < particles.size(); i++) {
         std::array<double, 3> x = particles[i].getX();
         file << "Ar ";

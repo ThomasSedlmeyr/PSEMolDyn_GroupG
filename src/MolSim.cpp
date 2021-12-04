@@ -85,18 +85,19 @@ int main(int argc, char *argsv[]) {
         show_help();
         return 0;
     }
-
     // execution of simulation based to default or selection
     Writer *w = new VTKWriter();
     switch (calcType) {
         case Simulation::GRAVITATION: {
             auto gS = GravitationSimulation();
-            gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav");
+            ParticleContainer *particleContainer = new ParticleContainerDirectSum();
+            gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav", particleContainer);
             break;
         }
         case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
-            ljS.simulate(end_time, delta_t, *w, 10, param_pathLJ, particles_pathLJ, "Lenard");
+            ParticleContainer *particleContainer = new ParticleContainerLinkedCells(70, 40, 6, 3, {0, 0, 0});
+            ljS.simulate(end_time, delta_t, *w, 10, param_pathLJ, particles_pathLJ, "Lenard", particleContainer);
             break;
         }
         default: {

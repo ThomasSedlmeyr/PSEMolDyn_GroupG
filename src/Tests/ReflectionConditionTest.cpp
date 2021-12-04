@@ -22,11 +22,10 @@
  */
 TEST(Tests, GhostParticlesTest) {
     auto ljS = LennardJonesSimulation();
-    ParticleContainerLinkedCells particleContainer(7, 11, 12.5, 3, {0, 0, 0});
-    ljS.setParticleContainer(&particleContainer);
+    ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {0, 0, 0});
     Writer *writer = new XYZWriter();
     ljS.simulate(0.001, 0.001, *writer, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                 "../src/Tests/TestInputFiles/TestGhostParticlesInput.txt", "GhostParticlesTest");
+                 "../src/Tests/TestInputFiles/TestGhostParticlesInput.txt", "GhostParticlesTest", particleContainer);
 }
 
 void testIfTwoDoubleArraysAreEqual(const std::array<double, 3> &expected, const std::array<double, 3> &actual,

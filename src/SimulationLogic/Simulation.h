@@ -99,9 +99,10 @@ public:
      * @param particlesFileName path to the file containing information for every particle
      * @param outputFileName name of the output file
      */
-    void simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations,
-                  const std::string &parametersFileName, const std::string &particlesFileName,
-                  const std::string &outputFileName);
+    void
+    simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations,
+             const std::string &parametersFileName, const std::string &particlesFileName,
+             const std::string &outputFileName, ParticleContainer *particleContainer);
 };
 
 

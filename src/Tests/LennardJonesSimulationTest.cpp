@@ -20,10 +20,13 @@
 TEST(LennardJonesSimulationTests, FullTest) {
     XYZReader reader = XYZReader();
     LennardJonesSimulation gravitationSimulation = LennardJonesSimulation();
+    ParticleContainer *particleContainer = new ParticleContainerDirectSum();
     Writer *w = new XYZWriter();
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
-        gravitationSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt", "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test");
+        gravitationSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
+                                       "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test",
+                                       particleContainer);
         particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0100.xyz");
         particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0200.xyz");
         particles_1_test= reader.readOnlyPositions("Lenard_Test_0100.xyz");
@@ -32,12 +35,12 @@ TEST(LennardJonesSimulationTests, FullTest) {
         FAIL();
     }
     for (std::size_t i = 0; i < particles_2_Expected.size(); ++i) {
-        EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.00001);
-        EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.00001);
-        EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.00001);
-        EXPECT_NEAR(particles_2_Expected[i][0], particles_2_test[i][0], 0.00001);
-        EXPECT_NEAR(particles_2_Expected[i][1], particles_2_test[i][1], 0.00001);
-        EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.00001);
+        EXPECT_NEAR(particles_1_Expected[i][0], particles_1_test[i][0], 0.001);
+        EXPECT_NEAR(particles_1_Expected[i][1], particles_1_test[i][1], 0.001);
+        EXPECT_NEAR(particles_1_Expected[i][2], particles_1_test[i][2], 0.001);
+        EXPECT_NEAR(particles_2_Expected[i][0], particles_2_test[i][0], 0.001);
+        EXPECT_NEAR(particles_2_Expected[i][1], particles_2_test[i][1], 0.001);
+        EXPECT_NEAR(particles_2_Expected[i][2], particles_2_test[i][2], 0.001);
     }
 }
 
