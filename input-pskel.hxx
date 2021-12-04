@@ -49,7 +49,6 @@
 
 // Forward declarations
 //
-class calcType_pskel;
 class paramsLJ_pskel;
 class boundaryConditions_pskel;
 class particlesLJ_pskel;
@@ -64,15 +63,17 @@ class body_pskel;
 #define XSD_CXX_PARSER_USE_CHAR
 #endif
 
+#include <xsd/cxx/xml/char-utf8.hxx>
 #include <xsd/cxx/xml/error-handler.hxx>
 #include <xsd/cxx/parser/exceptions.hxx>
 #include <xsd/cxx/parser/elements.hxx>
 #include <xsd/cxx/parser/xml-schema.hxx>
-#include <xsd/cxx/parser/validating/parser.hxx>
-#include <xsd/cxx/parser/validating/exceptions.hxx>
-#include <xsd/cxx/parser/validating/xml-schema-pskel.hxx>
-#include <xsd/cxx/parser/validating/xml-schema-pimpl.hxx>
-#include <xsd/cxx/parser/expat/elements.hxx>
+#include <xsd/cxx/parser/non-validating/parser.hxx>
+#include <xsd/cxx/parser/non-validating/xml-schema-pskel.hxx>
+#include <xsd/cxx/parser/non-validating/xml-schema-pimpl.hxx>
+#include <xsd/cxx/parser/xerces/elements.hxx>
+
+#include "input.h"
 
 namespace xml_schema
 {
@@ -95,142 +96,142 @@ namespace xml_schema
   // Base parser skeletons.
   //
   typedef ::xsd::cxx::parser::parser_base< char > parser_base;
-  typedef ::xsd::cxx::parser::validating::empty_content< char > empty_content;
-  typedef ::xsd::cxx::parser::validating::simple_content< char > simple_content;
-  typedef ::xsd::cxx::parser::validating::complex_content< char > complex_content;
-  typedef ::xsd::cxx::parser::validating::list_base< char > list_base;
+  typedef ::xsd::cxx::parser::non_validating::empty_content< char > empty_content;
+  typedef ::xsd::cxx::parser::non_validating::simple_content< char > simple_content;
+  typedef ::xsd::cxx::parser::non_validating::complex_content< char > complex_content;
+  typedef ::xsd::cxx::parser::non_validating::list_base< char > list_base;
 
   // Parser skeletons and implementations for the XML Schema
   // built-in types.
   //
-  typedef ::xsd::cxx::parser::validating::any_type_pskel< char > any_type_pskel;
-  typedef ::xsd::cxx::parser::validating::any_type_pimpl< char > any_type_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::any_type_pskel< char > any_type_pskel;
+  typedef ::xsd::cxx::parser::non_validating::any_type_pimpl< char > any_type_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::any_simple_type_pskel< char > any_simple_type_pskel;
-  typedef ::xsd::cxx::parser::validating::any_simple_type_pimpl< char > any_simple_type_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::any_simple_type_pskel< char > any_simple_type_pskel;
+  typedef ::xsd::cxx::parser::non_validating::any_simple_type_pimpl< char > any_simple_type_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::byte_pskel< char > byte_pskel;
-  typedef ::xsd::cxx::parser::validating::byte_pimpl< char > byte_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::byte_pskel< char > byte_pskel;
+  typedef ::xsd::cxx::parser::non_validating::byte_pimpl< char > byte_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::unsigned_byte_pskel< char > unsigned_byte_pskel;
-  typedef ::xsd::cxx::parser::validating::unsigned_byte_pimpl< char > unsigned_byte_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_byte_pskel< char > unsigned_byte_pskel;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_byte_pimpl< char > unsigned_byte_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::short_pskel< char > short_pskel;
-  typedef ::xsd::cxx::parser::validating::short_pimpl< char > short_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::short_pskel< char > short_pskel;
+  typedef ::xsd::cxx::parser::non_validating::short_pimpl< char > short_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::unsigned_short_pskel< char > unsigned_short_pskel;
-  typedef ::xsd::cxx::parser::validating::unsigned_short_pimpl< char > unsigned_short_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_short_pskel< char > unsigned_short_pskel;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_short_pimpl< char > unsigned_short_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::int_pskel< char > int_pskel;
-  typedef ::xsd::cxx::parser::validating::int_pimpl< char > int_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::int_pskel< char > int_pskel;
+  typedef ::xsd::cxx::parser::non_validating::int_pimpl< char > int_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::unsigned_int_pskel< char > unsigned_int_pskel;
-  typedef ::xsd::cxx::parser::validating::unsigned_int_pimpl< char > unsigned_int_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_int_pskel< char > unsigned_int_pskel;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_int_pimpl< char > unsigned_int_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::long_pskel< char > long_pskel;
-  typedef ::xsd::cxx::parser::validating::long_pimpl< char > long_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::long_pskel< char > long_pskel;
+  typedef ::xsd::cxx::parser::non_validating::long_pimpl< char > long_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::unsigned_long_pskel< char > unsigned_long_pskel;
-  typedef ::xsd::cxx::parser::validating::unsigned_long_pimpl< char > unsigned_long_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_long_pskel< char > unsigned_long_pskel;
+  typedef ::xsd::cxx::parser::non_validating::unsigned_long_pimpl< char > unsigned_long_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::integer_pskel< char > integer_pskel;
-  typedef ::xsd::cxx::parser::validating::integer_pimpl< char > integer_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::integer_pskel< char > integer_pskel;
+  typedef ::xsd::cxx::parser::non_validating::integer_pimpl< char > integer_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::non_positive_integer_pskel< char > non_positive_integer_pskel;
-  typedef ::xsd::cxx::parser::validating::non_positive_integer_pimpl< char > non_positive_integer_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::non_positive_integer_pskel< char > non_positive_integer_pskel;
+  typedef ::xsd::cxx::parser::non_validating::non_positive_integer_pimpl< char > non_positive_integer_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::non_negative_integer_pskel< char > non_negative_integer_pskel;
-  typedef ::xsd::cxx::parser::validating::non_negative_integer_pimpl< char > non_negative_integer_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::non_negative_integer_pskel< char > non_negative_integer_pskel;
+  typedef ::xsd::cxx::parser::non_validating::non_negative_integer_pimpl< char > non_negative_integer_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::positive_integer_pskel< char > positive_integer_pskel;
-  typedef ::xsd::cxx::parser::validating::positive_integer_pimpl< char > positive_integer_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::positive_integer_pskel< char > positive_integer_pskel;
+  typedef ::xsd::cxx::parser::non_validating::positive_integer_pimpl< char > positive_integer_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::negative_integer_pskel< char > negative_integer_pskel;
-  typedef ::xsd::cxx::parser::validating::negative_integer_pimpl< char > negative_integer_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::negative_integer_pskel< char > negative_integer_pskel;
+  typedef ::xsd::cxx::parser::non_validating::negative_integer_pimpl< char > negative_integer_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::boolean_pskel< char > boolean_pskel;
-  typedef ::xsd::cxx::parser::validating::boolean_pimpl< char > boolean_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::boolean_pskel< char > boolean_pskel;
+  typedef ::xsd::cxx::parser::non_validating::boolean_pimpl< char > boolean_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::float_pskel< char > float_pskel;
-  typedef ::xsd::cxx::parser::validating::float_pimpl< char > float_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::float_pskel< char > float_pskel;
+  typedef ::xsd::cxx::parser::non_validating::float_pimpl< char > float_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::double_pskel< char > double_pskel;
-  typedef ::xsd::cxx::parser::validating::double_pimpl< char > double_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::double_pskel< char > double_pskel;
+  typedef ::xsd::cxx::parser::non_validating::double_pimpl< char > double_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::decimal_pskel< char > decimal_pskel;
-  typedef ::xsd::cxx::parser::validating::decimal_pimpl< char > decimal_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::decimal_pskel< char > decimal_pskel;
+  typedef ::xsd::cxx::parser::non_validating::decimal_pimpl< char > decimal_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::string_pskel< char > string_pskel;
-  typedef ::xsd::cxx::parser::validating::string_pimpl< char > string_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::string_pskel< char > string_pskel;
+  typedef ::xsd::cxx::parser::non_validating::string_pimpl< char > string_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::normalized_string_pskel< char > normalized_string_pskel;
-  typedef ::xsd::cxx::parser::validating::normalized_string_pimpl< char > normalized_string_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::normalized_string_pskel< char > normalized_string_pskel;
+  typedef ::xsd::cxx::parser::non_validating::normalized_string_pimpl< char > normalized_string_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::token_pskel< char > token_pskel;
-  typedef ::xsd::cxx::parser::validating::token_pimpl< char > token_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::token_pskel< char > token_pskel;
+  typedef ::xsd::cxx::parser::non_validating::token_pimpl< char > token_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::name_pskel< char > name_pskel;
-  typedef ::xsd::cxx::parser::validating::name_pimpl< char > name_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::name_pskel< char > name_pskel;
+  typedef ::xsd::cxx::parser::non_validating::name_pimpl< char > name_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::nmtoken_pskel< char > nmtoken_pskel;
-  typedef ::xsd::cxx::parser::validating::nmtoken_pimpl< char > nmtoken_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::nmtoken_pskel< char > nmtoken_pskel;
+  typedef ::xsd::cxx::parser::non_validating::nmtoken_pimpl< char > nmtoken_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::nmtokens_pskel< char > nmtokens_pskel;
-  typedef ::xsd::cxx::parser::validating::nmtokens_pimpl< char > nmtokens_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::nmtokens_pskel< char > nmtokens_pskel;
+  typedef ::xsd::cxx::parser::non_validating::nmtokens_pimpl< char > nmtokens_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::ncname_pskel< char > ncname_pskel;
-  typedef ::xsd::cxx::parser::validating::ncname_pimpl< char > ncname_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::ncname_pskel< char > ncname_pskel;
+  typedef ::xsd::cxx::parser::non_validating::ncname_pimpl< char > ncname_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::language_pskel< char > language_pskel;
-  typedef ::xsd::cxx::parser::validating::language_pimpl< char > language_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::language_pskel< char > language_pskel;
+  typedef ::xsd::cxx::parser::non_validating::language_pimpl< char > language_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::id_pskel< char > id_pskel;
-  typedef ::xsd::cxx::parser::validating::id_pimpl< char > id_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::id_pskel< char > id_pskel;
+  typedef ::xsd::cxx::parser::non_validating::id_pimpl< char > id_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::idref_pskel< char > idref_pskel;
-  typedef ::xsd::cxx::parser::validating::idref_pimpl< char > idref_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::idref_pskel< char > idref_pskel;
+  typedef ::xsd::cxx::parser::non_validating::idref_pimpl< char > idref_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::idrefs_pskel< char > idrefs_pskel;
-  typedef ::xsd::cxx::parser::validating::idrefs_pimpl< char > idrefs_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::idrefs_pskel< char > idrefs_pskel;
+  typedef ::xsd::cxx::parser::non_validating::idrefs_pimpl< char > idrefs_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::uri_pskel< char > uri_pskel;
-  typedef ::xsd::cxx::parser::validating::uri_pimpl< char > uri_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::uri_pskel< char > uri_pskel;
+  typedef ::xsd::cxx::parser::non_validating::uri_pimpl< char > uri_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::qname_pskel< char > qname_pskel;
-  typedef ::xsd::cxx::parser::validating::qname_pimpl< char > qname_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::qname_pskel< char > qname_pskel;
+  typedef ::xsd::cxx::parser::non_validating::qname_pimpl< char > qname_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::base64_binary_pskel< char > base64_binary_pskel;
-  typedef ::xsd::cxx::parser::validating::base64_binary_pimpl< char > base64_binary_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::base64_binary_pskel< char > base64_binary_pskel;
+  typedef ::xsd::cxx::parser::non_validating::base64_binary_pimpl< char > base64_binary_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::hex_binary_pskel< char > hex_binary_pskel;
-  typedef ::xsd::cxx::parser::validating::hex_binary_pimpl< char > hex_binary_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::hex_binary_pskel< char > hex_binary_pskel;
+  typedef ::xsd::cxx::parser::non_validating::hex_binary_pimpl< char > hex_binary_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::date_pskel< char > date_pskel;
-  typedef ::xsd::cxx::parser::validating::date_pimpl< char > date_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::date_pskel< char > date_pskel;
+  typedef ::xsd::cxx::parser::non_validating::date_pimpl< char > date_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::date_time_pskel< char > date_time_pskel;
-  typedef ::xsd::cxx::parser::validating::date_time_pimpl< char > date_time_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::date_time_pskel< char > date_time_pskel;
+  typedef ::xsd::cxx::parser::non_validating::date_time_pimpl< char > date_time_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::duration_pskel< char > duration_pskel;
-  typedef ::xsd::cxx::parser::validating::duration_pimpl< char > duration_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::duration_pskel< char > duration_pskel;
+  typedef ::xsd::cxx::parser::non_validating::duration_pimpl< char > duration_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::gday_pskel< char > gday_pskel;
-  typedef ::xsd::cxx::parser::validating::gday_pimpl< char > gday_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::gday_pskel< char > gday_pskel;
+  typedef ::xsd::cxx::parser::non_validating::gday_pimpl< char > gday_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::gmonth_pskel< char > gmonth_pskel;
-  typedef ::xsd::cxx::parser::validating::gmonth_pimpl< char > gmonth_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::gmonth_pskel< char > gmonth_pskel;
+  typedef ::xsd::cxx::parser::non_validating::gmonth_pimpl< char > gmonth_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::gmonth_day_pskel< char > gmonth_day_pskel;
-  typedef ::xsd::cxx::parser::validating::gmonth_day_pimpl< char > gmonth_day_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::gmonth_day_pskel< char > gmonth_day_pskel;
+  typedef ::xsd::cxx::parser::non_validating::gmonth_day_pimpl< char > gmonth_day_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::gyear_pskel< char > gyear_pskel;
-  typedef ::xsd::cxx::parser::validating::gyear_pimpl< char > gyear_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::gyear_pskel< char > gyear_pskel;
+  typedef ::xsd::cxx::parser::non_validating::gyear_pimpl< char > gyear_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::gyear_month_pskel< char > gyear_month_pskel;
-  typedef ::xsd::cxx::parser::validating::gyear_month_pimpl< char > gyear_month_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::gyear_month_pskel< char > gyear_month_pskel;
+  typedef ::xsd::cxx::parser::non_validating::gyear_month_pimpl< char > gyear_month_pimpl;
 
-  typedef ::xsd::cxx::parser::validating::time_pskel< char > time_pskel;
-  typedef ::xsd::cxx::parser::validating::time_pimpl< char > time_pimpl;
+  typedef ::xsd::cxx::parser::non_validating::time_pskel< char > time_pskel;
+  typedef ::xsd::cxx::parser::non_validating::time_pimpl< char > time_pimpl;
 
   // Exceptions. See libxsd/xsd/cxx/parser/exceptions.hxx for details.
   //
@@ -251,23 +252,21 @@ namespace xml_schema
   //
   typedef ::xsd::cxx::ro_string< char > ro_string;
 
-  // Document type. See libxsd/xsd/cxx/parser/expat/elements.hxx
+  // Parsing flags. See libxsd/xsd/cxx/parser/xerces/elements.hxx
   // for details.
   //
-  typedef ::xsd::cxx::parser::expat::document< char > document;
-}
+  typedef ::xsd::cxx::parser::xerces::flags flags;
 
-class calcType_pskel: public virtual ::xml_schema::string_pskel
-{
-  public:
-  // Parser callbacks. Override them in your implementation.
+  // Parsing properties. See libxsd/xsd/cxx/parser/xerces/elements.hxx
+  // for details.
   //
-  // virtual void
-  // pre ();
+  typedef ::xsd::cxx::parser::xerces::properties< char > properties;
 
-  virtual std::string
-  post_calcType ();
-};
+  // Document type. See libxsd/xsd/cxx/parser/xerces/elements.hxx
+  // for details.
+  //
+  typedef ::xsd::cxx::parser::xerces::document< char > document;
+}
 
 class paramsLJ_pskel: public ::xml_schema::complex_content
 {
@@ -289,8 +288,8 @@ class paramsLJ_pskel: public ::xml_schema::complex_content
   virtual void
   h (double);
 
-  virtual paramsLJ_pskel
-  post_paramsLJ ();
+  virtual ::paramsLJ
+  post_paramsLJ () = 0;
 
   // Parser construction API.
   //
@@ -333,43 +332,6 @@ class paramsLJ_pskel: public ::xml_schema::complex_content
   ::xml_schema::double_pskel* mass_parser_;
   ::xml_schema::double_pskel* rho_parser_;
   ::xml_schema::double_pskel* h_parser_;
-
-  protected:
-  struct v_state_descr_
-  {
-    void (::paramsLJ_pskel::*func) (
-      unsigned long&,
-      unsigned long&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string*,
-      bool);
-    unsigned long state;
-    unsigned long count;
-  };
-
-  struct v_state_
-  {
-    v_state_descr_ data[2UL];
-    unsigned long size;
-  };
-
-  v_state_ v_state_first_;
-  ::xsd::cxx::parser::pod_stack v_state_stack_;
-
-  virtual void
-  _pre_e_validate ();
-
-  virtual void
-  _post_e_validate ();
-
-  void
-  sequence_0 (unsigned long& state,
-              unsigned long& count,
-              const ::xml_schema::ro_string& ns,
-              const ::xml_schema::ro_string& n,
-              const ::xml_schema::ro_string* t,
-              bool start);
 };
 
 class boundaryConditions_pskel: public ::xml_schema::complex_content
@@ -393,7 +355,13 @@ class boundaryConditions_pskel: public ::xml_schema::complex_content
   left (int);
 
   virtual void
-  post_boundaryConditions ();
+  front (int);
+
+  virtual void
+  back (int);
+
+  virtual ::boundaryConditions
+  post_boundaryConditions () = 0;
 
   // Parser construction API.
   //
@@ -410,10 +378,18 @@ class boundaryConditions_pskel: public ::xml_schema::complex_content
   left_parser (::xml_schema::int_pskel&);
 
   void
+  front_parser (::xml_schema::int_pskel&);
+
+  void
+  back_parser (::xml_schema::int_pskel&);
+
+  void
   parsers (::xml_schema::int_pskel& /* top */,
            ::xml_schema::int_pskel& /* right */,
            ::xml_schema::int_pskel& /* bottom */,
-           ::xml_schema::int_pskel& /* left */);
+           ::xml_schema::int_pskel& /* left */,
+           ::xml_schema::int_pskel& /* front */,
+           ::xml_schema::int_pskel& /* back */);
 
   // Constructor.
   //
@@ -436,43 +412,8 @@ class boundaryConditions_pskel: public ::xml_schema::complex_content
   ::xml_schema::int_pskel* right_parser_;
   ::xml_schema::int_pskel* bottom_parser_;
   ::xml_schema::int_pskel* left_parser_;
-
-  protected:
-  struct v_state_descr_
-  {
-    void (::boundaryConditions_pskel::*func) (
-      unsigned long&,
-      unsigned long&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string*,
-      bool);
-    unsigned long state;
-    unsigned long count;
-  };
-
-  struct v_state_
-  {
-    v_state_descr_ data[2UL];
-    unsigned long size;
-  };
-
-  v_state_ v_state_first_;
-  ::xsd::cxx::parser::pod_stack v_state_stack_;
-
-  virtual void
-  _pre_e_validate ();
-
-  virtual void
-  _post_e_validate ();
-
-  void
-  sequence_0 (unsigned long& state,
-              unsigned long& count,
-              const ::xml_schema::ro_string& ns,
-              const ::xml_schema::ro_string& n,
-              const ::xml_schema::ro_string* t,
-              bool start);
+  ::xml_schema::int_pskel* front_parser_;
+  ::xml_schema::int_pskel* back_parser_;
 };
 
 class particlesLJ_pskel: public ::xml_schema::complex_content
@@ -484,10 +425,10 @@ class particlesLJ_pskel: public ::xml_schema::complex_content
   // pre ();
 
   virtual void
-  body ();
+  body (const ::body&);
 
-  virtual void
-  post_particlesLJ ();
+  virtual ::particlesLJ
+  post_particlesLJ () = 0;
 
   // Parser construction API.
   //
@@ -515,43 +456,6 @@ class particlesLJ_pskel: public ::xml_schema::complex_content
 
   protected:
   ::body_pskel* body_parser_;
-
-  protected:
-  struct v_state_descr_
-  {
-    void (::particlesLJ_pskel::*func) (
-      unsigned long&,
-      unsigned long&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string*,
-      bool);
-    unsigned long state;
-    unsigned long count;
-  };
-
-  struct v_state_
-  {
-    v_state_descr_ data[2UL];
-    unsigned long size;
-  };
-
-  v_state_ v_state_first_;
-  ::xsd::cxx::parser::pod_stack v_state_stack_;
-
-  virtual void
-  _pre_e_validate ();
-
-  virtual void
-  _post_e_validate ();
-
-  void
-  sequence_0 (unsigned long& state,
-              unsigned long& count,
-              const ::xml_schema::ro_string& ns,
-              const ::xml_schema::ro_string& n,
-              const ::xml_schema::ro_string* t,
-              bool start);
 };
 
 class input_pskel: public ::xml_schema::complex_content
@@ -569,7 +473,7 @@ class input_pskel: public ::xml_schema::complex_content
   delta_t (double);
 
   virtual void
-  calcType ();
+  calcType (const ::std::string&);
 
   virtual void
   baseNameOutputFiles (const ::std::string&);
@@ -581,16 +485,16 @@ class input_pskel: public ::xml_schema::complex_content
   gravInput (const ::std::string&);
 
   virtual void
-  paramsLJ ();
+  paramsLJ (const ::paramsLJ&);
 
   virtual void
-  boundaryConditions ();
+  boundaryConditions (const ::boundaryConditions&);
 
   virtual void
-  particlesLJ ();
+  particlesLJ (const ::particlesLJ&);
 
-  virtual void
-  post_input ();
+  virtual ::input
+  post_input () = 0;
 
   // Parser construction API.
   //
@@ -601,7 +505,7 @@ class input_pskel: public ::xml_schema::complex_content
   delta_t_parser (::xml_schema::double_pskel&);
 
   void
-  calcType_parser (::calcType_pskel&);
+  calcType_parser (::xml_schema::string_pskel&);
 
   void
   baseNameOutputFiles_parser (::xml_schema::string_pskel&);
@@ -624,7 +528,7 @@ class input_pskel: public ::xml_schema::complex_content
   void
   parsers (::xml_schema::double_pskel& /* t_end */,
            ::xml_schema::double_pskel& /* delta_t */,
-           ::calcType_pskel& /* calcType */,
+           ::xml_schema::string_pskel& /* calcType */,
            ::xml_schema::string_pskel& /* baseNameOutputFiles */,
            ::xml_schema::int_pskel& /* writeFrequency */,
            ::xml_schema::string_pskel& /* gravInput */,
@@ -651,50 +555,13 @@ class input_pskel: public ::xml_schema::complex_content
   protected:
   ::xml_schema::double_pskel* t_end_parser_;
   ::xml_schema::double_pskel* delta_t_parser_;
-  ::calcType_pskel* calcType_parser_;
+  ::xml_schema::string_pskel* calcType_parser_;
   ::xml_schema::string_pskel* baseNameOutputFiles_parser_;
   ::xml_schema::int_pskel* writeFrequency_parser_;
   ::xml_schema::string_pskel* gravInput_parser_;
   ::paramsLJ_pskel* paramsLJ_parser_;
   ::boundaryConditions_pskel* boundaryConditions_parser_;
   ::particlesLJ_pskel* particlesLJ_parser_;
-
-  protected:
-  struct v_state_descr_
-  {
-    void (::input_pskel::*func) (
-      unsigned long&,
-      unsigned long&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string*,
-      bool);
-    unsigned long state;
-    unsigned long count;
-  };
-
-  struct v_state_
-  {
-    v_state_descr_ data[2UL];
-    unsigned long size;
-  };
-
-  v_state_ v_state_first_;
-  ::xsd::cxx::parser::pod_stack v_state_stack_;
-
-  virtual void
-  _pre_e_validate ();
-
-  virtual void
-  _post_e_validate ();
-
-  void
-  sequence_0 (unsigned long& state,
-              unsigned long& count,
-              const ::xml_schema::ro_string& ns,
-              const ::xml_schema::ro_string& n,
-              const ::xml_schema::ro_string* t,
-              bool start);
 };
 
 class body_pskel: public ::xml_schema::complex_content
@@ -717,8 +584,8 @@ class body_pskel: public ::xml_schema::complex_content
   virtual void
   objectSpecificFormat (const ::std::string&);
 
-  virtual void
-  post_body ();
+  virtual ::body
+  post_body () = 0;
 
   // Parser construction API.
   //
@@ -761,43 +628,6 @@ class body_pskel: public ::xml_schema::complex_content
   ::xml_schema::string_pskel* position_parser_;
   ::xml_schema::string_pskel* velocity_parser_;
   ::xml_schema::string_pskel* objectSpecificFormat_parser_;
-
-  protected:
-  struct v_state_descr_
-  {
-    void (::body_pskel::*func) (
-      unsigned long&,
-      unsigned long&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string&,
-      const ::xml_schema::ro_string*,
-      bool);
-    unsigned long state;
-    unsigned long count;
-  };
-
-  struct v_state_
-  {
-    v_state_descr_ data[2UL];
-    unsigned long size;
-  };
-
-  v_state_ v_state_first_;
-  ::xsd::cxx::parser::pod_stack v_state_stack_;
-
-  virtual void
-  _pre_e_validate ();
-
-  virtual void
-  _post_e_validate ();
-
-  void
-  sequence_0 (unsigned long& state,
-              unsigned long& count,
-              const ::xml_schema::ro_string& ns,
-              const ::xml_schema::ro_string& n,
-              const ::xml_schema::ro_string* t,
-              bool start);
 };
 
 #include <xsd/cxx/post.hxx>

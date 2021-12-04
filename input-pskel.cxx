@@ -84,8 +84,7 @@ paramsLJ_pskel ()
 : epsilon_parser_ (0),
   mass_parser_ (0),
   rho_parser_ (0),
-  h_parser_ (0),
-  v_state_stack_ (sizeof (v_state_), &v_state_first_)
+  h_parser_ (0)
 {
 }
 
@@ -117,15 +116,31 @@ left_parser (::xml_schema::int_pskel& p)
 }
 
 void boundaryConditions_pskel::
+front_parser (::xml_schema::int_pskel& p)
+{
+  this->front_parser_ = &p;
+}
+
+void boundaryConditions_pskel::
+back_parser (::xml_schema::int_pskel& p)
+{
+  this->back_parser_ = &p;
+}
+
+void boundaryConditions_pskel::
 parsers (::xml_schema::int_pskel& top,
          ::xml_schema::int_pskel& right,
          ::xml_schema::int_pskel& bottom,
-         ::xml_schema::int_pskel& left)
+         ::xml_schema::int_pskel& left,
+         ::xml_schema::int_pskel& front,
+         ::xml_schema::int_pskel& back)
 {
   this->top_parser_ = &top;
   this->right_parser_ = &right;
   this->bottom_parser_ = &bottom;
   this->left_parser_ = &left;
+  this->front_parser_ = &front;
+  this->back_parser_ = &back;
 }
 
 boundaryConditions_pskel::
@@ -134,7 +149,8 @@ boundaryConditions_pskel ()
   right_parser_ (0),
   bottom_parser_ (0),
   left_parser_ (0),
-  v_state_stack_ (sizeof (v_state_), &v_state_first_)
+  front_parser_ (0),
+  back_parser_ (0)
 {
 }
 
@@ -155,8 +171,7 @@ parsers (::body_pskel& body)
 
 particlesLJ_pskel::
 particlesLJ_pskel ()
-: body_parser_ (0),
-  v_state_stack_ (sizeof (v_state_), &v_state_first_)
+: body_parser_ (0)
 {
 }
 
@@ -176,7 +191,7 @@ delta_t_parser (::xml_schema::double_pskel& p)
 }
 
 void input_pskel::
-calcType_parser (::calcType_pskel& p)
+calcType_parser (::xml_schema::string_pskel& p)
 {
   this->calcType_parser_ = &p;
 }
@@ -220,7 +235,7 @@ particlesLJ_parser (::particlesLJ_pskel& p)
 void input_pskel::
 parsers (::xml_schema::double_pskel& t_end,
          ::xml_schema::double_pskel& delta_t,
-         ::calcType_pskel& calcType,
+         ::xml_schema::string_pskel& calcType,
          ::xml_schema::string_pskel& baseNameOutputFiles,
          ::xml_schema::int_pskel& writeFrequency,
          ::xml_schema::string_pskel& gravInput,
@@ -249,8 +264,7 @@ input_pskel ()
   gravInput_parser_ (0),
   paramsLJ_parser_ (0),
   boundaryConditions_parser_ (0),
-  particlesLJ_parser_ (0),
-  v_state_stack_ (sizeof (v_state_), &v_state_first_)
+  particlesLJ_parser_ (0)
 {
 }
 
@@ -298,16 +312,7 @@ body_pskel ()
 : bodyType_parser_ (0),
   position_parser_ (0),
   velocity_parser_ (0),
-  objectSpecificFormat_parser_ (0),
-  v_state_stack_ (sizeof (v_state_), &v_state_first_)
-{
-}
-
-// calcType_pskel
-//
-
-void calcType_pskel::
-post_calcType ()
+  objectSpecificFormat_parser_ (0)
 {
 }
 
@@ -334,9 +339,99 @@ h (double)
 {
 }
 
-void paramsLJ_pskel::
-post_paramsLJ ()
+bool paramsLJ_pskel::
+_start_element_impl (const ::xml_schema::ro_string& ns,
+                     const ::xml_schema::ro_string& n,
+                     const ::xml_schema::ro_string* t)
 {
+  XSD_UNUSED (t);
+
+  if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
+    return true;
+
+  if (n == "epsilon" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->epsilon_parser_;
+
+    if (this->epsilon_parser_)
+      this->epsilon_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "mass" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->mass_parser_;
+
+    if (this->mass_parser_)
+      this->mass_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "rho" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->rho_parser_;
+
+    if (this->rho_parser_)
+      this->rho_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "h" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->h_parser_;
+
+    if (this->h_parser_)
+      this->h_parser_->pre ();
+
+    return true;
+  }
+
+  return false;
+}
+
+bool paramsLJ_pskel::
+_end_element_impl (const ::xml_schema::ro_string& ns,
+                   const ::xml_schema::ro_string& n)
+{
+  if (this->::xml_schema::complex_content::_end_element_impl (ns, n))
+    return true;
+
+  if (n == "epsilon" && ns.empty ())
+  {
+    if (this->epsilon_parser_)
+      this->epsilon (this->epsilon_parser_->post_double ());
+
+    return true;
+  }
+
+  if (n == "mass" && ns.empty ())
+  {
+    if (this->mass_parser_)
+      this->mass (this->mass_parser_->post_double ());
+
+    return true;
+  }
+
+  if (n == "rho" && ns.empty ())
+  {
+    if (this->rho_parser_)
+      this->rho (this->rho_parser_->post_double ());
+
+    return true;
+  }
+
+  if (n == "h" && ns.empty ())
+  {
+    if (this->h_parser_)
+      this->h (this->h_parser_->post_double ());
+
+    return true;
+  }
+
+  return false;
 }
 
 // boundaryConditions_pskel
@@ -363,21 +458,193 @@ left (int)
 }
 
 void boundaryConditions_pskel::
-post_boundaryConditions ()
+front (int)
 {
+}
+
+void boundaryConditions_pskel::
+back (int)
+{
+}
+
+bool boundaryConditions_pskel::
+_start_element_impl (const ::xml_schema::ro_string& ns,
+                     const ::xml_schema::ro_string& n,
+                     const ::xml_schema::ro_string* t)
+{
+  XSD_UNUSED (t);
+
+  if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
+    return true;
+
+  if (n == "top" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->top_parser_;
+
+    if (this->top_parser_)
+      this->top_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "right" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->right_parser_;
+
+    if (this->right_parser_)
+      this->right_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "bottom" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->bottom_parser_;
+
+    if (this->bottom_parser_)
+      this->bottom_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "left" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->left_parser_;
+
+    if (this->left_parser_)
+      this->left_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "front" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->front_parser_;
+
+    if (this->front_parser_)
+      this->front_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "back" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->back_parser_;
+
+    if (this->back_parser_)
+      this->back_parser_->pre ();
+
+    return true;
+  }
+
+  return false;
+}
+
+bool boundaryConditions_pskel::
+_end_element_impl (const ::xml_schema::ro_string& ns,
+                   const ::xml_schema::ro_string& n)
+{
+  if (this->::xml_schema::complex_content::_end_element_impl (ns, n))
+    return true;
+
+  if (n == "top" && ns.empty ())
+  {
+    if (this->top_parser_)
+      this->top (this->top_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "right" && ns.empty ())
+  {
+    if (this->right_parser_)
+      this->right (this->right_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "bottom" && ns.empty ())
+  {
+    if (this->bottom_parser_)
+      this->bottom (this->bottom_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "left" && ns.empty ())
+  {
+    if (this->left_parser_)
+      this->left (this->left_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "front" && ns.empty ())
+  {
+    if (this->front_parser_)
+      this->front (this->front_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "back" && ns.empty ())
+  {
+    if (this->back_parser_)
+      this->back (this->back_parser_->post_int ());
+
+    return true;
+  }
+
+  return false;
 }
 
 // particlesLJ_pskel
 //
 
 void particlesLJ_pskel::
-body ()
+body (const ::body&)
 {
 }
 
-void particlesLJ_pskel::
-post_particlesLJ ()
+bool particlesLJ_pskel::
+_start_element_impl (const ::xml_schema::ro_string& ns,
+                     const ::xml_schema::ro_string& n,
+                     const ::xml_schema::ro_string* t)
 {
+  XSD_UNUSED (t);
+
+  if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
+    return true;
+
+  if (n == "body" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->body_parser_;
+
+    if (this->body_parser_)
+      this->body_parser_->pre ();
+
+    return true;
+  }
+
+  return false;
+}
+
+bool particlesLJ_pskel::
+_end_element_impl (const ::xml_schema::ro_string& ns,
+                   const ::xml_schema::ro_string& n)
+{
+  if (this->::xml_schema::complex_content::_end_element_impl (ns, n))
+    return true;
+
+  if (n == "body" && ns.empty ())
+  {
+    if (this->body_parser_)
+      this->body (this->body_parser_->post_body ());
+
+    return true;
+  }
+
+  return false;
 }
 
 // input_pskel
@@ -394,7 +661,7 @@ delta_t (double)
 }
 
 void input_pskel::
-calcType ()
+calcType (const ::std::string&)
 {
 }
 
@@ -414,23 +681,203 @@ gravInput (const ::std::string&)
 }
 
 void input_pskel::
-paramsLJ ()
+paramsLJ (const ::paramsLJ&)
 {
 }
 
 void input_pskel::
-boundaryConditions ()
+boundaryConditions (const ::boundaryConditions&)
 {
 }
 
 void input_pskel::
-particlesLJ ()
+particlesLJ (const ::particlesLJ&)
 {
 }
 
-void input_pskel::
-post_input ()
+bool input_pskel::
+_start_element_impl (const ::xml_schema::ro_string& ns,
+                     const ::xml_schema::ro_string& n,
+                     const ::xml_schema::ro_string* t)
 {
+  XSD_UNUSED (t);
+
+  if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
+    return true;
+
+  if (n == "t_end" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->t_end_parser_;
+
+    if (this->t_end_parser_)
+      this->t_end_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "delta_t" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->delta_t_parser_;
+
+    if (this->delta_t_parser_)
+      this->delta_t_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "calcType" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->calcType_parser_;
+
+    if (this->calcType_parser_)
+      this->calcType_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "baseNameOutputFiles" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->baseNameOutputFiles_parser_;
+
+    if (this->baseNameOutputFiles_parser_)
+      this->baseNameOutputFiles_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "writeFrequency" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->writeFrequency_parser_;
+
+    if (this->writeFrequency_parser_)
+      this->writeFrequency_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "gravInput" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->gravInput_parser_;
+
+    if (this->gravInput_parser_)
+      this->gravInput_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "paramsLJ" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->paramsLJ_parser_;
+
+    if (this->paramsLJ_parser_)
+      this->paramsLJ_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "boundaryConditions" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->boundaryConditions_parser_;
+
+    if (this->boundaryConditions_parser_)
+      this->boundaryConditions_parser_->pre ();
+
+    return true;
+  }
+
+  if (n == "particlesLJ" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->particlesLJ_parser_;
+
+    if (this->particlesLJ_parser_)
+      this->particlesLJ_parser_->pre ();
+
+    return true;
+  }
+
+  return false;
+}
+
+bool input_pskel::
+_end_element_impl (const ::xml_schema::ro_string& ns,
+                   const ::xml_schema::ro_string& n)
+{
+  if (this->::xml_schema::complex_content::_end_element_impl (ns, n))
+    return true;
+
+  if (n == "t_end" && ns.empty ())
+  {
+    if (this->t_end_parser_)
+      this->t_end (this->t_end_parser_->post_double ());
+
+    return true;
+  }
+
+  if (n == "delta_t" && ns.empty ())
+  {
+    if (this->delta_t_parser_)
+      this->delta_t (this->delta_t_parser_->post_double ());
+
+    return true;
+  }
+
+  if (n == "calcType" && ns.empty ())
+  {
+    if (this->calcType_parser_)
+      this->calcType (this->calcType_parser_->post_string ());
+
+    return true;
+  }
+
+  if (n == "baseNameOutputFiles" && ns.empty ())
+  {
+    if (this->baseNameOutputFiles_parser_)
+      this->baseNameOutputFiles (this->baseNameOutputFiles_parser_->post_string ());
+
+    return true;
+  }
+
+  if (n == "writeFrequency" && ns.empty ())
+  {
+    if (this->writeFrequency_parser_)
+      this->writeFrequency (this->writeFrequency_parser_->post_int ());
+
+    return true;
+  }
+
+  if (n == "gravInput" && ns.empty ())
+  {
+    if (this->gravInput_parser_)
+      this->gravInput (this->gravInput_parser_->post_string ());
+
+    return true;
+  }
+
+  if (n == "paramsLJ" && ns.empty ())
+  {
+    if (this->paramsLJ_parser_)
+      this->paramsLJ (this->paramsLJ_parser_->post_paramsLJ ());
+
+    return true;
+  }
+
+  if (n == "boundaryConditions" && ns.empty ())
+  {
+    if (this->boundaryConditions_parser_)
+      this->boundaryConditions (this->boundaryConditions_parser_->post_boundaryConditions ());
+
+    return true;
+  }
+
+  if (n == "particlesLJ" && ns.empty ())
+  {
+    if (this->particlesLJ_parser_)
+      this->particlesLJ (this->particlesLJ_parser_->post_particlesLJ ());
+
+    return true;
+  }
+
+  return false;
 }
 
 // body_pskel
@@ -456,1245 +903,6 @@ objectSpecificFormat (const ::std::string&)
 {
 }
 
-void body_pskel::
-post_body ()
-{
-}
-
-#include <cassert>
-
-// Element validation and dispatch functions for paramsLJ_pskel.
-//
-bool paramsLJ_pskel::
-_start_element_impl (const ::xml_schema::ro_string& ns,
-                     const ::xml_schema::ro_string& n,
-                     const ::xml_schema::ro_string* t)
-{
-  XSD_UNUSED (t);
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  if (vd->func == 0 && vd->state == 0)
-  {
-    if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
-      return true;
-    else
-      vd->state = 1;
-  }
-
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, ns, n, t, true);
-
-    vd = vs.data + (vs.size - 1);
-
-    if (vd->state == ~0UL)
-      vd = vs.data + (--vs.size - 1);
-    else
-      break;
-  }
-
-  if (vd->func == 0)
-  {
-    if (vd->state != ~0UL)
-    {
-      unsigned long s = ~0UL;
-
-      if (n == "epsilon" && ns.empty ())
-        s = 0UL;
-
-      if (s != ~0UL)
-      {
-        vd->count++;
-        vd->state = ~0UL;
-
-        vd = vs.data + vs.size++;
-        vd->func = &paramsLJ_pskel::sequence_0;
-        vd->state = s;
-        vd->count = 0;
-
-        this->sequence_0 (vd->state, vd->count, ns, n, t, true);
-      }
-      else
-      {
-        if (vd->count < 1UL)
-          this->_expected_element (
-            "", "epsilon",
-            ns, n);
-        return false;
-      }
-    }
-    else
-      return false;
-  }
-
-  return true;
-}
-
-bool paramsLJ_pskel::
-_end_element_impl (const ::xml_schema::ro_string& ns,
-                   const ::xml_schema::ro_string& n)
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size - 1];
-
-  if (vd.func == 0 && vd.state == 0)
-  {
-    if (!::xml_schema::complex_content::_end_element_impl (ns, n))
-      assert (false);
-    return true;
-  }
-
-  assert (vd.func != 0);
-  (this->*vd.func) (vd.state, vd.count, ns, n, 0, false);
-
-  if (vd.state == ~0UL)
-    vs.size--;
-
-  return true;
-}
-
-void paramsLJ_pskel::
-_pre_e_validate ()
-{
-  this->v_state_stack_.push ();
-  static_cast< v_state_* > (this->v_state_stack_.top ())->size = 0;
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size++];
-
-  vd.func = 0;
-  vd.state = 0;
-  vd.count = 0;
-}
-
-void paramsLJ_pskel::
-_post_e_validate ()
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  ::xml_schema::ro_string empty;
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, empty, empty, 0, true);
-    assert (vd->state == ~0UL);
-    vd = vs.data + (--vs.size - 1);
-  }
-
-  if (vd->count < 1UL)
-    this->_expected_element (
-      "", "epsilon");
-
-  this->v_state_stack_.pop ();
-}
-
-void paramsLJ_pskel::
-sequence_0 (unsigned long& state,
-            unsigned long& count,
-            const ::xml_schema::ro_string& ns,
-            const ::xml_schema::ro_string& n,
-            const ::xml_schema::ro_string* t,
-            bool start)
-{
-  XSD_UNUSED (t);
-
-  switch (state)
-  {
-    case 0UL:
-    {
-      if (n == "epsilon" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->epsilon_parser_;
-
-          if (this->epsilon_parser_)
-            this->epsilon_parser_->pre ();
-        }
-        else
-        {
-          if (this->epsilon_parser_)
-          {
-            double tmp (this->epsilon_parser_->post_double ());
-            this->epsilon (tmp);
-          }
-
-          count = 0;
-          state = 1UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "epsilon",
-            ns, n);
-        count = 0;
-        state = 1UL;
-        // Fall through.
-      }
-    }
-    case 1UL:
-    {
-      if (n == "mass" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->mass_parser_;
-
-          if (this->mass_parser_)
-            this->mass_parser_->pre ();
-        }
-        else
-        {
-          if (this->mass_parser_)
-          {
-            double tmp (this->mass_parser_->post_double ());
-            this->mass (tmp);
-          }
-
-          count = 0;
-          state = 2UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "mass",
-            ns, n);
-        count = 0;
-        state = 2UL;
-        // Fall through.
-      }
-    }
-    case 2UL:
-    {
-      if (n == "rho" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->rho_parser_;
-
-          if (this->rho_parser_)
-            this->rho_parser_->pre ();
-        }
-        else
-        {
-          if (this->rho_parser_)
-          {
-            double tmp (this->rho_parser_->post_double ());
-            this->rho (tmp);
-          }
-
-          count = 0;
-          state = 3UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "rho",
-            ns, n);
-        count = 0;
-        state = 3UL;
-        // Fall through.
-      }
-    }
-    case 3UL:
-    {
-      if (n == "h" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->h_parser_;
-
-          if (this->h_parser_)
-            this->h_parser_->pre ();
-        }
-        else
-        {
-          if (this->h_parser_)
-          {
-            double tmp (this->h_parser_->post_double ());
-            this->h (tmp);
-          }
-
-          count = 0;
-          state = ~0UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "h",
-            ns, n);
-        count = 0;
-        state = ~0UL;
-        // Fall through.
-      }
-    }
-    case ~0UL:
-      break;
-  }
-}
-
-// Element validation and dispatch functions for boundaryConditions_pskel.
-//
-bool boundaryConditions_pskel::
-_start_element_impl (const ::xml_schema::ro_string& ns,
-                     const ::xml_schema::ro_string& n,
-                     const ::xml_schema::ro_string* t)
-{
-  XSD_UNUSED (t);
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  if (vd->func == 0 && vd->state == 0)
-  {
-    if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
-      return true;
-    else
-      vd->state = 1;
-  }
-
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, ns, n, t, true);
-
-    vd = vs.data + (vs.size - 1);
-
-    if (vd->state == ~0UL)
-      vd = vs.data + (--vs.size - 1);
-    else
-      break;
-  }
-
-  if (vd->func == 0)
-  {
-    if (vd->state != ~0UL)
-    {
-      unsigned long s = ~0UL;
-
-      if (n == "top" && ns.empty ())
-        s = 0UL;
-
-      if (s != ~0UL)
-      {
-        vd->count++;
-        vd->state = ~0UL;
-
-        vd = vs.data + vs.size++;
-        vd->func = &boundaryConditions_pskel::sequence_0;
-        vd->state = s;
-        vd->count = 0;
-
-        this->sequence_0 (vd->state, vd->count, ns, n, t, true);
-      }
-      else
-      {
-        if (vd->count < 1UL)
-          this->_expected_element (
-            "", "top",
-            ns, n);
-        return false;
-      }
-    }
-    else
-      return false;
-  }
-
-  return true;
-}
-
-bool boundaryConditions_pskel::
-_end_element_impl (const ::xml_schema::ro_string& ns,
-                   const ::xml_schema::ro_string& n)
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size - 1];
-
-  if (vd.func == 0 && vd.state == 0)
-  {
-    if (!::xml_schema::complex_content::_end_element_impl (ns, n))
-      assert (false);
-    return true;
-  }
-
-  assert (vd.func != 0);
-  (this->*vd.func) (vd.state, vd.count, ns, n, 0, false);
-
-  if (vd.state == ~0UL)
-    vs.size--;
-
-  return true;
-}
-
-void boundaryConditions_pskel::
-_pre_e_validate ()
-{
-  this->v_state_stack_.push ();
-  static_cast< v_state_* > (this->v_state_stack_.top ())->size = 0;
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size++];
-
-  vd.func = 0;
-  vd.state = 0;
-  vd.count = 0;
-}
-
-void boundaryConditions_pskel::
-_post_e_validate ()
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  ::xml_schema::ro_string empty;
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, empty, empty, 0, true);
-    assert (vd->state == ~0UL);
-    vd = vs.data + (--vs.size - 1);
-  }
-
-  if (vd->count < 1UL)
-    this->_expected_element (
-      "", "top");
-
-  this->v_state_stack_.pop ();
-}
-
-void boundaryConditions_pskel::
-sequence_0 (unsigned long& state,
-            unsigned long& count,
-            const ::xml_schema::ro_string& ns,
-            const ::xml_schema::ro_string& n,
-            const ::xml_schema::ro_string* t,
-            bool start)
-{
-  XSD_UNUSED (t);
-
-  switch (state)
-  {
-    case 0UL:
-    {
-      if (n == "top" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->top_parser_;
-
-          if (this->top_parser_)
-            this->top_parser_->pre ();
-        }
-        else
-        {
-          if (this->top_parser_)
-          {
-            int tmp (this->top_parser_->post_int ());
-            this->top (tmp);
-          }
-
-          count = 0;
-          state = 1UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "top",
-            ns, n);
-        count = 0;
-        state = 1UL;
-        // Fall through.
-      }
-    }
-    case 1UL:
-    {
-      if (n == "right" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->right_parser_;
-
-          if (this->right_parser_)
-            this->right_parser_->pre ();
-        }
-        else
-        {
-          if (this->right_parser_)
-          {
-            int tmp (this->right_parser_->post_int ());
-            this->right (tmp);
-          }
-
-          count = 0;
-          state = 2UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "right",
-            ns, n);
-        count = 0;
-        state = 2UL;
-        // Fall through.
-      }
-    }
-    case 2UL:
-    {
-      if (n == "bottom" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->bottom_parser_;
-
-          if (this->bottom_parser_)
-            this->bottom_parser_->pre ();
-        }
-        else
-        {
-          if (this->bottom_parser_)
-          {
-            int tmp (this->bottom_parser_->post_int ());
-            this->bottom (tmp);
-          }
-
-          count = 0;
-          state = 3UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "bottom",
-            ns, n);
-        count = 0;
-        state = 3UL;
-        // Fall through.
-      }
-    }
-    case 3UL:
-    {
-      if (n == "left" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->left_parser_;
-
-          if (this->left_parser_)
-            this->left_parser_->pre ();
-        }
-        else
-        {
-          if (this->left_parser_)
-          {
-            int tmp (this->left_parser_->post_int ());
-            this->left (tmp);
-          }
-
-          count = 0;
-          state = ~0UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "left",
-            ns, n);
-        count = 0;
-        state = ~0UL;
-        // Fall through.
-      }
-    }
-    case ~0UL:
-      break;
-  }
-}
-
-// Element validation and dispatch functions for particlesLJ_pskel.
-//
-bool particlesLJ_pskel::
-_start_element_impl (const ::xml_schema::ro_string& ns,
-                     const ::xml_schema::ro_string& n,
-                     const ::xml_schema::ro_string* t)
-{
-  XSD_UNUSED (t);
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  if (vd->func == 0 && vd->state == 0)
-  {
-    if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
-      return true;
-    else
-      vd->state = 1;
-  }
-
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, ns, n, t, true);
-
-    vd = vs.data + (vs.size - 1);
-
-    if (vd->state == ~0UL)
-      vd = vs.data + (--vs.size - 1);
-    else
-      break;
-  }
-
-  if (vd->func == 0)
-  {
-    if (vd->state != ~0UL)
-    {
-      unsigned long s = ~0UL;
-
-      if (n == "body" && ns.empty ())
-        s = 0UL;
-
-      if (s != ~0UL)
-      {
-        vd->count++;
-        vd->state = ~0UL;
-
-        vd = vs.data + vs.size++;
-        vd->func = &particlesLJ_pskel::sequence_0;
-        vd->state = s;
-        vd->count = 0;
-
-        this->sequence_0 (vd->state, vd->count, ns, n, t, true);
-      }
-      else
-      {
-        return false;
-      }
-    }
-    else
-      return false;
-  }
-
-  return true;
-}
-
-bool particlesLJ_pskel::
-_end_element_impl (const ::xml_schema::ro_string& ns,
-                   const ::xml_schema::ro_string& n)
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size - 1];
-
-  if (vd.func == 0 && vd.state == 0)
-  {
-    if (!::xml_schema::complex_content::_end_element_impl (ns, n))
-      assert (false);
-    return true;
-  }
-
-  assert (vd.func != 0);
-  (this->*vd.func) (vd.state, vd.count, ns, n, 0, false);
-
-  if (vd.state == ~0UL)
-    vs.size--;
-
-  return true;
-}
-
-void particlesLJ_pskel::
-_pre_e_validate ()
-{
-  this->v_state_stack_.push ();
-  static_cast< v_state_* > (this->v_state_stack_.top ())->size = 0;
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size++];
-
-  vd.func = 0;
-  vd.state = 0;
-  vd.count = 0;
-}
-
-void particlesLJ_pskel::
-_post_e_validate ()
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  ::xml_schema::ro_string empty;
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, empty, empty, 0, true);
-    assert (vd->state == ~0UL);
-    vd = vs.data + (--vs.size - 1);
-  }
-
-
-  this->v_state_stack_.pop ();
-}
-
-void particlesLJ_pskel::
-sequence_0 (unsigned long& state,
-            unsigned long& count,
-            const ::xml_schema::ro_string& ns,
-            const ::xml_schema::ro_string& n,
-            const ::xml_schema::ro_string* t,
-            bool start)
-{
-  XSD_UNUSED (t);
-
-  switch (state)
-  {
-    case 0UL:
-    {
-      if (n == "body" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->body_parser_;
-
-          if (this->body_parser_)
-            this->body_parser_->pre ();
-        }
-        else
-        {
-          if (this->body_parser_)
-          {
-            this->body_parser_->post_body ();
-            this->body ();
-          }
-
-          count++;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        count = 0;
-        state = ~0UL;
-        // Fall through.
-      }
-    }
-    case ~0UL:
-      break;
-  }
-}
-
-// Element validation and dispatch functions for input_pskel.
-//
-bool input_pskel::
-_start_element_impl (const ::xml_schema::ro_string& ns,
-                     const ::xml_schema::ro_string& n,
-                     const ::xml_schema::ro_string* t)
-{
-  XSD_UNUSED (t);
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  if (vd->func == 0 && vd->state == 0)
-  {
-    if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
-      return true;
-    else
-      vd->state = 1;
-  }
-
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, ns, n, t, true);
-
-    vd = vs.data + (vs.size - 1);
-
-    if (vd->state == ~0UL)
-      vd = vs.data + (--vs.size - 1);
-    else
-      break;
-  }
-
-  if (vd->func == 0)
-  {
-    if (vd->state != ~0UL)
-    {
-      unsigned long s = ~0UL;
-
-      if (n == "t_end" && ns.empty ())
-        s = 0UL;
-
-      if (s != ~0UL)
-      {
-        vd->count++;
-        vd->state = ~0UL;
-
-        vd = vs.data + vs.size++;
-        vd->func = &input_pskel::sequence_0;
-        vd->state = s;
-        vd->count = 0;
-
-        this->sequence_0 (vd->state, vd->count, ns, n, t, true);
-      }
-      else
-      {
-        if (vd->count < 1UL)
-          this->_expected_element (
-            "", "t_end",
-            ns, n);
-        return false;
-      }
-    }
-    else
-      return false;
-  }
-
-  return true;
-}
-
-bool input_pskel::
-_end_element_impl (const ::xml_schema::ro_string& ns,
-                   const ::xml_schema::ro_string& n)
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size - 1];
-
-  if (vd.func == 0 && vd.state == 0)
-  {
-    if (!::xml_schema::complex_content::_end_element_impl (ns, n))
-      assert (false);
-    return true;
-  }
-
-  assert (vd.func != 0);
-  (this->*vd.func) (vd.state, vd.count, ns, n, 0, false);
-
-  if (vd.state == ~0UL)
-    vs.size--;
-
-  return true;
-}
-
-void input_pskel::
-_pre_e_validate ()
-{
-  this->v_state_stack_.push ();
-  static_cast< v_state_* > (this->v_state_stack_.top ())->size = 0;
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size++];
-
-  vd.func = 0;
-  vd.state = 0;
-  vd.count = 0;
-}
-
-void input_pskel::
-_post_e_validate ()
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  ::xml_schema::ro_string empty;
-  while (vd->func != 0)
-  {
-    (this->*vd->func) (vd->state, vd->count, empty, empty, 0, true);
-    assert (vd->state == ~0UL);
-    vd = vs.data + (--vs.size - 1);
-  }
-
-  if (vd->count < 1UL)
-    this->_expected_element (
-      "", "t_end");
-
-  this->v_state_stack_.pop ();
-}
-
-void input_pskel::
-sequence_0 (unsigned long& state,
-            unsigned long& count,
-            const ::xml_schema::ro_string& ns,
-            const ::xml_schema::ro_string& n,
-            const ::xml_schema::ro_string* t,
-            bool start)
-{
-  XSD_UNUSED (t);
-
-  switch (state)
-  {
-    case 0UL:
-    {
-      if (n == "t_end" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->t_end_parser_;
-
-          if (this->t_end_parser_)
-            this->t_end_parser_->pre ();
-        }
-        else
-        {
-          if (this->t_end_parser_)
-          {
-            double tmp (this->t_end_parser_->post_double ());
-            this->t_end (tmp);
-          }
-
-          count = 0;
-          state = 1UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "t_end",
-            ns, n);
-        count = 0;
-        state = 1UL;
-        // Fall through.
-      }
-    }
-    case 1UL:
-    {
-      if (n == "delta_t" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->delta_t_parser_;
-
-          if (this->delta_t_parser_)
-            this->delta_t_parser_->pre ();
-        }
-        else
-        {
-          if (this->delta_t_parser_)
-          {
-            double tmp (this->delta_t_parser_->post_double ());
-            this->delta_t (tmp);
-          }
-
-          count = 0;
-          state = 2UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "delta_t",
-            ns, n);
-        count = 0;
-        state = 2UL;
-        // Fall through.
-      }
-    }
-    case 2UL:
-    {
-      if (n == "calcType" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->calcType_parser_;
-
-          if (this->calcType_parser_)
-            this->calcType_parser_->pre ();
-        }
-        else
-        {
-          if (this->calcType_parser_)
-          {
-            this->calcType_parser_->post_calcType ();
-            this->calcType ();
-          }
-
-          count = 0;
-          state = 3UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "calcType",
-            ns, n);
-        count = 0;
-        state = 3UL;
-        // Fall through.
-      }
-    }
-    case 3UL:
-    {
-      if (n == "baseNameOutputFiles" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->baseNameOutputFiles_parser_;
-
-          if (this->baseNameOutputFiles_parser_)
-            this->baseNameOutputFiles_parser_->pre ();
-        }
-        else
-        {
-          if (this->baseNameOutputFiles_parser_)
-          {
-            const ::std::string& tmp (this->baseNameOutputFiles_parser_->post_string ());
-            this->baseNameOutputFiles (tmp);
-          }
-
-          count = 0;
-          state = 4UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "baseNameOutputFiles",
-            ns, n);
-        count = 0;
-        state = 4UL;
-        // Fall through.
-      }
-    }
-    case 4UL:
-    {
-      if (n == "writeFrequency" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->writeFrequency_parser_;
-
-          if (this->writeFrequency_parser_)
-            this->writeFrequency_parser_->pre ();
-        }
-        else
-        {
-          if (this->writeFrequency_parser_)
-          {
-            int tmp (this->writeFrequency_parser_->post_int ());
-            this->writeFrequency (tmp);
-          }
-
-          count = 0;
-          state = 5UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "writeFrequency",
-            ns, n);
-        count = 0;
-        state = 5UL;
-        // Fall through.
-      }
-    }
-    case 5UL:
-    {
-      if (n == "gravInput" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->gravInput_parser_;
-
-          if (this->gravInput_parser_)
-            this->gravInput_parser_->pre ();
-        }
-        else
-        {
-          if (this->gravInput_parser_)
-          {
-            const ::std::string& tmp (this->gravInput_parser_->post_string ());
-            this->gravInput (tmp);
-          }
-
-          count = 0;
-          state = 6UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "gravInput",
-            ns, n);
-        count = 0;
-        state = 6UL;
-        // Fall through.
-      }
-    }
-    case 6UL:
-    {
-      if (n == "paramsLJ" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->paramsLJ_parser_;
-
-          if (this->paramsLJ_parser_)
-            this->paramsLJ_parser_->pre ();
-        }
-        else
-        {
-          if (this->paramsLJ_parser_)
-          {
-            this->paramsLJ_parser_->post_paramsLJ ();
-            this->paramsLJ ();
-          }
-
-          count = 0;
-          state = 7UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "paramsLJ",
-            ns, n);
-        count = 0;
-        state = 7UL;
-        // Fall through.
-      }
-    }
-    case 7UL:
-    {
-      if (n == "boundaryConditions" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->boundaryConditions_parser_;
-
-          if (this->boundaryConditions_parser_)
-            this->boundaryConditions_parser_->pre ();
-        }
-        else
-        {
-          if (this->boundaryConditions_parser_)
-          {
-            this->boundaryConditions_parser_->post_boundaryConditions ();
-            this->boundaryConditions ();
-          }
-
-          count = 0;
-          state = 8UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "boundaryConditions",
-            ns, n);
-        count = 0;
-        state = 8UL;
-        // Fall through.
-      }
-    }
-    case 8UL:
-    {
-      if (n == "particlesLJ" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->particlesLJ_parser_;
-
-          if (this->particlesLJ_parser_)
-            this->particlesLJ_parser_->pre ();
-        }
-        else
-        {
-          if (this->particlesLJ_parser_)
-          {
-            this->particlesLJ_parser_->post_particlesLJ ();
-            this->particlesLJ ();
-          }
-
-          count = 0;
-          state = ~0UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "particlesLJ",
-            ns, n);
-        count = 0;
-        state = ~0UL;
-        // Fall through.
-      }
-    }
-    case ~0UL:
-      break;
-  }
-}
-
-// Element validation and dispatch functions for body_pskel.
-//
 bool body_pskel::
 _start_element_impl (const ::xml_schema::ro_string& ns,
                      const ::xml_schema::ro_string& n,
@@ -1702,287 +910,92 @@ _start_element_impl (const ::xml_schema::ro_string& ns,
 {
   XSD_UNUSED (t);
 
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
+  if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
+    return true;
 
-  if (vd->func == 0 && vd->state == 0)
+  if (n == "bodyType" && ns.empty ())
   {
-    if (this->::xml_schema::complex_content::_start_element_impl (ns, n, t))
-      return true;
-    else
-      vd->state = 1;
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->bodyType_parser_;
+
+    if (this->bodyType_parser_)
+      this->bodyType_parser_->pre ();
+
+    return true;
   }
 
-  while (vd->func != 0)
+  if (n == "position" && ns.empty ())
   {
-    (this->*vd->func) (vd->state, vd->count, ns, n, t, true);
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->position_parser_;
 
-    vd = vs.data + (vs.size - 1);
+    if (this->position_parser_)
+      this->position_parser_->pre ();
 
-    if (vd->state == ~0UL)
-      vd = vs.data + (--vs.size - 1);
-    else
-      break;
+    return true;
   }
 
-  if (vd->func == 0)
+  if (n == "velocity" && ns.empty ())
   {
-    if (vd->state != ~0UL)
-    {
-      unsigned long s = ~0UL;
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->velocity_parser_;
 
-      if (n == "bodyType" && ns.empty ())
-        s = 0UL;
+    if (this->velocity_parser_)
+      this->velocity_parser_->pre ();
 
-      if (s != ~0UL)
-      {
-        vd->count++;
-        vd->state = ~0UL;
-
-        vd = vs.data + vs.size++;
-        vd->func = &body_pskel::sequence_0;
-        vd->state = s;
-        vd->count = 0;
-
-        this->sequence_0 (vd->state, vd->count, ns, n, t, true);
-      }
-      else
-      {
-        if (vd->count < 1UL)
-          this->_expected_element (
-            "", "bodyType",
-            ns, n);
-        return false;
-      }
-    }
-    else
-      return false;
+    return true;
   }
 
-  return true;
+  if (n == "objectSpecificFormat" && ns.empty ())
+  {
+    this->::xml_schema::complex_content::context_.top ().parser_ = this->objectSpecificFormat_parser_;
+
+    if (this->objectSpecificFormat_parser_)
+      this->objectSpecificFormat_parser_->pre ();
+
+    return true;
+  }
+
+  return false;
 }
 
 bool body_pskel::
 _end_element_impl (const ::xml_schema::ro_string& ns,
                    const ::xml_schema::ro_string& n)
 {
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size - 1];
+  if (this->::xml_schema::complex_content::_end_element_impl (ns, n))
+    return true;
 
-  if (vd.func == 0 && vd.state == 0)
+  if (n == "bodyType" && ns.empty ())
   {
-    if (!::xml_schema::complex_content::_end_element_impl (ns, n))
-      assert (false);
+    if (this->bodyType_parser_)
+      this->bodyType (this->bodyType_parser_->post_string ());
+
     return true;
   }
 
-  assert (vd.func != 0);
-  (this->*vd.func) (vd.state, vd.count, ns, n, 0, false);
-
-  if (vd.state == ~0UL)
-    vs.size--;
-
-  return true;
-}
-
-void body_pskel::
-_pre_e_validate ()
-{
-  this->v_state_stack_.push ();
-  static_cast< v_state_* > (this->v_state_stack_.top ())->size = 0;
-
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_& vd = vs.data[vs.size++];
-
-  vd.func = 0;
-  vd.state = 0;
-  vd.count = 0;
-}
-
-void body_pskel::
-_post_e_validate ()
-{
-  v_state_& vs = *static_cast< v_state_* > (this->v_state_stack_.top ());
-  v_state_descr_* vd = vs.data + (vs.size - 1);
-
-  ::xml_schema::ro_string empty;
-  while (vd->func != 0)
+  if (n == "position" && ns.empty ())
   {
-    (this->*vd->func) (vd->state, vd->count, empty, empty, 0, true);
-    assert (vd->state == ~0UL);
-    vd = vs.data + (--vs.size - 1);
+    if (this->position_parser_)
+      this->position (this->position_parser_->post_string ());
+
+    return true;
   }
 
-  if (vd->count < 1UL)
-    this->_expected_element (
-      "", "bodyType");
-
-  this->v_state_stack_.pop ();
-}
-
-void body_pskel::
-sequence_0 (unsigned long& state,
-            unsigned long& count,
-            const ::xml_schema::ro_string& ns,
-            const ::xml_schema::ro_string& n,
-            const ::xml_schema::ro_string* t,
-            bool start)
-{
-  XSD_UNUSED (t);
-
-  switch (state)
+  if (n == "velocity" && ns.empty ())
   {
-    case 0UL:
-    {
-      if (n == "bodyType" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->bodyType_parser_;
+    if (this->velocity_parser_)
+      this->velocity (this->velocity_parser_->post_string ());
 
-          if (this->bodyType_parser_)
-            this->bodyType_parser_->pre ();
-        }
-        else
-        {
-          if (this->bodyType_parser_)
-          {
-            const ::std::string& tmp (this->bodyType_parser_->post_string ());
-            this->bodyType (tmp);
-          }
-
-          count = 0;
-          state = 1UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "bodyType",
-            ns, n);
-        count = 0;
-        state = 1UL;
-        // Fall through.
-      }
-    }
-    case 1UL:
-    {
-      if (n == "position" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->position_parser_;
-
-          if (this->position_parser_)
-            this->position_parser_->pre ();
-        }
-        else
-        {
-          if (this->position_parser_)
-          {
-            const ::std::string& tmp (this->position_parser_->post_string ());
-            this->position (tmp);
-          }
-
-          count = 0;
-          state = 2UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "position",
-            ns, n);
-        count = 0;
-        state = 2UL;
-        // Fall through.
-      }
-    }
-    case 2UL:
-    {
-      if (n == "velocity" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->velocity_parser_;
-
-          if (this->velocity_parser_)
-            this->velocity_parser_->pre ();
-        }
-        else
-        {
-          if (this->velocity_parser_)
-          {
-            const ::std::string& tmp (this->velocity_parser_->post_string ());
-            this->velocity (tmp);
-          }
-
-          count = 0;
-          state = 3UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "velocity",
-            ns, n);
-        count = 0;
-        state = 3UL;
-        // Fall through.
-      }
-    }
-    case 3UL:
-    {
-      if (n == "objectSpecificFormat" && ns.empty ())
-      {
-        if (start)
-        {
-          this->::xml_schema::complex_content::context_.top ().parser_ = this->objectSpecificFormat_parser_;
-
-          if (this->objectSpecificFormat_parser_)
-            this->objectSpecificFormat_parser_->pre ();
-        }
-        else
-        {
-          if (this->objectSpecificFormat_parser_)
-          {
-            const ::std::string& tmp (this->objectSpecificFormat_parser_->post_string ());
-            this->objectSpecificFormat (tmp);
-          }
-
-          count = 0;
-          state = ~0UL;
-        }
-
-        break;
-      }
-      else
-      {
-        assert (start);
-        if (count < 1UL)
-          this->_expected_element (
-            "", "objectSpecificFormat",
-            ns, n);
-        count = 0;
-        state = ~0UL;
-        // Fall through.
-      }
-    }
-    case ~0UL:
-      break;
+    return true;
   }
+
+  if (n == "objectSpecificFormat" && ns.empty ())
+  {
+    if (this->objectSpecificFormat_parser_)
+      this->objectSpecificFormat (this->objectSpecificFormat_parser_->post_string ());
+
+    return true;
+  }
+
+  return false;
 }
 
 #include <xsd/cxx/post.hxx>

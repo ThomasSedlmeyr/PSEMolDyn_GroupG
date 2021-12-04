@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:simpleType name="calcType">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="lennardJones"/>
-            <xsd:enumeration value="gravitation"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
     <xsd:complexType name="paramsLJ">
     <xsd:sequence>
         <xsd:element name="epsilon" type="xsd:double"/>
@@ -23,6 +16,8 @@
         <xsd:element name="right" type="xsd:int"/>
         <xsd:element name="bottom" type="xsd:int"/>
         <xsd:element name="left" type="xsd:int"/>
+        <xsd:element name="front" type="xsd:int"/>
+        <xsd:element name="back" type="xsd:int"/>
     </xsd:sequence>
     </xsd:complexType>
 
@@ -45,7 +40,7 @@
         <xsd:sequence>
             <xsd:element name="t_end" type="xsd:double"/>
             <xsd:element name="delta_t" type="xsd:double"/>
-            <xsd:element name="calcType" type="calcType"/>
+            <xsd:element name="calcType" type="xsd:string"/>
             <xsd:element name="baseNameOutputFiles" type="xsd:string"/>
             <xsd:element name="writeFrequency" type="xsd:int"/>
             <xsd:element name="gravInput" type="xsd:string"/>
