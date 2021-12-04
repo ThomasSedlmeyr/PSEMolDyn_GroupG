@@ -17,24 +17,26 @@
         }
 
 /**
- * @brief Test if the method checkIfSquareRootOfNumberIsBiggerThanCertainValue works properly.
- * For testing this we create several random cutOffs and test the function on random distances.
+ * @brief
  */
 TEST(Tests, GhostParticlesTest) {
     auto ljS = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {0, 0, 0});
     Writer *writer = new VTKWriter();
-    ljS.simulate(0.002, 0.001, *writer, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
+    ljS.simulate(0.001, 0.001, *writer, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
                  "../src/Tests/TestInputFiles/TestGhostParticlesInput.txt", "GhostParticlesTest", particleContainer);
-}
+    auto particles = particleContainer->getParticles();
 
-void testIfTwoDoubleArraysAreEqual(const std::array<double, 3> &expected, const std::array<double, 3> &actual,
-                                   double threshold) {
-    for (int i = 0; i < 3; i++) {
-        EXPECT_NEAR(expected[i], actual[i], threshold);
+    int counter = 0;
+    int size = particles.size();
+    for (int i = 0; i < particles.size(); i++) {
+        if (particles[i].getId() == Particle::GHOST_TYPE) {
+            counter++;
+        }
     }
-}
+    EXPECT_EQ(8 + 8 + 11 * 8 + 11, counter);
 
+}
 
 TEST(Tests, TestPointReflection) {
     Cell::sizeX = 3;

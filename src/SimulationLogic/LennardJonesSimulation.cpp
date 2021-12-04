@@ -28,7 +28,7 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
     Body* body = nullptr;
     std::ifstream file(fileName);
     std::string line;
-    int bodiesCounter = 0;
+    int bodiesCounter = 1;
     numberParticles = 0;
     if(file.is_open()) {
         while ((std::getline(file, line))) {

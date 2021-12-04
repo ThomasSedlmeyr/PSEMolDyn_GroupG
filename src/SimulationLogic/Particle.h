@@ -39,8 +39,8 @@ private:
   double m;
 
   /**
-   * Type of the particle. Use it for whatever you want (e.g. to separate
-   * molecules belonging to different bodies, matters, and so on)
+   * Type of the particle.
+   * -1: stands for ghost particle
    */
   int type;
   /**
@@ -49,6 +49,7 @@ private:
   int ID;
 
 public:
+    static const int GHOST_TYPE = -1;
   explicit Particle(int type = 0);
 
   Particle(const Particle &other);
