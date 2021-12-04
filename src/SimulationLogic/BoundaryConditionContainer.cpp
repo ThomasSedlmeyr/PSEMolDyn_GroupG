@@ -37,13 +37,17 @@ BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& bound
                                                        numberCellsInZ(numberCellsInZ),
                                                        domainSize(domainSize){
     for (int i = 0; i < boundaryConditionTypes.size(); i++) {
-        switch(boundaryConditionTypes[i]){
+        switch (boundaryConditionTypes[i]) {
             case 1:
-                boundaryConditions[i] = new OutFlowCondition(1, i+1);
+                boundaryConditions[i] = new OutFlowCondition(1, i + 1);
                 break;
             case 2:
-                boundaryConditions[i] = new ReflectingCondition(2, i+1, domainSize);
+                boundaryConditions[i] = new ReflectingCondition(2, i + 1, domainSize);
                 break;
         }
     }
+}
+
+const std::array<BoundaryCondition *, 6> &BoundaryConditionContainer::getBoundaryConditions() const {
+    return boundaryConditions;
 }

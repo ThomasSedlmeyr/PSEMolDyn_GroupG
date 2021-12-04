@@ -47,7 +47,10 @@ protected:
      * @brief Implementation of the position calculation
      */
     PosCalculationVisitor posCalcVisitor;
+public:
+    void setParticleContainer(ParticleContainer *particleContainer);
 
+protected:
     /**
      * @brief Implementation of the velocity calculation
      */

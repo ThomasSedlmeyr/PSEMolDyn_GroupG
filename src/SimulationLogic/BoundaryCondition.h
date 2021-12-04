@@ -15,11 +15,16 @@ protected:
 
     int conditionType;
     int side;
-    std::vector<Cell*> specificBoundaryCells;
-    std::vector<Cell*> specificHaloCells;
+    std::vector<Cell *> specificBoundaryCells;
+    std::vector<Cell *> specificHaloCells;
 
 public:
     static const int OUTFLOW_TYPE = 1;
+
+    const std::vector<Cell *> &getSpecificBoundaryCells() const;
+
+    const std::vector<Cell *> &getSpecificHaloCells() const;
+
     static const int REFLECTING_TYPE = 2;
 
 

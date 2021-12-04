@@ -10,12 +10,15 @@
 
 
 class ParticleContainer {
+private:
+
 public:
     /**
      * @brief Updates the position for every particle using visitor
      * @param visitor Implementation of the position calculation
      */
     virtual void updateParticlePositions(ParticleVisitor &visitor) = 0;
+
     /**
      * @brief Iterates over all particles and applies the visitor to them
      * @param visitor

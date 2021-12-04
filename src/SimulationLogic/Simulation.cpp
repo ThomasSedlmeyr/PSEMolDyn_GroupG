@@ -27,7 +27,7 @@ void Simulation::calculateOneTimeStep() {
 void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations, const std::string &parametersFileName,
                           const std::string &particlesFileName, const std::string &outputFileName){
     int iteration = 0;
-    particleContainer = new ParticleContainerLinkedCells(70, 40, 6, 3, {0, 0, 0});
+    //particleContainer = new ParticleContainerLinkedCells(70, 40, 6, 3, {0, 0, 0});
     //particleContainer = new ParticleContainerDirectSum();
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
@@ -57,6 +57,10 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
+}
+
+void Simulation::setParticleContainer(ParticleContainer *particleContainer) {
+    Simulation::particleContainer = particleContainer;
 }
 
 Simulation::~Simulation() = default;

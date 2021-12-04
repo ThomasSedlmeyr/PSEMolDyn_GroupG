@@ -23,7 +23,7 @@ protected:
     void doWorkAfterCalculationStep() override;
 
 private:
-    bool isDebug = false;
+    bool isDebug = true;
 public:
     void setIsDebug(bool isDebug);
 

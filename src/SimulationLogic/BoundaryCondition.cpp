@@ -64,7 +64,7 @@ void BoundaryCondition::setSpecificCells(std::array<int, 3> relativePositionMask
     }
 }
 void BoundaryCondition::deleteAllParticlesInHaloCells() {
-    for (auto & specificHaloCell : specificHaloCells) {
+    for (auto &specificHaloCell: specificHaloCells) {
         specificHaloCell->getParticles().clear();
     }
 }
@@ -74,3 +74,11 @@ BoundaryCondition::BoundaryCondition(int conditionType, int side) : conditionTyp
 }
 
 BoundaryCondition::BoundaryCondition() {}
+
+const std::vector<Cell *> &BoundaryCondition::getSpecificBoundaryCells() const {
+    return specificBoundaryCells;
+}
+
+const std::vector<Cell *> &BoundaryCondition::getSpecificHaloCells() const {
+    return specificHaloCells;
+}

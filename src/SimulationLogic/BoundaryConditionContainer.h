@@ -49,6 +49,8 @@ public:
     BoundaryConditionContainer(int frontSide, int rightSide, int backSide,
                                int leftSide, int topSide, int bottomSide);
 
+    const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
+
 
     /**
      * @brief Constructor which sets the boundary conditions for one side and its opposite side
