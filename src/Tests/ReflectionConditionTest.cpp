@@ -8,6 +8,7 @@
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include "outputWriter/XYZWriter.h"
 #include "outputWriter/VTKWriter.h"
+#include "SimulationLogic/ReflectingCondition.h"
 
 #define EXPECT_FLOATS_NEARLY_EQ(expected, actual, thresh) \
         EXPECT_EQ(expected.size(), actual.size()) << "Array sizes differ.";\
@@ -20,8 +21,9 @@
  * @brief
  */
 TEST(Tests, GhostParticlesTest) {
+    //ReflectingCondition::isDebug = true;
     auto ljS = LennardJonesSimulation();
-    ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {0, 0, 0});
+    ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {2, 2, 2, 2, 2, 2});
     Writer *writer = new VTKWriter();
     ljS.simulate(0.001, 0.001, *writer, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
                  "../src/Tests/TestInputFiles/TestGhostParticlesInput.txt", "GhostParticlesTest", particleContainer);

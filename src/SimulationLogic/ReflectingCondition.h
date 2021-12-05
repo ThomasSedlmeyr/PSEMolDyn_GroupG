@@ -18,17 +18,20 @@ public:
     ReflectingCondition(int conditionType, int side, const std::array<double, 3> &domainSize);
 
 protected:
-    std::vector<Particle*> counterParticles;
+    std::vector<Particle *> counterParticles;
+
     void calculateBoundaryCondition() override;
+
     void doWorkAfterCalculationStep() override;
 
-private:
+public:
     bool isDebug = false;
 public:
     void setIsDebug(bool isDebug);
 
 private:
     std::array<double, 3> domainSize{};
+
     void calculateBoundaryConditionForCell(Cell *cell);
 };
 

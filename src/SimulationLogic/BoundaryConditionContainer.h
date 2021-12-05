@@ -11,6 +11,8 @@
 class BoundaryConditionContainer {
 
 private:
+
+
     std::vector<Cell*> allBoundaryCells{};
     std::vector<Cell*> allHaloCells{};
     int numberCellsInX{};
@@ -28,11 +30,9 @@ private:
      */
     std::array<BoundaryCondition*, 6> boundaryConditions{};
 public:
-    BoundaryConditionContainer(std::array<int, 6> &boundaryConditionTypes, std::vector<Cell *> allBoundaryCells,
+    BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes, std::vector<Cell *> allBoundaryCells,
                                std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
-                               int numberCellsInZ, std::array<double, 3> domainSize);
-
-
+                               int numberCellsInZ, const std::array<double, 3> domainSize);
 public:
     /**
      * @brief Constructor which sets the boundary conditions for every side
@@ -47,8 +47,6 @@ public:
     BoundaryConditionContainer(int frontSide, int rightSide, int backSide,
                                int leftSide, int topSide, int bottomSide);
 
-    const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
-
 
     /**
      * @brief Constructor which sets the boundary conditions for one side and its opposite side
@@ -62,6 +60,8 @@ public:
     void calculateBoundaryConditions();
 
     void doWorkAfterCalculationStep();
+
+    const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
 };
 
 

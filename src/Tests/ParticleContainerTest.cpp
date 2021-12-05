@@ -45,8 +45,7 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
 }
 
 /**
- * @brief tests if for different ParticleContainers the simulation result after one
- * time steps is the same
+ * @brief test if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
  */
 TEST(ParticleContainerTests, compareContainers) {
 

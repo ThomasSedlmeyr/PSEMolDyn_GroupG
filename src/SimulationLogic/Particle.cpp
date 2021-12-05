@@ -100,7 +100,11 @@ int Particle::getId() const {
     return ID;
 }
 
+std::array<double, 3> &Particle::getVRef() {
+    return v;
+}
+
 std::ostream &operator<<(std::ostream &stream, Particle &p) {
-  stream << p.toString();
-  return stream;
+    stream << p.toString();
+    return stream;
 }

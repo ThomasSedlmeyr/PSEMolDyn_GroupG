@@ -2,9 +2,10 @@
 #include "ReflectingCondition.h"
 #include "ParticleContainerLinkedCells.h"
 
+//bool isDebug = false;
+
 void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
-    switch(side)
-    {
+    switch (side) {
         case FRONT:
             for (std::size_t i = 0; i < cell->getParticles().size(); ++i) {
                 if (domainSize[2] - cell->getParticles()[i].getX()[2] < pow(2, 1.0 / 6)) {
@@ -74,7 +75,7 @@ ReflectingCondition::ReflectingCondition(int conditionType, int side, const std:
 }
 
 void ReflectingCondition::doWorkAfterCalculationStep() {
-    if(!isDebug){
+    if (!ReflectingCondition::isDebug) {
         deleteAllParticlesInHaloCells();
     }
 }

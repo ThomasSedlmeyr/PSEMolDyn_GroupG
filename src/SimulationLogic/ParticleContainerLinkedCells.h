@@ -32,12 +32,6 @@ private:
 
     std::array<double, 3> currentPosition{};
 
-    /**
-     * The left front side Corner of the domain the haloCells are excluded
-     * in the most common cases this position is (0,0,0)
-     */
-    std::array<double, 3> domainStartPosition{};
-
     void buildOneRowInXdirection(int numberStonesInXdirection, int cellType);
 
     void setDimensionsOfCellPointerVectors();
@@ -109,8 +103,15 @@ public:
 
 public:
     ParticleContainerLinkedCells();
+
     ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ, double cutOffRadius,
-                                  const std::array<double, 3> &domainStartPosition = std::array<double, 3>{0.0, 0.0, 0.0});
+                                 const std::array<int, 6> &boundaryConditionTypes = std::array<int, 6>{
+                                         BoundaryCondition::REFLECTING_TYPE,
+                                         BoundaryCondition::REFLECTING_TYPE,
+                                         BoundaryCondition::REFLECTING_TYPE,
+                                         BoundaryCondition::REFLECTING_TYPE,
+                                         BoundaryCondition::REFLECTING_TYPE,
+                                         BoundaryCondition::REFLECTING_TYPE});
 
     void createCells();
     static void cellsToXYZ();
@@ -136,6 +137,8 @@ public:
     static void setRelativeDomainPositionsInCells();
 
     int getNumberOfParticles();
+
+    static void addParticle(Particle &particle);
 };
 
 

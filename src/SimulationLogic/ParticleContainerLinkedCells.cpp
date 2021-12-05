@@ -22,14 +22,15 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells() = default;
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
-                                                           const std::array<double, 3> &domainStartPosition)
-        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius),
-          domainStartPosition(domainStartPosition) {
+                                                           const std::array<int, 6> &boundaryConditionTypes)
+        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius) {
+
     createCells();
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
     std::array<int, 6> twos = {2, 2, 2, 2, 2, 2};
     std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
-    boundaryContainer = std::make_unique<BoundaryConditionContainer>(twos, boundaryCells, haloCells, numberCellsX,
+    boundaryContainer = std::make_unique<BoundaryConditionContainer>(boundaryConditionTypes, boundaryCells, haloCells,
+                                                                     numberCellsX,
                                                                      numberCellsY, numberCellsZ, domainSize);
 }
 
@@ -50,9 +51,9 @@ void ParticleContainerLinkedCells::createCells() {
     cells.resize(numberCellsX * numberCellsY * numberCellsZ);
 
     //The curreontPosition has to be adapted according to the cell dimensions
-    currentPosition = {domainStartPosition[0] - Cell::sizeX,
-                       domainStartPosition[1] - Cell::sizeY,
-                       domainStartPosition[2] - Cell::sizeZ};
+    currentPosition = {-Cell::sizeX,
+                       -Cell::sizeY,
+                       -Cell::sizeZ};
 
     setDimensionsOfCellPointerVectors();
 
@@ -413,9 +414,14 @@ void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> 
     cells[index].getParticles().push_back(p);
 }
 
-int ParticleContainerLinkedCells::getNumberOfParticles(){
+void ParticleContainerLinkedCells::addParticle(Particle &particle) {
+    auto index = getCellIndexForParticle(particle);
+    cells[index].getParticles().push_back(particle);
+}
+
+int ParticleContainerLinkedCells::getNumberOfParticles() {
     int result = 0;
-    for (auto& cell : cells) {
+    for (auto &cell: cells) {
         result += cell.getParticles().size();
     }
     return result;
