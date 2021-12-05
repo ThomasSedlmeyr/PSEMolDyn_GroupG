@@ -5,8 +5,8 @@
 #include "OutFlowCondition.h"
 
 void OutFlowCondition::calculateBoundaryCondition() {
-    for (int i = 0; i < specificHaloCells.size(); ++i) {
-        specificHaloCells[i]->getParticles().clear();
+    for (auto &specificHaloCell : specificHaloCells) {
+        specificHaloCell->getParticles().clear();
     }
 }
 
@@ -16,5 +16,4 @@ OutFlowCondition::OutFlowCondition(int conditionType, int side) : BoundaryCondit
 }
 
 void OutFlowCondition::doWorkAfterCalculationStep() {
-
 }

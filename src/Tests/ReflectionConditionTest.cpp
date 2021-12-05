@@ -28,9 +28,8 @@ TEST(Tests, GhostParticlesTest) {
     auto particles = particleContainer->getParticles();
 
     int counter = 0;
-    int size = particles.size();
-    for (int i = 0; i < particles.size(); i++) {
-        if (particles[i].getId() == Particle::GHOST_TYPE) {
+    for (auto & particle : particles) {
+        if (particle.getId() == Particle::GHOST_TYPE) {
             counter++;
         }
     }

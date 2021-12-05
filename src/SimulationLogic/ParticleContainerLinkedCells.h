@@ -19,30 +19,24 @@ class ParticleContainerLinkedCells : public ParticleContainer{
 private:
     std::unique_ptr<BoundaryConditionContainer> boundaryContainer;
     static std::vector<Cell> cells;
-    //std::vector<std::unique_ptr<Cell>> boundaryCells;
-    //std::vector<std::unique_ptr<Cell>> haloCells;
-    //std::vector<std::unique_ptr<Cell>> innerCells;
+    int currentIndexInCells{};
+    int currentIndexHaloCells{};
+    int currentIndexBoundaryCells{};
+    int currentIndexInnerCells{};
 
+    double domainSizeX{};
+    double domainSizeY{};
+    double domainSizeZ{};
 
-    int currentIndexInCells = 0;
-    int currentIndexHaloCells = 0;
-    int currentIndexBoundaryCells = 0;
-    int currentIndexInnerCells = 0;
+    double cutOffRadius{};
 
-    double domainSizeX;
-    double domainSizeY;
-    double domainSizeZ;
-
-
-    double cutOffRadius;
-
-    std::array<double, 3> currentPosition;
+    std::array<double, 3> currentPosition{};
 
     /**
      * The left front side Corner of the domain the haloCells are excluded
      * in the most common cases this position is (0,0,0)
      */
-    std::array<double, 3> domainStartPosition;
+    std::array<double, 3> domainStartPosition{};
 
     void buildOneRowInXdirection(int numberStonesInXdirection, int cellType);
 
@@ -69,7 +63,7 @@ private:
      * @param index Index of cell for which the neighbours should be returned
      * @return Vector of indices of neighbour cells
      */
-    std::array<int, 26> getNeighbourIndices(int index);
+    static std::array<int, 26> getNeighbourIndices(int index);
 
     /**
      * @brief Calculates the index of the cell located a certain distance in x direction from the given cell
@@ -77,7 +71,7 @@ private:
      * @param numberOfPositions Number of positions to move in x direction
      * @return New index of cell
      */
-    int movePositionsInX(int index, int numberOfPositions);
+    static int movePositionsInX(int index, int numberOfPositions);
 
     /**
      * @brief Calculates the index of the cell located a certain distance in y direction from the given cell
@@ -85,7 +79,7 @@ private:
      * @param numberOfPositions Number of positions to move in y direction
      * @return New index of cell
      */
-    int movePositionsInY(int index, int numberPositionsInY);
+    static int movePositionsInY(int index, int numberPositionsInY);
 
     /**
      * @brief Calculates the index of the cell located a certain distance in z direction from the given cell
@@ -93,7 +87,7 @@ private:
      * @param numberOfPositions Number of positions to move in z direction
      * @return New index of cell
      */
-    int movePositionsInZ(int index, int numberPositionsInZ);
+    static int movePositionsInZ(int index, int numberPositionsInZ);
 
 public:
     static std::vector<Cell*> boundaryCells;
@@ -103,13 +97,13 @@ public:
     static int numberCellsY;
     static int numberCellsZ;
 
-    const std::vector<Cell> &getCells() const;
+    static const std::vector<Cell> &getCells() ;
 
-    const std::vector<Cell *> &getBoundaryCells() const;
+    static const std::vector<Cell *> &getBoundaryCells() ;
 
-    const std::vector<Cell *> &getHaloCells() const;
+    static const std::vector<Cell *> &getHaloCells() ;
 
-    const std::vector<Cell *> &getInnerCells() const;
+    static const std::vector<Cell *> &getInnerCells() ;
 
     std::vector<Particle> & getParticles() override;
 
@@ -119,12 +113,12 @@ public:
                                   const std::array<double, 3> &domainStartPosition = std::array<double, 3>{0.0, 0.0, 0.0});
 
     void createCells();
-    void cellsToXYZ();
+    static void cellsToXYZ();
 
     /**
      * @brief Iterates over all cells and fills their neighbour vector
      */
-    void setNeighbourCells();
+    static void setNeighbourCells();
 
     void addParticleToContainer(Particle &p) override;
     static void addGhostParticle(const std::array<double, 3> &position, double m);
@@ -139,7 +133,7 @@ public:
      */
     static int getCellIndexForParticle(const Particle &p);
 
-    void setRelativeDomainPositionsInCells();
+    static void setRelativeDomainPositionsInCells();
 
     int getNumberOfParticles();
 };

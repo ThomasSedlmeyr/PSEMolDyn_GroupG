@@ -36,7 +36,7 @@ BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& bound
                                                        numberCellsInY(numberCellsInY),
                                                        numberCellsInZ(numberCellsInZ),
                                                        domainSize(domainSize){
-    for (int i = 0; i < boundaryConditionTypes.size(); i++) {
+    for (std::size_t i = 0; i < boundaryConditionTypes.size(); i++) {
         switch (boundaryConditionTypes[i]) {
             case 1:
                 boundaryConditions[i] = new OutFlowCondition(1, i + 1);
@@ -50,4 +50,10 @@ BoundaryConditionContainer::BoundaryConditionContainer(std::array<int, 6>& bound
 
 const std::array<BoundaryCondition *, 6> &BoundaryConditionContainer::getBoundaryConditions() const {
     return boundaryConditions;
+}
+
+void BoundaryConditionContainer::doWorkAfterCalculationStep(){
+    for (auto b : boundaryConditions) {
+        b->doWorkAfterCalculationStep();
+    }
 }
