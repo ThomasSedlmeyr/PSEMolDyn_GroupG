@@ -15,7 +15,16 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 # collect all cpp files
 file(GLOB_RECURSE MY_SRC
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/BoundaryConditions/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/InputReader/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/OutputWriter/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ParticleContainers/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/MolSim.cpp"
+
     # header don't need to be included but this might be necessary for some IDEs
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
@@ -51,12 +60,15 @@ target_link_libraries(MolSim
 )
 
 file(GLOB_RECURSE TEST_SRC
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/BoundaryConditions/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/InputReader/*.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/outputWriter/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/OutputWriter/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ParticleContainers/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
         )
 
 add_executable(Tests ${TEST_SRC})

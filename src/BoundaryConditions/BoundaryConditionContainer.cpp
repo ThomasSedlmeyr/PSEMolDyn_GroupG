@@ -3,9 +3,9 @@
 //
 
 #include "BoundaryConditionContainer.h"
-#include "OutFlowCondition.h"
-#include "ReflectingCondition.h"
-#include "ReflectionAngleCondition.h"
+#include "BoundaryConditions/OutFlowCondition.h"
+#include "BoundaryConditions/ReflectingCondition.h"
+#include "BoundaryConditions/BetterReflectingCondition.h"
 
 #include <utility>
 
@@ -48,7 +48,7 @@ BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> 
                 boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize);
                 break;
             case BoundaryCondition::REFLECTIONANGEL_TYPE:
-                boundaryConditions[i] = new ReflectionAngleCondition(BoundaryCondition::REFLECTIONANGEL_TYPE, i + 1);
+                boundaryConditions[i] = new BetterReflectingCondition(BoundaryCondition::REFLECTIONANGEL_TYPE, i + 1);
         }
     }
 }

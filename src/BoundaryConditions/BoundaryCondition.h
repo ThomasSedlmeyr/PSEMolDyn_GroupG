@@ -7,7 +7,7 @@
 
 
 #include <vector>
-#include "Cell.h"
+#include "SimulationLogic/Cell.h"
 
 class BoundaryCondition {
 

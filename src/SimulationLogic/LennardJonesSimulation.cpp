@@ -4,8 +4,8 @@
 
 #include "LennardJonesSimulation.h"
 #include "utils/ArrayUtils.h"
-#include "Cuboid.h"
-#include "Tetrahedron.h"
+#include "GeometricObjects/Cuboid.h"
+#include "GeometricObjects/Tetrahedron.h"
 #include <string>
 #include <list>
 #include <fstream>

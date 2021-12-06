@@ -6,8 +6,8 @@
 #include <tuple>
 #include <InputReader/XYZReader.h>
 #include <gtest/gtest.h>
-#include <SimulationLogic/Cuboid.h>
-#include <outputWriter/XYZWriter.h>
+#include <GeometricObjects/Cuboid.h>
+#include <OutputWriter/XYZWriter.h>
 #include <utils/ArrayUtils.h>
 #include <random>
 #include "SimulationLogic/LennardJonesSimulation.h"

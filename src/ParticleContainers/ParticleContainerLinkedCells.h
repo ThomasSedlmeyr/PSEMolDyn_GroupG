@@ -8,9 +8,9 @@
 
 #include <vector>
 #include <memory>
-#include "Cell.h"
+#include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
-#include "BoundaryConditionContainer.h"
+#include "BoundaryConditions/BoundaryConditionContainer.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer{
     /**

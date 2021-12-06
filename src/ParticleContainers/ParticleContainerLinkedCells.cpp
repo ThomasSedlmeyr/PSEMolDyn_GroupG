@@ -2,8 +2,8 @@
 // Created by thomas on 24.11.21.
 //
 
-#include <outputWriter/XYZWriter.h>
-#include <outputWriter/VTKWriter.h>
+#include <OutputWriter/XYZWriter.h>
+#include <OutputWriter/VTKWriter.h>
 #include <iostream>
 #include <Visitors/ParticleCollector.h>
 #include "ParticleContainerLinkedCells.h"
@@ -141,7 +141,7 @@ void ParticleContainerLinkedCells::setDimensionsOfCellPointerVectors() {
             (numberCellsZ - 4) * (numberCellsY - 4) * 2);
     haloCells.resize(numberCellsX * numberCellsZ * 2 + numberCellsX * (numberCellsY - 2) * 2 +
                      (numberCellsZ - 2) * (numberCellsY - 2) * 2);;
-    innerCells.resize((numberCellsX - 4) * (numberCellsY - 4) * (numberCellsZ - 4));;
+    innerCells.resize((numberCellsX - 4) * (numberCellsY - 4) * (numberCellsZ - 4));
 }
 
 void ParticleContainerLinkedCells::buildHaloSlice() {

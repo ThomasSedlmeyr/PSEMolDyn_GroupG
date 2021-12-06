@@ -2,10 +2,10 @@
 // Created by thomas on 30.11.21.
 //
 
-#include "ReflectionAngleCondition.h"
-#include "ParticleContainerLinkedCells.h"
+#include "BetterReflectingCondition.h"
+#include "ParticleContainers/ParticleContainerLinkedCells.h"
 
-void ReflectionAngleCondition::calculateBoundaryConditionForCell(Cell *cell) {
+void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
     switch (side) {
         case FRONT:
             for (int i = 0; i < cell->getParticles().size(); ++i) {
@@ -78,16 +78,16 @@ void ReflectionAngleCondition::calculateBoundaryConditionForCell(Cell *cell) {
     cell->getParticles().clear();
 }
 
-ReflectionAngleCondition::ReflectionAngleCondition(int conditionType, int side)
+BetterReflectingCondition::BetterReflectingCondition(int conditionType, int side)
         : BoundaryCondition(conditionType, side) {
 
 }
 
-void ReflectionAngleCondition::doWorkAfterCalculationStep() {
+void BetterReflectingCondition::doWorkAfterCalculationStep() {
 
 }
 
-void ReflectionAngleCondition::calculateBoundaryCondition() {
+void BetterReflectingCondition::calculateBoundaryCondition() {
     for (auto &cell: specificHaloCells) {
         calculateBoundaryConditionForCell(cell);
     }

@@ -6,7 +6,7 @@
 #define PSEMOLDYN_GROUPG_LENNARDJONESSIMULATION_H
 
 #include "Simulation.h"
-#include "Body.h"
+#include "GeometricObjects/Body.h"
 #include <vector>
 #include <gtest/gtest.h>
 #include "Visitors/LJForceVisitor.h"

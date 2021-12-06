@@ -4,7 +4,7 @@
 #include <vector>
 #include <tuple>
 #include <gtest/gtest.h>
-#include <SimulationLogic/Cuboid.h>
+#include <GeometricObjects/Cuboid.h>
 
 /**
  * @brief Tests if Cuboid generates the correct number of particles

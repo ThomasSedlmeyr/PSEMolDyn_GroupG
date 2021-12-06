@@ -1,6 +1,6 @@
 #include <cmath>
 #include "ReflectingCondition.h"
-#include "ParticleContainerLinkedCells.h"
+#include "ParticleContainers/ParticleContainerLinkedCells.h"
 
 bool ReflectingCondition::isDebug = false;
 

@@ -7,7 +7,7 @@
 #include <InputReader/XYZReader.h>
 #include <gtest/gtest.h>
 #include <SimulationLogic/GravitationSimulation.h>
-#include <outputWriter/XYZWriter.h>
+#include <OutputWriter/XYZWriter.h>
 
 /**
  * @brief Starts a GravitationSimulation and compares the result of two time steps with two files

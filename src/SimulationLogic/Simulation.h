@@ -5,10 +5,10 @@
 #ifndef PSEMOLDYN_GROUPG_SIMULATION_H
 #define PSEMOLDYN_GROUPG_SIMULATION_H
 
-#include <outputWriter/Writer.h>
-#include "ParticleContainerDirectSum.h"
+#include <OutputWriter/Writer.h>
+#include "ParticleContainers/ParticleContainerDirectSum.h"
 #include "Particle.h"
-#include "ParticleContainerLinkedCells.h"
+#include "ParticleContainers/ParticleContainerLinkedCells.h"
 #include <vector>
 #include <string>
 #include <InputReader/ArgumentContainer.h>

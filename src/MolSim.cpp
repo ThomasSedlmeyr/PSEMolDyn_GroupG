@@ -4,11 +4,11 @@
  */
 
 #include "SimulationLogic/GravitationSimulation.h"
-#include "outputWriter/Writer.h"
+#include "OutputWriter/Writer.h"
 
 #include <iostream>
-#include <outputWriter/VTKWriter.h>
-#include <outputWriter/XYZWriter.h>
+#include <OutputWriter/VTKWriter.h>
+#include <OutputWriter/XYZWriter.h>
 #include <SimulationLogic/LennardJonesSimulation.h>
 #include <spdlog/spdlog.h>
 

@@ -5,7 +5,7 @@
  *      Author: eckhardw
  */
 
-#include "outputWriter/XYZWriter.h"
+#include "OutputWriter/XYZWriter.h"
 #include "Writer.h"
 #include <iomanip>
 #include <sstream>

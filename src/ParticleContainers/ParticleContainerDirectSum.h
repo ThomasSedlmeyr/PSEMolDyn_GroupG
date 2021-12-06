@@ -4,7 +4,7 @@
 #pragma once
 #include <vector>
 #include <list>
-#include "Particle.h"
+#include "SimulationLogic/Particle.h"
 #include "ParticleContainer.h"
 #include <iterator>
 #include <cstddef>

@@ -1,14 +1,14 @@
 #include <vector>
 #include <tuple>
 #include <gtest/gtest.h>
-#include <SimulationLogic/Cuboid.h>
+#include <GeometricObjects/Cuboid.h>
 #include <chrono>
-#include <SimulationLogic/ParticleContainerLinkedCells.h>
+#include <ParticleContainers/ParticleContainerLinkedCells.h>
 #include "SimulationLogic/Cell.h"
 #include "SimulationLogic/LennardJonesSimulation.h"
-#include "outputWriter/XYZWriter.h"
-#include "outputWriter/VTKWriter.h"
-#include "SimulationLogic/ReflectingCondition.h"
+#include "OutputWriter/XYZWriter.h"
+#include "OutputWriter/VTKWriter.h"
+#include "BoundaryConditions//ReflectingCondition.h"
 
 //Code adapted from: https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
 #define EXPECT_FLOATS_NEARLY_EQ(expected, actual, thresh) \

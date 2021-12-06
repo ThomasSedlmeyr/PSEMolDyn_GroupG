@@ -3,7 +3,7 @@
 //
 
 #include "BoundaryCondition.h"
-#include "ParticleContainerLinkedCells.h"
+#include "ParticleContainers/ParticleContainerLinkedCells.h"
 #include <utility>
 
 

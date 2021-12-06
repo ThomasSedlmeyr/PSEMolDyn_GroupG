@@ -5,7 +5,7 @@
 #ifndef PSEMOLDYN_GROUPG_CUBOID_H
 #define PSEMOLDYN_GROUPG_CUBOID_H
 #include "array"
-#include "Particle.h"
+#include "SimulationLogic/Particle.h"
 #include <string>
 #include <vector>
 

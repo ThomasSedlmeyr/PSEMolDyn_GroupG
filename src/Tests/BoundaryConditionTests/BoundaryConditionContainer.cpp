@@ -1,12 +1,12 @@
 #include <vector>
 #include <tuple>
 #include <gtest/gtest.h>
-#include <SimulationLogic/Cuboid.h>
+#include <GeometricObjects/Cuboid.h>
 #include <chrono>
-#include <SimulationLogic/ParticleContainerLinkedCells.h>
+#include <ParticleContainers/ParticleContainerLinkedCells.h>
 #include "SimulationLogic/Cell.h"
 #include "SimulationLogic/LennardJonesSimulation.h"
-#include "outputWriter/XYZWriter.h"
+#include "OutputWriter/XYZWriter.h"
 
 TEST(Tests, CheckIfSpecificCellsHaveRightSizes) {
     double cutOff = 3.0;
@@ -18,7 +18,7 @@ TEST(Tests, CheckIfSpecificCellsHaveRightSizes) {
     int numberCellsZ = ((int) domainSizeZ / cutOff) + 2;
 
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
-    ParticleContainerLinkedCells particleContainer(domainSizeX, domainSizeY, domainSizeZ, cutOff, {0, 0, 0});
+    ParticleContainerLinkedCells particleContainer(domainSizeX, domainSizeY, domainSizeZ, cutOff, ones);
     auto boundaryConditionContainer = std::make_unique<BoundaryConditionContainer>(ones,
                                                                                    ParticleContainerLinkedCells::boundaryCells,
                                                                                    ParticleContainerLinkedCells::haloCells,

@@ -7,8 +7,8 @@
 
 
 #include <vector>
-#include "Particle.h"
-#include "Cell.h"
+#include "SimulationLogic/Particle.h"
+#include "SimulationLogic/Cell.h"
 #include "BoundaryCondition.h"
 
 class ReflectingCondition : public BoundaryCondition {
