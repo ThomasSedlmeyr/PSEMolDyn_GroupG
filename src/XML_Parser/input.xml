@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<input>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="input.xsd">
 
     <t_end>5</t_end>
     <delta_t>0.0002</delta_t>
