@@ -210,6 +210,7 @@ private:
 using namespace std;
 
 int
+
 main (int argc, char* argv[])
 {
     // Construct the parser.
@@ -222,7 +223,7 @@ main (int argc, char* argv[])
     particlesLJ_pimpl particlesLJ_p;
     boundaryConditions_pimpl boundaryConditions_p;
     paramsLJ_pimpl paramsLJ_p;
-    input_pimpl input_p;
+    input_pimpl input_p();
 
     /*
     body_p.parsers(string_p, string_p, string_p, string_p);

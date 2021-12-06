@@ -39,13 +39,13 @@
 //
 // End prologue.
 
-#include <xsd/cxx/config.hxx>
+#include "xsd/cxx/config.hxx"
 
 #if (XSD_INT_VERSION != 4000000L)
 #error XSD runtime version mismatch
 #endif
 
-#include <xsd/cxx/pre.hxx>
+#include "xsd/cxx/pre.hxx"
 
 // Forward declarations
 //
@@ -53,6 +53,7 @@ class paramsLJ_pskel;
 class boundaryConditions_pskel;
 class particlesLJ_pskel;
 class input_pskel;
+
 class body_pskel;
 
 #ifndef XSD_USE_CHAR
@@ -63,25 +64,24 @@ class body_pskel;
 #define XSD_CXX_PARSER_USE_CHAR
 #endif
 
-#include <xsd/cxx/xml/char-utf8.hxx>
-#include <xsd/cxx/xml/error-handler.hxx>
-#include <xsd/cxx/parser/exceptions.hxx>
-#include <xsd/cxx/parser/elements.hxx>
-#include <xsd/cxx/parser/xml-schema.hxx>
-#include <xsd/cxx/parser/non-validating/parser.hxx>
-#include <xsd/cxx/parser/non-validating/xml-schema-pskel.hxx>
-#include <xsd/cxx/parser/non-validating/xml-schema-pimpl.hxx>
-#include <xsd/cxx/parser/xerces/elements.hxx>
+#include "xsd/cxx/xml/char-utf8.hxx"
+#include "xsd/cxx/xml/error-handler.hxx"
+#include "xsd/cxx/parser/exceptions.hxx"
+#include "xsd/cxx/parser/elements.hxx"
+#include "xsd/cxx/parser/xml-schema.hxx"
+#include "xsd/cxx/parser/non-validating/parser.hxx"
+#include "xsd/cxx/parser/non-validating/xml-schema-pskel.hxx"
+#include "xsd/cxx/parser/non-validating/xml-schema-pimpl.hxx"
+#include "xsd/cxx/parser/xerces/elements.hxx"
 
 #include "input.h"
 
-namespace xml_schema
-{
-  // Built-in XML Schema types mapping.
-  //
-  typedef ::xsd::cxx::parser::string_sequence< char > string_sequence;
-  typedef ::xsd::cxx::parser::qname< char > qname;
-  typedef ::xsd::cxx::parser::buffer buffer;
+namespace xml_schema {
+    // Built-in XML Schema types mapping.
+    //
+    typedef ::xsd::cxx::parser::string_sequence<char> string_sequence;
+    typedef ::xsd::cxx::parser::qname<char> qname;
+    typedef ::xsd::cxx::parser::buffer buffer;
   typedef ::xsd::cxx::parser::time_zone time_zone;
   typedef ::xsd::cxx::parser::gday gday;
   typedef ::xsd::cxx::parser::gmonth gmonth;
@@ -630,7 +630,7 @@ class body_pskel: public ::xml_schema::complex_content
   ::xml_schema::string_pskel* objectSpecificFormat_parser_;
 };
 
-#include <xsd/cxx/post.hxx>
+#include "xsd/cxx/post.hxx"
 
 // Begin epilogue.
 //

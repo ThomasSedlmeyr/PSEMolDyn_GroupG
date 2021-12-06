@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+
 class input
 {
 public:
@@ -157,24 +158,6 @@ private:
     int back_;
 };
 
-class particlesLJ
-{
-public:
-    particlesLJ (std::vector<::body> b) : (bodies_ (b))// TODO multiple bodies/einzelne body einfügen
-    {
-    }
-
-    std::vector<::body>
-    body () {
-        return bodies;
-    }
-
-private:
-    std::vector<::body> bodies_;
-};
-
-typedef std::vector<body> bodies;
-
 class body
 {
 public:
@@ -209,5 +192,23 @@ private:
     std::string velocity_;
     std::string objectSpecificFormat_;
 };
+
+class particlesLJ {
+public:
+    particlesLJ(std::vector<::body> b) : (bodies_(b))// TODO multiple bodies/einzelne body einfügen
+    {
+    }
+
+    std::vector<::body>
+    body() {
+        return bodies;
+    }
+
+private:
+    std::vector<::body> bodies_;
+};
+
+typedef std::vector<body> bodies;
+
 
 #endif //PSEMOLDYN_GROUPG_INPUT_H

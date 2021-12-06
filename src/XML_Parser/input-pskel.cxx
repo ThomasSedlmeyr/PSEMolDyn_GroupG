@@ -36,7 +36,7 @@
 //
 // End prologue.
 
-#include <xsd/cxx/pre.hxx>
+#include "xsd/cxx/pre.hxx"
 
 #include "input-pskel.hxx"
 
@@ -998,7 +998,7 @@ _end_element_impl (const ::xml_schema::ro_string& ns,
   return false;
 }
 
-#include <xsd/cxx/post.hxx>
+#include "xsd/cxx/post.hxx"
 
 // Begin epilogue.
 //
