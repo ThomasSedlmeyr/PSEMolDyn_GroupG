@@ -10,7 +10,7 @@
 #include "Example_Parser/Parser.h"
 
 
-TEST(Tests, readParamsTest) {
+TEST(Tests, ParserTest1) {
     Parser p = Parser();
     p.main();
 }

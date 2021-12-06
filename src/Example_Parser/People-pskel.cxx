@@ -79,8 +79,7 @@ person_pskel()
         : first_name_parser_(0),
           last_name_parser_(0),
           gender_parser_(0),
-          age_parser_(0),
-          v_state_stack_(sizeof(v_state_), &v_state_first_) {
+          age_parser_(0) {
 }
 
 // people_pskel
@@ -98,8 +97,7 @@ parsers(::person_pskel &person) {
 
 people_pskel::
 people_pskel()
-        : person_parser_(0),
-          v_state_stack_(sizeof(v_state_), &v_state_first_) {
+        : person_parser_(0) {
 }
 
 // gender_pskel
@@ -132,6 +130,93 @@ void person_pskel::
 post_person() {
 }
 
+bool person_pskel::
+_start_element_impl(const ::xml_schema::ro_string &ns,
+                    const ::xml_schema::ro_string &n,
+                    const ::xml_schema::ro_string *t) {
+    XSD_UNUSED (t);
+
+    if (this->::xml_schema::complex_content::_start_element_impl(ns, n, t))
+        return true;
+
+    if (n == "first-name" && ns.empty()) {
+        this->::xml_schema::complex_content::context_.top().parser_ = this->first_name_parser_;
+
+        if (this->first_name_parser_)
+            this->first_name_parser_->pre();
+
+        return true;
+    }
+
+    if (n == "last-name" && ns.empty()) {
+        this->::xml_schema::complex_content::context_.top().parser_ = this->last_name_parser_;
+
+        if (this->last_name_parser_)
+            this->last_name_parser_->pre();
+
+        return true;
+    }
+
+    if (n == "gender" && ns.empty()) {
+        this->::xml_schema::complex_content::context_.top().parser_ = this->gender_parser_;
+
+        if (this->gender_parser_)
+            this->gender_parser_->pre();
+
+        return true;
+    }
+
+    if (n == "age" && ns.empty()) {
+        this->::xml_schema::complex_content::context_.top().parser_ = this->age_parser_;
+
+        if (this->age_parser_)
+            this->age_parser_->pre();
+
+        return true;
+    }
+
+    return false;
+}
+
+bool person_pskel::
+_end_element_impl(const ::xml_schema::ro_string &ns,
+                  const ::xml_schema::ro_string &n) {
+    if (this->::xml_schema::complex_content::_end_element_impl(ns, n))
+        return true;
+
+    if (n == "first-name" && ns.empty()) {
+        if (this->first_name_parser_)
+            this->first_name(this->first_name_parser_->post_string());
+
+        return true;
+    }
+
+    if (n == "last-name" && ns.empty()) {
+        if (this->last_name_parser_)
+            this->last_name(this->last_name_parser_->post_string());
+
+        return true;
+    }
+
+    if (n == "gender" && ns.empty()) {
+        if (this->gender_parser_) {
+            this->gender_parser_->post_gender();
+            this->gender();
+        }
+
+        return true;
+    }
+
+    if (n == "age" && ns.empty()) {
+        if (this->age_parser_)
+            this->age(this->age_parser_->post_short());
+
+        return true;
+    }
+
+    return false;
+}
+
 // people_pskel
 //
 
@@ -143,403 +228,43 @@ void people_pskel::
 post_people() {
 }
 
-#include <cassert>
-
-// Element validation and dispatch functions for person_pskel.
-//
-bool person_pskel::
-_start_element_impl(const ::xml_schema::ro_string &ns,
-                    const ::xml_schema::ro_string &n,
-                    const ::xml_schema::ro_string *t) {
-    XSD_UNUSED (t);
-
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ *vd = vs.data + (vs.size - 1);
-
-    if (vd->func == 0 && vd->state == 0) {
-        if (this->::xml_schema::complex_content::_start_element_impl(ns, n, t))
-            return true;
-        else
-            vd->state = 1;
-    }
-
-    while (vd->func != 0) {
-        (this->*vd->func)(vd->state, vd->count, ns, n, t, true);
-
-        vd = vs.data + (vs.size - 1);
-
-        if (vd->state == ~0UL)
-            vd = vs.data + (--vs.size - 1);
-        else
-            break;
-    }
-
-    if (vd->func == 0) {
-        if (vd->state != ~0UL) {
-            unsigned long s = ~0UL;
-
-            if (n == "first-name" && ns.empty())
-                s = 0UL;
-
-            if (s != ~0UL) {
-                vd->count++;
-                vd->state = ~0UL;
-
-                vd = vs.data + vs.size++;
-                vd->func = &person_pskel::sequence_0;
-                vd->state = s;
-                vd->count = 0;
-
-                this->sequence_0(vd->state, vd->count, ns, n, t, true);
-            } else {
-                if (vd->count < 1UL)
-                    this->_expected_element(
-                            "", "first-name",
-                            ns, n);
-                return false;
-            }
-        } else
-            return false;
-    }
-
-    return true;
-}
-
-bool person_pskel::
-_end_element_impl(const ::xml_schema::ro_string &ns,
-                  const ::xml_schema::ro_string &n) {
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ &vd = vs.data[vs.size - 1];
-
-    if (vd.func == 0 && vd.state == 0) {
-        if (!::xml_schema::complex_content::_end_element_impl(ns, n))
-            assert (false);
-        return true;
-    }
-
-    assert (vd.func != 0);
-    (this->*vd.func)(vd.state, vd.count, ns, n, 0, false);
-
-    if (vd.state == ~0UL)
-        vs.size--;
-
-    return true;
-}
-
-void person_pskel::
-_pre_e_validate() {
-    this->v_state_stack_.push();
-    static_cast< v_state_ * > (this->v_state_stack_.top())->size = 0;
-
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ &vd = vs.data[vs.size++];
-
-    vd.func = 0;
-    vd.state = 0;
-    vd.count = 0;
-}
-
-void person_pskel::
-_post_e_validate() {
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ *vd = vs.data + (vs.size - 1);
-
-    ::xml_schema::ro_string empty;
-    while (vd->func != 0) {
-        (this->*vd->func)(vd->state, vd->count, empty, empty, 0, true);
-        assert (vd->state == ~0UL);
-        vd = vs.data + (--vs.size - 1);
-    }
-
-    if (vd->count < 1UL)
-        this->_expected_element(
-                "", "first-name");
-
-    this->v_state_stack_.pop();
-}
-
-void person_pskel::
-sequence_0(unsigned long &state,
-           unsigned long &count,
-           const ::xml_schema::ro_string &ns,
-           const ::xml_schema::ro_string &n,
-           const ::xml_schema::ro_string *t,
-           bool start) {
-    XSD_UNUSED (t);
-
-    switch (state) {
-        case 0UL: {
-            if (n == "first-name" && ns.empty()) {
-                if (start) {
-                    this->::xml_schema::complex_content::context_.top().parser_ = this->first_name_parser_;
-
-                    if (this->first_name_parser_)
-                        this->first_name_parser_->pre();
-                } else {
-                    if (this->first_name_parser_) {
-                        this->first_name(this->first_name_parser_->post_string());
-                    }
-
-                    count = 0;
-                    state = 1UL;
-                }
-
-                break;
-            } else {
-                assert (start);
-                if (count < 1UL)
-                    this->_expected_element(
-                            "", "first-name",
-                            ns, n);
-                count = 0;
-                state = 1UL;
-                // Fall through.
-            }
-        }
-        case 1UL: {
-            if (n == "last-name" && ns.empty()) {
-                if (start) {
-                    this->::xml_schema::complex_content::context_.top().parser_ = this->last_name_parser_;
-
-                    if (this->last_name_parser_)
-                        this->last_name_parser_->pre();
-                } else {
-                    if (this->last_name_parser_) {
-                        this->last_name(this->last_name_parser_->post_string());
-                    }
-
-                    count = 0;
-                    state = 2UL;
-                }
-
-                break;
-            } else {
-                assert (start);
-                if (count < 1UL)
-                    this->_expected_element(
-                            "", "last-name",
-                            ns, n);
-                count = 0;
-                state = 2UL;
-                // Fall through.
-            }
-        }
-        case 2UL: {
-            if (n == "gender" && ns.empty()) {
-                if (start) {
-                    this->::xml_schema::complex_content::context_.top().parser_ = this->gender_parser_;
-
-                    if (this->gender_parser_)
-                        this->gender_parser_->pre();
-                } else {
-                    if (this->gender_parser_) {
-                        this->gender_parser_->post_gender();
-                        this->gender();
-                    }
-
-                    count = 0;
-                    state = 3UL;
-                }
-
-                break;
-            } else {
-                assert (start);
-                if (count < 1UL)
-                    this->_expected_element(
-                            "", "gender",
-                            ns, n);
-                count = 0;
-                state = 3UL;
-                // Fall through.
-            }
-        }
-        case 3UL: {
-            if (n == "age" && ns.empty()) {
-                if (start) {
-                    this->::xml_schema::complex_content::context_.top().parser_ = this->age_parser_;
-
-                    if (this->age_parser_)
-                        this->age_parser_->pre();
-                } else {
-                    if (this->age_parser_) {
-                        this->age(this->age_parser_->post_short());
-                    }
-
-                    count = 0;
-                    state = ~0UL;
-                }
-
-                break;
-            } else {
-                assert (start);
-                if (count < 1UL)
-                    this->_expected_element(
-                            "", "age",
-                            ns, n);
-                count = 0;
-                state = ~0UL;
-                // Fall through.
-            }
-        }
-        case ~0UL:
-            break;
-    }
-}
-
-// Element validation and dispatch functions for people_pskel.
-//
 bool people_pskel::
 _start_element_impl(const ::xml_schema::ro_string &ns,
                     const ::xml_schema::ro_string &n,
                     const ::xml_schema::ro_string *t) {
     XSD_UNUSED (t);
 
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ *vd = vs.data + (vs.size - 1);
+    if (this->::xml_schema::complex_content::_start_element_impl(ns, n, t))
+        return true;
 
-    if (vd->func == 0 && vd->state == 0) {
-        if (this->::xml_schema::complex_content::_start_element_impl(ns, n, t))
-            return true;
-        else
-            vd->state = 1;
+    if (n == "person" && ns.empty()) {
+        this->::xml_schema::complex_content::context_.top().parser_ = this->person_parser_;
+
+        if (this->person_parser_)
+            this->person_parser_->pre();
+
+        return true;
     }
 
-    while (vd->func != 0) {
-        (this->*vd->func)(vd->state, vd->count, ns, n, t, true);
-
-        vd = vs.data + (vs.size - 1);
-
-        if (vd->state == ~0UL)
-            vd = vs.data + (--vs.size - 1);
-        else
-            break;
-    }
-
-    if (vd->func == 0) {
-        if (vd->state != ~0UL) {
-            unsigned long s = ~0UL;
-
-            if (n == "person" && ns.empty())
-                s = 0UL;
-
-            if (s != ~0UL) {
-                vd->count++;
-                vd->state = ~0UL;
-
-                vd = vs.data + vs.size++;
-                vd->func = &people_pskel::sequence_0;
-                vd->state = s;
-                vd->count = 0;
-
-                this->sequence_0(vd->state, vd->count, ns, n, t, true);
-            } else {
-                if (vd->count < 1UL)
-                    this->_expected_element(
-                            "", "person",
-                            ns, n);
-                return false;
-            }
-        } else
-            return false;
-    }
-
-    return true;
+    return false;
 }
 
 bool people_pskel::
 _end_element_impl(const ::xml_schema::ro_string &ns,
                   const ::xml_schema::ro_string &n) {
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ &vd = vs.data[vs.size - 1];
+    if (this->::xml_schema::complex_content::_end_element_impl(ns, n))
+        return true;
 
-    if (vd.func == 0 && vd.state == 0) {
-        if (!::xml_schema::complex_content::_end_element_impl(ns, n))
-            assert (false);
+    if (n == "person" && ns.empty()) {
+        if (this->person_parser_) {
+            this->person_parser_->post_person();
+            this->person();
+        }
+
         return true;
     }
 
-    assert (vd.func != 0);
-    (this->*vd.func)(vd.state, vd.count, ns, n, 0, false);
-
-    if (vd.state == ~0UL)
-        vs.size--;
-
-    return true;
-}
-
-void people_pskel::
-_pre_e_validate() {
-    this->v_state_stack_.push();
-    static_cast< v_state_ * > (this->v_state_stack_.top())->size = 0;
-
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ &vd = vs.data[vs.size++];
-
-    vd.func = 0;
-    vd.state = 0;
-    vd.count = 0;
-}
-
-void people_pskel::
-_post_e_validate() {
-    v_state_ &vs = *static_cast< v_state_ * > (this->v_state_stack_.top());
-    v_state_descr_ *vd = vs.data + (vs.size - 1);
-
-    ::xml_schema::ro_string empty;
-    while (vd->func != 0) {
-        (this->*vd->func)(vd->state, vd->count, empty, empty, 0, true);
-        assert (vd->state == ~0UL);
-        vd = vs.data + (--vs.size - 1);
-    }
-
-    if (vd->count < 1UL)
-        this->_expected_element(
-                "", "person");
-
-    this->v_state_stack_.pop();
-}
-
-void people_pskel::
-sequence_0(unsigned long &state,
-           unsigned long &count,
-           const ::xml_schema::ro_string &ns,
-           const ::xml_schema::ro_string &n,
-           const ::xml_schema::ro_string *t,
-           bool start) {
-    XSD_UNUSED (t);
-
-    switch (state) {
-        case 0UL: {
-            if (n == "person" && ns.empty()) {
-                if (start) {
-                    this->::xml_schema::complex_content::context_.top().parser_ = this->person_parser_;
-
-                    if (this->person_parser_)
-                        this->person_parser_->pre();
-                } else {
-                    if (this->person_parser_) {
-                        this->person_parser_->post_person();
-                        this->person();
-                    }
-
-                    count++;
-                }
-
-                break;
-            } else {
-                assert (start);
-                if (count < 1UL)
-                    this->_expected_element(
-                            "", "person",
-                            ns, n);
-                count = 0;
-                state = ~0UL;
-                // Fall through.
-            }
-        }
-        case ~0UL:
-            break;
-    }
+    return false;
 }
 
 #include <xsd/cxx/post.hxx>
