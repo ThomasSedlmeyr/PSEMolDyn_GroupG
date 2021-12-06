@@ -1,0 +1,7 @@
+include "input.h";
+
+paramsLJ ::paramsLJ;
+boundaryConditions ::boundaryConditions;
+particlesLJ ::particlesLJ;
+body ::body;
+input ::input;

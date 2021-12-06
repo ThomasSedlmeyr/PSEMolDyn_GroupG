@@ -217,14 +217,14 @@ main (int argc, char* argv[])
     xml_schema::int_pimpl int_p;
     xml_schema::string_pimpl string_p;
     xml_schema::double_pimpl double_p;
-    /*
+
     body_pimpl body_p;
     particlesLJ_pimpl particlesLJ_p;
     boundaryConditions_pimpl boundaryConditions_p;
     paramsLJ_pimpl paramsLJ_p;
     input_pimpl input_p;
 
-
+    /*
     body_p.parsers(string_p, string_p, string_p, string_p);
     particlesLJ_p.parsers(body_p); // TODO
     boundaryConditions_p.parsers(int_p, int_p, int_p, int_p, int_p, int_p);
