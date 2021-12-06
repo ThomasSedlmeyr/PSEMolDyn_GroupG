@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="gender_t">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="male"/>
+            <xs:enumeration value="female"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="person_t">
+        <xs:sequence>
+            <xs:element name="first-name" type="xs:string"/>
+            <xs:element name="middle-name" type="xs:string" minOccurs="0"/>
+            <xs:element name="last-name" type="xs:string"/>
+            <xs:element name="gender" type="gender_t"/>
+            <xs:element name="age" type="xs:short"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:unsignedInt" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="people_t">
+        <xs:sequence>
+            <xs:element name="person" type="person_t" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="people" type="people_t"/>
+
+</xs:schema>

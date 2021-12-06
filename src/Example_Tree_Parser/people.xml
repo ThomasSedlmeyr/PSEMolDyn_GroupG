@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<people xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="people.xsd">
+
+    <person id="1">
+        <first-name>John</first-name>
+        <last-name>Doe</last-name>
+        <gender>male</gender>
+        <age>32</age>
+    </person>
+
+    <person id="2">
+        <first-name>Jane</first-name>
+        <middle-name>Mary</middle-name>
+        <last-name>Doe</last-name>
+        <gender>female</gender>
+        <age>28</age>
+    </person>
+
+</people>

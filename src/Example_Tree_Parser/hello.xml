@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<hello xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="hello.xsd">
+
+    <greeting>Hello</greeting>
+
+    <name>sun</name>
+    <name>moon</name>
+    <name>world</name>
+    <name>mars</name>
+    <name>saturn</name>
+
+</hello>
