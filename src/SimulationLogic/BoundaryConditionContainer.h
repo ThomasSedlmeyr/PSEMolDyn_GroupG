@@ -13,12 +13,12 @@ class BoundaryConditionContainer {
 private:
 
 
-    std::vector<Cell*> allBoundaryCells;
-    std::vector<Cell*> allHaloCells;
-    int numberCellsInX;
-    int numberCellsInY;
-    int numberCellsInZ;
-    std::array<double, 3> domainSize;
+    std::vector<Cell*> allBoundaryCells{};
+    std::vector<Cell*> allHaloCells{};
+    int numberCellsInX{};
+    int numberCellsInY{};
+    int numberCellsInZ{};
+    std::array<double, 3> domainSize{};
     /**
      * @brief the six different conditions for every side of the domain
      * boundaryCondition[0]: front side
@@ -28,13 +28,11 @@ private:
      * boundaryCondition[4]: top side
      * boundaryCondition[5]: bottom side
      */
-    std::array<BoundaryCondition*, 6> boundaryConditions;
+    std::array<BoundaryCondition*, 6> boundaryConditions{};
 public:
-    BoundaryConditionContainer(std::array<int, 6> &boundaryConditionTypes, std::vector<Cell *> allBoundaryCells,
+    BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes, std::vector<Cell *> allBoundaryCells,
                                std::vector<Cell *> allHaloCells, int numberCellsInX, int numberCellsInY,
                                int numberCellsInZ, const std::array<double, 3> domainSize);
-
-
 public:
     /**
      * @brief Constructor which sets the boundary conditions for every side
@@ -49,8 +47,6 @@ public:
     BoundaryConditionContainer(int frontSide, int rightSide, int backSide,
                                int leftSide, int topSide, int bottomSide);
 
-    const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
-
 
     /**
      * @brief Constructor which sets the boundary conditions for one side and its opposite side
@@ -63,6 +59,9 @@ public:
 
     void calculateBoundaryConditions();
 
+    void doWorkAfterCalculationStep();
+
+    const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
 };
 
 

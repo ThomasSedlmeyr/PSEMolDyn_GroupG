@@ -20,13 +20,12 @@ protected:
 
 public:
     static const int OUTFLOW_TYPE = 1;
+    static const int REFLECTING_TYPE = 2;
+    static const int REFLECTIONANGEL_TYPE = 3;
 
     const std::vector<Cell *> &getSpecificBoundaryCells() const;
 
     const std::vector<Cell *> &getSpecificHaloCells() const;
-
-    static const int REFLECTING_TYPE = 2;
-
 
     static const int FRONT = 1;
     static const int RIGHT = 2;
@@ -35,12 +34,10 @@ public:
     static const int TOP = 5;
     static const int BOTTOM = 6;
 
-    //virtual void calculateBoundaryConditionForCell(Cell* cell) = 0;
-
     virtual void calculateBoundaryCondition() = 0;
     virtual void doWorkAfterCalculationStep() = 0;
-private:
 
+private:
     void setSpecificCells();
 
 public:
@@ -48,10 +45,6 @@ public:
     BoundaryCondition(int conditionType, int side);
 
 protected:
-    void reflectPointAtX(std::array<double, 3>& point, double xPosition);
-    void reflectPointAtY(std::array<double, 3>& point, double yPosition);
-    void reflectPointAtZ(std::array<double, 3>& point, double zPosition);
-
     void
     setSpecificCells(std::array<int, 3> relativePositionMask, int relativePositionValue, std::vector<Cell *> &cells,
                      std::vector<Cell *> &matchingCells);

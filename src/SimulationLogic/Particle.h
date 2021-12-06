@@ -60,24 +60,26 @@ public:
       std::array<double, 3> x_arg, std::array<double, 3> v_arg, double m_arg,
       int type = 0, int ID = -1);
 
-  virtual ~Particle();
+    virtual ~Particle();
 
     int getId() const;
 
     /**
      * @return reference of f
      */
-  std::array<double, 3> &getFRef();
+    std::array<double, 3> &getFRef();
 
-  const std::array<double, 3> &getX() const;
+    std::array<double, 3> &getVRef();
 
-  const std::array<double, 3> &getV() const;
+    const std::array<double, 3> &getX() const;
 
-  const std::array<double, 3> &getF() const;
+    const std::array<double, 3> &getV() const;
 
-  const std::array<double, 3> &getOldF() const;
+    const std::array<double, 3> &getF() const;
 
-  double getM() const;
+    const std::array<double, 3> &getOldF() const;
+
+    double getM() const;
 
   int getType() const;
 

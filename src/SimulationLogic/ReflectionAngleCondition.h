@@ -6,9 +6,17 @@
 #define PSEMOLDYN_GROUPG_REFLECTIONANGLECONDITION_H
 
 
-class ReflectionAngleCondition {
+#include "BoundaryCondition.h"
+
+class ReflectionAngleCondition : public BoundaryCondition {
 public:
-    void calculateBoundaryConditionForCell();
+    ReflectionAngleCondition(int conditionType, int side);
+
+    void calculateBoundaryCondition() override;
+
+    void calculateBoundaryConditionForCell(Cell *cell);
+
+    void doWorkAfterCalculationStep() override;
 };
 
 

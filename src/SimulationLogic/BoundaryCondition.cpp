@@ -8,18 +8,6 @@
 
 
 
-inline void BoundaryCondition::reflectPointAtX(std::array<double, 3>& point, double xPosition) {
-    point[0] += 2*(xPosition-point[0]);
-}
-
-inline void BoundaryCondition::reflectPointAtY(std::array<double, 3>& point, double yPosition) {
-    point[1] += 2*(yPosition-point[1]);
-}
-
-inline void BoundaryCondition::reflectPointAtZ(std::array<double, 3>& point, double zPosition) {
-    point[2] += 2*(zPosition-point[2]);
-}
-
 void BoundaryCondition::setSpecificCells() {
     switch (side) {
         case FRONT:

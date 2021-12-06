@@ -17,15 +17,14 @@ TEST(ParticleContainerTests, checkLinkedCellStucture){
 
 TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells){
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(10, 10, 10, 3.0);
-    particleContainer.createCells();
 
-    for (int i = 0; i < particleContainer.getHaloCells().size(); ++i) {
+    for (std::size_t i = 0; i < ParticleContainerLinkedCells::getHaloCells().size(); ++i) {
         EXPECT_EQ(particleContainer.getHaloCells()[i]->getCellType(),Cell::getHaloCellValue());
     }
-    for (int i = 0; i < particleContainer.getBoundaryCells().size(); ++i) {
+    for (std::size_t i = 0; i < ParticleContainerLinkedCells::getBoundaryCells().size(); ++i) {
         EXPECT_EQ(particleContainer.getBoundaryCells()[i]->getCellType(),Cell::getBoundaryCellValue());
     }
-    for (int i = 0; i < particleContainer.getInnerCells().size(); ++i) {
+    for (std::size_t i = 0; i < ParticleContainerLinkedCells::getInnerCells().size(); ++i) {
         EXPECT_EQ(particleContainer.getInnerCells()[i]->getCellType(),Cell::getInnerCellValue());
     }
 }
@@ -46,8 +45,7 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
 }
 
 /**
- * @brief tests if for different ParticleContainers the simulation result after one
- * time steps is the same
+ * @brief test if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
  */
 TEST(ParticleContainerTests, compareContainers) {
 

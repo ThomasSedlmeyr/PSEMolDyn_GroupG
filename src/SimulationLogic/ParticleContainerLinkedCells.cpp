@@ -18,17 +18,19 @@ std::vector<Cell*> ParticleContainerLinkedCells::haloCells;
 std::vector<Cell*> ParticleContainerLinkedCells::innerCells;
 ParticleCollector pc;
 
+ParticleContainerLinkedCells::ParticleContainerLinkedCells() = default;
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
                                                            double cutOffRadius,
-                                                           const std::array<double, 3> &domainStartPosition)
-        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius),
-          domainStartPosition(domainStartPosition) {
+                                                           const std::array<int, 6> &boundaryConditionTypes)
+        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius) {
+
     createCells();
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
     std::array<int, 6> twos = {2, 2, 2, 2, 2, 2};
     std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
-    boundaryContainer = std::make_unique<BoundaryConditionContainer>(twos, boundaryCells, haloCells, numberCellsX,
+    boundaryContainer = std::make_unique<BoundaryConditionContainer>(boundaryConditionTypes, boundaryCells, haloCells,
+                                                                     numberCellsX,
                                                                      numberCellsY, numberCellsZ, domainSize);
 }
 
@@ -49,9 +51,9 @@ void ParticleContainerLinkedCells::createCells() {
     cells.resize(numberCellsX * numberCellsY * numberCellsZ);
 
     //The curreontPosition has to be adapted according to the cell dimensions
-    currentPosition = {domainStartPosition[0] - Cell::sizeX,
-                       domainStartPosition[1] - Cell::sizeY,
-                       domainStartPosition[2] - Cell::sizeZ};
+    currentPosition = {-Cell::sizeX,
+                       -Cell::sizeY,
+                       -Cell::sizeZ};
 
     setDimensionsOfCellPointerVectors();
 
@@ -205,30 +207,32 @@ void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
+    boundaryContainer->calculateBoundaryConditions();
     for (Cell &c : cells) {
-        for (Particle &p1 : c.getParticles()) {
+        auto &particles = c.getParticles();
+        for (auto it = particles.begin(); it != particles.end(); it++){
             //calculate force between particles inside of cell
-            for (Particle &p2 : c.getParticles()) {
-                if (!(p1 == p2)){
-                    visitor.visitParticlePair(p1, p2);
-                }
+            for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                visitor.visitParticlePair(*it, *it2);
             }
             //calculate force between particles in different cells
             for (Cell *c2 : c.getNeighbourCells()) {
                 for (Particle &p2 : c2->getParticles()) {
-                    auto distance = ArrayUtils::L2Norm(p1.getX() - p2.getX());
+                    auto distance = ArrayUtils::L2Norm((*it).getX() - p2.getX());
+                    //TODO brauchen wir diese abfrage überhaupt?
                     if (distance <= cutOffRadius){
-                        visitor.visitParticlePair(p1, p2);
+                        visitor.visitParticlePair(*it, p2);
                     }
                 }
             }
         }
     }
+    boundaryContainer->doWorkAfterCalculationStep();
 }
 
 void ParticleContainerLinkedCells::setNeighbourCells() {
-    for (int i = 0; i < cells.size(); ++i) {
-        auto neighbourIndices = getNeighbourIndices(i);
+    for (std::size_t i = 0; i < cells.size(); ++i) {
+        auto neighbourIndices = getNeighbourIndices(static_cast<int> (i));
         for (auto index : neighbourIndices) {
             if (index != -1){
                 cells[i].addCellToNeighbours(&cells[index]);
@@ -266,7 +270,7 @@ std::array<int, 26> ParticleContainerLinkedCells::getNeighbourIndices(int index)
                 //move by k in z direction
                 currentNeighbourIndex = movePositionsInZ(currentYIndex, k);
                 //only add neighbour if it has a larger index to avoid duplicate force calculation
-                if (currentNeighbourIndex > index && currentNeighbourIndex >= 0 && currentNeighbourIndex < cells.size()){
+                if (currentNeighbourIndex > index && currentNeighbourIndex >= 0 && currentNeighbourIndex < static_cast<int>(cells.size())){
                     resultArray[counter] = currentNeighbourIndex;
                     counter++;
                 }
@@ -344,7 +348,8 @@ void ParticleContainerLinkedCells::addParticleToContainer(Particle &p) {
 void ParticleContainerLinkedCells::cellsToXYZ() {
     std::vector<Particle> linkedCellParticles;
     //std::vector<Particle> linkedCellParticles = std::vector<Particle>(cells.size());
-    for (int i = 0; i < cells.size(); ++i) {
+    linkedCellParticles.reserve(cells.size());
+for (std::size_t i = 0; i < cells.size(); ++i) {
         linkedCellParticles.emplace_back(cells[i].getPosition(), std::array<double, 3>{1,1,1}, 100, cells[i].getCellType(),i);
     }
     //At this index we get an error in the VTKWriter
@@ -354,19 +359,19 @@ void ParticleContainerLinkedCells::cellsToXYZ() {
     std::cout << "Fertig" << std::endl;
 }
 
-const std::vector<Cell *> &ParticleContainerLinkedCells::getBoundaryCells() const {
+const std::vector<Cell *> &ParticleContainerLinkedCells::getBoundaryCells() {
     return boundaryCells;
 }
 
-const std::vector<Cell *> &ParticleContainerLinkedCells::getHaloCells() const {
+const std::vector<Cell *> &ParticleContainerLinkedCells::getHaloCells() {
     return haloCells;
 }
 
-const std::vector<Cell *> &ParticleContainerLinkedCells::getInnerCells() const {
+const std::vector<Cell *> &ParticleContainerLinkedCells::getInnerCells() {
     return innerCells;
 }
 
-const std::vector<Cell>& ParticleContainerLinkedCells::getCells() const {
+const std::vector<Cell>& ParticleContainerLinkedCells::getCells() {
     return cells;
 }
 
@@ -376,17 +381,15 @@ std::vector<Particle> & ParticleContainerLinkedCells::getParticles() {
     return pc.getParticles();
 }
 
-ParticleContainerLinkedCells::ParticleContainerLinkedCells() {}
-
 void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visitor) {
     for (Cell &c : cells) {
         std::vector<Particle>& particlesInCell = c.getParticles();
-        for (int i = 0; i < particlesInCell.size(); ++i) {
+        for (std::size_t i = 0; i < particlesInCell.size(); ++i) {
             //apply actual implementation of position calculation
             visitor.visitParticle(particlesInCell[i]);
             //calculate new cell the particle belongs to
             int indexNewCell = getCellIndexForParticle(particlesInCell[i]);
-            if (indexNewCell < 0 || indexNewCell > cells.size()){
+            if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())){
                 std::cout << "Error, Particle got outside of domain!";
                 exit(1);
             }
@@ -403,8 +406,6 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
             }
         }
     }
-    boundaryContainer->calculateBoundaryConditions();
-    //TODO direkt nach der berechnung muss boundaryContainer->doWorkAfterCalculationStep()
 }
 
 void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> &position, double m) {
@@ -413,9 +414,14 @@ void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> 
     cells[index].getParticles().push_back(p);
 }
 
-int ParticleContainerLinkedCells::getNumberOfParticles(){
+void ParticleContainerLinkedCells::addParticle(Particle &particle) {
+    auto index = getCellIndexForParticle(particle);
+    cells[index].getParticles().push_back(particle);
+}
+
+int ParticleContainerLinkedCells::getNumberOfParticles() {
     int result = 0;
-    for (auto& cell : cells) {
+    for (auto &cell: cells) {
         result += cell.getParticles().size();
     }
     return result;

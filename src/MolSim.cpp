@@ -97,7 +97,7 @@ int main(int argc, char *argsv[]) {
         case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
             ParticleContainer *particleContainer = new ParticleContainerLinkedCells(70, 40, 6, 3, {0, 0, 0});
-            ljS.simulate(end_time, delta_t, *w, 1, param_pathLJ, particles_pathLJ, "Lenard", particleContainer);
+            ljS.simulate(end_time, delta_t, *w, 10, param_pathLJ, particles_pathLJ, "Lenard", particleContainer);
             break;
         }
         default: {

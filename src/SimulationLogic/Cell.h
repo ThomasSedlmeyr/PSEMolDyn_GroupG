@@ -23,15 +23,15 @@ public:
     /**
      * @brief the right boundary of the cell
      */
-    double xBoundary;
+    double xBoundary{};
     /**
      *@brief the top boundary of the cell
      */
-    double yBoundary;
+    double yBoundary{};
     /**
      * @brief the front boundary of the cell
      */
-    double zBoundary;
+    double zBoundary{};
 
     void calculateDimensions(double cutOffRadius);
 
@@ -48,7 +48,7 @@ public:
     const std::array<int, 3> &getRelativePositionInDomain() const;
 
 private:
-    std::array<int, 3> relativePositionInDomain;
+    std::array<int, 3> relativePositionInDomain{};
     /**
      * contains a pointer to every neighbour cell
      */
@@ -66,7 +66,7 @@ private:
     /**
      * @brief position of left back side corner
      */
-    std::array<double, 3> position;
+    std::array<double, 3> position{};
 
     int cellType = INNER_CELL;
 
@@ -88,11 +88,11 @@ public:
      */
     bool operator==(Cell &other);
 
-    void reflectXtoRightCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectXtoRightCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const;
     void reflectXtoLeftCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
-    void reflectYtoTopCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectYtoTopCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const;
     void reflectYtoBottomCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
-    void reflectZtoFrontCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
+    void reflectZtoFrontCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const;
     void reflectZtoBackCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint);
 };
 #endif //PSEMOLDYN_GROUPG_CELL_H
