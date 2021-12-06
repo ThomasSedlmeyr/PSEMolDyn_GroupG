@@ -25,9 +25,9 @@ protected:
     void doWorkAfterCalculationStep() override;
 
 public:
-    bool isDebug = false;
+    static bool isDebug;
 public:
-    void setIsDebug(bool isDebug);
+    static void setIsDebug(bool isDebug);
 
 private:
     std::array<double, 3> domainSize{};

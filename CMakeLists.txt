@@ -57,7 +57,6 @@ file(GLOB_RECURSE TEST_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*"
         )
 
 add_executable(Tests ${TEST_SRC})
@@ -78,7 +77,26 @@ target_link_libraries(Tests
 include(GoogleTest)
 gtest_discover_tests(Tests)
 
-# activate all compiler warnings. Clean up your code :P
+file(GLOB_RECURSE PARSER_SRC
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cxx"
+        )
+
+add_executable(Parser ${PARSER_SRC})
+
+target_include_directories(Parser
+        PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs/libxsd
+        ${CMAKE_CURRENT_SOURCE_DIR}/libs
+        PRIVATE
+        src
+        )
+
+target_link_libraries(Parser
+        PUBLIC
+        xerces-c)
+
+        # activate all compiler warnings. Clean up your code :P
 # depending on the compiler different flags are used
 target_compile_options(MolSim
         PRIVATE

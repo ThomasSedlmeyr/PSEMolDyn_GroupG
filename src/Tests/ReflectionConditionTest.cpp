@@ -21,7 +21,7 @@
  * @brief
  */
 TEST(Tests, GhostParticlesTest) {
-    //ReflectingCondition::isDebug = true;
+    ReflectingCondition::isDebug = true;
     auto ljS = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {2, 2, 2, 2, 2, 2});
     Writer *writer = new VTKWriter();

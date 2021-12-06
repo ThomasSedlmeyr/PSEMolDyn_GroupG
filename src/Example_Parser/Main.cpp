@@ -5,7 +5,7 @@
 
 #include "Parser.h"
 
-int main(int argc, char *argsv[]) {
+int main() {
     Parser p = Parser();
     p.main();
 }

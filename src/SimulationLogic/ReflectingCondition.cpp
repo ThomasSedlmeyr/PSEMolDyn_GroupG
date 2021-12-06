@@ -2,7 +2,7 @@
 #include "ReflectingCondition.h"
 #include "ParticleContainerLinkedCells.h"
 
-//bool isDebug = false;
+bool ReflectingCondition::isDebug = false;
 
 void ReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
     switch (side) {
