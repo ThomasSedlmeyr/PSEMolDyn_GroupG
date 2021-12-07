@@ -29,7 +29,8 @@ file(GLOB_RECURSE MY_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
 # create make target
-add_executable(MolSim ${MY_SRC})
+add_executable(MolSim ${MY_SRC} )
+
 
 # set cxx standard. You may raise this if you want.
 target_compile_features(MolSim
@@ -92,6 +93,8 @@ gtest_discover_tests(Tests)
 file(GLOB_RECURSE PARSER_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cxx"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
         )
 
 add_executable(Parser ${PARSER_SRC})
