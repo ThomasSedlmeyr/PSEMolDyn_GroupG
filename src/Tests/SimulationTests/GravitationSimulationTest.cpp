@@ -8,20 +8,21 @@
 #include <gtest/gtest.h>
 #include <SimulationLogic/GravitationSimulation.h>
 #include <OutputWriter/XYZWriter.h>
+#include "XML_Parser/XMLParser.h"
 
 /**
  * @brief Starts a GravitationSimulation and compares the result of two time steps with two files
  * containing the correct values
  */
 TEST(GravitationSimulationTests, FullTest) {
+    XMLParser::parseXML("../src/Tests/TestInputFiles/GravTestInput.xml");
     XYZReader reader = XYZReader();
     GravitationSimulation gravitationSimulation = GravitationSimulation();
     Writer *w = new XYZWriter();
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
         ParticleContainer *particleContainer = new ParticleContainerDirectSum();
-        gravitationSimulation.simulate(10, 0.01, *w, 500, "", "../src/Tests/TestInputFiles/eingabe-sonne.txt",
-                                       "Grav_Test", particleContainer);
+        gravitationSimulation.simulate(*w, particleContainer);
         particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Grav_Test_0500.xyz");
         particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Grav_Test_1000.xyz");
         particles_1_test = reader.readOnlyPositions("Grav_Test_0500.xyz");

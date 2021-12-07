@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="input.xsd">
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
 
-    <t_end>5</t_end>
-    <delta_t>0.0002</delta_t>
-    <calcType>LJ</calcType>
-    <baseNameOutputFiles>Lennard</baseNameOutputFiles>
-    <writeFrequency>100</writeFrequency>
-    <gravInput>../eingabe-sonne.txt</gravInput>
+    <t_end>10</t_end>
+    <delta_t>0.01</delta_t>
+    <calcType>G</calcType>
+    <baseNameOutputFiles>Grav_Test</baseNameOutputFiles>
+    <writeFrequency>500</writeFrequency>
+    <gravInput>../src/Tests/TestInputFiles/eingabe-sonne.txt</gravInput>
 
     <paramsLJ>
         <epsilon>5.0</epsilon>
@@ -17,25 +17,25 @@
     </paramsLJ>
 
     <boundaryConditions>
-        <top>3</top>
-        <right>3</right>
-        <bottom>3</bottom>
-        <left>3</left>
-        <front>3</front>
-        <back>3</back>
+        <top>0</top>
+        <right>0</right>
+        <bottom>0</bottom>
+        <left>0</left>
+        <front>0</front>
+        <back>0</back>
     </boundaryConditions>
 
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>1,1,1</position>
+            <position>0,0,0</position>
             <velocity>0,0,0</velocity>
             <objectSpecificFormat>40,8,1</objectSpecificFormat>
         </body>
 
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>15,15,1</position>
+            <position>15,15,0</position>
             <velocity>0,-10,0</velocity>
             <objectSpecificFormat>8,8,1</objectSpecificFormat>
         </body>

@@ -5,12 +5,13 @@
 
 #include "SimulationLogic/GravitationSimulation.h"
 #include "OutputWriter/Writer.h"
-
 #include <iostream>
 #include <OutputWriter/VTKWriter.h>
-#include <OutputWriter/XYZWriter.h>
 #include <SimulationLogic/LennardJonesSimulation.h>
 #include <spdlog/spdlog.h>
+#include <XML_Parser/XMLParser.h>
+
+std::string inputFile{};
 
 /**
  * @brief shows guidelines for correct program calls
@@ -24,45 +25,6 @@ void show_help();
  * @return true if successful, false if something went wrong
  */
 bool parseCommandLineArguments(int argc, char *argsv[]);
-
-constexpr double start_time = 0;
-
-/**
- * @brief public variable for end of calculation
- *
- * not const because of optional passing of arguments through command line
- */
-double end_time = 5;
-
-/**
- * @brief public variable for stepsize of calculation
- *
- * not const because of optional passing of arguments through command line
- */
-double delta_t = 0.0002;
-
-/**
- * @brief public variable defining calculation method
- *
- * 1 for GravitationSimulation
- * 2 for LennardJonesSimulation (default)
- */
-int calcType = Simulation::LENNARDJONES;
-
-/**
- * @brief path to file for parameters for Lennard Jones Simulation
- */
-std::string param_pathLJ = "../ParamsLennardJonesSimulation.txt";
-
-/**
- * @brief path to file for particles for Lennard Jones Simulation
- */
-std::string particles_pathLJ = "../TwoCuboidsLJ.txt";
-
-/**
- * @brief path to input file
- */
-std::string gravitation_path = "../eingabe-sonne.txt";
 
 int main(int argc, char *argsv[]) {
     //useful for testing performance
@@ -87,17 +49,26 @@ int main(int argc, char *argsv[]) {
     }
     // execution of simulation based to default or selection
     Writer *w = new VTKWriter();
-    switch (calcType) {
+    XMLParser::parseXML(inputFile);
+    switch (XMLParser::calcType_p) {
         case Simulation::GRAVITATION: {
             auto gS = GravitationSimulation();
             ParticleContainer *particleContainer = new ParticleContainerDirectSum();
-            gS.simulate(end_time, delta_t, *w, 10, "", gravitation_path, "Grav", particleContainer);
+            gS.simulate(*w, particleContainer);
             break;
         }
         case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
-            ParticleContainer *particleContainer = new ParticleContainerLinkedCells(70, 40, 6, 3, {3, 3, 3, 3, 3, 3});
-            ljS.simulate(end_time, delta_t, *w, 10, param_pathLJ, particles_pathLJ, "Lenard", particleContainer);
+            ParticleContainer* particleContainer;
+            if (XMLParser::particleContainerType == ParticleContainer::DIRECTSUM){
+                particleContainer = new ParticleContainerDirectSum();
+            }else if (XMLParser::particleContainerType == ParticleContainer::LINKEDCELLS){
+                particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+            }else{
+                spdlog::error("Unknown particle container type");
+                exit(1);
+            }
+            ljS.simulate(*w, particleContainer);
             break;
         }
         default: {
@@ -106,20 +77,17 @@ int main(int argc, char *argsv[]) {
         }
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Simulation took: " << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count() << "s" << std::endl;
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+    std::cout << "Simulation took: " << duration << "ms" << std::endl;
+    auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
+    std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
 
     return 0;
 }
 
 bool parseCommandLineArguments(int argc, char *argsv[]) {
     // variable to remember if flag has already been set
-    bool endReset = false;
-    bool deltaReset = false;
-    bool calcReset = false;
-    bool inputReset = false;
-    bool paramReset = false;
     bool partReset = false;
-
     /*
      * loop for retrieving command line arguments
      * if program call was faulty help will be printed and program aborted
@@ -133,55 +101,12 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
         std::string next = argsv[i+1];
         if (temp == "-h") {
             return false;
-        }
-        if (temp == "-t_end") {
-            if (endReset || strtod(next.c_str(), nullptr) <= 0 || next == "-t_end" || next == "-delta_t"
-                || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
-                return false;
-            }
-            end_time = strtod(next.c_str(), nullptr);
-            i++;
-            endReset = true;
-        } else if (temp == "-delta_t") {
-            if (deltaReset || strtod(next.c_str(), nullptr) <= 0 || next == "-t_end" || next == "-delta_t"
-                || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
-                return false;
-            }
-            delta_t = strtod(next.c_str(), nullptr);
-            i++;
-            deltaReset = true;
-        } else if (temp == "-calcType") {
-            if (calcReset || strtod(next.c_str(), nullptr) <= 0 || strtod(next.c_str(), nullptr) > 2
-                || next == "-t_end" || next == "-delta_t" || next == "-calcType" || next == "-input"
-                || next == "-param_path" || next == "-particles_path") {
-                return false;
-            }
-            calcType = strtod(next.c_str(), nullptr);
-            i++;
-            calcReset = true;
         } else if (temp == "-input") {
-            if (inputReset || (calcReset && calcType == Simulation::LENNARDJONES) || paramReset || partReset || next == "-t_end"
-                || next == "-delta_t" || next == "-calcType" || next == "-input"|| next == "-param_path"
-                || next == "-particles_path") {
+            if (partReset){
                 return false;
             }
-            gravitation_path = next;
-            i++;
-            inputReset = true;
-        } else if (temp == "-param_path") {
-            if (paramReset || (calcReset && calcType == Simulation::GRAVITATION) || inputReset || next == "-t_end" || next == "-delta_t"
-                || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
-                return false;
-            }
-            param_pathLJ = next;
-            i++;
-            paramReset = true;
-        } else if (temp == "-particles_path") {
-            if (partReset || (calcReset && calcType == Simulation::GRAVITATION) || inputReset || next == "-t_end" || next == "-delta_t"
-                || next == "-calcType" || next == "-input"|| next == "-param_path" || next == "-particles_path") {
-                return false;
-            }
-            particles_pathLJ = next;
+            //TODO fehler abfangen?
+            inputFile = next;
             i++;
             partReset = true;
         } else {
@@ -193,6 +118,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
 }
 
 void show_help() {
+    //TODO
     // prints how to make correct program call
     std::cout << "Please enter a correct program call!" << std::endl;
     std::cout << "\t-h : help page " << std::endl;

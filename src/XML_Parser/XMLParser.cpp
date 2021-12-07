@@ -4,31 +4,33 @@
 #include "GeometricObjects/Cuboid.h"
 #include "GeometricObjects/Tetrahedron.h"
 #include "GeometricObjects/Sphere.h"
-#include "driver_input.h"
+#include "XMLParser.h"
 
-double driver_input::t_end_p;
-double driver_input::delta_t_p;
-int driver_input::calcType_p;
-std::string driver_input::baseNameOutputFiles_p;
-int driver_input::writeFrequency_p;
-std::string driver_input::gravInput_p;
+double XMLParser::t_end_p;
+double XMLParser::delta_t_p;
+int XMLParser::calcType_p;
+std::string XMLParser::baseNameOutputFiles_p{};
+int XMLParser::writeFrequency_p;
+std::string XMLParser::gravInput_p{};
+double XMLParser::epsilon_p;
+double XMLParser::mass_p;
+double XMLParser::rho_p;
+double XMLParser::h_p;
+std::vector<std::tuple<std::string, double>> XMLParser::params_p{};
+int XMLParser::top_p;
+int XMLParser::right_p;
+int XMLParser::bottom_p;
+int XMLParser::left_p;
+int XMLParser::front_p;
+int XMLParser::back_p;
+std::array<double, 3> XMLParser::domainSize = {100, 100, 10};
+double XMLParser::cutoffRadius = 3;
+std::array<int, 6> XMLParser::boundaryConditions;
+std::list<Body*> XMLParser::bodies_p{};
+int XMLParser::particleContainerType = 2;
 
-double driver_input::epsilon_p;
-double driver_input::mass_p;
-double driver_input::rho_p;
-double driver_input::h_p;
-std::vector<std::tuple<std::string, double>> driver_input::params_p;
 
-int driver_input::top_p;
-int driver_input::right_p;
-int driver_input::bottom_p;
-int driver_input::left_p;
-int driver_input::front_p;
-int driver_input::back_p;
-
-std::list<Body*> driver_input::bodies_p;
-
-bool driver_input::parseXML(const std::string filename) {
+bool XMLParser::parseXML(const std::string filename) {
     try {
         std::unique_ptr<input> input_xml(input_(filename));
 
@@ -56,18 +58,21 @@ bool driver_input::parseXML(const std::string filename) {
         front_p = input_xml->boundaryConditions().front();
         back_p = input_xml->boundaryConditions().back();
 
+        boundaryConditions = {front_p, right_p, back_p, left_p, top_p, bottom_p};
+
         // bodies_p parsing with iteration
         particlesLJ::body_sequence &b(input_xml->particlesLJ().body());
 
         Body* temp = nullptr;
         int id = 1;
+        int particleCounter = 0;
 
         for (particlesLJ::body_iterator i(b.begin()); i != b.end(); ++i) {
-            if (i->bodyType().compare("Cuboid")) {
+            if (i->bodyType() == "Cuboid") {
                 temp =  new Cuboid(id, h_p, mass_p);
-            } else if (i->bodyType().compare("Tetrahedron")) {
+            } else if (i->bodyType() == "Tetrahedron") {
                 temp =  new Tetrahedron(id, h_p, mass_p);
-            } else if (i->bodyType().compare("Sphere")) {
+            } else if (i->bodyType() == "Sphere") {
                 temp =  new Sphere(id, h_p, mass_p);
             } else {
                 std::cout << "Parsing of XML-file was not successful!" << std::endl;
@@ -79,14 +84,20 @@ bool driver_input::parseXML(const std::string filename) {
             temp->parseInitialV(i->velocity());
             temp->parseStructure(i->objectSpecificFormat());
 
-            /*
-             * necessary when parsing particles?
-            temp->generateParticles(numberParticles);
-            numberParticles += body->getParticles().size();
-            */
+            temp->generateParticles(particleCounter);
+            particleCounter += temp->getParticles().size();
 
             bodies_p.push_back(temp);
             id++;
+
+            /*
+            body->parseStructure(line);
+            body->generateParticles(numberParticles);
+
+            numberParticles += body->getParticles().size();
+            bodies.push_back(body);
+            bodiesCounter++;
+             */
         }
 
     } catch (const std::exception& e) {

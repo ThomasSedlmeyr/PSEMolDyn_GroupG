@@ -12,18 +12,9 @@
 #include <spdlog/spdlog.h>
 #include <Visitors/GravForceVisitor.h>
 
-
 GravitationSimulation::GravitationSimulation() = default;
 
 GravitationSimulation::~GravitationSimulation() = default;
-
-void GravitationSimulation::initializeParamNames() {
-    paramNames = {};
-}
-
-void GravitationSimulation::setParamsWithValues() {
-    //The GraviationSimulation does not contain any parameters. This is the reason why this methode ist empty
-}
 
 bool GravitationSimulation::readParticles(const std::string &filename) {
     return readFile(filename);

@@ -2,21 +2,7 @@
 #include <iostream>
 #include "Simulation.h"
 #include <spdlog/spdlog.h>
-
-
-bool Simulation::readParamsAndValues(const std::string &fileName) {
-    argumentContainer = ArgumentContainer();
-    bool couldRaedFile = argumentContainer.readParamsAndValues(fileName);
-    if(!couldRaedFile){
-        spdlog::error("Could not read Parameter file");
-        return false;
-    }
-    if(!argumentContainer.checkIfParamsMatchParamsAndValues(paramNames)){
-        spdlog::error("The Parameter file contains not enough or wrong parameters");
-        return false;
-    }
-    return true;
-}
+#include "XML_Parser/XMLParser.h"
 
 void Simulation::calculateOneTimeStep() {
     particleContainer->updateParticlePositions(posCalcVisitor);
@@ -25,29 +11,28 @@ void Simulation::calculateOneTimeStep() {
 }
 
 void Simulation::simulate(const double &endTime, const double &delta_t, Writer &writer,
-                          const int &numberSkippedPrintedIterations, const std::string &parametersFileName,
-                          const std::string &particlesFileName, const std::string &outputFileName,
+                          const int &numberSkippedPrintedIterations, const std::string &inputFile, const std::string &outputFileName,
                           ParticleContainer *partContainer) {
-    int iteration = 0;
+    simulateLogic(endTime, delta_t, writer, numberSkippedPrintedIterations, inputFile, outputFileName, partContainer);
+}
+
+void Simulation::simulate(Writer &writer, ParticleContainer *partContainer) {
+    simulateLogic(XMLParser::t_end_p, XMLParser::delta_t_p, writer, XMLParser::writeFrequency_p, XMLParser::gravInput_p, XMLParser::baseNameOutputFiles_p, partContainer);
+}
+
+void Simulation::simulateLogic(const double &endTime, const double &delta_t, Writer &writer,
+                               const int &numberSkippedPrintedIterations, const std::string &inputFile,
+                               const std::string &outputFileName, ParticleContainer *partContainer) {
     particleContainer = partContainer;
-    //particleContainer = new ParticleContainerDirectSum();
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
 
+    int iteration = 0;
     double currentTime = 0;
-
-    initializeParamNames();
-    //read Paramsfile
-    bool couldParseFile = readParamsAndValues(parametersFileName);
-    if(!couldParseFile){
-        spdlog::error("Could not parse file" + parametersFileName);
-        exit(EXIT_FAILURE);;
-    }
-    setParamsWithValues();
     //read particles file
-    couldParseFile = readParticles(particlesFileName);
+    bool couldParseFile = readParticles(inputFile);
     if(!couldParseFile){
-        spdlog::error("Error in File: " + particlesFileName);
+        spdlog::error("Error in File: " + inputFile);
         exit(EXIT_FAILURE);;
     }
     while (currentTime < endTime) {
@@ -59,10 +44,6 @@ void Simulation::simulate(const double &endTime, const double &delta_t, Writer &
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
-}
-
-void Simulation::setParticleContainer(ParticleContainer *particleContainer) {
-    Simulation::particleContainer = particleContainer;
 }
 
 Simulation::~Simulation() = default;

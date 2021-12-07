@@ -12,21 +12,21 @@
 #include <random>
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include <chrono>
+#include "XML_Parser/XMLParser.h"
 
 /**
  * @brief Starts a LenardJonesSimulationTest and compares the result of two time steps with two files
  * containing the correct values
  */
 TEST(LennardJonesSimulationTests, FullTest) {
+    XMLParser::parseXML("../src/Tests/TestInputFiles/LJTestInput.xml");
     XYZReader reader = XYZReader();
     LennardJonesSimulation lennardJonesSimulation = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerDirectSum();
     Writer *w = new XYZWriter();
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
-        lennardJonesSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                                        "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test",
-                                        particleContainer);
+        lennardJonesSimulation.simulate(*w, particleContainer);
         particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0100.xyz");
         particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0200.xyz");
         particles_1_test = reader.readOnlyPositions("Lenard_Test_0100.xyz");

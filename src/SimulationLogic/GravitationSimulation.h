@@ -16,8 +16,6 @@ private:
      * Implementation of the force calculation
      */
     GravForceVisitor forceCalcVisitor;
-    void initializeParamNames() override;
-    void setParamsWithValues() override;
     bool readFile(const std::string &fileName);
     bool readParticles(const std::string &filename) override;
     void calculateF() override;

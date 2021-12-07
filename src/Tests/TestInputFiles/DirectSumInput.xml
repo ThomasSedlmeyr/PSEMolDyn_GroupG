@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
+
+    <t_end>0.002</t_end>
+    <delta_t>0.001</delta_t>
+    <calcType>LJ</calcType>
+    <baseNameOutputFiles>DirectSumTest</baseNameOutputFiles>
+    <writeFrequency>1</writeFrequency>
+    <gravInput></gravInput>
+
+    <paramsLJ>
+        <epsilon>5.0</epsilon>
+        <mass>1.0</mass>
+        <rho>1.0</rho>
+        <h>1.125</h>
+    </paramsLJ>
+
+    <boundaryConditions>
+        <top>1</top>
+        <right>1</right>
+        <bottom>1</bottom>
+        <left>1</left>
+        <front>1</front>
+        <back>1</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>0,10,0</position>
+            <velocity>0,-8,0</velocity>
+            <objectSpecificFormat>5,5,5</objectSpecificFormat>
+        </body>
+
+        <body>
+            <bodyType>Tetrahedron</bodyType>
+            <position>0,0,0</position>
+            <velocity>0,3,0</velocity>
+            <objectSpecificFormat>4</objectSpecificFormat>
+        </body>
+    </particlesLJ>
+
+</input>

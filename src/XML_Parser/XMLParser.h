@@ -1,5 +1,5 @@
-#ifndef PSEMOLDYN_GROUPG_DRIVER_INPUT_H
-#define PSEMOLDYN_GROUPG_DRIVER_INPUT_H
+#ifndef PSEMOLDYN_GROUPG_XMLPARSER_H
+#define PSEMOLDYN_GROUPG_XMLPARSER_H
 
 #include <iostream>
 #include <list>
@@ -8,29 +8,34 @@
 #include "GeometricObjects/Tetrahedron.h"
 #include "GeometricObjects/Sphere.h"
 
-class driver_input {
-private:
+class XMLParser {
+public:
     static double t_end_p;
     static double delta_t_p;
     static int calcType_p;
     static std::string baseNameOutputFiles_p;
     static int writeFrequency_p;
     static std::string gravInput_p;
-
     static double epsilon_p;
     static double mass_p;
     static double rho_p;
     static double h_p;
     static std::vector<std::tuple<std::string, double>> params_p;
-
     static int top_p;
     static int right_p;
     static int bottom_p;
     static int left_p;
     static int front_p;
     static int back_p;
-
+    static std::array<int, 6> boundaryConditions;
     static std::list<Body*> bodies_p;
+
+    //TODO
+    static int particleContainerType;
+    //TODO
+    static std::array<double, 3> domainSize;
+    //TODO
+    static double cutoffRadius;
 
 public:
     static bool parseXML(const std::string);
@@ -58,4 +63,4 @@ public:
     std::list<Body*> get_bodies_p;
 };
 
-#endif //PSEMOLDYN_GROUPG_DRIVER_INPUT_H
+#endif //PSEMOLDYN_GROUPG_XMLPARSER_H

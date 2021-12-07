@@ -12,6 +12,7 @@
 #include <SimulationLogic/LennardJonesSimulation.h>
 #include <OutputWriter/VTKWriter.h>
 #include "SimulationLogic/Cell.h"
+#include "XML_Parser/XMLParser.h"
 
 TEST(ParticleContainerTests, checkLinkedCellStucture){
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 6, 3.0);
@@ -42,7 +43,7 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
         p.setX(randomPos1);
         particleContainer.addParticleToContainer(p);
-        Cell cellContainingParticle = particleContainer.getCells()[ParticleContainerLinkedCells::getCellIndexForParticle(p)];
+        Cell cellContainingParticle = ParticleContainerLinkedCells::getCells()[ParticleContainerLinkedCells::getCellIndexForParticle(p)];
         EXPECT_TRUE(cellContainingParticle.particleLiesInCell(p));
     }
 }
@@ -54,16 +55,16 @@ TEST(ParticleContainerTests, compareContainers) {
     std::array<int, 6> ones = {1,1,1,1,1,1};
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(100, 100, 100, 3.0, ones);
     ParticleContainerDirectSum particleContainerDirectSum = ParticleContainerDirectSum();
-    //ParticleContainerDirectSum particleContainerLinkedCells = ParticleContainerDirectSum();
     Writer* writer1 = new VTKWriter();
     Writer* writer2 = new VTKWriter();
     LennardJonesSimulation s1 = LennardJonesSimulation();
     LennardJonesSimulation s2 = LennardJonesSimulation();
-    s1.simulate(0.002, 0.1, *writer1, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                 "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "DirectSumTest", &particleContainerDirectSum);
 
-    s2.simulate(0.002, 0.1, *writer2, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "LinkedCellsTest", &particleContainerLinkedCells);
+    XMLParser::parseXML("../src/Tests/TestInputFiles/DirectSumInput.xml");
+    s1.simulate(*writer1, &particleContainerDirectSum);
+    XMLParser::parseXML("../src/Tests/TestInputFiles/LinkedCellsInput");
+    s2.simulate(*writer2, &particleContainerLinkedCells);
+
     auto particles1 = particleContainerDirectSum.getParticles();
     auto particles2 = particleContainerLinkedCells.getParticles();
 

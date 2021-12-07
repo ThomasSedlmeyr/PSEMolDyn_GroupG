@@ -8,6 +8,7 @@
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include "OutputWriter/XYZWriter.h"
 #include "OutputWriter/VTKWriter.h"
+#include "XML_Parser/XMLParser.h"
 #include "BoundaryConditions//ReflectingCondition.h"
 
 //Code adapted from: https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
@@ -22,12 +23,13 @@
  * @brief Checks if the number of generated ghostParticles is the same as we expect
  */
 TEST(Tests, GhostParticlesTest) {
+    //TODO
+    XMLParser::parseXML("GhostTestInput.xml");
     ReflectingCondition::isDebug = true;
     auto ljS = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {2, 2, 2, 2, 2, 2});
     Writer *writer = new VTKWriter();
-    ljS.simulate(0.001, 0.001, *writer, 1, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                 "../src/Tests/TestInputFiles/TestGhostParticlesInput.txt", "GhostParticlesTest", particleContainer);
+    ljS.simulate(*writer, particleContainer);
     auto particles = particleContainer->getParticles();
 
     int counter = 0;

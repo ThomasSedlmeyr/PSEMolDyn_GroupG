@@ -27,8 +27,6 @@ private:
      * @brief list of bodies relevant for the simulation
      */
     std::list<Body*> bodies;
-    void initializeParamNames() override;
-    void setParamsWithValues() override;
     bool readParticles(const std::string &filename) override;
     /**
      * @brief unites the particles from all bodies to single vector in particle container

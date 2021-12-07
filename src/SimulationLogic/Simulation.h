@@ -11,18 +11,12 @@
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
 #include <vector>
 #include <string>
-#include <InputReader/ArgumentContainer.h>
 #include <Visitors/PosCalculationVisitor.h>
 #include <Visitors/VelCalculationVisitor.h>
 
 class Simulation {
 
 private:
-    /**
-     * reads the specific arguments for every simulation from file
-     * @param filename
-     */
-    bool readParamsAndValues(const std::string &filename);
     /**
      * @brief Calculates the new position, the new force and the new velocity for one time step
      */
@@ -35,11 +29,6 @@ private:
 
 protected:
     /**
-     *@brief names of the expected parameters
-     */
-    std::vector<std::string> paramNames;
-
-    /**
      * the particleContainer containing all particles used for the simulation process
      */
     ParticleContainer *particleContainer;
@@ -47,19 +36,12 @@ protected:
      * @brief Implementation of the position calculation
      */
     PosCalculationVisitor posCalcVisitor;
-public:
-    void setParticleContainer(ParticleContainer *particleContainer);
 
 protected:
     /**
      * @brief Implementation of the velocity calculation
      */
     VelCalculationVisitor velCalcVisitor;
-
-    /**
-     *@brief The argumentContainer used to parse the arguments
-     */
-    ArgumentContainer argumentContainer;
 
     /**
      *@brief the number of particles used for the simulation process
@@ -72,17 +54,6 @@ protected:
     */
     virtual bool readParticles(const std::string &filename) = 0;
 
-    /**
-     * @brief sets the paramNames to the specific parameters of the simulation
-     */
-    virtual void initializeParamNames() = 0;
-
-    /**
-     * @brief initializes the parameters for the specific simulation with the
-     * given values from the particle container
-     */
-    virtual void setParamsWithValues() = 0;
-
 public:
     static const int GRAVITATION = 1;
     static const int LENNARDJONES = 2;
@@ -90,7 +61,7 @@ public:
     virtual~Simulation();
 
     /**
-     * @brief Performs the whole simulation process
+     * @brief Calls the simulation process
      * @param endTime duration of the simulation
      * @param delta_t the timespan between two simulation time steps
      * @param writer is used to output the simulation results
@@ -100,9 +71,28 @@ public:
      * @param outputFileName name of the output file
      */
     void
-    simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations,
-             const std::string &parametersFileName, const std::string &particlesFileName,
-             const std::string &outputFileName, ParticleContainer *particleContainer);
+    simulate(const double &endTime, const double &delta_t, Writer &writer, const int &numberSkippedPrintedIterations, const std::string &inputFile, const std::string &outputFileName, ParticleContainer *particleContainer);
+
+    /**
+     * @brief Same as above but with only two parameters, rest is read from XMLParser
+     * @param writer is used to output the simulation results
+     */
+    void simulate(Writer &writer, ParticleContainer *partContainer);
+
+    /**
+     * @brief Actual Simulation process
+     * @param endTime
+     * @param delta_t
+     * @param writer
+     * @param numberSkippedPrintedIterations
+     * @param inputFile
+     * @param outputFileName
+     * @param partContainer
+     */
+    void
+    simulateLogic(const double &endTime, const double &delta_t, Writer &writer,
+                  const int &numberSkippedPrintedIterations,
+                  const std::string &inputFile, const std::string &outputFileName, ParticleContainer *partContainer);
 };
 
 

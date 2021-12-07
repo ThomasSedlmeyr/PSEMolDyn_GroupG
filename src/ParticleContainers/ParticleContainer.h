@@ -13,6 +13,8 @@ class ParticleContainer {
 private:
 
 public:
+    static const int DIRECTSUM = 1;
+    static const int LINKEDCELLS = 2;
     /**
      * @brief Updates the position for every particle using visitor
      * @param visitor Implementation of the position calculation
