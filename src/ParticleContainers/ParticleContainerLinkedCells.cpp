@@ -6,8 +6,10 @@
 #include <OutputWriter/VTKWriter.h>
 #include <iostream>
 #include <Visitors/ParticleCollector.h>
+#include <Visitors/LJForceVisitor.h>
 #include "ParticleContainerLinkedCells.h"
 #include "utils/ArrayUtils.h"
+#include "utils/FastMath.h"
 
 std::vector<Cell> ParticleContainerLinkedCells::cells;
 int ParticleContainerLinkedCells::numberCellsX;
@@ -206,6 +208,19 @@ void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
     }
 }
 
+bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius) {
+    std::array<double, 3> diff{};
+    double squaredNorm = 0;
+    double singleDiff;
+
+    for (int i = 0; i < 3; ++i) {
+        singleDiff = pos1[i] - pos2[i];
+        diff[i] = singleDiff;
+        squaredNorm += singleDiff * singleDiff;
+    }
+    return squaredNorm < cutOffRadius * cutOffRadius;
+}
+
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
     boundaryContainer->calculateBoundaryConditions();
     for (Cell &c : cells) {
@@ -213,14 +228,14 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
         for (auto it = particles.begin(); it != particles.end(); it++){
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
-                visitor.visitParticlePair(*it, *it2);
+                if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)){
+                    visitor.visitParticlePair(*it, *it2);
+                }
             }
             //calculate force between particles in different cells
             for (Cell *c2 : c.getNeighbourCells()) {
                 for (Particle &p2 : c2->getParticles()) {
-                    auto distance = ArrayUtils::L2Norm((*it).getX() - p2.getX());
-                    //TODO brauchen wir diese abfrage überhaupt?
-                    if (distance <= cutOffRadius){
+                    if (shouldCalculateForce(it->getX(), p2.getX(), cutOffRadius)){
                         visitor.visitParticlePair(*it, p2);
                     }
                 }

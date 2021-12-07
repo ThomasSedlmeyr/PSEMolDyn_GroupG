@@ -1,1 +1,1 @@
- bool checkIfSquareRootOfNumberIsBiggerThanCertainValue(double number, double certainValue);
+bool checkIfSquareRootOfNumberIsBiggerThanCertainValue(double number, double certainValue);

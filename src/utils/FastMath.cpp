@@ -3,6 +3,7 @@
 //
 
 #include <cstdlib>
+#include <array>
 
 bool checkIfSquareRootOfNumberIsBiggerThanCertainValue(double number, double certainValue){
     //Code of the newton iteration adapted from: https://stackoverflow.com/questions/40333800/newton-raphson-using-recursion-in-c
@@ -10,7 +11,7 @@ bool checkIfSquareRootOfNumberIsBiggerThanCertainValue(double number, double cer
     for(;;) {
         double last = val;
         val = (val + number / val) * 0.5; // iterative
-        double error = abs(val - last);
+        double error = std::abs(val - last);
 
         //If the root is certainly smaller
         if(val + error < certainValue){

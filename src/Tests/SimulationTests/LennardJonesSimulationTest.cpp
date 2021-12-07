@@ -19,17 +19,17 @@
  */
 TEST(LennardJonesSimulationTests, FullTest) {
     XYZReader reader = XYZReader();
-    LennardJonesSimulation gravitationSimulation = LennardJonesSimulation();
+    LennardJonesSimulation lennardJonesSimulation = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerDirectSum();
     Writer *w = new XYZWriter();
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
-        gravitationSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
-                                       "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test",
-                                       particleContainer);
+        lennardJonesSimulation.simulate(2, 0.01, *w, 100, "../src/Tests/TestInputFiles/ParamsLJtest.txt",
+                                        "../src/Tests/TestInputFiles/TwoCuboidsLJ_Test.txt", "Lenard_Test",
+                                        particleContainer);
         particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0100.xyz");
         particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0200.xyz");
-        particles_1_test= reader.readOnlyPositions("Lenard_Test_0100.xyz");
+        particles_1_test = reader.readOnlyPositions("Lenard_Test_0100.xyz");
         particles_2_test = reader.readOnlyPositions("Lenard_Test_0200.xyz");
     }catch(const std::exception& e){
         FAIL();
@@ -52,12 +52,21 @@ TEST(LennardJonesSimulationTests, FullTest) {
  * @param rho
  * @return force between p1 and p2
  */
-std::array<double, 3> trivialLennardJonesCalculation(Particle &p1, Particle &p2, double epsilon, double rho) {
+void trivialLennardJonesCalculation(Particle &p1, Particle &p2, double epsilon, double rho) {
     double norm = ArrayUtils::L2Norm(p1.getX() - p2.getX());
     double term1 = -24.0*epsilon/pow(norm, 2);
     double term2 =  pow(rho/norm, 6);
     double term3 =  2 * pow(rho/norm, 12);
-    return term1 * (term2 - term3) * (p1.getX() - p2.getX());
+    auto diff =  term1 * (term2 - term3) * (p1.getX() - p2.getX());
+    auto &f1 = p1.getFRef();
+    auto &f2 = p2.getFRef();
+    //faster than using ArrayUtils
+    double temp;
+    for (int j = 0; j < 3; ++j) {
+        temp = diff[j];
+        f1[j] += temp;
+        f2[j] -= temp;
+    }
 }
 
 /**
@@ -69,12 +78,10 @@ TEST(LennardJonesSimulationTests, LennardJonesOptimization){
     double epsilon = 5;
     double rho = 1;
 
-    LennardJonesSimulation simulation = LennardJonesSimulation();
-    simulation.setEpsilon(epsilon);
-    simulation.setRho(rho);
+    LJForceVisitor ljForceVisitor = LJForceVisitor(epsilon, rho);
 
-    std::uniform_real_distribution<double> positionDistribution(0, 10);
-    std::uniform_real_distribution<double> velocityDistribution(1, 5);
+    std::uniform_real_distribution<double> positionDistribution(0, 3);
+    std::uniform_real_distribution<double> velocityDistribution(-10, 10);
     std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
 
     std::array<double, 3> randomPos1{};
@@ -84,25 +91,36 @@ TEST(LennardJonesSimulationTests, LennardJonesOptimization){
 
     Particle p1{};
     Particle p2{};
+    Particle p3{};
+    Particle p4{};
 
     std::array<double, 3> result1{};
     std::array<double, 3> result2{};
 
     for (int i = 0; i < numberOfTries; ++i) {
         randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
-        randomPos2 = {positionDistribution(re)+11, positionDistribution(re)+11, positionDistribution(re)+11};
+        randomPos2 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
+
+        while (ArrayUtils::L2Norm(randomPos1-randomPos2) < 0.5){
+            randomPos1 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
+            randomPos2 = {positionDistribution(re), positionDistribution(re), positionDistribution(re)};
+        }
 
         randomVelocity1 = {velocityDistribution(re), velocityDistribution(re), velocityDistribution(re)};
         randomVelocity2 = {velocityDistribution(re), velocityDistribution(re), velocityDistribution(re)};
 
-        p1 = Particle(randomPos1, randomVelocity1, positionDistribution(re), 0, 0);
-        p2 = Particle(randomPos2, randomVelocity2, positionDistribution(re), 0, 0);
+        p1 = Particle(randomPos1, randomVelocity1, 1, 0, 0);
+        p2 = Particle(randomPos2, randomVelocity2, 1, 0, 0);
 
-        //result1 = simulation.calculateFBetweenPair(p1, p2);
-        result2 = trivialLennardJonesCalculation(p1, p2, epsilon, rho);
+        p3 = p1;
+        p4 = p2;
+
+        ljForceVisitor.visitParticlePair(p1, p2);
+        trivialLennardJonesCalculation(p3, p4, epsilon, rho);
 
         for (int j = 0; j < 3; ++j) {
-            EXPECT_NEAR(result1[j], result2[j], 0.001);
+            EXPECT_NEAR(p1.getF()[j], p3.getF()[j], 0.00001);
+            EXPECT_NEAR(p2.getF()[j], p4.getF()[j], 0.00001);
         }
     }
 }

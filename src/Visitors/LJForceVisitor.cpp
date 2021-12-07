@@ -7,8 +7,8 @@
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
-    auto x1 = p1.getX();
-    auto x2 = p2.getX();
+    auto &x1 = p1.getX();
+    auto &x2 = p2.getX();
     std::array<double, 3> diff{};
     double squaredNorm = 0;
 
