@@ -17,6 +17,12 @@ public:
 
 private:
     int numberParticlesPerRadius;
+
+    /**
+     * Generates a disk which can be used for 2d simulations
+     * @param startID the ID of the body
+     */
+    void generateParticles2d(int startID);
 };
 
 

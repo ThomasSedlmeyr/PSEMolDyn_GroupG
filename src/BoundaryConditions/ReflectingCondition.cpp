@@ -79,7 +79,3 @@ void ReflectingCondition::doWorkAfterCalculationStep() {
         deleteAllParticlesInHaloCells();
     }
 }
-
-void ReflectingCondition::setIsDebug(bool isDebug) {
-    ReflectingCondition::isDebug = isDebug;
-}

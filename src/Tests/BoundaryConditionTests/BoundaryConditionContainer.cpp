@@ -1,13 +1,12 @@
 #include <vector>
 #include <tuple>
 #include <gtest/gtest.h>
-#include <GeometricObjects/Cuboid.h>
-#include <chrono>
 #include <ParticleContainers/ParticleContainerLinkedCells.h>
 #include "SimulationLogic/Cell.h"
-#include "SimulationLogic/LennardJonesSimulation.h"
-#include "OutputWriter/XYZWriter.h"
 
+/**
+ * @brief Checks the size of the boundary and halo cells for each boundary condition side
+ */
 TEST(Tests, CheckIfSpecificCellsHaveRightSizes) {
     double cutOff = 3.0;
     double domainSizeX = 20;

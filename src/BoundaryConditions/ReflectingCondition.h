@@ -13,11 +13,10 @@
 
 class ReflectingCondition : public BoundaryCondition {
 
-public:
-
-    ReflectingCondition(int conditionType, int side, const std::array<double, 3> &domainSize);
-
 protected:
+    /**
+     * @brief the ghost particles which were used to exert a force on the boundary particles
+     */
     std::vector<Particle *> counterParticles;
 
     void calculateBoundaryCondition() override;
@@ -25,13 +24,23 @@ protected:
     void doWorkAfterCalculationStep() override;
 
 public:
+    /**
+     * @brief this flag is used for debugging and testing. If this flag is that to true the ghost-particles
+     * were not deleted.
+     * @param isDebug
+     */
     static bool isDebug;
-public:
-    static void setIsDebug(bool isDebug);
+
+    ReflectingCondition(int conditionType, int side, const std::array<double, 3> &domainSize);
 
 private:
+
     std::array<double, 3> domainSize{};
 
+    /**
+     * @brief Calculates the boundary condition for one cell
+     * @param cell
+     */
     void calculateBoundaryConditionForCell(Cell *cell);
 };
 

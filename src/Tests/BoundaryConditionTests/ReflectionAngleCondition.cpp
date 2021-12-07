@@ -7,8 +7,9 @@
 #include "SimulationLogic/Cell.h"
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include "OutputWriter/XYZWriter.h"
-#include "OutputWriter/VTKWriter.h"
 
+
+//Code adapted from
 //https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
 #define EXPECT_FLOATS_NEARLY_EQ(expected, actual, thresh) \
         EXPECT_EQ(expected.size(), actual.size()) << "Array sizes differ.";\
@@ -17,7 +18,10 @@
             EXPECT_NEAR(expected[idx], actual[idx], thresh) << "at index: " << idx;\
         }
 
-
+/**
+ * @brief Creates for each side of the boundary a particle which is located in the halo-area. For each of these particles
+ * we than calculate the boundary condition and check the new position and the new velocity.
+ */
 TEST(Tests, ReflectionAngleConditionTest) {
     auto ljS = LennardJonesSimulation();
     std::array<int, 6> threes = {3, 3, 3, 3, 3, 3};

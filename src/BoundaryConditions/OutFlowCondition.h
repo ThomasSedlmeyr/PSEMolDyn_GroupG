@@ -8,15 +8,19 @@
 
 #include "BoundaryCondition.h"
 
-class OutFlowCondition : public BoundaryCondition{
+class OutFlowCondition : public BoundaryCondition {
 
 protected:
 
+    /**
+     *@brief Deletes all particles which are located in the halo cells
+     */
     void calculateBoundaryCondition();
 
 
 public:
     OutFlowCondition(int conditionType, int side);
+
     void doWorkAfterCalculationStep() override;
 };
 

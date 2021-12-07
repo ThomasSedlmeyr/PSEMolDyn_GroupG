@@ -15,16 +15,6 @@ void BoundaryConditionContainer::calculateBoundaryConditions() {
     }
 }
 
-BoundaryConditionContainer::BoundaryConditionContainer(int frontSide, int rightSide, int backSide, int leftSide,
-                                                       int topSide, int bottomSide) {
-
-
-}
-
-BoundaryConditionContainer::BoundaryConditionContainer(int frontAndBackSide, int rightAndLeftSide,
-                                                       int topAndBottomSide) {
-    BoundaryConditionContainer(frontAndBackSide, rightAndLeftSide, frontAndBackSide, rightAndLeftSide, topAndBottomSide, topAndBottomSide);
-}
 //Very import the order of the types in boundaryConditionTypes has to be the same as the numerical oder of side types
 //which were defined in the class BoundaryCondition.h
 BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes,

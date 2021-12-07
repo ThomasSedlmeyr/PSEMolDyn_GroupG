@@ -19,7 +19,7 @@
         }
 
 /**
- * @brief
+ * @brief Checks if the number of generated ghostParticles is the same as we expect
  */
 TEST(Tests, GhostParticlesTest) {
     ReflectingCondition::isDebug = true;
@@ -37,9 +37,12 @@ TEST(Tests, GhostParticlesTest) {
         }
     }
     EXPECT_EQ(8 + 8 + 11 * 8 + 11, counter);
-
 }
 
+/**
+ * @brief Tests if the reflection functionality of the cell works by reflecting a certain point in every possible
+ * direction and comparing the results with hardcoded values
+ */
 TEST(Tests, TestPointReflection) {
     Cell::sizeX = 3;
     Cell::sizeY = 3.5;
