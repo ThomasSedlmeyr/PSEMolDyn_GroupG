@@ -4,9 +4,9 @@
 #include <iostream>
 #include <list>
 #include "input.h"
-#include "../GeometricObjects/Cuboid.h"
-#include "../GeometricObjects/Tetrahedron.h"
-#include "../GeometricObjects/Sphere.h"
+#include "GeometricObjects/Cuboid.h"
+#include "GeometricObjects/Tetrahedron.h"
+#include "GeometricObjects/Sphere.h"
 
 class driver_input {
 private:

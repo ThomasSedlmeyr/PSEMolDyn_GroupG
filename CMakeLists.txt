@@ -23,6 +23,7 @@ file(GLOB_RECURSE MY_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/MolSim.cpp"
 
     # header don't need to be included but this might be necessary for some IDEs
@@ -90,28 +91,8 @@ target_link_libraries(Tests
 include(GoogleTest)
 gtest_discover_tests(Tests)
 
-file(GLOB_RECURSE PARSER_SRC
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Example_Parser/*.cxx"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
-        )
 
-add_executable(Parser ${PARSER_SRC})
-
-target_include_directories(Parser
-        PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/libs/libxsd
-        ${CMAKE_CURRENT_SOURCE_DIR}/libs
-        PRIVATE
-        src
-        )
-
-target_link_libraries(Parser
-        PUBLIC
-        xerces-c)
-
-        # activate all compiler warnings. Clean up your code :P
+# activate all compiler warnings. Clean up your code :P
 # depending on the compiler different flags are used
 target_compile_options(MolSim
         PRIVATE

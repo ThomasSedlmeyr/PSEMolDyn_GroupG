@@ -1,12 +1,32 @@
 #include <iostream>
 #include <list>
 #include "input.h"
-#include "../GeometricObjects/Cuboid.h"
-#include "../GeometricObjects/Tetrahedron.h"
-#include "../GeometricObjects/Sphere.h"
+#include "GeometricObjects/Cuboid.h"
+#include "GeometricObjects/Tetrahedron.h"
+#include "GeometricObjects/Sphere.h"
 #include "driver_input.h"
 
-using namespace std;
+double driver_input::t_end_p;
+double driver_input::delta_t_p;
+int driver_input::calcType_p;
+std::string driver_input::baseNameOutputFiles_p;
+int driver_input::writeFrequency_p;
+std::string driver_input::gravInput_p;
+
+double driver_input::epsilon_p;
+double driver_input::mass_p;
+double driver_input::rho_p;
+double driver_input::h_p;
+std::vector<std::tuple<std::string, double>> driver_input::params_p;
+
+int driver_input::top_p;
+int driver_input::right_p;
+int driver_input::bottom_p;
+int driver_input::left_p;
+int driver_input::front_p;
+int driver_input::back_p;
+
+std::list<Body*> driver_input::bodies_p;
 
 bool driver_input::parseXML(const std::string filename) {
     try {
@@ -50,8 +70,8 @@ bool driver_input::parseXML(const std::string filename) {
             } else if (i->bodyType().compare("Sphere")) {
                 temp =  new Sphere(id, h_p, mass_p);
             } else {
-                cout << "Parsing of XML-file was not successful!" << endl;
-                cout << "Unknown body type." << endl;
+                std::cout << "Parsing of XML-file was not successful!" << std::endl;
+                std::cout << "Unknown body type." << std::endl;
                 return false;
             }
 
@@ -70,27 +90,27 @@ bool driver_input::parseXML(const std::string filename) {
         }
 
     } catch (const std::exception& e) {
-        std::cerr << e.what() << endl;
+        std::cerr << e.what() << std::endl;
     }
 
     // print for testing purposes
 
-    cout << t_end_p << endl;
-    cout << delta_t_p << endl;
-    cout << calcType_p << endl;
-    cout << baseNameOutputFiles_p << endl;
-    cout << writeFrequency_p << endl;
-    cout << gravInput_p << endl;
-    cout << epsilon_p << endl;
-    cout << mass_p << endl;
-    cout << rho_p << endl;
-    cout << h_p << endl;
-    cout << top_p << endl;
-    cout << right_p << endl;
-    cout << bottom_p << endl;
-    cout << left_p << endl;
-    cout << front_p << endl;
-    cout << back_p << endl;
+    std::cout << t_end_p << std::endl;
+    std::cout << delta_t_p << std::endl;
+    std::cout << calcType_p << std::endl;
+    std::cout << baseNameOutputFiles_p << std::endl;
+    std::cout << writeFrequency_p << std::endl;
+    std::cout << gravInput_p << std::endl;
+    std::cout << epsilon_p << std::endl;
+    std::cout << mass_p << std::endl;
+    std::cout << rho_p << std::endl;
+    std::cout << h_p << std::endl;
+    std::cout << top_p << std::endl;
+    std::cout << right_p << std::endl;
+    std::cout << bottom_p << std::endl;
+    std::cout << left_p << std::endl;
+    std::cout << front_p << std::endl;
+    std::cout << back_p << std::endl;
 
     return true;
 }
