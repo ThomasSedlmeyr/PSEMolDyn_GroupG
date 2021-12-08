@@ -13,8 +13,12 @@ class ParticleContainer {
 private:
 
 public:
+    /**
+     * @brief constant values with describe the different types of ParticleContainer
+     */
     static const int DIRECTSUM = 1;
     static const int LINKEDCELLS = 2;
+
     /**
      * @brief Updates the position for every particle using visitor
      * @param visitor Implementation of the position calculation
@@ -37,7 +41,6 @@ public:
      * @param p Particle to be added
      */
     virtual void addParticleToContainer(Particle &p) = 0;
-
 };
 
 #endif //PSEMOLDYN_GROUPG_PARTICLECONTAINER_H

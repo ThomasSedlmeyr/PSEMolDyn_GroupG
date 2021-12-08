@@ -80,11 +80,9 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
 
 BetterReflectingCondition::BetterReflectingCondition(int conditionType, int side)
         : BoundaryCondition(conditionType, side) {
-
 }
 
 void BetterReflectingCondition::doWorkAfterCalculationStep() {
-
 }
 
 void BetterReflectingCondition::calculateBoundaryCondition() {
