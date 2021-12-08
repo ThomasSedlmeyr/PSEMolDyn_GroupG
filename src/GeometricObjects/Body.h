@@ -15,6 +15,13 @@ class Body{
      * @brief Initial velocity of the body
      */
     std::array<double, 3> initialV;
+public:
+    /**
+     *@brief getter for initiaö velocity
+     */
+    const std::array<double, 3> &getInitialV() const;
+
+protected:
 
     /**
      * @brief the initial position of the body
@@ -30,6 +37,13 @@ class Body{
      *@brief the mesh width of the particles in the body
      */
     double meshWidth;
+public:
+    /**
+     *@brief getter for mesh width
+     */
+    double getMeshWidth() const;
+
+protected:
 
     /**
      * @ the mass of every particle in the body

@@ -107,12 +107,14 @@ bool XMLParser::parseXML(const std::string filename) {
 
     } catch (const std::exception& e) {
         std::cout << "Parsing of XML-file was not successful!" << std::endl;
+        std::cout << "Please check that correct path was provided." << std::endl;
+        std::cout << "Please check that file was correctly formatted." << std::endl;
         std::cerr << e.what() << std::endl;
         return false;
     }
 
     // print for testing purposes
-
+    /*
     std::cout << t_end_p << std::endl;
     std::cout << delta_t_p << std::endl;
     std::cout << calcType_p << std::endl;
@@ -129,6 +131,6 @@ bool XMLParser::parseXML(const std::string filename) {
     std::cout << left_p << std::endl;
     std::cout << front_p << std::endl;
     std::cout << back_p << std::endl;
-
+    */
     return true;
 }

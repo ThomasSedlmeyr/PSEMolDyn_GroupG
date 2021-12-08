@@ -31,3 +31,11 @@ void Body::parsePosition(const std::string &line) {
 std::vector<Particle> & Body::getParticles() {
     return particles;
 }
+
+const std::array<double, 3> &Body::getInitialV() const {
+    return initialV;
+}
+
+double Body::getMeshWidth() const {
+    return meshWidth;
+}
