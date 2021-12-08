@@ -49,13 +49,13 @@ bool Cell::operator==(Cell &other) {
 }
 
 bool Cell::particleLiesInCell(Particle &p) {
-    if (p.getX()[0] < position[0] || p.getX()[0] > position[0] + sizeX){
+    if (p.getX()[0] < position[0] || p.getX()[0] > xBoundary) {
         return false;
     }
-    if (p.getX()[1] < position[1] || p.getX()[1] > position[1] + sizeY){
+    if (p.getX()[1] < position[1] || p.getX()[1] > yBoundary) {
         return false;
     }
-    if (p.getX()[2] < position[2] || p.getX()[2] > position[2] + sizeZ){
+    if (p.getX()[2] < position[2] || p.getX()[2] > zBoundary) {
         return false;
     }
     return true;

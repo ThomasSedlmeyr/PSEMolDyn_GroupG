@@ -2,7 +2,7 @@
 // Created by thomas on 30.11.21.
 //
 
-#include "BoundaryConditionContainer.h"
+#include "BoundaryConditionContainerTest.h"
 #include "BoundaryConditions/OutFlowCondition.h"
 #include "BoundaryConditions/ReflectingCondition.h"
 #include "BoundaryConditions/BetterReflectingCondition.h"
@@ -32,8 +32,8 @@ BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> 
             case BoundaryCondition::REFLECTING_TYPE:
                 boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize);
                 break;
-            case BoundaryCondition::REFLECTIONANGEL_TYPE:
-                boundaryConditions[i] = new BetterReflectingCondition(BoundaryCondition::REFLECTIONANGEL_TYPE, i + 1);
+            case BoundaryCondition::BETTER_REFLECTION_TYPE:
+                boundaryConditions[i] = new BetterReflectingCondition(BoundaryCondition::BETTER_REFLECTION_TYPE, i + 1);
         }
     }
 }

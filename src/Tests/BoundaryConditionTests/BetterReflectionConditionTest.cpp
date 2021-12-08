@@ -22,7 +22,7 @@
  * @brief Creates for each side of the boundary a particle which is located in the halo-area. For each of these particles
  * we than calculate the boundary condition and check the new position and the new velocity.
  */
-TEST(Tests, ReflectionAngleConditionTest) {
+TEST(Tests, TestReflection) {
     auto ljS = LennardJonesSimulation();
     std::array<int, 6> threes = {3, 3, 3, 3, 3, 3};
 

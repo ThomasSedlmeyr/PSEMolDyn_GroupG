@@ -34,11 +34,19 @@ protected:
 
 public:
     /**
-     * @brief constant values which describe the different condition types
+     * @brief constant value describing the OUTFLOW_TYPE
      */
     static const int OUTFLOW_TYPE = 1;
+
+    /**
+     * @brief constant value describing the REFLECTING_TYPE
+     */
     static const int REFLECTING_TYPE = 2;
-    static const int REFLECTIONANGEL_TYPE = 3;
+
+    /**
+     * @brief constant value describing the BETTER_REFLECTION_TYPE
+     */
+    static const int BETTER_REFLECTION_TYPE = 3;
 
     [[nodiscard]] const std::vector<Cell *> &getSpecificBoundaryCells() const;
 

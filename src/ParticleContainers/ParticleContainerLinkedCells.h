@@ -10,7 +10,7 @@
 #include <memory>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
-#include "BoundaryConditions/BoundaryConditionContainer.h"
+#include "BoundaryConditions/BoundaryConditionContainerTest.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer {
     /**

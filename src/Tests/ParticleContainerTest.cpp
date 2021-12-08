@@ -14,12 +14,19 @@
 #include "SimulationLogic/Cell.h"
 #include "XML_Parser/XMLParser.h"
 
-TEST(ParticleContainerTests, checkLinkedCellStucture){
+
+/**
+ * @brief this test can be used to create a visualization of the LinkedCellStructure
+ */
+TEST(ParticleContainerTests, checkLinkedCellStucture) {
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 6, 3.0);
     particleContainer.cellsToVTK();
 }
 
-TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells){
+/**
+ * @brief This test checks for every pointer in the halo-, boundary and innerCell, that all these particles have the correct type
+ */
+TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells) {
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(10, 10, 10, 3.0);
 
     for (std::size_t i = 0; i < ParticleContainerLinkedCells::getHaloCells().size(); ++i) {
@@ -33,6 +40,10 @@ TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells){
     }
 }
 
+/**
+ * @brief This Test inserts random particles into the boundary and checks if the particle was insert at
+ * the correct position
+ */
 TEST(ParticleContainerTests, addParticleToContainerTest){
     std::uniform_real_distribution<double> positionDistribution(0, 80);
     std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
@@ -71,7 +82,7 @@ TEST(ParticleContainerTests, compareContainers) {
     for (int i = 0; i < particles2.size(); ++i) {
         std::cout << "particle: " << i << std::endl;
         for (int j = 0; j < 2; ++j) {
-            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.001);
+            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.0001);
         }
     }
 }
