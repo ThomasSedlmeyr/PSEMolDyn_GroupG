@@ -926,6 +926,241 @@ class paramsLJ: public ::xml_schema::type
   //@}
 
   /**
+   * @name domainSizeX
+   *
+   * @brief Accessor and modifier functions for the %domainSizeX
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ domainSizeX_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< domainSizeX_type, char, ::xsd::cxx::tree::schema_type::double_ > domainSizeX_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const domainSizeX_type&
+  domainSizeX () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  domainSizeX_type&
+  domainSizeX ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  domainSizeX (const domainSizeX_type& x);
+
+  //@}
+
+  /**
+   * @name domainSizeY
+   *
+   * @brief Accessor and modifier functions for the %domainSizeY
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ domainSizeY_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< domainSizeY_type, char, ::xsd::cxx::tree::schema_type::double_ > domainSizeY_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const domainSizeY_type&
+  domainSizeY () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  domainSizeY_type&
+  domainSizeY ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  domainSizeY (const domainSizeY_type& x);
+
+  //@}
+
+  /**
+   * @name domainSizeZ
+   *
+   * @brief Accessor and modifier functions for the %domainSizeZ
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ domainSizeZ_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< domainSizeZ_type, char, ::xsd::cxx::tree::schema_type::double_ > domainSizeZ_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const domainSizeZ_type&
+  domainSizeZ () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  domainSizeZ_type&
+  domainSizeZ ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  domainSizeZ (const domainSizeZ_type& x);
+
+  //@}
+
+  /**
+   * @name particleContainerType
+   *
+   * @brief Accessor and modifier functions for the %particleContainerType
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::int_ particleContainerType_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< particleContainerType_type, char > particleContainerType_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const particleContainerType_type&
+  particleContainerType () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  particleContainerType_type&
+  particleContainerType ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  particleContainerType (const particleContainerType_type& x);
+
+  //@}
+
+  /**
+   * @name cutoffRadius
+   *
+   * @brief Accessor and modifier functions for the %cutoffRadius
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ cutoffRadius_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< cutoffRadius_type, char, ::xsd::cxx::tree::schema_type::double_ > cutoffRadius_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const cutoffRadius_type&
+  cutoffRadius () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  cutoffRadius_type&
+  cutoffRadius ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  cutoffRadius (const cutoffRadius_type& x);
+
+  //@}
+
+  /**
    * @name Constructors
    */
   //@{
@@ -937,7 +1172,12 @@ class paramsLJ: public ::xml_schema::type
   paramsLJ (const epsilon_type&,
             const mass_type&,
             const rho_type&,
-            const h_type&);
+            const h_type&,
+            const domainSizeX_type&,
+            const domainSizeY_type&,
+            const domainSizeZ_type&,
+            const particleContainerType_type&,
+            const cutoffRadius_type&);
 
   /**
    * @brief Create an instance from a DOM element.
@@ -1013,6 +1253,11 @@ class paramsLJ: public ::xml_schema::type
   ::xsd::cxx::tree::one< mass_type > mass_;
   ::xsd::cxx::tree::one< rho_type > rho_;
   ::xsd::cxx::tree::one< h_type > h_;
+  ::xsd::cxx::tree::one< domainSizeX_type > domainSizeX_;
+  ::xsd::cxx::tree::one< domainSizeY_type > domainSizeY_;
+  ::xsd::cxx::tree::one< domainSizeZ_type > domainSizeZ_;
+  ::xsd::cxx::tree::one< particleContainerType_type > particleContainerType_;
+  ::xsd::cxx::tree::one< cutoffRadius_type > cutoffRadius_;
 
   //@endcond
 };

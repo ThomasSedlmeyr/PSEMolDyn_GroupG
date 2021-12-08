@@ -160,6 +160,96 @@ h (const h_type& x)
   this->h_.set (x);
 }
 
+const paramsLJ::domainSizeX_type& paramsLJ::
+domainSizeX () const
+{
+  return this->domainSizeX_.get ();
+}
+
+paramsLJ::domainSizeX_type& paramsLJ::
+domainSizeX ()
+{
+  return this->domainSizeX_.get ();
+}
+
+void paramsLJ::
+domainSizeX (const domainSizeX_type& x)
+{
+  this->domainSizeX_.set (x);
+}
+
+const paramsLJ::domainSizeY_type& paramsLJ::
+domainSizeY () const
+{
+  return this->domainSizeY_.get ();
+}
+
+paramsLJ::domainSizeY_type& paramsLJ::
+domainSizeY ()
+{
+  return this->domainSizeY_.get ();
+}
+
+void paramsLJ::
+domainSizeY (const domainSizeY_type& x)
+{
+  this->domainSizeY_.set (x);
+}
+
+const paramsLJ::domainSizeZ_type& paramsLJ::
+domainSizeZ () const
+{
+  return this->domainSizeZ_.get ();
+}
+
+paramsLJ::domainSizeZ_type& paramsLJ::
+domainSizeZ ()
+{
+  return this->domainSizeZ_.get ();
+}
+
+void paramsLJ::
+domainSizeZ (const domainSizeZ_type& x)
+{
+  this->domainSizeZ_.set (x);
+}
+
+const paramsLJ::particleContainerType_type& paramsLJ::
+particleContainerType () const
+{
+  return this->particleContainerType_.get ();
+}
+
+paramsLJ::particleContainerType_type& paramsLJ::
+particleContainerType ()
+{
+  return this->particleContainerType_.get ();
+}
+
+void paramsLJ::
+particleContainerType (const particleContainerType_type& x)
+{
+  this->particleContainerType_.set (x);
+}
+
+const paramsLJ::cutoffRadius_type& paramsLJ::
+cutoffRadius () const
+{
+  return this->cutoffRadius_.get ();
+}
+
+paramsLJ::cutoffRadius_type& paramsLJ::
+cutoffRadius ()
+{
+  return this->cutoffRadius_.get ();
+}
+
+void paramsLJ::
+cutoffRadius (const cutoffRadius_type& x)
+{
+  this->cutoffRadius_.set (x);
+}
+
 
 // boundaryConditions
 // 
@@ -676,12 +766,22 @@ paramsLJ::
 paramsLJ (const epsilon_type& epsilon,
           const mass_type& mass,
           const rho_type& rho,
-          const h_type& h)
+          const h_type& h,
+          const domainSizeX_type& domainSizeX,
+          const domainSizeY_type& domainSizeY,
+          const domainSizeZ_type& domainSizeZ,
+          const particleContainerType_type& particleContainerType,
+          const cutoffRadius_type& cutoffRadius)
 : ::xml_schema::type (),
   epsilon_ (epsilon, this),
   mass_ (mass, this),
   rho_ (rho, this),
-  h_ (h, this)
+  h_ (h, this),
+  domainSizeX_ (domainSizeX, this),
+  domainSizeY_ (domainSizeY, this),
+  domainSizeZ_ (domainSizeZ, this),
+  particleContainerType_ (particleContainerType, this),
+  cutoffRadius_ (cutoffRadius, this)
 {
 }
 
@@ -693,7 +793,12 @@ paramsLJ (const paramsLJ& x,
   epsilon_ (x.epsilon_, f, this),
   mass_ (x.mass_, f, this),
   rho_ (x.rho_, f, this),
-  h_ (x.h_, f, this)
+  h_ (x.h_, f, this),
+  domainSizeX_ (x.domainSizeX_, f, this),
+  domainSizeY_ (x.domainSizeY_, f, this),
+  domainSizeZ_ (x.domainSizeZ_, f, this),
+  particleContainerType_ (x.particleContainerType_, f, this),
+  cutoffRadius_ (x.cutoffRadius_, f, this)
 {
 }
 
@@ -705,7 +810,12 @@ paramsLJ (const ::xercesc::DOMElement& e,
   epsilon_ (this),
   mass_ (this),
   rho_ (this),
-  h_ (this)
+  h_ (this),
+  domainSizeX_ (this),
+  domainSizeY_ (this),
+  domainSizeZ_ (this),
+  particleContainerType_ (this),
+  cutoffRadius_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -768,6 +878,61 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // domainSizeX
+    //
+    if (n.name () == "domainSizeX" && n.namespace_ ().empty ())
+    {
+      if (!domainSizeX_.present ())
+      {
+        this->domainSizeX_.set (domainSizeX_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // domainSizeY
+    //
+    if (n.name () == "domainSizeY" && n.namespace_ ().empty ())
+    {
+      if (!domainSizeY_.present ())
+      {
+        this->domainSizeY_.set (domainSizeY_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // domainSizeZ
+    //
+    if (n.name () == "domainSizeZ" && n.namespace_ ().empty ())
+    {
+      if (!domainSizeZ_.present ())
+      {
+        this->domainSizeZ_.set (domainSizeZ_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // particleContainerType
+    //
+    if (n.name () == "particleContainerType" && n.namespace_ ().empty ())
+    {
+      if (!particleContainerType_.present ())
+      {
+        this->particleContainerType_.set (particleContainerType_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // cutoffRadius
+    //
+    if (n.name () == "cutoffRadius" && n.namespace_ ().empty ())
+    {
+      if (!cutoffRadius_.present ())
+      {
+        this->cutoffRadius_.set (cutoffRadius_traits::create (i, f, this));
+        continue;
+      }
+    }
+
     break;
   }
 
@@ -798,6 +963,41 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "h",
       "");
   }
+
+  if (!domainSizeX_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "domainSizeX",
+      "");
+  }
+
+  if (!domainSizeY_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "domainSizeY",
+      "");
+  }
+
+  if (!domainSizeZ_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "domainSizeZ",
+      "");
+  }
+
+  if (!particleContainerType_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "particleContainerType",
+      "");
+  }
+
+  if (!cutoffRadius_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "cutoffRadius",
+      "");
+  }
 }
 
 paramsLJ* paramsLJ::
@@ -817,6 +1017,11 @@ operator= (const paramsLJ& x)
     this->mass_ = x.mass_;
     this->rho_ = x.rho_;
     this->h_ = x.h_;
+    this->domainSizeX_ = x.domainSizeX_;
+    this->domainSizeY_ = x.domainSizeY_;
+    this->domainSizeZ_ = x.domainSizeZ_;
+    this->particleContainerType_ = x.particleContainerType_;
+    this->cutoffRadius_ = x.cutoffRadius_;
   }
 
   return *this;
