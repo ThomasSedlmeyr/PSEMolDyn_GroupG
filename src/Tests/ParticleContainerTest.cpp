@@ -16,20 +16,20 @@
 
 TEST(ParticleContainerTests, checkLinkedCellStucture){
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 6, 3.0);
-    particleContainer.cellsToXYZ();
+    particleContainer.cellsToVTK();
 }
 
 TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells){
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(10, 10, 10, 3.0);
 
     for (std::size_t i = 0; i < ParticleContainerLinkedCells::getHaloCells().size(); ++i) {
-        EXPECT_EQ(particleContainer.getHaloCells()[i]->getCellType(),Cell::getHaloCellValue());
+        EXPECT_EQ(particleContainer.getHaloCells()[i]->getCellType(), Cell::getHaloCellType());
     }
     for (std::size_t i = 0; i < ParticleContainerLinkedCells::getBoundaryCells().size(); ++i) {
-        EXPECT_EQ(particleContainer.getBoundaryCells()[i]->getCellType(),Cell::getBoundaryCellValue());
+        EXPECT_EQ(particleContainer.getBoundaryCells()[i]->getCellType(), Cell::getBoundaryCellType());
     }
     for (std::size_t i = 0; i < ParticleContainerLinkedCells::getInnerCells().size(); ++i) {
-        EXPECT_EQ(particleContainer.getInnerCells()[i]->getCellType(),Cell::getInnerCellValue());
+        EXPECT_EQ(particleContainer.getInnerCells()[i]->getCellType(), Cell::getInnerCellType());
     }
 }
 

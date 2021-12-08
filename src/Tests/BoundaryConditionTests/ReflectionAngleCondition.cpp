@@ -30,12 +30,9 @@ TEST(Tests, ReflectionAngleConditionTest) {
     ParticleContainerLinkedCells particleContainer(domainSizeXYZ, domainSizeXYZ, domainSizeXYZ, 3, threes);
     std::array<double, 3> arrDomainSize = {domainSizeXYZ, domainSizeXYZ, domainSizeXYZ};
     std::unique_ptr<BoundaryConditionContainer> boundaryContainer = std::make_unique<BoundaryConditionContainer>(threes,
-                                                                                                                 ParticleContainerLinkedCells::boundaryCells,
-                                                                                                                 ParticleContainerLinkedCells::haloCells,
                                                                                                                  ParticleContainerLinkedCells::numberCellsX,
                                                                                                                  ParticleContainerLinkedCells::numberCellsY,
-                                                                                                                 ParticleContainerLinkedCells::numberCellsZ,
-                                                                                                                 arrDomainSize);
+                                                                                                                 ParticleContainerLinkedCells::numberCellsZ);
     //In left halo cell
     Particle p1 = Particle({-1.23, 0, 0}, {-10, 2, 1}, 1, -1, 0);
     particleContainer.addParticleToContainer(p1);

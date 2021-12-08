@@ -10,10 +10,6 @@ double Cell::sizeX = -1;
 double Cell::sizeY = -1;
 double Cell::sizeZ = -1;
 
-void Cell::calculateDimensions(double cutOffRadius) {
-
-}
-
 Cell::Cell(std::vector<Particle> particles, const std::array<double, 3> &position, std::array<int, 3> relativePositionInDomain, int cellType) :
         relativePositionInDomain(relativePositionInDomain), particles(std::move(particles)), position(position), cellType(cellType) {
     calculateBoundaries();
@@ -34,18 +30,6 @@ int Cell::getCellType() const {
 
 const std::array<double, 3> &Cell::getPosition() const {
     return position;
-}
-
-int Cell::getInnerCellValue() {
-    return INNER_CELL;
-}
-
-int Cell::getBoundaryCellValue() {
-    return BOUNDARY_CELL;
-}
-
-int Cell::getHaloCellValue() {
-    return HALO_CELL;
 }
 
 std::vector<Particle> &Cell::getParticles() {
@@ -104,7 +88,8 @@ void Cell::calculateBoundaries() {
 
 }
 
-void Cell::reflectXtoRightCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const {
+void Cell::reflectXtoRightCell(const std::array<double, 3> &pointWhichShouldBeReflected,
+                               std::array<double, 3> &resultPoint) {
     resultPoint[0] = pointWhichShouldBeReflected[0] + 2 * (xBoundary - pointWhichShouldBeReflected[0]);
     resultPoint[1] = pointWhichShouldBeReflected[1];
     resultPoint[2] = pointWhichShouldBeReflected[2];
@@ -116,7 +101,8 @@ void Cell::reflectXtoLeftCell(const std::array<double, 3>& pointWhichShouldBeRef
     resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectYtoTopCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const {
+void
+Cell::reflectYtoTopCell(const std::array<double, 3> &pointWhichShouldBeReflected, std::array<double, 3> &resultPoint) {
     resultPoint[0] = pointWhichShouldBeReflected[0];
     resultPoint[1] = pointWhichShouldBeReflected[1] + 2 * (yBoundary - pointWhichShouldBeReflected[1]);
     resultPoint[2] = pointWhichShouldBeReflected[2];
@@ -128,16 +114,30 @@ void Cell::reflectYtoBottomCell(const std::array<double, 3>& pointWhichShouldBeR
     resultPoint[2] = pointWhichShouldBeReflected[2];
 }
 
-void Cell::reflectZtoFrontCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) const {
+void Cell::reflectZtoFrontCell(const std::array<double, 3> &pointWhichShouldBeReflected,
+                               std::array<double, 3> &resultPoint) {
     resultPoint[0] = pointWhichShouldBeReflected[0];
     resultPoint[1] = pointWhichShouldBeReflected[1];
     resultPoint[2] = pointWhichShouldBeReflected[2] + 2 * (zBoundary - pointWhichShouldBeReflected[2]);
 }
 
-void Cell::reflectZtoBackCell(const std::array<double, 3>& pointWhichShouldBeReflected, std::array<double, 3>& resultPoint) {
+void
+Cell::reflectZtoBackCell(const std::array<double, 3> &pointWhichShouldBeReflected, std::array<double, 3> &resultPoint) {
     resultPoint[0] = pointWhichShouldBeReflected[0];
     resultPoint[1] = pointWhichShouldBeReflected[1];
     resultPoint[2] = pointWhichShouldBeReflected[2] + 2 * (position[2] - pointWhichShouldBeReflected[2]);
+}
+
+const int Cell::getInnerCellType() {
+    return INNER_CELL;
+}
+
+const int Cell::getBoundaryCellType() {
+    return BOUNDARY_CELL;
+}
+
+const int Cell::getHaloCellType() {
+    return HALO_CELL;
 }
 
 

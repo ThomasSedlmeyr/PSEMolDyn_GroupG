@@ -15,19 +15,14 @@ void BoundaryConditionContainer::calculateBoundaryConditions() {
     }
 }
 
-//Very import the order of the types in boundaryConditionTypes has to be the same as the numerical oder of side types
-//which were defined in the class BoundaryCondition.h
+
 BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes,
-                                                       std::vector<Cell *> allBoundaryCells,
-                                                       std::vector<Cell *> allHaloCells, int numberCellsInX,
-                                                       int numberCellsInY, int numberCellsInZ,
-                                                       const std::array<double, 3> domainSize) :
-        allBoundaryCells(std::move(allBoundaryCells)),
-        allHaloCells(std::move(allHaloCells)),
+                                                       int numberCellsInX,
+                                                       int numberCellsInY,
+                                                       int numberCellsInZ) :
         numberCellsInX(numberCellsInX),
         numberCellsInY(numberCellsInY),
-        numberCellsInZ(numberCellsInZ),
-        domainSize(domainSize) {
+        numberCellsInZ(numberCellsInZ) {
 
     for (std::size_t i = 0; i < boundaryConditionTypes.size(); i++) {
         switch (boundaryConditionTypes[i]) {

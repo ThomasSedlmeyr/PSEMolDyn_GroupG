@@ -1,6 +1,5 @@
 #include "ParticleContainerDirectSum.h"
 
-
 void ParticleContainerDirectSum::walkOverParticles(ParticleVisitor &v) {
     for (Particle &p : particles) {
         v.visitParticle(p);
@@ -23,10 +22,6 @@ void ParticleContainerDirectSum::addParticleToContainer(Particle &p) {
 
 std::vector<Particle> & ParticleContainerDirectSum::getParticles() {
     return particles;
-}
-
-void ParticleContainerDirectSum::setParticles(const std::vector<Particle> &particles) {
-    ParticleContainerDirectSum::particles = particles;
 }
 
 void ParticleContainerDirectSum::updateParticlePositions(ParticleVisitor &visitor) {
