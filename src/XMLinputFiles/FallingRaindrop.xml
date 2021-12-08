@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
+       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
     <t_end>0.002</t_end>
     <delta_t>0.00005</delta_t>
@@ -14,6 +14,11 @@
         <mass>1.0</mass>
         <rho>1.0</rho>
         <h>1.125</h>
+        <domainSizeX>180</domainSizeX>
+        <domainSizeY>90</domainSizeY>
+        <domainSizeZ>0</domainSizeZ>
+        <particleContainerType>2</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
     </paramsLJ>
 
     <boundaryConditions>
