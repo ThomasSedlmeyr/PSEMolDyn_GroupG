@@ -23,11 +23,11 @@ int XMLParser::bottom_p;
 int XMLParser::left_p;
 int XMLParser::front_p;
 int XMLParser::back_p;
-std::array<double, 3> XMLParser::domainSize = {100, 100, 10};
-double XMLParser::cutoffRadius = 3;
+std::array<double, 3> XMLParser::domainSize = {};
+double XMLParser::cutoffRadius;
 std::array<int, 6> XMLParser::boundaryConditions;
 std::list<Body*> XMLParser::bodies_p{};
-int XMLParser::particleContainerType = 2;
+int XMLParser::particleContainerType;
 
 
 bool XMLParser::parseXML(const std::string filename) {
@@ -50,6 +50,11 @@ bool XMLParser::parseXML(const std::string filename) {
         params_p.emplace_back("mass", mass_p);
         params_p.emplace_back("rho", rho_p);
         params_p.emplace_back("h", h_p);
+        domainSize[0] = input_xml->paramsLJ().domainSizeX();
+        domainSize[1] = input_xml->paramsLJ().domainSizeY();
+        domainSize[2] = input_xml->paramsLJ().domainSizeZ();
+        particleContainerType = input_xml->paramsLJ().particleContainerType();
+        cutoffRadius = input_xml->paramsLJ().cutoffRadius();
 
         top_p = input_xml->boundaryConditions().top();
         right_p = input_xml->boundaryConditions().right();
@@ -101,7 +106,9 @@ bool XMLParser::parseXML(const std::string filename) {
         }
 
     } catch (const std::exception& e) {
+        std::cout << "Parsing of XML-file was not successful!" << std::endl;
         std::cerr << e.what() << std::endl;
+        return false;
     }
 
     // print for testing purposes
