@@ -105,7 +105,6 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             if (partReset){
                 return false;
             }
-            //TODO fehler abfangen?
             inputFile = next;
             i++;
             partReset = true;
@@ -118,22 +117,13 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
 }
 
 void show_help() {
-    //TODO
     // prints how to make correct program call
     std::cout << "Please enter a correct program call!" << std::endl;
-    std::cout << "\t-h : help page " << std::endl;
-    std::cout << "\t-t_end : end value, defaults to 5" << std::endl;
-    std::cout << "\t-delta_t : stepsize, defaults to 0.0002" << std::endl;
-    std::cout << "\t-calcType : 1 for Gravitation Simulation, 2 for 'Collision of two bodies', defaults to 2 " << std::endl;
-    std::cout << "Only for Gravitation Simulation:" << std::endl;
-    std::cout << "\t-input : path to input file, defaults to ../eingabe-sonne.txt" << std::endl;
-    std::cout << "Only for Lennard Jones Simulation:" << std::endl;
-    std::cout << "\t-param_path : path to input file for parameters, defaults to ../ParamsLennardJonesSimulation.txt" << std::endl;
-    std::cout << "\t-particles_path : path to input file for particles, defaults to ../TwoCuboidsLJ.txt" << std::endl;
+    std::cout << "\t-h : help page" << std::endl;
+    std::cout << "\t-input : path to input xml-file, defaults to ../src/XML_Parser/input.xml" << std::endl;
     std::cout << "--------------------------------" << std::endl;
-    std::cout << "Example for Gravitation Simulation:" << std::endl;
-    std::cout << "\t./MolSim -calcType 1 -input ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014" << std::endl;
-    std::cout << "Example for Lennard Jones Simulation:" << std::endl;
-    std::cout << "\t./MolSim -calcType 2 -param_path ../ParamsLennardJonesSimulation.txt -particles_path ../TwoCuboidsLJ.txt -t_end 5 -delta_t 0.0002" << std::endl;
+    std::cout << "Example Calls:" << std::endl;
+    std::cout << "\t./MolSim" << std::endl;
+    std::cout << "\t./MolSim -input ../src/XML_Parser/input.xml" << std::endl;
     std::cout << "Further information in the README." << std::endl;
 }
