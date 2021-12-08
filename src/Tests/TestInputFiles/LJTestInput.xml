@@ -2,10 +2,10 @@
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
 
-    <t_end>2</t_end>
-    <delta_t>0.01</delta_t>
+    <t_end>0.10001</t_end>
+    <delta_t>0.0005</delta_t>
     <calcType>LJ</calcType>
-    <baseNameOutputFiles>Grav_Test</baseNameOutputFiles>
+    <baseNameOutputFiles>Lennard_Test</baseNameOutputFiles>
     <writeFrequency>100</writeFrequency>
     <gravInput></gravInput>
 
@@ -14,6 +14,11 @@
         <mass>1.0</mass>
         <rho>1.0</rho>
         <h>1.125</h>
+        <domainSizeX>100</domainSizeX>
+        <domainSizeY>100</domainSizeY>
+        <domainSizeZ>10</domainSizeZ>
+        <particleContainerType>2</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
     </paramsLJ>
 
     <boundaryConditions>

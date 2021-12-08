@@ -125,6 +125,8 @@ public:
      * @return true if parsing successful, false otherwise
      */
     static bool parseXML(const std::string);
+
+    static void resetInternalData();
 };
 
 #endif //PSEMOLDYN_GROUPG_XMLPARSER_H

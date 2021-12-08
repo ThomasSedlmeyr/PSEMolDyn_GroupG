@@ -13,7 +13,15 @@ public:
     VelCalculationVisitor();
 
     explicit VelCalculationVisitor(double deltaT);
+    /**
+     * @brief Applies velocity update to given particle
+     * @param p
+     */
     void visitParticle(Particle &p) override;
+    /**
+     * @brief Sets parameter deltaT for calculation
+     * @param deltaT
+     */
     void setDeltaT(double deltaT);
 
 private:

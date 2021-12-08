@@ -13,9 +13,6 @@
 #include "BoundaryConditions/BoundaryConditionContainerTest.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer {
-    /**
-     * @brief all cells of the domain inner-, boundary-, halo-cells
-     */
 private:
     /**
      * @brief the BoundaryConditionContainer which is used to calculate the boundary conditions for each domain side

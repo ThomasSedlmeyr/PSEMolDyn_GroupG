@@ -23,13 +23,13 @@ private:
     void calculateOneTimeStep();
 
     /**
-     * calculates the force depending on the type of simulation
+     * @brief calculates the force depending on the type of simulation
      */
     virtual void calculateF() = 0;
 
 protected:
     /**
-     * the particleContainer containing all particles used for the simulation process
+     * @brief the particleContainer containing all particles used for the simulation process
      */
     ParticleContainer *particleContainer;
     /**
@@ -49,8 +49,8 @@ protected:
     int numberParticles;
 
     /**
-    * @brief Reads the particles from a txt-file into particleContainer
-    * @param filename the name of the txt-file were the particles are stored
+    * @brief Reads the particles from a xml file into particleContainer
+    * @param filename the name of the xml-file were the particles are stored
     */
     virtual bool readParticles(const std::string &filename) = 0;
 

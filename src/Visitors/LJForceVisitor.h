@@ -13,8 +13,21 @@ class LJForceVisitor : public ParticlePairVisitor{
 public:
     LJForceVisitor();
     LJForceVisitor(double epsilon, double rho);
+    /**
+     * @brief Applies the Lennard-Jones force calculation to the given particle pair
+     * @param p1
+     * @param p2
+     */
     void visitParticlePair(Particle &p1, Particle &p2) override;
+    /**
+     * @brief Sets the parameter epsilon for calculation
+     * @param epsilon
+     */
     void setEpsilon(double epsilon);
+    /**
+     * @brief Sets the parameter rho for calculation
+     * @param rho
+     */
     void setRho(double rho);
 
 private:

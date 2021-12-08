@@ -14,19 +14,23 @@
 class LennardJonesSimulation: public Simulation{
 
 private:
+    /**
+     * @brief Parameter for Lennard-Jones force calculation
+     */
     double epsilon;
+    /**
+     * @brief Parameter for Lennard-Jones force calculation
+     */
     double mass;
+    /**
+     * @brief Parameter for Lennard-Jones force calculation
+     */
     double rho;
-    double meshWidth;
     /**
      * Implementation of the force calculation
      */
     LJForceVisitor forceCalcVisitor;
 
-    /**
-     * @brief list of bodies relevant for the simulation
-     */
-    std::list<Body*> bodies;
     bool readParticles(const std::string &filename) override;
     /**
      * @brief unites the particles from all bodies to single vector in particle container

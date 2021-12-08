@@ -6,6 +6,7 @@
 #include "BoundaryConditions/OutFlowCondition.h"
 #include "BoundaryConditions/ReflectingCondition.h"
 #include "BoundaryConditions/BetterReflectingCondition.h"
+#include "XML_Parser/XMLParser.h"
 
 #include <utility>
 
@@ -30,7 +31,7 @@ BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> 
                 boundaryConditions[i] = new OutFlowCondition(BoundaryCondition::OUTFLOW_TYPE, i + 1);
                 break;
             case BoundaryCondition::REFLECTING_TYPE:
-                boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize);
+                boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize, XMLParser::rho_p);
                 break;
             case BoundaryCondition::BETTER_REFLECTION_TYPE:
                 boundaryConditions[i] = new BetterReflectingCondition(BoundaryCondition::BETTER_REFLECTION_TYPE, i + 1);

@@ -24,7 +24,7 @@
  */
 TEST(Tests, GhostParticlesTest) {
     //TODO
-    XMLParser::parseXML("GhostTestInput.xml");
+    XMLParser::parseXML("../src/Tests/TestInputFiles/GhostTestInput.xml");
     ReflectingCondition::isDebug = true;
     auto ljS = LennardJonesSimulation();
     ParticleContainer *particleContainer = new ParticleContainerLinkedCells(7, 11, 12.5, 3, {2, 2, 2, 2, 2, 2});

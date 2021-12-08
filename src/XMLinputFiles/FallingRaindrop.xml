@@ -16,7 +16,7 @@
         <h>1.125</h>
         <domainSizeX>180</domainSizeX>
         <domainSizeY>90</domainSizeY>
-        <domainSizeZ>0</domainSizeZ>
+        <domainSizeZ>6</domainSizeZ>
         <particleContainerType>2</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
     </paramsLJ>
@@ -32,10 +32,10 @@
 
     <particlesLJ>
         <body>
-            <bodyType>Sphere</bodyType>
-            <position>60,25,0</position>
+            <bodyType>Cuboid</bodyType>
+            <position>60,25,1</position>
             <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>15</objectSpecificFormat>
+            <objectSpecificFormat>15,15,1</objectSpecificFormat>
         </body>
     </particlesLJ>
 

@@ -60,7 +60,7 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
 }
 
 /**
- * @brief test if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
+ * @brief Tests if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
  */
 TEST(ParticleContainerTests, compareContainers) {
     std::array<int, 6> ones = {1,1,1,1,1,1};
@@ -73,7 +73,8 @@ TEST(ParticleContainerTests, compareContainers) {
 
     XMLParser::parseXML("../src/Tests/TestInputFiles/DirectSumInput.xml");
     s1.simulate(*writer1, &particleContainerDirectSum);
-    XMLParser::parseXML("../src/Tests/TestInputFiles/LinkedCellsInput");
+    XMLParser::resetInternalData();
+    XMLParser::parseXML("../src/Tests/TestInputFiles/LinkedCellsInput.xml");
     s2.simulate(*writer2, &particleContainerLinkedCells);
 
     auto particles1 = particleContainerDirectSum.getParticles();
@@ -82,7 +83,7 @@ TEST(ParticleContainerTests, compareContainers) {
     for (int i = 0; i < particles2.size(); ++i) {
         std::cout << "particle: " << i << std::endl;
         for (int j = 0; j < 2; ++j) {
-            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.0001);
+            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.001);
         }
     }
 }

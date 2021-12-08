@@ -10,10 +10,15 @@
     <gravInput>../src/Tests/TestInputFiles/eingabe-sonne.txt</gravInput>
 
     <paramsLJ>
-        <epsilon>5.0</epsilon>
-        <mass>1.0</mass>
-        <rho>1.0</rho>
-        <h>1.125</h>
+        <epsilon>0</epsilon>
+        <mass>0</mass>
+        <rho>0</rho>
+        <h>0</h>
+        <domainSizeX>0</domainSizeX>
+        <domainSizeY>0</domainSizeY>
+        <domainSizeZ>0</domainSizeZ>
+        <particleContainerType>0</particleContainerType>
+        <cutoffRadius>0</cutoffRadius>
     </paramsLJ>
 
     <boundaryConditions>
@@ -25,20 +30,6 @@
         <back>0</back>
     </boundaryConditions>
 
-    <particlesLJ>
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>0,0,0</position>
-            <velocity>0,0,0</velocity>
-            <objectSpecificFormat>40,8,1</objectSpecificFormat>
-        </body>
-
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>15,15,0</position>
-            <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>8,8,1</objectSpecificFormat>
-        </body>
-    </particlesLJ>
+    <particlesLJ></particlesLJ>
 
 </input>

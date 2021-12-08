@@ -134,3 +134,10 @@ bool XMLParser::parseXML(const std::string filename) {
     */
     return true;
 }
+
+void XMLParser::resetInternalData() {
+    params_p.clear();
+    bodies_p.clear();
+    domainSize = {};
+    boundaryConditions = {};
+}

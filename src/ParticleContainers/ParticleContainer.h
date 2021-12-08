@@ -14,7 +14,7 @@ private:
 
 public:
     /**
-     * @brief constant values with describe the different types of ParticleContainer
+     * @brief Constant values with describe the different types of ParticleContainer
      */
     static const int DIRECTSUM = 1;
     static const int LINKEDCELLS = 2;

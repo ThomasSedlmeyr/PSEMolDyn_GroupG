@@ -13,7 +13,15 @@ public:
     PosCalculationVisitor();
 
     explicit PosCalculationVisitor(double deltaT);
+    /**
+     * @brief Applies position update to given particle and prepares particle for force calculation
+     * @param p
+     */
     void visitParticle(Particle &p) override;
+    /**
+     * @brief Sets parameter deltaT for calculation
+     * @param deltaT
+     */
     void setDeltaT(double deltaT);
 
 private:

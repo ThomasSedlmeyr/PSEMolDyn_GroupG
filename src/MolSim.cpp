@@ -11,7 +11,7 @@
 #include <spdlog/spdlog.h>
 #include <XML_Parser/XMLParser.h>
 
-std::string inputFile{};
+std::string inputFile = "../src/XML_Parser/input.xml";
 
 /**
  * @brief shows guidelines for correct program calls
@@ -49,15 +49,16 @@ int main(int argc, char *argsv[]) {
     }
     // execution of simulation based to default or selection
     Writer *w = new VTKWriter();
-    XMLParser::parseXML(inputFile);
     switch (XMLParser::calcType_p) {
         case Simulation::GRAVITATION: {
+            XMLParser::parseXML(inputFile);
             auto gS = GravitationSimulation();
             ParticleContainer *particleContainer = new ParticleContainerDirectSum();
             gS.simulate(*w, particleContainer);
             break;
         }
         case Simulation::LENNARDJONES: {
+            XMLParser::parseXML(inputFile);
             auto ljS = LennardJonesSimulation();
             ParticleContainer* particleContainer;
             if (XMLParser::particleContainerType == ParticleContainer::DIRECTSUM){
@@ -81,7 +82,6 @@ int main(int argc, char *argsv[]) {
     std::cout << "Simulation took: " << duration << "ms" << std::endl;
     auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
     std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
-
     return 0;
 }
 
@@ -105,7 +105,6 @@ bool parseCommandLineArguments(int argc, char *argsv[]) {
             if (partReset){
                 return false;
             }
-            //TODO fehler abfangen?
             inputFile = next;
             i++;
             partReset = true;

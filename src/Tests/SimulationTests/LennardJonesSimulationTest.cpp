@@ -27,10 +27,10 @@ TEST(LennardJonesSimulationTests, FullTest) {
     std::vector<std::array<double, 3>> particles_1_Expected, particles_2_Expected, particles_1_test, particles_2_test;
     try {
         lennardJonesSimulation.simulate(*w, particleContainer);
-        particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0100.xyz");
-        particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lenard_Test_0200.xyz");
-        particles_1_test = reader.readOnlyPositions("Lenard_Test_0100.xyz");
-        particles_2_test = reader.readOnlyPositions("Lenard_Test_0200.xyz");
+        particles_1_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lennard_Test_0100.xyz");
+        particles_2_Expected = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/Lennard_Test_0200.xyz");
+        particles_1_test = reader.readOnlyPositions("Lennard_Test_0100.xyz");
+        particles_2_test = reader.readOnlyPositions("Lennard_Test_0200.xyz");
     }catch(const std::exception& e){
         FAIL();
     }

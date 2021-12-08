@@ -26,10 +26,6 @@ public:
 
     void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
 
-    /**
-     * @brief Adds a specific particle to the particle container
-     * @param p the specific particle which is added to the container
-     */
     void addParticleToContainer(Particle &p) override;
 
     std::vector<Particle> &getParticles() override;

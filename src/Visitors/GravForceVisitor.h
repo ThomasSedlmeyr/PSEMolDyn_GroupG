@@ -12,7 +12,11 @@
 class GravForceVisitor : public ParticlePairVisitor{
 public:
     GravForceVisitor();
-
+    /**
+     * @brief Applies the gravitation force calculation to the given particle pair
+     * @param p1
+     * @param p2
+     */
     void visitParticlePair(Particle &p1, Particle &p2) override;
 
 };
