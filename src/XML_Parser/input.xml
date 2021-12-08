@@ -14,6 +14,11 @@
         <mass>1.0</mass>
         <rho>1.0</rho>
         <h>1.125</h>
+        <domainSizeX>100</domainSizeX>
+        <domainSizeY>100</domainSizeY>
+        <domainSizeZ>10</domainSizeZ>
+        <particleContainerType>2</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
     </paramsLJ>
 
     <boundaryConditions>
