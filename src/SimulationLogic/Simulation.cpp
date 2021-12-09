@@ -35,6 +35,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         spdlog::error("Error in File: " + inputFile);
         exit(EXIT_FAILURE);;
     }
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (currentTime < endTime) {
         if (iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
@@ -44,6 +45,11 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;
     }
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+    std::cout << "Simulation took: " << duration << "ms" << std::endl;
+    auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
+    std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
 }
 
 Simulation::~Simulation() = default;

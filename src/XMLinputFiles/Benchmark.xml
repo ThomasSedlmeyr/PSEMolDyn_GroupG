@@ -2,11 +2,11 @@
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
-    <t_end>20</t_end>
+    <t_end>0.5</t_end>
     <delta_t>0.0005</delta_t>
     <calcType>LJ</calcType>
-    <baseNameOutputFiles>CollisionOfTwoBodies</baseNameOutputFiles>
-    <writeFrequency>100</writeFrequency>
+    <baseNameOutputFiles>Benchmark</baseNameOutputFiles>
+    <writeFrequency>100000</writeFrequency>
     <gravInput></gravInput>
 
     <paramsLJ>
@@ -14,8 +14,8 @@
         <mass>1.0</mass>
         <rho>1.0</rho>
         <h>1.1225</h>
-        <domainSizeX>180</domainSizeX>
-        <domainSizeY>90</domainSizeY>
+        <domainSizeX>120</domainSizeX>
+        <domainSizeY>100</domainSizeY>
         <domainSizeZ>6</domainSizeZ>
         <particleContainerType>2</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
@@ -33,16 +33,9 @@
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>20,20,1</position>
+            <position>1,1,1</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>100,20,1</objectSpecificFormat>
-        </body>
-
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>70,60,1</position>
-            <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>20,20,1</objectSpecificFormat>
+            <objectSpecificFormat>100,80,1</objectSpecificFormat>
         </body>
     </particlesLJ>
 

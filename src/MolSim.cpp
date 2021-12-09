@@ -29,7 +29,6 @@ bool parseCommandLineArguments(int argc, char *argsv[]);
 int main(int argc, char *argsv[]) {
     //useful for testing performance
     //spdlog::set_level(spdlog::level::off);
-    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
     std::cout << "Hello from MolSim for PSE!" << std::endl;
     // cases in which correct programme call is not possible
@@ -76,11 +75,6 @@ int main(int argc, char *argsv[]) {
             return 0;
         }
     }
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
-    std::cout << "Simulation took: " << duration << "ms" << std::endl;
-    auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
-    std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
     return 0;
 }
 
