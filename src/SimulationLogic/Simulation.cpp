@@ -1,3 +1,6 @@
+/**
+ * @image html PerformanceComparison.png
+ */
 #include <valarray>
 #include <iostream>
 #include "Simulation.h"

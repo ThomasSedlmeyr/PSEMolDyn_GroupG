@@ -4,7 +4,7 @@ if (BUILD_DOXYGEN)
     find_package(Doxygen)
     set(DOXYGEN_USE_MDFILE_AS_MAINPAGE README.md)
     set(DOXYGEN_OUTPUT_DIRECTORY ../doxys_documentation)
-
+    set(DOXYGEN_IMAGE_PATH ../resources)
     set(DOXYGEN_EXTRACT_ALL YES)
     #set(DOXYGEN_INTERNAL_DOCS YES)
     set(DOXYGEN_EXTRACT_PRIVATE YES)
