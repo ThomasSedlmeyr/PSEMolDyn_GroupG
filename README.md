@@ -82,4 +82,6 @@ Members:
 
 # Media #
 ## Videos ##
-* TODO
+* https://youtu.be/t2qEl6jBcac
+* https://youtu.be/4SNxlbpA4Ls
+* https://youtu.be/SpSl7pDTNRo
