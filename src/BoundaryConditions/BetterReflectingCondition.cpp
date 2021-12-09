@@ -8,7 +8,7 @@
 void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
     switch (side) {
         case FRONT:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectZtoBackCell(particle.getX(), reflectedPoint);
@@ -19,7 +19,7 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             }
             break;
         case BACK:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectZtoFrontCell(particle.getX(), reflectedPoint);
@@ -30,7 +30,7 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             }
             break;
         case RIGHT:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectXtoLeftCell(particle.getX(), reflectedPoint);
@@ -41,7 +41,7 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             }
             break;
         case LEFT:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectXtoRightCell(particle.getX(), reflectedPoint);
@@ -52,7 +52,7 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             }
             break;
         case TOP:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectYtoBottomCell(particle.getX(), reflectedPoint);
@@ -63,7 +63,7 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
             }
             break;
         case BOTTOM:
-            for (int i = 0; i < cell->getParticles().size(); ++i) {
+            for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
                 std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
                 cell->reflectYtoTopCell(particle.getX(), reflectedPoint);
