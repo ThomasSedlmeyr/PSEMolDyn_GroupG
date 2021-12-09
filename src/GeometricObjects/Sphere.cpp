@@ -3,25 +3,37 @@
 #include <stdio.h>
 #include "utils/ArrayUtils.h"
 
+bool Sphere::is2D = false;
+
+Sphere::Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadiusArg) : Body(ID, meshWidth,
+                                                                                                         massPerParticle) {
+    numberParticlesPerRadius = numberParticlesPerRadiusArg;
+}
+
 Sphere::Sphere(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {}
 
-
 void Sphere::parseStructure(const std::string &line) {
-
+    numberParticlesPerRadius = std::stoi(line);
 }
 
 void Sphere::generateParticles(int startID) {
     //Set the initial number of particles in the sphere
-    particles = std::vector<Particle>(numberParticlesPerRadius * numberParticlesPerRadius * numberParticlesPerRadius);
+    if (is2D) {
+        generateParticles2d(startID);
+        return;
+    }
+    particles = std::vector<Particle>(
+            8 * numberParticlesPerRadius * numberParticlesPerRadius * numberParticlesPerRadius);
 
     std::array<double, 3> newPosition{}, leftFrontSideCornerCube{};
-    double radiusSize = meshWidth * numberParticlesPerRadius;
+    double cuboidSize = (numberParticlesPerRadius - 1) * meshWidth + 0.5 * meshWidth;
+    leftFrontSideCornerCube = {position[0] - cuboidSize, position[1] - cuboidSize, position[2] - cuboidSize};
+    double radiusSize = numberParticlesPerRadius * meshWidth;
 
-    leftFrontSideCornerCube = {position[0] - radiusSize, position[1] - radiusSize, position[2] + radiusSize};
     int counter = 0;
-    for (int i = 0; i < numberParticlesPerRadius; ++i) {
-        for (int j = 0; j < numberParticlesPerRadius; ++j) {
-            for (int k = 0; k < numberParticlesPerRadius; ++k) {
+    for (int i = 0; i < numberParticlesPerRadius * 2; ++i) {
+        for (int j = 0; j < numberParticlesPerRadius * 2; ++j) {
+            for (int k = 0; k < numberParticlesPerRadius * 2; ++k) {
                 newPosition[0] = leftFrontSideCornerCube[0] + meshWidth * i;
                 newPosition[1] = leftFrontSideCornerCube[1] + meshWidth * j;
                 newPosition[2] = leftFrontSideCornerCube[2] + meshWidth * k;
@@ -40,18 +52,19 @@ void Sphere::generateParticles(int startID) {
 
 void Sphere::generateParticles2d(int startID) {
     //Set the initial size of the particles
-    particles = std::vector<Particle>(numberParticlesPerRadius * numberParticlesPerRadius * numberParticlesPerRadius);
+    particles = std::vector<Particle>(numberParticlesPerRadius * numberParticlesPerRadius * 4);
 
     std::array<double, 3> newPosition{}, leftFrontSideCornerCube{};
-    double radiusSize = meshWidth * numberParticlesPerRadius;
+    double cuboidSize = (numberParticlesPerRadius - 1) * meshWidth + 0.5 * meshWidth;
+    leftFrontSideCornerCube = {position[0] - cuboidSize, position[1] - cuboidSize, position[2]};
+    double radiusSize = numberParticlesPerRadius * meshWidth;
 
-    leftFrontSideCornerCube = {position[0] - radiusSize, position[1] - radiusSize, position[2] + radiusSize};
     int counter = 0;
-    for (int i = 0; i < numberParticlesPerRadius; ++i) {
-        for (int j = 0; j < numberParticlesPerRadius; ++j) {
+    for (int i = 0; i < numberParticlesPerRadius * 2; ++i) {
+        for (int j = 0; j < numberParticlesPerRadius * 2; ++j) {
             newPosition[0] = leftFrontSideCornerCube[0] + meshWidth * i;
             newPosition[1] = leftFrontSideCornerCube[1] + meshWidth * j;
-            newPosition[2] = 0;
+            newPosition[2] = position[2];
 
             //If the new position is inside the sphere
             if (ArrayUtils::L2Norm(newPosition - position) <= radiusSize) {

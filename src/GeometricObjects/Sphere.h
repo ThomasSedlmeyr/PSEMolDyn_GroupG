@@ -11,10 +11,12 @@ protected:
     void generateParticles(int startID) override;
 
 public:
-    Sphere(int ID, double meshWidth, double massPerParticle);
+    Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadius);
 
+    Sphere(int ID, double meshWidth, double massPerParticle);
     ~Sphere();
 
+    static bool is2D;
 private:
     int numberParticlesPerRadius;
 
