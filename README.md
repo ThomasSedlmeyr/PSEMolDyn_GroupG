@@ -7,7 +7,7 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: 3a2c5f659724724c46bdf53e958e48877ea0757c 
+* Revision: 4d56643d1f97a4272c17754295b78696b94dfeda 
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
@@ -66,7 +66,7 @@ Members:
 
 ### Run of 'Simulation of a falling drop - Wall' ###
 * compile with all options
-* run ./MolSim -input ./src/XMLinputFiles/FallingRaindrop.xml
+* run ./MolSim -input ./src/XMLinputFiles/FallingRaindrop_2D.xml
 
 ### Run of 'Collision of two bodies' ###
 * compile with all options
