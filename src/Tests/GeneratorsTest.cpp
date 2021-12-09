@@ -23,20 +23,22 @@ TEST(GeneratorTests, CuboidGenerationTest) {
  * @brief Tests for a generated sphere if each point whether it is within the radius
  */
 TEST(GeneratorTests, SphereGenerationTest) {
-    /*numberParticlesPerRadius =
-    double radiusSize = ;
-    std::unique_ptr<Body> sphere = std::make_unique<Sphere>(0, 1, 1, 4);
-    Sphere::is2D = true;
+    int numberParticlesPerRadius = 10;
+    double meshWidth = 1.0;
+    double radiusSize = numberParticlesPerRadius * meshWidth;
+
+    Body *sphere = new Sphere(0, meshWidth, 1, numberParticlesPerRadius);
+    Sphere::is2D = false;
     sphere->parsePosition("5,5,5");
     sphere->generateParticles(0);
     std::vector<Particle> particles = sphere->getParticles();
 
-    std::array<double, 3> middlePoint{3,3,3};
+    std::array<double, 3> middlePoint{5, 5, 5};
 
-    for(int i=0; i < particles.size(); i++){
-        if(ArrayUtils::L2Norm(middlePoint - position) <= radiusSize){
-
+    for (auto &particle: particles) {
+        if (ArrayUtils::L2Norm(middlePoint - particle.getX()) > radiusSize) {
+            FAIL();
         }
-    }*/
+    }
 }
 

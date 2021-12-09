@@ -6,7 +6,7 @@
     <delta_t>0.00005</delta_t>
     <calcType>LJ</calcType>
     <baseNameOutputFiles>FallingDrop_2D</baseNameOutputFiles>
-    <writeFrequency>200</writeFrequency>
+    <writeFrequency>50</writeFrequency>
     <gravInput></gravInput>
 
     <paramsLJ>
@@ -16,7 +16,7 @@
         <h>1.125</h>
         <domainSizeX>120</domainSizeX>
         <domainSizeY>50</domainSizeY>
-        <domainSizeZ>7</domainSizeZ>
+        <domainSizeZ>6</domainSizeZ>
         <particleContainerType>2</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
     </paramsLJ>
@@ -35,7 +35,7 @@
             <bodyType>Sphere</bodyType>
             <position>60,25,3</position>
             <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>3</objectSpecificFormat>
+            <objectSpecificFormat>15</objectSpecificFormat>
         </body>
     </particlesLJ>
 

@@ -19,12 +19,11 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
 void LennardJonesSimulation::uniteParticlesFromBodies() {
     for (Body* body : XMLParser::bodies_p) {
         for(Particle &particle : body->getParticles()){
-            particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 2));
+            particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, 3));
             particleContainer->addParticleToContainer(particle);
         }
     }
 }
-
 
 void LennardJonesSimulation::setEpsilon(double epsilon) {
     LennardJonesSimulation::epsilon = epsilon;
