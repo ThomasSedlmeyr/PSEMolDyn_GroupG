@@ -66,6 +66,8 @@ Members:
 ### Run of 'Simulation of a falling drop - Wall' ###
 * compile with all options
 * run ./MolSim -input ./src/XMLinputFiles/FallingRaindrop_2D.xml
+* for 3D Simulation, change boolean is2D in Sphere.cpp to false, change dimension of Brownian Motion initialization 
+to 3 in LennardJonesSimulation.cpp and use FallingRaindrop_3D.xml as input
 
 ### Run of 'Collision of two bodies' ###
 * compile with all options

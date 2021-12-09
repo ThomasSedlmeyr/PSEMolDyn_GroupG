@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include "utils/ArrayUtils.h"
 
-bool Sphere::is2D = false;
+bool Sphere::is2D = true;
 
 Sphere::Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadiusArg) : Body(ID, meshWidth,
                                                                                                          massPerParticle) {
