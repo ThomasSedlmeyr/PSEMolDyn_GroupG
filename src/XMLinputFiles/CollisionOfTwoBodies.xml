@@ -33,14 +33,14 @@
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>20,20,0</position>
+            <position>20,20,1</position>
             <velocity>0,0,0</velocity>
             <objectSpecificFormat>100,20,1</objectSpecificFormat>
         </body>
 
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>70,60,0</position>
+            <position>70,60,1</position>
             <velocity>0,-10,0</velocity>
             <objectSpecificFormat>20,20,1</objectSpecificFormat>
         </body>

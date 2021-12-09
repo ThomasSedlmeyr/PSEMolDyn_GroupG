@@ -20,10 +20,11 @@ void BoundaryConditionContainer::calculateBoundaryConditions() {
 BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes,
                                                        int numberCellsInX,
                                                        int numberCellsInY,
-                                                       int numberCellsInZ) :
+                                                       int numberCellsInZ, std::array<double, 3> domainSize) :
         numberCellsInX(numberCellsInX),
         numberCellsInY(numberCellsInY),
-        numberCellsInZ(numberCellsInZ) {
+        numberCellsInZ(numberCellsInZ),
+        domainSize(domainSize){
 
     for (std::size_t i = 0; i < boundaryConditionTypes.size(); i++) {
         switch (boundaryConditionTypes[i]) {

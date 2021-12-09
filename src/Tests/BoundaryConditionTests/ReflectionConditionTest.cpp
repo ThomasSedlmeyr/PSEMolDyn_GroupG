@@ -84,6 +84,3 @@ TEST(Tests, TestPointReflection) {
     cell.reflectZtoBackCell(pointWhichShouldBeReflected, reflectedPoint);
     EXPECT_FLOATS_NEARLY_EQ(referencePoint, reflectedPoint, 0.0000001);
 }
-
-
-

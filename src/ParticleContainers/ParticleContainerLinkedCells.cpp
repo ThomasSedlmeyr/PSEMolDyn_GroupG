@@ -28,12 +28,10 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, d
         : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius) {
 
     createCells();
-    std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
-    std::array<int, 6> twos = {2, 2, 2, 2, 2, 2};
     std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
     boundaryContainer = std::make_unique<BoundaryConditionContainer>(boundaryConditionTypes,
                                                                      numberCellsX,
-                                                                     numberCellsY, numberCellsZ);
+                                                                     numberCellsY, numberCellsZ, domainSize);
 }
 
 void ParticleContainerLinkedCells::createCells() {

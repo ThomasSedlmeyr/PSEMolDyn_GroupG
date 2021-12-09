@@ -54,7 +54,7 @@ public:
      * @param numberCellsInZ
      */
     BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes, int numberCellsInX, int numberCellsInY,
-                               int numberCellsInZ);
+                               int numberCellsInZ, std::array<double, 3> domainSize);
 
     /**
      *@brief Calculates the boundary Conditions for every side of the domain

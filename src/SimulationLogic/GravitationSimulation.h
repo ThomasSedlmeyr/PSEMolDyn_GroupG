@@ -13,7 +13,7 @@ class GravitationSimulation : public Simulation {
 
 private:
     /**
-     * Implementation of the force calculation
+     * @brief Implementation of the force calculation
      */
     GravForceVisitor forceCalcVisitor;
     bool readFile(const std::string &fileName);

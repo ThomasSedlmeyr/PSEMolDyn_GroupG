@@ -18,10 +18,11 @@ TEST(Tests, CheckIfSpecificCellsHaveRightSizes) {
 
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
     ParticleContainerLinkedCells particleContainer(domainSizeX, domainSizeY, domainSizeZ, cutOff, ones);
+    std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
     auto boundaryConditionContainer = std::make_unique<BoundaryConditionContainer>(ones,
                                                                                    ParticleContainerLinkedCells::numberCellsX,
                                                                                    ParticleContainerLinkedCells::numberCellsY,
-                                                                                   ParticleContainerLinkedCells::numberCellsZ);
+                                                                                   ParticleContainerLinkedCells::numberCellsZ, domainSize);
 
     std::array<BoundaryCondition *, 6> boundaryConditions = boundaryConditionContainer->getBoundaryConditions();
 

@@ -32,7 +32,7 @@ TEST(Tests, TestReflection) {
     std::unique_ptr<BoundaryConditionContainer> boundaryContainer = std::make_unique<BoundaryConditionContainer>(threes,
                                                                                                                  ParticleContainerLinkedCells::numberCellsX,
                                                                                                                  ParticleContainerLinkedCells::numberCellsY,
-                                                                                                                 ParticleContainerLinkedCells::numberCellsZ);
+                                                                                                                 ParticleContainerLinkedCells::numberCellsZ, arrDomainSize);
     //In left halo cell
     Particle p1 = Particle({-1.23, 0, 0}, {-10, 2, 1}, 1, -1, 0);
     particleContainer.addParticleToContainer(p1);

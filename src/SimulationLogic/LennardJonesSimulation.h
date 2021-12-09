@@ -27,7 +27,7 @@ private:
      */
     double rho;
     /**
-     * Implementation of the force calculation
+     * @brief Implementation of the force calculation
      */
     LJForceVisitor forceCalcVisitor;
 
@@ -37,7 +37,6 @@ private:
      */
     void uniteParticlesFromBodies();
     //Allows test to access private method
-    FRIEND_TEST(Tests, LennardJonesOptimization);
     void calculateF() override;
 
 public:

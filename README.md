@@ -30,7 +30,7 @@ Members:
   * t_end : specifies end time of simulation
   * delta_t : specifies stepsize for calculation
   * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
-  * baseNameOutputFiles : G for Gravitation Simulation, LJ for LennardJones Simulation, FallingDrop_2D for FallingRaindrop Simulation
+  * baseNameOutputFiles : specifies the output name
   * writeFrequency : specifies the write frequency
   * gravInput : path to input file for Gravitation Simulation, can otherwise be left blank
   * paramsLJ : 
@@ -60,7 +60,6 @@ Members:
 * run ./MolSim -input ../src/XMLinputFiles/Gravitation.xml
 * alternatively you can change the default xml file
   * switch calcType to G
-  * set baseNameOutputFiles to Grav
   * set gravInput to the input file path ../eingabe-sonne.txt
     * for additional planets specify the path ../eingabe-sonnen_system.txt
 
