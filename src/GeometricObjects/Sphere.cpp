@@ -1,6 +1,4 @@
 #include "Sphere.h"
-#include "Cuboid.h"
-#include <stdio.h>
 #include "utils/ArrayUtils.h"
 
 bool Sphere::is2D = false;
