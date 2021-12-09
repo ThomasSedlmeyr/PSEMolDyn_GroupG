@@ -60,6 +60,16 @@ TEST(ParticleContainerTests, addParticleToContainerTest){
 }
 
 /**
+ * @brief Helper function to sort particle vector
+ * @param p1
+ * @param p2
+ * @return
+ */
+bool sortParticlesById(Particle &p1, Particle &p2){
+    return p1.getId() < p2.getId();
+}
+
+/**
  * @brief Tests if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
  */
 TEST(ParticleContainerTests, compareContainers) {
@@ -79,11 +89,12 @@ TEST(ParticleContainerTests, compareContainers) {
 
     auto particles1 = particleContainerDirectSum.getParticles();
     auto particles2 = particleContainerLinkedCells.getParticles();
-
+    std::sort(particles2.begin(), particles2.end(), sortParticlesById);
     for (int i = 0; i < particles2.size(); ++i) {
         std::cout << "particle: " << i << std::endl;
+        EXPECT_EQ(particles1[i].getId(), particles2[i].getId());
         for (int j = 0; j < 2; ++j) {
-            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.001);
+            EXPECT_NEAR(particles1[i].getX()[j], particles2[i].getX()[j], 0.05);
         }
     }
 }
