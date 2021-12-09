@@ -81,6 +81,8 @@ Members:
 * run ctest in build directory
 
 # Media #
+## Diagram ##
+* ![Performance Comparison](PerformanceComparison.png)
 ## Videos ##
 * [Collision of two bodies] (https://youtu.be/t2qEI6jBcac)
 * [Simulation of a falling drop 2D] (https://youtu.be/4SnxIbpA4Ls)
