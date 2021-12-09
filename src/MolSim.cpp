@@ -48,17 +48,16 @@ int main(int argc, char *argsv[]) {
         return 0;
     }
     // execution of simulation based to default or selection
+    XMLParser::parseXML(inputFile);
     Writer *w = new VTKWriter();
     switch (XMLParser::calcType_p) {
         case Simulation::GRAVITATION: {
-            XMLParser::parseXML(inputFile);
             auto gS = GravitationSimulation();
             ParticleContainer *particleContainer = new ParticleContainerDirectSum();
             gS.simulate(*w, particleContainer);
             break;
         }
         case Simulation::LENNARDJONES: {
-            XMLParser::parseXML(inputFile);
             auto ljS = LennardJonesSimulation();
             ParticleContainer* particleContainer;
             if (XMLParser::particleContainerType == ParticleContainer::DIRECTSUM){
