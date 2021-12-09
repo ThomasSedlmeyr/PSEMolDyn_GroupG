@@ -14,7 +14,7 @@
  * @brief Starts a GravitationSimulation and compares the result of two time steps with two files
  * containing the correct values
  */
-TEST(GravitationSimulationTests, FullTest) {
+TEST(SimulationTests, TestFullGravitation) {
     XMLParser::parseXML("../src/Tests/TestInputFiles/GravTestInput.xml");
     XYZReader reader = XYZReader();
     GravitationSimulation gravitationSimulation = GravitationSimulation();

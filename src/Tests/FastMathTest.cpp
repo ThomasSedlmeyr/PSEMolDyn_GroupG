@@ -6,7 +6,7 @@
  * @brief Test if the method checkIfSquareRootOfNumberIsBiggerThanCertainValue works properly.
  * For testing this we create several random cutOffs and test the function on random distances.
  */
-TEST(Tests, checkIfSquareRootOfNumberIsBiggerThanCertainValueTest) {
+TEST(GeneralTests, TestcheckIfSquareRootOfNumberIsBiggerThanCertainValue) {
     std::random_device rd; //get a random number from the pc
     std::default_random_engine gen(rd());
     std::uniform_real_distribution<double> cutOffRange(2, 4); //define the range

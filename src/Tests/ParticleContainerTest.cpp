@@ -18,7 +18,7 @@
 /**
  * @brief this test can be used to create a visualization of the LinkedCellStructure
  */
-TEST(ParticleContainerTests, checkLinkedCellStucture) {
+TEST(ParticleContainerTests, VisualizeLinkedCellStructure) {
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 6, 3.0);
     particleContainer.cellsToVTK();
 }
@@ -26,7 +26,7 @@ TEST(ParticleContainerTests, checkLinkedCellStucture) {
 /**
  * @brief This test checks for every pointer in the halo-, boundary and innerCell, that all these particles have the correct type
  */
-TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells) {
+TEST(ParticleContainerTests, TestHaloBoundaryAndInnerCells) {
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(10, 10, 10, 3.0);
 
     for (std::size_t i = 0; i < ParticleContainerLinkedCells::getHaloCells().size(); ++i) {
@@ -44,7 +44,7 @@ TEST(ParticleContainerTests, checkHaloBoundaryAndInnerCells) {
  * @brief This Test inserts random particles into the boundary and checks if the particle was insert at
  * the correct position
  */
-TEST(ParticleContainerTests, addParticleToContainerTest){
+TEST(ParticleContainerTests, TestAddParticleToContainer){
     std::uniform_real_distribution<double> positionDistribution(0, 80);
     std::default_random_engine re(std::chrono::system_clock::now().time_since_epoch().count());
     ParticleContainerLinkedCells particleContainer = ParticleContainerLinkedCells(100, 100, 100, 3.0);
@@ -72,7 +72,7 @@ bool sortParticlesById(Particle &p1, Particle &p2){
 /**
  * @brief Tests if we get the same results for the ParticleContainerLinkedCells and for ParticleContainerDirectSum.
  */
-TEST(ParticleContainerTests, compareContainers) {
+TEST(ParticleContainerTests, TestDifferentContainers) {
     std::array<int, 6> ones = {1,1,1,1,1,1};
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(100, 100, 100, 3.0, ones);
     ParticleContainerDirectSum particleContainerDirectSum = ParticleContainerDirectSum();

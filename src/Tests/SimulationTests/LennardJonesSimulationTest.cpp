@@ -18,7 +18,7 @@
  * @brief Starts a LenardJonesSimulationTest and compares the result of two time steps with two files
  * containing the correct values
  */
-TEST(LennardJonesSimulationTests, FullTest) {
+TEST(SimulationTests, TestFullLennardJones) {
     XMLParser::parseXML("../src/Tests/TestInputFiles/LJTestInput.xml");
     XYZReader reader = XYZReader();
     LennardJonesSimulation lennardJonesSimulation = LennardJonesSimulation();
@@ -72,7 +72,7 @@ void trivialLennardJonesCalculation(Particle &p1, Particle &p2, double epsilon, 
 /**
  * @brief Tests the current implementation Lennard Jones force calculation with the reference implementation
  */
-TEST(LennardJonesSimulationTests, LennardJonesOptimization){
+TEST(SimulationTests, TestLennardJonesOptimization){
     int numberOfTries = 100000;
 
     double epsilon = 5;

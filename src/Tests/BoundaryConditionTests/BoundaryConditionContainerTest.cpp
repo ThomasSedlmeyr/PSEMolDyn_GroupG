@@ -7,7 +7,7 @@
 /**
  * @brief Checks the size of the boundary and halo cells for each boundary condition side
  */
-TEST(Tests, CheckIfSpecificCellsHaveRightSizes) {
+TEST(BoundaryConditions, TestBoundaryConditionContainer) {
     double cutOff = 3.0;
     double domainSizeX = 20;
     double domainSizeY = 30;

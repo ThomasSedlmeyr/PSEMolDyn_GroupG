@@ -22,8 +22,7 @@
 /**
  * @brief Checks if the number of generated ghostParticles is the same as we expect
  */
-TEST(Tests, GhostParticlesTest) {
-    //TODO
+TEST(BoundaryConditions, TestsReflectionCondition) {
     XMLParser::parseXML("../src/Tests/TestInputFiles/GhostTestInput.xml");
     ReflectingCondition::isDebug = true;
     auto ljS = LennardJonesSimulation();
@@ -45,7 +44,7 @@ TEST(Tests, GhostParticlesTest) {
  * @brief Tests if the reflection functionality of the cell works by reflecting a certain point in every possible
  * direction and comparing the results with hardcoded values
  */
-TEST(Tests, TestPointReflection) {
+TEST(BoundaryConditions, TestsPointwiseReflection) {
     Cell::sizeX = 3;
     Cell::sizeY = 3.5;
     Cell::sizeZ = 2;

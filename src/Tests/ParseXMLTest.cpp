@@ -4,7 +4,7 @@
 /**
  * @brief Test for checking if XML parser is working correctly
  */
-TEST(Tests, parseXMLTest) {
+TEST(GeneralTests, TestXMLParsing) {
     std::string filename = "../src/Tests/TestInputFiles/input_test.xml";
     XMLParser::parseXML(filename);
     EXPECT_DOUBLE_EQ(XMLParser::t_end_p, 5);

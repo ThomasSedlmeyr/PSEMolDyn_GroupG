@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
+
+    <t_end>0.0005</t_end>
+    <delta_t>0.0005</delta_t>
+    <calcType>LJ</calcType>
+    <baseNameOutputFiles>OutflowTest</baseNameOutputFiles>
+    <writeFrequency>100000</writeFrequency>
+    <gravInput></gravInput>
+
+    <paramsLJ>
+        <epsilon>5.0</epsilon>
+        <mass>1.0</mass>
+        <rho>1.0</rho>
+        <h>1.125</h>
+        <domainSizeX>7</domainSizeX>
+        <domainSizeY>11</domainSizeY>
+        <domainSizeZ>12.5</domainSizeZ>
+        <particleContainerType>2</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
+    </paramsLJ>
+
+    <boundaryConditions>
+        <top>1</top>
+        <right>1</right>
+        <bottom>1</bottom>
+        <left>1</left>
+        <front>1</front>
+        <back>1</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>-1,-1,-1</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>5,5,5</objectSpecificFormat>
+        </body>
+    </particlesLJ>
+
+</input>
