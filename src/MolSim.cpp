@@ -11,7 +11,7 @@
 #include <spdlog/spdlog.h>
 #include <XML_Parser/XMLParser.h>
 
-std::string inputFile = "../src/XML_Parser/input.xml";
+std::string inputFile = "../src/XMLinputFiles/CollisionOfTwoBodies.xml";
 
 /**
  * @brief shows guidelines for correct program calls
