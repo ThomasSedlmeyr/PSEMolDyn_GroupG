@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+
+    <t_end>1000</t_end>
+    <delta_t>0.014</delta_t>
+    <calcType>G</calcType>
+    <baseNameOutputFiles>Grav</baseNameOutputFiles>
+    <writeFrequency>10</writeFrequency>
+    <gravInput>../eingabe-sonne.txt</gravInput>
+
+    <paramsLJ>
+        <epsilon>0</epsilon>
+        <mass>0</mass>
+        <rho>0</rho>
+        <h>0</h>
+        <domainSizeX>0</domainSizeX>
+        <domainSizeY>0</domainSizeY>
+        <domainSizeZ>0</domainSizeZ>
+        <particleContainerType>0</particleContainerType>
+        <cutoffRadius>0</cutoffRadius>
+    </paramsLJ>
+
+    <boundaryConditions>
+        <top>0</top>
+        <right>0</right>
+        <bottom>0</bottom>
+        <left>0</left>
+        <front>0</front>
+        <back>0</back>
+    </boundaryConditions>
+
+    <particlesLJ></particlesLJ>
+
+</input>

@@ -7,36 +7,58 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: dcb6f77d73ee6cbb35cc188ac071bd0c2fc1c99e 
+* Revision: 2ab1d3bba7c30e913b8949e3b9d42f912ead232c 
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
-## Standard Run of 'Collision of two bodies' ##
+## Standard Run of default 'Simulation of a falling drop - Wall' ##
 * compile with all options
 * run ./MolSim
-* Simulation will by default be executed with parameters from worksheet 2
+* Simulation will by default be executed with parameters Task 4 from worksheet 3
 
 ## Run of Gravitation Simulation ##
 * compile with all options
-* run ./MolSim -calcType 1
+* run ./MolSim -input Gravitation.xml
 * for additional planets use eingabe-sonnen_system.txt as input file
+* for run with more planets see how to prepare your own xml file in the next sektion
+  * specify the path ../eingabe-sonnen_system.txt
 
-## Run with passing optional command line arguments ##
+## Run with own xml file ##
 * compile with all options
-* pass desired values, all have dafault values (see help page)
+* run with the input flag
   * -h : help page
-  * -t_end : end time of simulation
-  * -delta_t : stepsize
-  * -calcType : 2 for 'Collision of two bodies' (default), 1 for Gravitation Simulation
-  * for Lennard Jones Simulation:
-    * -param_path : file for parameters epsilon, mass, rho, mesh width (h), see ParamsLennardJonesSimulation.txt as example
-    * -particles_path : file for parameters of bodies (position, velocity, number of particles per dimension), see TwoCuboidsLJ.txt as example
-  * for Gravitation Simulation:
-    * -input : input file (coordinates, velocity, mass)
+  * -input : provides path to xml input file
 
 * example runs:
-  * ./MolSim -calcType 2 -param_path ../ParamsLennardJonesSimulation.txt -particles_path ../TwoCuboidsLJ.txt -t_end 5 -delta_t 0.0002
-  * ./MolSim -calcType 1 -input ../eingabe-sonne.txt -t_end 1000 -delta_t 0.014
+  * ./MolSim -input ../src/XML_Parser/input.xml
+
+* xml-file must be formatted correctly according to schema
+  * t_end : specifies end time of simulation
+  * delta_t : specifies stepsize for calculation
+  * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
+  * baseNameOutputFiles : G for Gravitation Simulation, LJ for LennardJones Simulation, FallingDrop_2D for FallingRaindrop Simulation
+  * writeFrequency : specifies the write frequency
+  * gravInput : path to input file for Gravitation Simulation, can otherwise be left blank
+  * paramsLJ : 
+    * epsilon, mass, rho, h : double value for the corresponding parameter
+    * domainSizeX, domainSizeY, domainSizeZ : domain size of corresponding coordinates
+    * particlesContainerType : 1 for direct sum, 2 for linked cells
+    * cutoffRadius : corresponding cuttoff radius for linked cells algorithm
+  * boundaryConditions :
+    * top, right, bottom, left, front, back : for either one pick 1 for outflow, 2 for reflection, 3 for reflection with improved implementation
+  * particles : specify as many bodies as needed here
+    * body : 
+      * bodyType : Cuboid, Sphere or Tetrahedron
+      * position :  initial position
+      * velocity :  initial velocity
+      * objectSpecificFormat : 
+        * for Cuboid : particles per dimension
+        * for Tetrahedron : TODO
+        * for Sphere : TODO
+
+* optional : when performing a 
+  * Gravitation Simulation : tags in paramsLJ and boundaryConditions can all be put to 0, particlesLJ can be left empty
+  * LennardJones Simulation - direct Sum : TODO
 
 ## Crating a doxygen ##
 * compile with BUILD_DOXYGEN=ON
@@ -49,5 +71,4 @@ Members:
 
 # Media #
 ## Videos ##
-* https://youtu.be/oYmyFnacXVY
-* https://youtu.be/01wl6HPkouk
+* TODO
