@@ -7,7 +7,7 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: 9014be933e5cd41f708aad6455a303f4ee5acd68 
+* Revision: 73b0ccb050d61c5d79e4d547bc033e063824703e 
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
@@ -48,7 +48,7 @@ Members:
       * objectSpecificFormat : 
         * for Cuboid : particles per dimension, e.g. "8,8,1"
         * for Tetrahedron : numberParticles per edge, e.g. "15"
-        * for Sphere : radius
+        * for Sphere : radius, e.g. "10"
 
 * optional : when performing a 
   * Gravitation Simulation : tags in paramsLJ and boundaryConditions can all be put to 0, particlesLJ can be left empty
