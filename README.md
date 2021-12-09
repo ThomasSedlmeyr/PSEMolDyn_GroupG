@@ -7,21 +7,14 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: 2ab1d3bba7c30e913b8949e3b9d42f912ead232c 
+* Revision: 3a2c5f659724724c46bdf53e958e48877ea0757c 
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
-## Standard Run of default 'Simulation of a falling drop - Wall' ##
+## Standard Run of default input file ##
 * compile with all options
 * run ./MolSim
-* Simulation will by default be executed with parameters Task 4 from worksheet 3
-
-## Run of Gravitation Simulation ##
-* compile with all options
-* run ./MolSim -input Gravitation.xml
-* for additional planets use eingabe-sonnen_system.txt as input file
-* for run with more planets see how to prepare your own xml file in the next sektion
-  * specify the path ../eingabe-sonnen_system.txt
+* see in the following section on how to change the xml-file to your liking
 
 ## Run with own xml file ##
 * compile with all options
@@ -33,6 +26,7 @@ Members:
   * ./MolSim -input ../src/XML_Parser/input.xml
 
 * xml-file must be formatted correctly according to schema
+* you can use and change the default file in ../src/XML_Parser/input.xml
   * t_end : specifies end time of simulation
   * delta_t : specifies stepsize for calculation
   * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
@@ -49,16 +43,34 @@ Members:
   * particles : specify as many bodies as needed here
     * body : 
       * bodyType : Cuboid, Sphere or Tetrahedron
-      * position :  initial position
-      * velocity :  initial velocity
+      * position : initial position
+      * velocity : initial velocity
       * objectSpecificFormat : 
-        * for Cuboid : particles per dimension
-        * for Tetrahedron : TODO
+        * for Cuboid : particles per dimension, e.g. "8,8,1"
+        * for Tetrahedron : numberParticles per edge, e.g. "15"
         * for Sphere : TODO
 
 * optional : when performing a 
   * Gravitation Simulation : tags in paramsLJ and boundaryConditions can all be put to 0, particlesLJ can be left empty
-  * LennardJones Simulation - direct Sum : TODO
+  * LennardJones Simulation - direct Sum : cutoffRadius can be put to zero
+
+## Run with predefined xml-files ##
+### Run of Gravitation Simulation ###
+* compile with all options
+* run ./MolSim -input ../src/XMLinputFiles/Gravitation.xml
+* alternatively you can change the default xml file
+  * switch calcType to G
+  * set baseNameOutputFiles to Grav
+  * set gravInput to the input file path ../eingabe-sonne.txt
+    * for additional planets specify the path ../eingabe-sonnen_system.txt
+
+### Run of 'Simulation of a falling drop - Wall' ###
+* compile with all options
+* run ./MolSim -input ./src/XMLinputFiles/FallingRaindrop.xml
+
+### Run of 'Collision of two bodies' ###
+* compile with all options
+* run ./MolSim -input ./src/XMLinputFiles/CollisionOfTwoBodies.xml
 
 ## Crating a doxygen ##
 * compile with BUILD_DOXYGEN=ON
