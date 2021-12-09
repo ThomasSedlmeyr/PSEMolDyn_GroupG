@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+
+    <t_end>10</t_end>
+    <delta_t>0.00005</delta_t>
+    <calcType>LJ</calcType>
+    <baseNameOutputFiles>FallingDrop_2D</baseNameOutputFiles>
+    <writeFrequency>200</writeFrequency>
+    <gravInput></gravInput>
+
+    <paramsLJ>
+        <epsilon>5.0</epsilon>
+        <mass>1.0</mass>
+        <rho>1.0</rho>
+        <h>1.125</h>
+        <domainSizeX>120</domainSizeX>
+        <domainSizeY>50</domainSizeY>
+        <domainSizeZ>7</domainSizeZ>
+        <particleContainerType>2</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
+    </paramsLJ>
+
+    <boundaryConditions>
+        <top>3</top>
+        <right>3</right>
+        <bottom>3</bottom>
+        <left>3</left>
+        <front>3</front>
+        <back>3</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Sphere</bodyType>
+            <position>60,25,3</position>
+            <velocity>0,-10,0</velocity>
+            <objectSpecificFormat>3</objectSpecificFormat>
+        </body>
+    </particlesLJ>
+
+</input>
