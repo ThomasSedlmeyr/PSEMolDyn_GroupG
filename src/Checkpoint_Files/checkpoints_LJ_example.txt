@@ -9,11 +9,11 @@
 # The second line not being a comment has to either be G or LJ indicating whether the
 # particles were saved from a Gravitation Simulation or Lennard Jones Simulation.
 #
-# Molecule data consists of
+# Molecule data consists of:
 # * xyz-coordinates (3 double values)
 # * velocities (2 or 3 double values)
 # * mass (1 double value)
-# For LJ also
+# For LJ also:
 # * rho (1 double value)
 # * epsilon (1 double value)
 #

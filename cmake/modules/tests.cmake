@@ -8,6 +8,7 @@ FetchContent_MakeAvailable(googletest)
 
 file(GLOB_RECURSE TEST_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/BoundaryConditions/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Checkpoints/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/InputReader/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/OutputWriter/*.cpp"
