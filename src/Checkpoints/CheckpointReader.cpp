@@ -8,8 +8,9 @@
 #include <spdlog/spdlog.h>
 #include "SimulationLogic/Simulation.h"
 
-ParticleContainer* CheckpointReader::particleContainer;
+//ParticleContainer* CheckpointReader::particleContainer;
 int CheckpointReader::checkpointReadCalcType;
+std::vector<Particle> CheckpointReader::particles;
 
 bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
     std::array<double, 3> x = {};
@@ -41,8 +42,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
         spdlog::info("Read line: " + tmp_string);
 
         // calculation type
-        std::istringstream calcstream(tmp_string);
-        numstream >> temp;
+       temp = tmp_string;
         if (temp == "G") {
             CheckpointReader::checkpointReadCalcType = Simulation::GRAVITATION;
         } else if (temp == "LJ") {
@@ -52,10 +52,9 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
             return false;
         }
 
-        getline(input_file, tmp_string);
-        spdlog::info("Read line: " + tmp_string);
-
         for (int i = 0; i < num_particles; i++) {
+            getline(input_file, tmp_string);
+            spdlog::info("Read line: " + tmp_string);
             std::istringstream datastream(tmp_string);
 
             for (auto &xj: x) {
@@ -74,10 +73,11 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
                 datastream >> eps; // TODO
             }
             Particle p = Particle(x, v, m);
-            particleContainer->addParticleToContainer(p);
+            // particleContainer->addParticleToContainer(p);
+            particles.push_back(p);
 
-            getline(input_file, tmp_string);
-            spdlog::info("Read line: " + tmp_string);
+            //getline(input_file, tmp_string);
+            //spdlog::info("Read line: " + tmp_string);
         }
         return true;
     } else {

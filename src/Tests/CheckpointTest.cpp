@@ -7,11 +7,13 @@
 /**
  * @brief quick test for reading checkpoint as input
  */
-TEST(InputTests, ReadCheckpoints) {
+TEST(InputTests, ReadGCheckpoints) {
     std::string filename = "../src/Checkpoint_Files/checkpoints_G_example.txt";
     bool success = CheckpointReader::readCheckpointFile(filename);
 
-    std::vector<Particle> parts = CheckpointReader::particleContainer->getParticles();
+    //std::vector<Particle> parts = CheckpointReader::particleContainer->getParticles();
+    std::vector<Particle> parts = CheckpointReader::particles;
+
     EXPECT_EQ(parts.size(), 4);
     parts.pop_back();
     EXPECT_DOUBLE_EQ(parts.back().getM(), 9.55e-4);

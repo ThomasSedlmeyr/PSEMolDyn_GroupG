@@ -20,6 +20,11 @@ public:
     static ParticleContainer *particleContainer;
 
     /**
+     * @brief vector for read particles
+     */
+    static std::vector<Particle> particles;
+
+    /**
      * @brief variable to remember the calcType of read checkpoint particles
      */
     static int checkpointReadCalcType;
