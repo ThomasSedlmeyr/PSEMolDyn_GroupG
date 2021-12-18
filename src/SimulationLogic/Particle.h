@@ -100,6 +100,12 @@ public:
      * @brief sets old_f to f and sets f to zeroes to allow for new calculation of f
      */
     void prepareForNewForce();
+
+    /**
+     * @brief formats the particle into one line
+     * @return returns the particles attributes in one line
+     */
+    std::string toString();
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);

@@ -8,6 +8,8 @@
 #include "Particle.h"
 #include "utils/ArrayUtils.h"
 #include <iostream>
+#include "XML_Parser/XMLParser.h"
+#include "SimulationLogic/Simulation.h"
 
 Particle::Particle(int type_arg) {
   type = type_arg;
@@ -102,6 +104,20 @@ int Particle::getId() const {
 
 std::array<double, 3> &Particle::getVRef() {
     return v;
+}
+
+std::string Particle::toString() {
+    std::string ret;
+    // TODO for G/LJ
+    ret = std::to_string(x[0]) + " " + std::to_string(x[1]) + " " + std::to_string(x[2])
+            + "\t" + std::to_string(v[0]) + " " + std::to_string(v[1]) + " " + std::to_string(v[2])
+            + "\t" + std::to_string(m);
+
+    if (XMLParser::calcType_p == Simulation::LENNARDJONES){
+        // TODO add epsilon and rho to line, need to be implemented for the particle before
+    }
+
+    return ret;
 }
 
 std::ostream &operator<<(std::ostream &stream, Particle &p) {
