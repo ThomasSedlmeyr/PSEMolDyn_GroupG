@@ -29,9 +29,9 @@ TEST(OutputTests, WriteGCheckpoints) {
     EXPECT_EQ(xmlSuccess, true);
 
     ParticleContainer *particleContainer = new ParticleContainerDirectSum();
-    Particle a = Particle({0, 0, 0}, {0, 0, 0}, 5);
-    Particle b = Particle({1, 0, 0}, {0, 0, 0}, 564.7777);
-    Particle c = Particle({0, 1, 0}, {0, 0, 0}, 23);
+    Particle a = Particle({0, 0, 0}, {0, 0, 0}, 5, 2, {0, 0, 0}, {0, 0, 0}, 7);
+    Particle b = Particle({1, 0, 0}, {0, 0, 0}, 564.7777, 2, {0, 0, 0}, {0, 0, 0}, 9);
+    Particle c = Particle({0, 1, 0}, {0, 0, 0}, 23, 2, {0, 0, 0}, {0, 0, 0}, 74);
     particleContainer->addParticleToContainer(a);
     particleContainer->addParticleToContainer(b);
     particleContainer->addParticleToContainer(c);
@@ -48,4 +48,5 @@ TEST(OutputTests, WriteGCheckpoints) {
     parts.pop_back();
     parts.pop_back();
     EXPECT_DOUBLE_EQ(parts.back().getM(), 5);
+    EXPECT_EQ(parts.back().getId(), 7);
 }

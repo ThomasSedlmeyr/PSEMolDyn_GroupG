@@ -41,6 +41,18 @@ Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg,
   //std::cout << "Particle generated!" << std::endl;
 }
 
+// new constructor for checkpoints
+Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg,
+                   double m_arg, int type_arg, std::array<double, 3> f_arg, std::array<double, 3> f_old_arg, int id_arg) {
+    x = x_arg;
+    v = v_arg;
+    m = m_arg;
+    type = type_arg;
+    f = f_arg;
+    old_f = f_old_arg;
+    ID = id_arg;
+}
+
 Particle::~Particle() { //std::cout << "Particle destructed!" << std::endl;
      }
 
@@ -111,7 +123,9 @@ std::string Particle::toString() {
     // TODO for G/LJ
     ret = std::to_string(x[0]) + " " + std::to_string(x[1]) + " " + std::to_string(x[2])
             + "\t" + std::to_string(v[0]) + " " + std::to_string(v[1]) + " " + std::to_string(v[2])
-            + "\t" + std::to_string(m);
+            + "\t" + std::to_string(m) + "\t" + std::to_string(type) + "\t" + std::to_string(f[0])
+            + " " + std::to_string(f[1]) + " " + std::to_string(f[2]) + "\t" + std::to_string(old_f[0])
+            + " " + std::to_string(old_f[1]) + " " + std::to_string(old_f[2]) + "\t" + std::to_string(ID);
 
     if (XMLParser::calcType_p == Simulation::LENNARDJONES){
         // TODO add epsilon and rho to line, need to be implemented for the particle before
