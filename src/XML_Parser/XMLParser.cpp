@@ -8,7 +8,7 @@
 
 double XMLParser::t_end_p;
 double XMLParser::delta_t_p;
-int XMLParser::calcType_p;
+int XMLParser::calcType_p = 2;
 std::string XMLParser::baseNameOutputFiles_p{};
 int XMLParser::writeFrequency_p;
 std::string XMLParser::gravInput_p{};

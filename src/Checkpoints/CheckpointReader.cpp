@@ -8,13 +8,18 @@
 #include <spdlog/spdlog.h>
 #include "SimulationLogic/Simulation.h"
 
-ParticleContainer* CheckpointReader::particleContainer;
+//ParticleContainer* CheckpointReader::particleContainer;
 int CheckpointReader::checkpointReadCalcType;
+std::vector<Particle> CheckpointReader::particles;
 
 bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
     std::array<double, 3> x = {};
     std::array<double, 3> v = {};
     double m;
+    int type;
+    std::array<double, 3> f = {};
+    std::array<double, 3> old_f = {};
+    int id;
     double rho;
     double eps;
     int num_particles = 0;
@@ -41,8 +46,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
         spdlog::info("Read line: " + tmp_string);
 
         // calculation type
-        std::istringstream calcstream(tmp_string);
-        numstream >> temp;
+       temp = tmp_string;
         if (temp == "G") {
             CheckpointReader::checkpointReadCalcType = Simulation::GRAVITATION;
         } else if (temp == "LJ") {
@@ -52,10 +56,9 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
             return false;
         }
 
-        getline(input_file, tmp_string);
-        spdlog::info("Read line: " + tmp_string);
-
         for (int i = 0; i < num_particles; i++) {
+            getline(input_file, tmp_string);
+            spdlog::info("Read line: " + tmp_string);
             std::istringstream datastream(tmp_string);
 
             for (auto &xj: x) {
@@ -69,15 +72,24 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName) {
                 return false;
             }
             datastream >> m;
-            if (CheckpointReader::checkpointReadCalcType == Simulation::LENNARDJONES) {
-                datastream >> rho; // TODO
-                datastream >> eps; // TODO
+            datastream >> type;
+            for (auto &fj: f) {
+                datastream >> fj;
             }
-            Particle p = Particle(x, v, m);
-            particleContainer->addParticleToContainer(p);
+            for (auto &old_fj: old_f) {
+                datastream >> old_fj;
+            }
+            datastream >> id;
+            if (CheckpointReader::checkpointReadCalcType == Simulation::LENNARDJONES) {
+                datastream >> rho; // TODO add to each particle
+                datastream >> eps; // TODO add to each particle
+            }
+            Particle p = Particle(x, v, m, type, f, old_f, id);
+            // particleContainer->addParticleToContainer(p);
+            particles.push_back(p);
 
-            getline(input_file, tmp_string);
-            spdlog::info("Read line: " + tmp_string);
+            //getline(input_file, tmp_string);
+            //spdlog::info("Read line: " + tmp_string);
         }
         return true;
     } else {
