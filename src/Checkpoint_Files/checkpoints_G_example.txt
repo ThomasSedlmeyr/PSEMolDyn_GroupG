@@ -10,8 +10,11 @@
 #
 # Molecule data consists of:
 # * xyz-coordinates (3 double values)
-# * velocities (2 or 3 double values)
+# * velocities (3 double values)
 # * mass (1 double value)
+# * type (1 int value)
+# * force (3 double values)
+# * old force (3 double values)
 # For LJ also:
 # * rho (1 double value)
 # * epsilon (1 double value)

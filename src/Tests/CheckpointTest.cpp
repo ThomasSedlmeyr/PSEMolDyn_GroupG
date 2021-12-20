@@ -6,6 +6,9 @@
 #include "Checkpoints/CheckpointWriter.h"
 #include "XML_Parser/XMLParser.h"
 
+const int Simulation::LENNARDJONES;
+const int Simulation::GRAVITATION;
+
 /**
  * @brief quick test for reading checkpoint as input
  */
@@ -41,6 +44,8 @@ TEST(OutputTests, WriteGCheckpoints) {
 
     bool successReader = CheckpointReader::readCheckpointFile("../src/Checkpoint_Files/checkpoint_G_writeExample.txt");
     EXPECT_EQ(successReader, true);
+
+    EXPECT_EQ(CheckpointReader::checkpointReadCalcType, Simulation::LENNARDJONES);
 
     std::vector<Particle> parts = CheckpointReader::particles;
     EXPECT_EQ(parts.size(), 3);
