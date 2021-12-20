@@ -23,8 +23,11 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "#\n"
                       "# Molecule data consists of:\n"
                       "# * xyz-coordinates (3 double values)\n"
-                      "# * velocities (2 or 3 double values)\n"
+                      "# * velocities (3 double values)\n"
                       "# * mass (1 double value)\n"
+                      "# * type (1 int value)\n"
+                      "# * force (3 double values)\n"
+                      "# * old force (3 double values)\n"
                       "# For LJ also:\n"
                       "# * rho (1 double value)\n"
                       "# * epsilon (1 double value)\n"
@@ -38,6 +41,7 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
             outputFile << "LJ\n";
         }
 
+        // if calcType is LJ, toString will automatically add more parameters
         for (auto particle : particles) {
             outputFile << particle.toString() + "\n";
         }
