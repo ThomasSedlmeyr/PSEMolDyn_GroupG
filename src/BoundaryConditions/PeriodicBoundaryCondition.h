@@ -28,6 +28,15 @@ public:
 
     void insertGhostParticles();
 
+    void reflectPositionToGhostLeftX(std::array<double, 3> &position);
+
+    void reflectPositionToGhostTopY(std::array<double, 3> &position);
+
+    void reflectPositionToGhostBottomY(std::array<double, 3> &position);
+
+    void reflectPositionToGhostFrontZ(std::array<double, 3> &position);
+
+    void reflectPositionToGhostBackZ(std::array<double, 3> &position);
 };
 
 
