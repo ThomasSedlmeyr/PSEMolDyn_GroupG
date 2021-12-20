@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="input.xsd">
+       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
     <generalParams>
         <t_end>15</t_end>
@@ -14,13 +14,13 @@
         <calcType>LJ</calcType>
         <baseNameOutputFiles>Lennard</baseNameOutputFiles>
         <particleContainerType_p>linkedCell</particleContainerType_p>
-        <cutoffRadius>2.5</cutoffRadius>
+        <cutoffRadius>3</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
         <loadCheckpoint>no</loadCheckpoint>
         <makeCheckpoint>yes</makeCheckpoint>
-        <pathInCheckpoint>Checkpoint_Files/checkpointIn.txt</pathInCheckpoint>
-        <pathOutCheckpoint>Checkpoint_Files/checkpointOut.txt</pathOutCheckpoint>
+        <pathInCheckpoint>Checkpoint_Files/checkpoint_FallingDropLiquid_fluid.txt</pathInCheckpoint>
+        <pathOutCheckpoint>Checkpoint_Files/checkpoint_FallingDropLiquid_fluid.txt</pathOutCheckpoint>
 
         <domainSizeX>303</domainSizeX>
         <domainSizeY>180</domainSizeY>

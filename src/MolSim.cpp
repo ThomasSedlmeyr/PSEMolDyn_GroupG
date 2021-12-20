@@ -59,9 +59,9 @@ int main(int argc, char *argsv[]) {
         case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
             ParticleContainer* particleContainer;
-            if (XMLParser::particleContainerType == ParticleContainer::DIRECTSUM){
+            if (XMLParser::particleContainerType_p == ParticleContainer::DIRECTSUM){
                 particleContainer = new ParticleContainerDirectSum();
-            }else if (XMLParser::particleContainerType == ParticleContainer::LINKEDCELLS){
+            }else if (XMLParser::particleContainerType_p == ParticleContainer::LINKEDCELLS){
                 particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
             }else{
                 spdlog::error("Unknown particle container type");

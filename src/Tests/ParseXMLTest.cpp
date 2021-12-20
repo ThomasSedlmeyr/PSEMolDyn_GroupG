@@ -15,7 +15,8 @@ TEST(GeneralTests, TestXMLParsing) {
     EXPECT_EQ(XMLParser::writeFrequency_p, 100);
     EXPECT_EQ(XMLParser::gravInput_p, "../eingabe-sonne.txt");
 
-    EXPECT_DOUBLE_EQ(XMLParser::epsilon_p, 5.0);
+    EXPECT_EQ(XMLParser::loadCheckpoint_p, false);
+
     EXPECT_DOUBLE_EQ(XMLParser::domainSize[1], 100);
     EXPECT_DOUBLE_EQ(XMLParser::cutoffRadius, 3);
 
@@ -23,5 +24,4 @@ TEST(GeneralTests, TestXMLParsing) {
 
     EXPECT_EQ(XMLParser::bodies_p.size(), 2);
     EXPECT_EQ(XMLParser::bodies_p.back()->getInitialV()[1], -10);
-    EXPECT_EQ(XMLParser::bodies_p.back()->getMeshWidth(), XMLParser::h_p);
 }

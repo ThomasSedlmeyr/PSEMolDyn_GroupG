@@ -40,25 +40,12 @@ public:
      */
     static std::string gravInput_p;
 
-    /**
-     * @brief parsed parameter epsilon from xml file
-     */
+    // TODO delete, problem used in LennardJonesSimulation.cpp:13:44
     static double epsilon_p;
 
-    /**
-     * @brief parsed parameter mass from xml file
-     */
-    static double mass_p;
-
-    /**
-     * @brief parsed parameter rho from xml file
-     */
+    // TODO delete, problem used in BoundaryConditionContainer.cpp:35:131
+    // TODO delete, problem used in LennardJonesSimulation.cpp:14:40
     static double rho_p;
-
-    /**
-     * @brief parsed parameter for mesh width distance from xml file
-     */
-    static double h_p;
 
     /**
      * @brief vector for handling parameters
@@ -108,7 +95,7 @@ public:
     /**
      * @brief parsed particle container type from xml file (1=directSum, 2=linkedCells
      */
-    static int particleContainerType;
+    static int particleContainerType_p;
 
     /**
      * @brief array of parsed domain sizes from xml file
@@ -121,11 +108,74 @@ public:
     static double cutoffRadius;
 
     /**
+     * @brief value of desired gravity force from xml file
+     */
+    static double g_grav_p;
+
+    /**
+     * @brief whether gravity force should be considered in simulation from xml file
+     */
+    static bool useGravity_p;
+
+    /**
+     * @brief whether checkpoints should be loaded
+     */
+    static bool loadCheckpoint_p;
+
+    /**
+     * @brief whether checkpoints should be made after simulation
+     */
+    static bool makeCheckpoint_p;
+
+    /**
+     * @brief potential path for reading checkpoints
+     */
+    static std::string pathInCheckpoint_p;
+
+    /**
+     * @brief potential path for writing checkpoints
+     */
+    static std::string pathOutCheckpoint_p;
+
+    /**
+     * @brief whether thermostat should be used in simulation
+     */
+    static bool useThermostat_p;
+
+    /**
+     * @brief value of initial temperature from xml file
+     */
+    static double T_init_p;
+
+    /**
+     * @brief value of target temperature from xml file
+     */
+    static double T_target_p;
+
+    /**
+     * @brief value of temperature stepsize from xml file
+     */
+    static double delta_T_p;
+
+    /**
+     * @brief number of time steps for application of thermostat from xml file
+     */
+    static int n_thermostat_p;
+
+    /**
+     * @brief number of dimension for simulation from xml file
+     */
+    static int dimensionType_p;
+
+    /**
      * @brief function for parsing xml input file
      * @return true if parsing successful, false otherwise
      */
     static bool parseXML(const std::string);
 
+    /**
+     * @brief resets static data of XML parser
+     */
     static void resetInternalData();
 };
 

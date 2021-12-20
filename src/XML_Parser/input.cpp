@@ -85,169 +85,667 @@ operator= (value v)
 }
 
 
-// paramsLJ
+// particleContainerType_p
 // 
 
-const paramsLJ::epsilon_type& paramsLJ::
-epsilon () const
+particleContainerType::
+particleContainerType (value v)
+: ::xml_schema::string (_xsd_particleContainerType_literals_[v])
 {
-  return this->epsilon_.get ();
 }
 
-paramsLJ::epsilon_type& paramsLJ::
-epsilon ()
+particleContainerType::
+particleContainerType (const char* v)
+: ::xml_schema::string (v)
 {
-  return this->epsilon_.get ();
 }
 
-void paramsLJ::
-epsilon (const epsilon_type& x)
+particleContainerType::
+particleContainerType (const ::std::string& v)
+: ::xml_schema::string (v)
 {
-  this->epsilon_.set (x);
 }
 
-const paramsLJ::mass_type& paramsLJ::
-mass () const
+particleContainerType::
+particleContainerType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
 {
-  return this->mass_.get ();
 }
 
-paramsLJ::mass_type& paramsLJ::
-mass ()
+particleContainerType::
+particleContainerType (const particleContainerType& v,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
 {
-  return this->mass_.get ();
 }
 
-void paramsLJ::
-mass (const mass_type& x)
+particleContainerType& particleContainerType::
+operator= (value v)
 {
-  this->mass_.set (x);
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_particleContainerType_literals_[v]);
+
+  return *this;
 }
 
-const paramsLJ::rho_type& paramsLJ::
-rho () const
+
+// yesNo
+// 
+
+yesNo::
+yesNo (value v)
+: ::xml_schema::string (_xsd_yesNo_literals_[v])
 {
-  return this->rho_.get ();
 }
 
-paramsLJ::rho_type& paramsLJ::
-rho ()
+yesNo::
+yesNo (const char* v)
+: ::xml_schema::string (v)
 {
-  return this->rho_.get ();
 }
 
-void paramsLJ::
-rho (const rho_type& x)
+yesNo::
+yesNo (const ::std::string& v)
+: ::xml_schema::string (v)
 {
-  this->rho_.set (x);
 }
 
-const paramsLJ::h_type& paramsLJ::
-h () const
+yesNo::
+yesNo (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
 {
-  return this->h_.get ();
 }
 
-paramsLJ::h_type& paramsLJ::
-h ()
+yesNo::
+yesNo (const yesNo& v,
+       ::xml_schema::flags f,
+       ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
 {
-  return this->h_.get ();
 }
 
-void paramsLJ::
-h (const h_type& x)
+yesNo& yesNo::
+operator= (value v)
 {
-  this->h_.set (x);
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_yesNo_literals_[v]);
+
+  return *this;
 }
 
-const paramsLJ::domainSizeX_type& paramsLJ::
-domainSizeX () const
+
+// boundaryCondition
+// 
+
+boundaryCondition::
+boundaryCondition (value v)
+: ::xml_schema::string (_xsd_boundaryCondition_literals_[v])
 {
-  return this->domainSizeX_.get ();
 }
 
-paramsLJ::domainSizeX_type& paramsLJ::
-domainSizeX ()
+boundaryCondition::
+boundaryCondition (const char* v)
+: ::xml_schema::string (v)
 {
-  return this->domainSizeX_.get ();
 }
 
-void paramsLJ::
-domainSizeX (const domainSizeX_type& x)
+boundaryCondition::
+boundaryCondition (const ::std::string& v)
+: ::xml_schema::string (v)
 {
-  this->domainSizeX_.set (x);
 }
 
-const paramsLJ::domainSizeY_type& paramsLJ::
-domainSizeY () const
+boundaryCondition::
+boundaryCondition (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
 {
-  return this->domainSizeY_.get ();
 }
 
-paramsLJ::domainSizeY_type& paramsLJ::
-domainSizeY ()
+boundaryCondition::
+boundaryCondition (const boundaryCondition& v,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
 {
-  return this->domainSizeY_.get ();
 }
 
-void paramsLJ::
-domainSizeY (const domainSizeY_type& x)
+boundaryCondition& boundaryCondition::
+operator= (value v)
 {
-  this->domainSizeY_.set (x);
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_boundaryCondition_literals_[v]);
+
+  return *this;
 }
 
-const paramsLJ::domainSizeZ_type& paramsLJ::
-domainSizeZ () const
+
+// dimensionType
+// 
+
+dimensionType::
+dimensionType (value v)
+: ::xml_schema::string (_xsd_dimensionType_literals_[v])
 {
-  return this->domainSizeZ_.get ();
 }
 
-paramsLJ::domainSizeZ_type& paramsLJ::
-domainSizeZ ()
+dimensionType::
+dimensionType (const char* v)
+: ::xml_schema::string (v)
 {
-  return this->domainSizeZ_.get ();
 }
 
-void paramsLJ::
-domainSizeZ (const domainSizeZ_type& x)
+dimensionType::
+dimensionType (const ::std::string& v)
+: ::xml_schema::string (v)
 {
-  this->domainSizeZ_.set (x);
 }
 
-const paramsLJ::particleContainerType_type& paramsLJ::
+dimensionType::
+dimensionType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+dimensionType::
+dimensionType (const dimensionType& v,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+dimensionType& dimensionType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_dimensionType_literals_[v]);
+
+  return *this;
+}
+
+
+// generalParams
+// 
+
+const generalParams::t_end_type& generalParams::
+t_end () const
+{
+  return this->t_end_.get ();
+}
+
+generalParams::t_end_type& generalParams::
+t_end ()
+{
+  return this->t_end_.get ();
+}
+
+void generalParams::
+t_end (const t_end_type& x)
+{
+  this->t_end_.set (x);
+}
+
+const generalParams::delta_t_type& generalParams::
+delta_t () const
+{
+  return this->delta_t_.get ();
+}
+
+generalParams::delta_t_type& generalParams::
+delta_t ()
+{
+  return this->delta_t_.get ();
+}
+
+void generalParams::
+delta_t (const delta_t_type& x)
+{
+  this->delta_t_.set (x);
+}
+
+const generalParams::writeFrequency_type& generalParams::
+writeFrequency () const
+{
+  return this->writeFrequency_.get ();
+}
+
+generalParams::writeFrequency_type& generalParams::
+writeFrequency ()
+{
+  return this->writeFrequency_.get ();
+}
+
+void generalParams::
+writeFrequency (const writeFrequency_type& x)
+{
+  this->writeFrequency_.set (x);
+}
+
+const generalParams::dimensionType_type& generalParams::
+dimensionType () const
+{
+  return this->dimensionType_.get ();
+}
+
+generalParams::dimensionType_type& generalParams::
+dimensionType ()
+{
+  return this->dimensionType_.get ();
+}
+
+void generalParams::
+dimensionType (const dimensionType_type& x)
+{
+  this->dimensionType_.set (x);
+}
+
+void generalParams::
+dimensionType (::std::unique_ptr< dimensionType_type > x)
+{
+  this->dimensionType_.set (std::move (x));
+}
+
+const generalParams::g_grav_type& generalParams::
+g_grav () const
+{
+  return this->g_grav_.get ();
+}
+
+generalParams::g_grav_type& generalParams::
+g_grav ()
+{
+  return this->g_grav_.get ();
+}
+
+void generalParams::
+g_grav (const g_grav_type& x)
+{
+  this->g_grav_.set (x);
+}
+
+const generalParams::useGravity_type& generalParams::
+useGravity () const
+{
+  return this->useGravity_.get ();
+}
+
+generalParams::useGravity_type& generalParams::
+useGravity ()
+{
+  return this->useGravity_.get ();
+}
+
+void generalParams::
+useGravity (const useGravity_type& x)
+{
+  this->useGravity_.set (x);
+}
+
+void generalParams::
+useGravity (::std::unique_ptr< useGravity_type > x)
+{
+  this->useGravity_.set (std::move (x));
+}
+
+const generalParams::calcType_type& generalParams::
+calcType () const
+{
+  return this->calcType_.get ();
+}
+
+generalParams::calcType_type& generalParams::
+calcType ()
+{
+  return this->calcType_.get ();
+}
+
+void generalParams::
+calcType (const calcType_type& x)
+{
+  this->calcType_.set (x);
+}
+
+void generalParams::
+calcType (::std::unique_ptr< calcType_type > x)
+{
+  this->calcType_.set (std::move (x));
+}
+
+const generalParams::baseNameOutputFiles_type& generalParams::
+baseNameOutputFiles () const
+{
+  return this->baseNameOutputFiles_.get ();
+}
+
+generalParams::baseNameOutputFiles_type& generalParams::
+baseNameOutputFiles ()
+{
+  return this->baseNameOutputFiles_.get ();
+}
+
+void generalParams::
+baseNameOutputFiles (const baseNameOutputFiles_type& x)
+{
+  this->baseNameOutputFiles_.set (x);
+}
+
+void generalParams::
+baseNameOutputFiles (::std::unique_ptr< baseNameOutputFiles_type > x)
+{
+  this->baseNameOutputFiles_.set (std::move (x));
+}
+
+const generalParams::particleContainerType_type& generalParams::
 particleContainerType () const
 {
   return this->particleContainerType_.get ();
 }
 
-paramsLJ::particleContainerType_type& paramsLJ::
+generalParams::particleContainerType_type& generalParams::
 particleContainerType ()
 {
   return this->particleContainerType_.get ();
 }
 
-void paramsLJ::
+void generalParams::
 particleContainerType (const particleContainerType_type& x)
 {
   this->particleContainerType_.set (x);
 }
 
-const paramsLJ::cutoffRadius_type& paramsLJ::
+void generalParams::
+particleContainerType (::std::unique_ptr< particleContainerType_type > x)
+{
+  this->particleContainerType_.set (std::move (x));
+}
+
+const generalParams::cutoffRadius_type& generalParams::
 cutoffRadius () const
 {
   return this->cutoffRadius_.get ();
 }
 
-paramsLJ::cutoffRadius_type& paramsLJ::
+generalParams::cutoffRadius_type& generalParams::
 cutoffRadius ()
 {
   return this->cutoffRadius_.get ();
 }
 
-void paramsLJ::
+void generalParams::
 cutoffRadius (const cutoffRadius_type& x)
 {
   this->cutoffRadius_.set (x);
+}
+
+const generalParams::gravInput_type& generalParams::
+gravInput () const
+{
+  return this->gravInput_.get ();
+}
+
+generalParams::gravInput_type& generalParams::
+gravInput ()
+{
+  return this->gravInput_.get ();
+}
+
+void generalParams::
+gravInput (const gravInput_type& x)
+{
+  this->gravInput_.set (x);
+}
+
+void generalParams::
+gravInput (::std::unique_ptr< gravInput_type > x)
+{
+  this->gravInput_.set (std::move (x));
+}
+
+const generalParams::loadCheckpoint_type& generalParams::
+loadCheckpoint () const
+{
+  return this->loadCheckpoint_.get ();
+}
+
+generalParams::loadCheckpoint_type& generalParams::
+loadCheckpoint ()
+{
+  return this->loadCheckpoint_.get ();
+}
+
+void generalParams::
+loadCheckpoint (const loadCheckpoint_type& x)
+{
+  this->loadCheckpoint_.set (x);
+}
+
+void generalParams::
+loadCheckpoint (::std::unique_ptr< loadCheckpoint_type > x)
+{
+  this->loadCheckpoint_.set (std::move (x));
+}
+
+const generalParams::makeCheckpoint_type& generalParams::
+makeCheckpoint () const
+{
+  return this->makeCheckpoint_.get ();
+}
+
+generalParams::makeCheckpoint_type& generalParams::
+makeCheckpoint ()
+{
+  return this->makeCheckpoint_.get ();
+}
+
+void generalParams::
+makeCheckpoint (const makeCheckpoint_type& x)
+{
+  this->makeCheckpoint_.set (x);
+}
+
+void generalParams::
+makeCheckpoint (::std::unique_ptr< makeCheckpoint_type > x)
+{
+  this->makeCheckpoint_.set (std::move (x));
+}
+
+const generalParams::pathInCheckpoint_type& generalParams::
+pathInCheckpoint () const
+{
+  return this->pathInCheckpoint_.get ();
+}
+
+generalParams::pathInCheckpoint_type& generalParams::
+pathInCheckpoint ()
+{
+  return this->pathInCheckpoint_.get ();
+}
+
+void generalParams::
+pathInCheckpoint (const pathInCheckpoint_type& x)
+{
+  this->pathInCheckpoint_.set (x);
+}
+
+void generalParams::
+pathInCheckpoint (::std::unique_ptr< pathInCheckpoint_type > x)
+{
+  this->pathInCheckpoint_.set (std::move (x));
+}
+
+const generalParams::pathOutCheckpoint_type& generalParams::
+pathOutCheckpoint () const
+{
+  return this->pathOutCheckpoint_.get ();
+}
+
+generalParams::pathOutCheckpoint_type& generalParams::
+pathOutCheckpoint ()
+{
+  return this->pathOutCheckpoint_.get ();
+}
+
+void generalParams::
+pathOutCheckpoint (const pathOutCheckpoint_type& x)
+{
+  this->pathOutCheckpoint_.set (x);
+}
+
+void generalParams::
+pathOutCheckpoint (::std::unique_ptr< pathOutCheckpoint_type > x)
+{
+  this->pathOutCheckpoint_.set (std::move (x));
+}
+
+const generalParams::domainSizeX_type& generalParams::
+domainSizeX () const
+{
+  return this->domainSizeX_.get ();
+}
+
+generalParams::domainSizeX_type& generalParams::
+domainSizeX ()
+{
+  return this->domainSizeX_.get ();
+}
+
+void generalParams::
+domainSizeX (const domainSizeX_type& x)
+{
+  this->domainSizeX_.set (x);
+}
+
+const generalParams::domainSizeY_type& generalParams::
+domainSizeY () const
+{
+  return this->domainSizeY_.get ();
+}
+
+generalParams::domainSizeY_type& generalParams::
+domainSizeY ()
+{
+  return this->domainSizeY_.get ();
+}
+
+void generalParams::
+domainSizeY (const domainSizeY_type& x)
+{
+  this->domainSizeY_.set (x);
+}
+
+const generalParams::domainSizeZ_type& generalParams::
+domainSizeZ () const
+{
+  return this->domainSizeZ_.get ();
+}
+
+generalParams::domainSizeZ_type& generalParams::
+domainSizeZ ()
+{
+  return this->domainSizeZ_.get ();
+}
+
+void generalParams::
+domainSizeZ (const domainSizeZ_type& x)
+{
+  this->domainSizeZ_.set (x);
+}
+
+const generalParams::useThermostat_type& generalParams::
+useThermostat () const
+{
+  return this->useThermostat_.get ();
+}
+
+generalParams::useThermostat_type& generalParams::
+useThermostat ()
+{
+  return this->useThermostat_.get ();
+}
+
+void generalParams::
+useThermostat (const useThermostat_type& x)
+{
+  this->useThermostat_.set (x);
+}
+
+void generalParams::
+useThermostat (::std::unique_ptr< useThermostat_type > x)
+{
+  this->useThermostat_.set (std::move (x));
+}
+
+const generalParams::T_init_type& generalParams::
+T_init () const
+{
+  return this->T_init_.get ();
+}
+
+generalParams::T_init_type& generalParams::
+T_init ()
+{
+  return this->T_init_.get ();
+}
+
+void generalParams::
+T_init (const T_init_type& x)
+{
+  this->T_init_.set (x);
+}
+
+const generalParams::T_target_type& generalParams::
+T_target () const
+{
+  return this->T_target_.get ();
+}
+
+generalParams::T_target_type& generalParams::
+T_target ()
+{
+  return this->T_target_.get ();
+}
+
+void generalParams::
+T_target (const T_target_type& x)
+{
+  this->T_target_.set (x);
+}
+
+const generalParams::delta_T_type& generalParams::
+delta_T () const
+{
+  return this->delta_T_.get ();
+}
+
+generalParams::delta_T_type& generalParams::
+delta_T ()
+{
+  return this->delta_T_.get ();
+}
+
+void generalParams::
+delta_T (const delta_T_type& x)
+{
+  this->delta_T_.set (x);
+}
+
+const generalParams::n_thermostat_type& generalParams::
+n_thermostat () const
+{
+  return this->n_thermostat_.get ();
+}
+
+generalParams::n_thermostat_type& generalParams::
+n_thermostat ()
+{
+  return this->n_thermostat_.get ();
+}
+
+void generalParams::
+n_thermostat (const n_thermostat_type& x)
+{
+  this->n_thermostat_.set (x);
 }
 
 
@@ -272,6 +770,12 @@ top (const top_type& x)
   this->top_.set (x);
 }
 
+void boundaryConditions::
+top (::std::unique_ptr< top_type > x)
+{
+  this->top_.set (std::move (x));
+}
+
 const boundaryConditions::right_type& boundaryConditions::
 right () const
 {
@@ -288,6 +792,12 @@ void boundaryConditions::
 right (const right_type& x)
 {
   this->right_.set (x);
+}
+
+void boundaryConditions::
+right (::std::unique_ptr< right_type > x)
+{
+  this->right_.set (std::move (x));
 }
 
 const boundaryConditions::bottom_type& boundaryConditions::
@@ -308,6 +818,12 @@ bottom (const bottom_type& x)
   this->bottom_.set (x);
 }
 
+void boundaryConditions::
+bottom (::std::unique_ptr< bottom_type > x)
+{
+  this->bottom_.set (std::move (x));
+}
+
 const boundaryConditions::left_type& boundaryConditions::
 left () const
 {
@@ -324,6 +840,12 @@ void boundaryConditions::
 left (const left_type& x)
 {
   this->left_.set (x);
+}
+
+void boundaryConditions::
+left (::std::unique_ptr< left_type > x)
+{
+  this->left_.set (std::move (x));
 }
 
 const boundaryConditions::front_type& boundaryConditions::
@@ -344,6 +866,12 @@ front (const front_type& x)
   this->front_.set (x);
 }
 
+void boundaryConditions::
+front (::std::unique_ptr< front_type > x)
+{
+  this->front_.set (std::move (x));
+}
+
 const boundaryConditions::back_type& boundaryConditions::
 back () const
 {
@@ -360,6 +888,12 @@ void boundaryConditions::
 back (const back_type& x)
 {
   this->back_.set (x);
+}
+
+void boundaryConditions::
+back (::std::unique_ptr< back_type > x)
+{
+  this->back_.set (std::move (x));
 }
 
 
@@ -388,154 +922,28 @@ body (const body_sequence& s)
 // input
 // 
 
-const input::t_end_type& input::
-t_end () const
+const input::generalParams_type& input::
+generalParams () const
 {
-  return this->t_end_.get ();
+  return this->generalParams_.get ();
 }
 
-input::t_end_type& input::
-t_end ()
+input::generalParams_type& input::
+generalParams ()
 {
-  return this->t_end_.get ();
-}
-
-void input::
-t_end (const t_end_type& x)
-{
-  this->t_end_.set (x);
-}
-
-const input::delta_t_type& input::
-delta_t () const
-{
-  return this->delta_t_.get ();
-}
-
-input::delta_t_type& input::
-delta_t ()
-{
-  return this->delta_t_.get ();
+  return this->generalParams_.get ();
 }
 
 void input::
-delta_t (const delta_t_type& x)
+generalParams (const generalParams_type& x)
 {
-  this->delta_t_.set (x);
-}
-
-const input::calcType_type& input::
-calcType () const
-{
-  return this->calcType_.get ();
-}
-
-input::calcType_type& input::
-calcType ()
-{
-  return this->calcType_.get ();
+  this->generalParams_.set (x);
 }
 
 void input::
-calcType (const calcType_type& x)
+generalParams (::std::unique_ptr< generalParams_type > x)
 {
-  this->calcType_.set (x);
-}
-
-void input::
-calcType (::std::unique_ptr< calcType_type > x)
-{
-  this->calcType_.set (std::move (x));
-}
-
-const input::baseNameOutputFiles_type& input::
-baseNameOutputFiles () const
-{
-  return this->baseNameOutputFiles_.get ();
-}
-
-input::baseNameOutputFiles_type& input::
-baseNameOutputFiles ()
-{
-  return this->baseNameOutputFiles_.get ();
-}
-
-void input::
-baseNameOutputFiles (const baseNameOutputFiles_type& x)
-{
-  this->baseNameOutputFiles_.set (x);
-}
-
-void input::
-baseNameOutputFiles (::std::unique_ptr< baseNameOutputFiles_type > x)
-{
-  this->baseNameOutputFiles_.set (std::move (x));
-}
-
-const input::writeFrequency_type& input::
-writeFrequency () const
-{
-  return this->writeFrequency_.get ();
-}
-
-input::writeFrequency_type& input::
-writeFrequency ()
-{
-  return this->writeFrequency_.get ();
-}
-
-void input::
-writeFrequency (const writeFrequency_type& x)
-{
-  this->writeFrequency_.set (x);
-}
-
-const input::gravInput_type& input::
-gravInput () const
-{
-  return this->gravInput_.get ();
-}
-
-input::gravInput_type& input::
-gravInput ()
-{
-  return this->gravInput_.get ();
-}
-
-void input::
-gravInput (const gravInput_type& x)
-{
-  this->gravInput_.set (x);
-}
-
-void input::
-gravInput (::std::unique_ptr< gravInput_type > x)
-{
-  this->gravInput_.set (std::move (x));
-}
-
-const input::paramsLJ_type& input::
-paramsLJ () const
-{
-  return this->paramsLJ_.get ();
-}
-
-input::paramsLJ_type& input::
-paramsLJ ()
-{
-  return this->paramsLJ_.get ();
-}
-
-void input::
-paramsLJ (const paramsLJ_type& x)
-{
-  this->paramsLJ_.set (x);
-}
-
-void input::
-paramsLJ (::std::unique_ptr< paramsLJ_type > x)
-{
-  this->paramsLJ_.set (std::move (x));
+  this->generalParams_.set (std::move (x));
 }
 
 const input::boundaryConditions_type& input::
@@ -686,6 +1094,78 @@ objectSpecificFormat (::std::unique_ptr< objectSpecificFormat_type > x)
   this->objectSpecificFormat_.set (std::move (x));
 }
 
+const body::epsilon_type& body::
+epsilon () const
+{
+  return this->epsilon_.get ();
+}
+
+body::epsilon_type& body::
+epsilon ()
+{
+  return this->epsilon_.get ();
+}
+
+void body::
+epsilon (const epsilon_type& x)
+{
+  this->epsilon_.set (x);
+}
+
+const body::mass_type& body::
+mass () const
+{
+  return this->mass_.get ();
+}
+
+body::mass_type& body::
+mass ()
+{
+  return this->mass_.get ();
+}
+
+void body::
+mass (const mass_type& x)
+{
+  this->mass_.set (x);
+}
+
+const body::rho_type& body::
+rho () const
+{
+  return this->rho_.get ();
+}
+
+body::rho_type& body::
+rho ()
+{
+  return this->rho_.get ();
+}
+
+void body::
+rho (const rho_type& x)
+{
+  this->rho_.set (x);
+}
+
+const body::h_type& body::
+h () const
+{
+  return this->h_.get ();
+}
+
+body::h_type& body::
+h ()
+{
+  return this->h_.get ();
+}
+
+void body::
+h (const h_type& x)
+{
+  this->h_.set (x);
+}
+
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
 
@@ -759,63 +1239,403 @@ _xsd_calcType_indexes_[2] =
   ::calcType::LJ
 };
 
-// paramsLJ
+// particleContainerType_p
 //
 
-paramsLJ::
-paramsLJ (const epsilon_type& epsilon,
-          const mass_type& mass,
-          const rho_type& rho,
-          const h_type& h,
-          const domainSizeX_type& domainSizeX,
-          const domainSizeY_type& domainSizeY,
-          const domainSizeZ_type& domainSizeZ,
-          const particleContainerType_type& particleContainerType,
-          const cutoffRadius_type& cutoffRadius)
+particleContainerType::
+particleContainerType (const ::xercesc::DOMElement& e,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_particleContainerType_convert ();
+}
+
+particleContainerType::
+particleContainerType (const ::xercesc::DOMAttr& a,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_particleContainerType_convert ();
+}
+
+particleContainerType::
+particleContainerType (const ::std::string& s,
+                       const ::xercesc::DOMElement* e,
+                       ::xml_schema::flags f,
+                       ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_particleContainerType_convert ();
+}
+
+particleContainerType* particleContainerType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class particleContainerType (*this, f, c);
+}
+
+particleContainerType::value particleContainerType::
+_xsd_particleContainerType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_particleContainerType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_particleContainerType_indexes_,
+                    _xsd_particleContainerType_indexes_ + 2,
+                    *this,
+                    c));
+
+  if (i == _xsd_particleContainerType_indexes_ + 2 || _xsd_particleContainerType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const particleContainerType::
+_xsd_particleContainerType_literals_[2] =
+{
+  "directSum",
+  "linkedCell"
+};
+
+const particleContainerType::value particleContainerType::
+_xsd_particleContainerType_indexes_[2] =
+{
+  ::particleContainerType::directSum,
+  ::particleContainerType::linkedCell
+};
+
+// yesNo
+//
+
+yesNo::
+yesNo (const ::xercesc::DOMElement& e,
+       ::xml_schema::flags f,
+       ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_yesNo_convert ();
+}
+
+yesNo::
+yesNo (const ::xercesc::DOMAttr& a,
+       ::xml_schema::flags f,
+       ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_yesNo_convert ();
+}
+
+yesNo::
+yesNo (const ::std::string& s,
+       const ::xercesc::DOMElement* e,
+       ::xml_schema::flags f,
+       ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_yesNo_convert ();
+}
+
+yesNo* yesNo::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class yesNo (*this, f, c);
+}
+
+yesNo::value yesNo::
+_xsd_yesNo_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_yesNo_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_yesNo_indexes_,
+                    _xsd_yesNo_indexes_ + 2,
+                    *this,
+                    c));
+
+  if (i == _xsd_yesNo_indexes_ + 2 || _xsd_yesNo_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const yesNo::
+_xsd_yesNo_literals_[2] =
+{
+  "yes",
+  "no"
+};
+
+const yesNo::value yesNo::
+_xsd_yesNo_indexes_[2] =
+{
+  ::yesNo::no,
+  ::yesNo::yes
+};
+
+// boundaryCondition
+//
+
+boundaryCondition::
+boundaryCondition (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_boundaryCondition_convert ();
+}
+
+boundaryCondition::
+boundaryCondition (const ::xercesc::DOMAttr& a,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_boundaryCondition_convert ();
+}
+
+boundaryCondition::
+boundaryCondition (const ::std::string& s,
+                   const ::xercesc::DOMElement* e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_boundaryCondition_convert ();
+}
+
+boundaryCondition* boundaryCondition::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class boundaryCondition (*this, f, c);
+}
+
+boundaryCondition::value boundaryCondition::
+_xsd_boundaryCondition_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_boundaryCondition_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_boundaryCondition_indexes_,
+                    _xsd_boundaryCondition_indexes_ + 4,
+                    *this,
+                    c));
+
+  if (i == _xsd_boundaryCondition_indexes_ + 4 || _xsd_boundaryCondition_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const boundaryCondition::
+_xsd_boundaryCondition_literals_[4] =
+{
+  "outflowType",
+  "reflectingType",
+  "betterReflectingType",
+  "periodicType"
+};
+
+const boundaryCondition::value boundaryCondition::
+_xsd_boundaryCondition_indexes_[4] =
+{
+  ::boundaryCondition::betterReflectingType,
+  ::boundaryCondition::outflowType,
+  ::boundaryCondition::periodicType,
+  ::boundaryCondition::reflectingType
+};
+
+// dimensionType
+//
+
+dimensionType::
+dimensionType (const ::xercesc::DOMElement& e,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_dimensionType_convert ();
+}
+
+dimensionType::
+dimensionType (const ::xercesc::DOMAttr& a,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_dimensionType_convert ();
+}
+
+dimensionType::
+dimensionType (const ::std::string& s,
+               const ::xercesc::DOMElement* e,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_dimensionType_convert ();
+}
+
+dimensionType* dimensionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class dimensionType (*this, f, c);
+}
+
+dimensionType::value dimensionType::
+_xsd_dimensionType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_dimensionType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_dimensionType_indexes_,
+                    _xsd_dimensionType_indexes_ + 2,
+                    *this,
+                    c));
+
+  if (i == _xsd_dimensionType_indexes_ + 2 || _xsd_dimensionType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const dimensionType::
+_xsd_dimensionType_literals_[2] =
+{
+  "2D",
+  "3D"
+};
+
+const dimensionType::value dimensionType::
+_xsd_dimensionType_indexes_[2] =
+{
+  ::dimensionType::cxx_2D,
+  ::dimensionType::cxx_3D
+};
+
+// generalParams
+//
+
+generalParams::
+generalParams (const t_end_type& t_end,
+               const delta_t_type& delta_t,
+               const writeFrequency_type& writeFrequency,
+               const dimensionType_type& dimensionType,
+               const g_grav_type& g_grav,
+               const useGravity_type& useGravity,
+               const calcType_type& calcType,
+               const baseNameOutputFiles_type& baseNameOutputFiles,
+               const particleContainerType_type& particleContainerType,
+               const cutoffRadius_type& cutoffRadius,
+               const gravInput_type& gravInput,
+               const loadCheckpoint_type& loadCheckpoint,
+               const makeCheckpoint_type& makeCheckpoint,
+               const pathInCheckpoint_type& pathInCheckpoint,
+               const pathOutCheckpoint_type& pathOutCheckpoint,
+               const domainSizeX_type& domainSizeX,
+               const domainSizeY_type& domainSizeY,
+               const domainSizeZ_type& domainSizeZ,
+               const useThermostat_type& useThermostat,
+               const T_init_type& T_init,
+               const T_target_type& T_target,
+               const delta_T_type& delta_T,
+               const n_thermostat_type& n_thermostat)
 : ::xml_schema::type (),
-  epsilon_ (epsilon, this),
-  mass_ (mass, this),
-  rho_ (rho, this),
-  h_ (h, this),
+  t_end_ (t_end, this),
+  delta_t_ (delta_t, this),
+  writeFrequency_ (writeFrequency, this),
+  dimensionType_ (dimensionType, this),
+  g_grav_ (g_grav, this),
+  useGravity_ (useGravity, this),
+  calcType_ (calcType, this),
+  baseNameOutputFiles_ (baseNameOutputFiles, this),
+  particleContainerType_ (particleContainerType, this),
+  cutoffRadius_ (cutoffRadius, this),
+  gravInput_ (gravInput, this),
+  loadCheckpoint_ (loadCheckpoint, this),
+  makeCheckpoint_ (makeCheckpoint, this),
+  pathInCheckpoint_ (pathInCheckpoint, this),
+  pathOutCheckpoint_ (pathOutCheckpoint, this),
   domainSizeX_ (domainSizeX, this),
   domainSizeY_ (domainSizeY, this),
   domainSizeZ_ (domainSizeZ, this),
-  particleContainerType_ (particleContainerType, this),
-  cutoffRadius_ (cutoffRadius, this)
+  useThermostat_ (useThermostat, this),
+  T_init_ (T_init, this),
+  T_target_ (T_target, this),
+  delta_T_ (delta_T, this),
+  n_thermostat_ (n_thermostat, this)
 {
 }
 
-paramsLJ::
-paramsLJ (const paramsLJ& x,
-          ::xml_schema::flags f,
-          ::xml_schema::container* c)
+generalParams::
+generalParams (const generalParams& x,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
 : ::xml_schema::type (x, f, c),
-  epsilon_ (x.epsilon_, f, this),
-  mass_ (x.mass_, f, this),
-  rho_ (x.rho_, f, this),
-  h_ (x.h_, f, this),
+  t_end_ (x.t_end_, f, this),
+  delta_t_ (x.delta_t_, f, this),
+  writeFrequency_ (x.writeFrequency_, f, this),
+  dimensionType_ (x.dimensionType_, f, this),
+  g_grav_ (x.g_grav_, f, this),
+  useGravity_ (x.useGravity_, f, this),
+  calcType_ (x.calcType_, f, this),
+  baseNameOutputFiles_ (x.baseNameOutputFiles_, f, this),
+  particleContainerType_ (x.particleContainerType_, f, this),
+  cutoffRadius_ (x.cutoffRadius_, f, this),
+  gravInput_ (x.gravInput_, f, this),
+  loadCheckpoint_ (x.loadCheckpoint_, f, this),
+  makeCheckpoint_ (x.makeCheckpoint_, f, this),
+  pathInCheckpoint_ (x.pathInCheckpoint_, f, this),
+  pathOutCheckpoint_ (x.pathOutCheckpoint_, f, this),
   domainSizeX_ (x.domainSizeX_, f, this),
   domainSizeY_ (x.domainSizeY_, f, this),
   domainSizeZ_ (x.domainSizeZ_, f, this),
-  particleContainerType_ (x.particleContainerType_, f, this),
-  cutoffRadius_ (x.cutoffRadius_, f, this)
+  useThermostat_ (x.useThermostat_, f, this),
+  T_init_ (x.T_init_, f, this),
+  T_target_ (x.T_target_, f, this),
+  delta_T_ (x.delta_T_, f, this),
+  n_thermostat_ (x.n_thermostat_, f, this)
 {
 }
 
-paramsLJ::
-paramsLJ (const ::xercesc::DOMElement& e,
-          ::xml_schema::flags f,
-          ::xml_schema::container* c)
+generalParams::
+generalParams (const ::xercesc::DOMElement& e,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
 : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-  epsilon_ (this),
-  mass_ (this),
-  rho_ (this),
-  h_ (this),
+  t_end_ (this),
+  delta_t_ (this),
+  writeFrequency_ (this),
+  dimensionType_ (this),
+  g_grav_ (this),
+  useGravity_ (this),
+  calcType_ (this),
+  baseNameOutputFiles_ (this),
+  particleContainerType_ (this),
+  cutoffRadius_ (this),
+  gravInput_ (this),
+  loadCheckpoint_ (this),
+  makeCheckpoint_ (this),
+  pathInCheckpoint_ (this),
+  pathOutCheckpoint_ (this),
   domainSizeX_ (this),
   domainSizeY_ (this),
   domainSizeZ_ (this),
-  particleContainerType_ (this),
-  cutoffRadius_ (this)
+  useThermostat_ (this),
+  T_init_ (this),
+  T_target_ (this),
+  delta_T_ (this),
+  n_thermostat_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -824,7 +1644,7 @@ paramsLJ (const ::xercesc::DOMElement& e,
   }
 }
 
-void paramsLJ::
+void generalParams::
 parse (::xsd::cxx::xml::dom::parser< char >& p,
        ::xml_schema::flags f)
 {
@@ -834,46 +1654,197 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     const ::xsd::cxx::xml::qualified_name< char > n (
       ::xsd::cxx::xml::dom::name< char > (i));
 
-    // epsilon
+    // t_end
     //
-    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    if (n.name () == "t_end" && n.namespace_ ().empty ())
     {
-      if (!epsilon_.present ())
+      if (!t_end_.present ())
       {
-        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        this->t_end_.set (t_end_traits::create (i, f, this));
         continue;
       }
     }
 
-    // mass
+    // delta_t
     //
-    if (n.name () == "mass" && n.namespace_ ().empty ())
+    if (n.name () == "delta_t" && n.namespace_ ().empty ())
     {
-      if (!mass_.present ())
+      if (!delta_t_.present ())
       {
-        this->mass_.set (mass_traits::create (i, f, this));
+        this->delta_t_.set (delta_t_traits::create (i, f, this));
         continue;
       }
     }
 
-    // rho
+    // writeFrequency
     //
-    if (n.name () == "rho" && n.namespace_ ().empty ())
+    if (n.name () == "writeFrequency" && n.namespace_ ().empty ())
     {
-      if (!rho_.present ())
+      if (!writeFrequency_.present ())
       {
-        this->rho_.set (rho_traits::create (i, f, this));
+        this->writeFrequency_.set (writeFrequency_traits::create (i, f, this));
         continue;
       }
     }
 
-    // h
+    // dimensionType
     //
-    if (n.name () == "h" && n.namespace_ ().empty ())
+    if (n.name () == "dimensionType" && n.namespace_ ().empty ())
     {
-      if (!h_.present ())
+      ::std::unique_ptr< dimensionType_type > r (
+        dimensionType_traits::create (i, f, this));
+
+      if (!dimensionType_.present ())
       {
-        this->h_.set (h_traits::create (i, f, this));
+        this->dimensionType_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // g_grav
+    //
+    if (n.name () == "g_grav" && n.namespace_ ().empty ())
+    {
+      if (!g_grav_.present ())
+      {
+        this->g_grav_.set (g_grav_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // useGravity
+    //
+    if (n.name () == "useGravity" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< useGravity_type > r (
+        useGravity_traits::create (i, f, this));
+
+      if (!useGravity_.present ())
+      {
+        this->useGravity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // calcType
+    //
+    if (n.name () == "calcType" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< calcType_type > r (
+        calcType_traits::create (i, f, this));
+
+      if (!calcType_.present ())
+      {
+        this->calcType_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // baseNameOutputFiles
+    //
+    if (n.name () == "baseNameOutputFiles" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< baseNameOutputFiles_type > r (
+        baseNameOutputFiles_traits::create (i, f, this));
+
+      if (!baseNameOutputFiles_.present ())
+      {
+        this->baseNameOutputFiles_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // particleContainerType_p
+    //
+    if (n.name () == "particleContainerType_p" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< particleContainerType_type > r (
+        particleContainerType_traits::create (i, f, this));
+
+      if (!particleContainerType_.present ())
+      {
+        this->particleContainerType_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // cutoffRadius
+    //
+    if (n.name () == "cutoffRadius" && n.namespace_ ().empty ())
+    {
+      if (!cutoffRadius_.present ())
+      {
+        this->cutoffRadius_.set (cutoffRadius_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // gravInput
+    //
+    if (n.name () == "gravInput" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< gravInput_type > r (
+        gravInput_traits::create (i, f, this));
+
+      if (!gravInput_.present ())
+      {
+        this->gravInput_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // loadCheckpoint
+    //
+    if (n.name () == "loadCheckpoint" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< loadCheckpoint_type > r (
+        loadCheckpoint_traits::create (i, f, this));
+
+      if (!loadCheckpoint_.present ())
+      {
+        this->loadCheckpoint_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // makeCheckpoint
+    //
+    if (n.name () == "makeCheckpoint" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< makeCheckpoint_type > r (
+        makeCheckpoint_traits::create (i, f, this));
+
+      if (!makeCheckpoint_.present ())
+      {
+        this->makeCheckpoint_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // pathInCheckpoint
+    //
+    if (n.name () == "pathInCheckpoint" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< pathInCheckpoint_type > r (
+        pathInCheckpoint_traits::create (i, f, this));
+
+      if (!pathInCheckpoint_.present ())
+      {
+        this->pathInCheckpoint_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // pathOutCheckpoint
+    //
+    if (n.name () == "pathOutCheckpoint" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< pathOutCheckpoint_type > r (
+        pathOutCheckpoint_traits::create (i, f, this));
+
+      if (!pathOutCheckpoint_.present ())
+      {
+        this->pathOutCheckpoint_.set (::std::move (r));
         continue;
       }
     }
@@ -911,24 +1882,60 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
-    // particleContainerType
+    // useThermostat
     //
-    if (n.name () == "particleContainerType" && n.namespace_ ().empty ())
+    if (n.name () == "useThermostat" && n.namespace_ ().empty ())
     {
-      if (!particleContainerType_.present ())
+      ::std::unique_ptr< useThermostat_type > r (
+        useThermostat_traits::create (i, f, this));
+
+      if (!useThermostat_.present ())
       {
-        this->particleContainerType_.set (particleContainerType_traits::create (i, f, this));
+        this->useThermostat_.set (::std::move (r));
         continue;
       }
     }
 
-    // cutoffRadius
+    // T_init
     //
-    if (n.name () == "cutoffRadius" && n.namespace_ ().empty ())
+    if (n.name () == "T_init" && n.namespace_ ().empty ())
     {
-      if (!cutoffRadius_.present ())
+      if (!T_init_.present ())
       {
-        this->cutoffRadius_.set (cutoffRadius_traits::create (i, f, this));
+        this->T_init_.set (T_init_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // T_target
+    //
+    if (n.name () == "T_target" && n.namespace_ ().empty ())
+    {
+      if (!T_target_.present ())
+      {
+        this->T_target_.set (T_target_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // delta_T
+    //
+    if (n.name () == "delta_T" && n.namespace_ ().empty ())
+    {
+      if (!delta_T_.present ())
+      {
+        this->delta_T_.set (delta_T_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // n_thermostat
+    //
+    if (n.name () == "n_thermostat" && n.namespace_ ().empty ())
+    {
+      if (!n_thermostat_.present ())
+      {
+        this->n_thermostat_.set (n_thermostat_traits::create (i, f, this));
         continue;
       }
     }
@@ -936,31 +1943,108 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     break;
   }
 
-  if (!epsilon_.present ())
+  if (!t_end_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "epsilon",
+      "t_end",
       "");
   }
 
-  if (!mass_.present ())
+  if (!delta_t_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "mass",
+      "delta_t",
       "");
   }
 
-  if (!rho_.present ())
+  if (!writeFrequency_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "rho",
+      "writeFrequency",
       "");
   }
 
-  if (!h_.present ())
+  if (!dimensionType_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "h",
+      "dimensionType",
+      "");
+  }
+
+  if (!g_grav_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "g_grav",
+      "");
+  }
+
+  if (!useGravity_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "useGravity",
+      "");
+  }
+
+  if (!calcType_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "calcType",
+      "");
+  }
+
+  if (!baseNameOutputFiles_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "baseNameOutputFiles",
+      "");
+  }
+
+  if (!particleContainerType_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "particleContainerType_p",
+      "");
+  }
+
+  if (!cutoffRadius_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "cutoffRadius",
+      "");
+  }
+
+  if (!gravInput_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "gravInput",
+      "");
+  }
+
+  if (!loadCheckpoint_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "loadCheckpoint",
+      "");
+  }
+
+  if (!makeCheckpoint_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "makeCheckpoint",
+      "");
+  }
+
+  if (!pathInCheckpoint_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "pathInCheckpoint",
+      "");
+  }
+
+  if (!pathOutCheckpoint_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "pathOutCheckpoint",
       "");
   }
 
@@ -985,50 +2069,85 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "");
   }
 
-  if (!particleContainerType_.present ())
+  if (!useThermostat_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "particleContainerType",
+      "useThermostat",
       "");
   }
 
-  if (!cutoffRadius_.present ())
+  if (!T_init_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "cutoffRadius",
+      "T_init",
+      "");
+  }
+
+  if (!T_target_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "T_target",
+      "");
+  }
+
+  if (!delta_T_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "delta_T",
+      "");
+  }
+
+  if (!n_thermostat_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "n_thermostat",
       "");
   }
 }
 
-paramsLJ* paramsLJ::
+generalParams* generalParams::
 _clone (::xml_schema::flags f,
         ::xml_schema::container* c) const
 {
-  return new class paramsLJ (*this, f, c);
+  return new class generalParams (*this, f, c);
 }
 
-paramsLJ& paramsLJ::
-operator= (const paramsLJ& x)
+generalParams& generalParams::
+operator= (const generalParams& x)
 {
   if (this != &x)
   {
     static_cast< ::xml_schema::type& > (*this) = x;
-    this->epsilon_ = x.epsilon_;
-    this->mass_ = x.mass_;
-    this->rho_ = x.rho_;
-    this->h_ = x.h_;
+    this->t_end_ = x.t_end_;
+    this->delta_t_ = x.delta_t_;
+    this->writeFrequency_ = x.writeFrequency_;
+    this->dimensionType_ = x.dimensionType_;
+    this->g_grav_ = x.g_grav_;
+    this->useGravity_ = x.useGravity_;
+    this->calcType_ = x.calcType_;
+    this->baseNameOutputFiles_ = x.baseNameOutputFiles_;
+    this->particleContainerType_ = x.particleContainerType_;
+    this->cutoffRadius_ = x.cutoffRadius_;
+    this->gravInput_ = x.gravInput_;
+    this->loadCheckpoint_ = x.loadCheckpoint_;
+    this->makeCheckpoint_ = x.makeCheckpoint_;
+    this->pathInCheckpoint_ = x.pathInCheckpoint_;
+    this->pathOutCheckpoint_ = x.pathOutCheckpoint_;
     this->domainSizeX_ = x.domainSizeX_;
     this->domainSizeY_ = x.domainSizeY_;
     this->domainSizeZ_ = x.domainSizeZ_;
-    this->particleContainerType_ = x.particleContainerType_;
-    this->cutoffRadius_ = x.cutoffRadius_;
+    this->useThermostat_ = x.useThermostat_;
+    this->T_init_ = x.T_init_;
+    this->T_target_ = x.T_target_;
+    this->delta_T_ = x.delta_T_;
+    this->n_thermostat_ = x.n_thermostat_;
   }
 
   return *this;
 }
 
-paramsLJ::
-~paramsLJ ()
+generalParams::
+~generalParams ()
 {
 }
 
@@ -1099,9 +2218,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "top" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< top_type > r (
+        top_traits::create (i, f, this));
+
       if (!top_.present ())
       {
-        this->top_.set (top_traits::create (i, f, this));
+        this->top_.set (::std::move (r));
         continue;
       }
     }
@@ -1110,9 +2232,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "right" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< right_type > r (
+        right_traits::create (i, f, this));
+
       if (!right_.present ())
       {
-        this->right_.set (right_traits::create (i, f, this));
+        this->right_.set (::std::move (r));
         continue;
       }
     }
@@ -1121,9 +2246,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "bottom" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< bottom_type > r (
+        bottom_traits::create (i, f, this));
+
       if (!bottom_.present ())
       {
-        this->bottom_.set (bottom_traits::create (i, f, this));
+        this->bottom_.set (::std::move (r));
         continue;
       }
     }
@@ -1132,9 +2260,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "left" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< left_type > r (
+        left_traits::create (i, f, this));
+
       if (!left_.present ())
       {
-        this->left_.set (left_traits::create (i, f, this));
+        this->left_.set (::std::move (r));
         continue;
       }
     }
@@ -1143,9 +2274,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "front" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< front_type > r (
+        front_traits::create (i, f, this));
+
       if (!front_.present ())
       {
-        this->front_.set (front_traits::create (i, f, this));
+        this->front_.set (::std::move (r));
         continue;
       }
     }
@@ -1154,9 +2288,12 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     //
     if (n.name () == "back" && n.namespace_ ().empty ())
     {
+      ::std::unique_ptr< back_type > r (
+        back_traits::create (i, f, this));
+
       if (!back_.present ())
       {
-        this->back_.set (back_traits::create (i, f, this));
+        this->back_.set (::std::move (r));
         continue;
       }
     }
@@ -1322,46 +2459,22 @@ particlesLJ::
 //
 
 input::
-input (const t_end_type& t_end,
-       const delta_t_type& delta_t,
-       const calcType_type& calcType,
-       const baseNameOutputFiles_type& baseNameOutputFiles,
-       const writeFrequency_type& writeFrequency,
-       const gravInput_type& gravInput,
-       const paramsLJ_type& paramsLJ,
+input (const generalParams_type& generalParams,
        const boundaryConditions_type& boundaryConditions,
        const particlesLJ_type& particlesLJ)
 : ::xml_schema::type (),
-  t_end_ (t_end, this),
-  delta_t_ (delta_t, this),
-  calcType_ (calcType, this),
-  baseNameOutputFiles_ (baseNameOutputFiles, this),
-  writeFrequency_ (writeFrequency, this),
-  gravInput_ (gravInput, this),
-  paramsLJ_ (paramsLJ, this),
+  generalParams_ (generalParams, this),
   boundaryConditions_ (boundaryConditions, this),
   particlesLJ_ (particlesLJ, this)
 {
 }
 
 input::
-input (const t_end_type& t_end,
-       const delta_t_type& delta_t,
-       const calcType_type& calcType,
-       const baseNameOutputFiles_type& baseNameOutputFiles,
-       const writeFrequency_type& writeFrequency,
-       const gravInput_type& gravInput,
-       ::std::unique_ptr< paramsLJ_type > paramsLJ,
+input (::std::unique_ptr< generalParams_type > generalParams,
        ::std::unique_ptr< boundaryConditions_type > boundaryConditions,
        ::std::unique_ptr< particlesLJ_type > particlesLJ)
 : ::xml_schema::type (),
-  t_end_ (t_end, this),
-  delta_t_ (delta_t, this),
-  calcType_ (calcType, this),
-  baseNameOutputFiles_ (baseNameOutputFiles, this),
-  writeFrequency_ (writeFrequency, this),
-  gravInput_ (gravInput, this),
-  paramsLJ_ (std::move (paramsLJ), this),
+  generalParams_ (std::move (generalParams), this),
   boundaryConditions_ (std::move (boundaryConditions), this),
   particlesLJ_ (std::move (particlesLJ), this)
 {
@@ -1372,13 +2485,7 @@ input (const input& x,
        ::xml_schema::flags f,
        ::xml_schema::container* c)
 : ::xml_schema::type (x, f, c),
-  t_end_ (x.t_end_, f, this),
-  delta_t_ (x.delta_t_, f, this),
-  calcType_ (x.calcType_, f, this),
-  baseNameOutputFiles_ (x.baseNameOutputFiles_, f, this),
-  writeFrequency_ (x.writeFrequency_, f, this),
-  gravInput_ (x.gravInput_, f, this),
-  paramsLJ_ (x.paramsLJ_, f, this),
+  generalParams_ (x.generalParams_, f, this),
   boundaryConditions_ (x.boundaryConditions_, f, this),
   particlesLJ_ (x.particlesLJ_, f, this)
 {
@@ -1389,13 +2496,7 @@ input (const ::xercesc::DOMElement& e,
        ::xml_schema::flags f,
        ::xml_schema::container* c)
 : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-  t_end_ (this),
-  delta_t_ (this),
-  calcType_ (this),
-  baseNameOutputFiles_ (this),
-  writeFrequency_ (this),
-  gravInput_ (this),
-  paramsLJ_ (this),
+  generalParams_ (this),
   boundaryConditions_ (this),
   particlesLJ_ (this)
 {
@@ -1416,91 +2517,16 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     const ::xsd::cxx::xml::qualified_name< char > n (
       ::xsd::cxx::xml::dom::name< char > (i));
 
-    // t_end
+    // generalParams
     //
-    if (n.name () == "t_end" && n.namespace_ ().empty ())
+    if (n.name () == "generalParams" && n.namespace_ ().empty ())
     {
-      if (!t_end_.present ())
+      ::std::unique_ptr< generalParams_type > r (
+        generalParams_traits::create (i, f, this));
+
+      if (!generalParams_.present ())
       {
-        this->t_end_.set (t_end_traits::create (i, f, this));
-        continue;
-      }
-    }
-
-    // delta_t
-    //
-    if (n.name () == "delta_t" && n.namespace_ ().empty ())
-    {
-      if (!delta_t_.present ())
-      {
-        this->delta_t_.set (delta_t_traits::create (i, f, this));
-        continue;
-      }
-    }
-
-    // calcType
-    //
-    if (n.name () == "calcType" && n.namespace_ ().empty ())
-    {
-      ::std::unique_ptr< calcType_type > r (
-        calcType_traits::create (i, f, this));
-
-      if (!calcType_.present ())
-      {
-        this->calcType_.set (::std::move (r));
-        continue;
-      }
-    }
-
-    // baseNameOutputFiles
-    //
-    if (n.name () == "baseNameOutputFiles" && n.namespace_ ().empty ())
-    {
-      ::std::unique_ptr< baseNameOutputFiles_type > r (
-        baseNameOutputFiles_traits::create (i, f, this));
-
-      if (!baseNameOutputFiles_.present ())
-      {
-        this->baseNameOutputFiles_.set (::std::move (r));
-        continue;
-      }
-    }
-
-    // writeFrequency
-    //
-    if (n.name () == "writeFrequency" && n.namespace_ ().empty ())
-    {
-      if (!writeFrequency_.present ())
-      {
-        this->writeFrequency_.set (writeFrequency_traits::create (i, f, this));
-        continue;
-      }
-    }
-
-    // gravInput
-    //
-    if (n.name () == "gravInput" && n.namespace_ ().empty ())
-    {
-      ::std::unique_ptr< gravInput_type > r (
-        gravInput_traits::create (i, f, this));
-
-      if (!gravInput_.present ())
-      {
-        this->gravInput_.set (::std::move (r));
-        continue;
-      }
-    }
-
-    // paramsLJ
-    //
-    if (n.name () == "paramsLJ" && n.namespace_ ().empty ())
-    {
-      ::std::unique_ptr< paramsLJ_type > r (
-        paramsLJ_traits::create (i, f, this));
-
-      if (!paramsLJ_.present ())
-      {
-        this->paramsLJ_.set (::std::move (r));
+        this->generalParams_.set (::std::move (r));
         continue;
       }
     }
@@ -1536,52 +2562,10 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
     break;
   }
 
-  if (!t_end_.present ())
+  if (!generalParams_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "t_end",
-      "");
-  }
-
-  if (!delta_t_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "delta_t",
-      "");
-  }
-
-  if (!calcType_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "calcType",
-      "");
-  }
-
-  if (!baseNameOutputFiles_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "baseNameOutputFiles",
-      "");
-  }
-
-  if (!writeFrequency_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "writeFrequency",
-      "");
-  }
-
-  if (!gravInput_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "gravInput",
-      "");
-  }
-
-  if (!paramsLJ_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "paramsLJ",
+      "generalParams",
       "");
   }
 
@@ -1613,13 +2597,7 @@ operator= (const input& x)
   if (this != &x)
   {
     static_cast< ::xml_schema::type& > (*this) = x;
-    this->t_end_ = x.t_end_;
-    this->delta_t_ = x.delta_t_;
-    this->calcType_ = x.calcType_;
-    this->baseNameOutputFiles_ = x.baseNameOutputFiles_;
-    this->writeFrequency_ = x.writeFrequency_;
-    this->gravInput_ = x.gravInput_;
-    this->paramsLJ_ = x.paramsLJ_;
+    this->generalParams_ = x.generalParams_;
     this->boundaryConditions_ = x.boundaryConditions_;
     this->particlesLJ_ = x.particlesLJ_;
   }
@@ -1639,12 +2617,20 @@ body::
 body (const bodyType_type& bodyType,
       const position_type& position,
       const velocity_type& velocity,
-      const objectSpecificFormat_type& objectSpecificFormat)
+      const objectSpecificFormat_type& objectSpecificFormat,
+      const epsilon_type& epsilon,
+      const mass_type& mass,
+      const rho_type& rho,
+      const h_type& h)
 : ::xml_schema::type (),
   bodyType_ (bodyType, this),
   position_ (position, this),
   velocity_ (velocity, this),
-  objectSpecificFormat_ (objectSpecificFormat, this)
+  objectSpecificFormat_ (objectSpecificFormat, this),
+  epsilon_ (epsilon, this),
+  mass_ (mass, this),
+  rho_ (rho, this),
+  h_ (h, this)
 {
 }
 
@@ -1656,7 +2642,11 @@ body (const body& x,
   bodyType_ (x.bodyType_, f, this),
   position_ (x.position_, f, this),
   velocity_ (x.velocity_, f, this),
-  objectSpecificFormat_ (x.objectSpecificFormat_, f, this)
+  objectSpecificFormat_ (x.objectSpecificFormat_, f, this),
+  epsilon_ (x.epsilon_, f, this),
+  mass_ (x.mass_, f, this),
+  rho_ (x.rho_, f, this),
+  h_ (x.h_, f, this)
 {
 }
 
@@ -1668,7 +2658,11 @@ body (const ::xercesc::DOMElement& e,
   bodyType_ (this),
   position_ (this),
   velocity_ (this),
-  objectSpecificFormat_ (this)
+  objectSpecificFormat_ (this),
+  epsilon_ (this),
+  mass_ (this),
+  rho_ (this),
+  h_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -1743,6 +2737,50 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // epsilon
+    //
+    if (n.name () == "epsilon" && n.namespace_ ().empty ())
+    {
+      if (!epsilon_.present ())
+      {
+        this->epsilon_.set (epsilon_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // mass
+    //
+    if (n.name () == "mass" && n.namespace_ ().empty ())
+    {
+      if (!mass_.present ())
+      {
+        this->mass_.set (mass_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // rho
+    //
+    if (n.name () == "rho" && n.namespace_ ().empty ())
+    {
+      if (!rho_.present ())
+      {
+        this->rho_.set (rho_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // h
+    //
+    if (n.name () == "h" && n.namespace_ ().empty ())
+    {
+      if (!h_.present ())
+      {
+        this->h_.set (h_traits::create (i, f, this));
+        continue;
+      }
+    }
+
     break;
   }
 
@@ -1773,6 +2811,34 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "objectSpecificFormat",
       "");
   }
+
+  if (!epsilon_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "epsilon",
+      "");
+  }
+
+  if (!mass_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "mass",
+      "");
+  }
+
+  if (!rho_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "rho",
+      "");
+  }
+
+  if (!h_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "h",
+      "");
+  }
 }
 
 body* body::
@@ -1792,6 +2858,10 @@ operator= (const body& x)
     this->position_ = x.position_;
     this->velocity_ = x.velocity_;
     this->objectSpecificFormat_ = x.objectSpecificFormat_;
+    this->epsilon_ = x.epsilon_;
+    this->mass_ = x.mass_;
+    this->rho_ = x.rho_;
+    this->h_ = x.h_;
   }
 
   return *this;
