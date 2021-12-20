@@ -18,14 +18,26 @@ int ParticleContainerLinkedCells::numberCellsZ;
 std::vector<Cell *> ParticleContainerLinkedCells::boundaryCells;
 std::vector<Cell *> ParticleContainerLinkedCells::haloCells;
 std::vector<Cell *> ParticleContainerLinkedCells::innerCells;
+double ParticleContainerLinkedCells::middleOfDomainInX;
+double ParticleContainerLinkedCells::middleOfDomainInY;
+double ParticleContainerLinkedCells::middleOfDomainInZ;
+double ParticleContainerLinkedCells::domainSizeX;
+double ParticleContainerLinkedCells::domainSizeY;
+double ParticleContainerLinkedCells::domainSizeZ;
+
 ParticleCollector pc;
 
 ParticleContainerLinkedCells::ParticleContainerLinkedCells() = default;
 
-ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeX, double domainSizeY, double domainSizeZ,
+ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg, double domainSizeYarg,
+                                                           double domainSizeZarg,
                                                            double cutOffRadius,
                                                            const std::array<int, 6> &boundaryConditionTypes)
-        : domainSizeX(domainSizeX), domainSizeY(domainSizeY), domainSizeZ(domainSizeZ), cutOffRadius(cutOffRadius) {
+        : cutOffRadius(cutOffRadius) {
+
+    domainSizeX = domainSizeXarg;
+    domainSizeY = domainSizeYarg;
+    domainSizeZ = domainSizeZarg;
 
     createCells();
     std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
@@ -42,6 +54,11 @@ void ParticleContainerLinkedCells::createCells() {
     Cell::sizeX = double(domainSizeX) / numberCellsX;
     Cell::sizeY = double(domainSizeY) / numberCellsY;
     Cell::sizeZ = double(domainSizeZ) / numberCellsZ;
+
+    //Set middles
+    middleOfDomainInX = domainSizeX / 2;
+    middleOfDomainInY = domainSizeY / 2;
+    middleOfDomainInZ = domainSizeZ / 2;
 
     //Two is added because of the HaloCells
     numberCellsX += 2;
@@ -432,5 +449,34 @@ void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> 
 void ParticleContainerLinkedCells::addParticle(Particle &particle) {
     auto index = getCellIndexForParticle(particle);
     cells[index].getParticles().push_back(particle);
+}
+
+void ParticleContainerLinkedCells::reflectPositionInX(std::array<double, 3> &position) {
+    double difference = middleOfDomainInX - position[0];
+    position[0] += 2 * difference;
+}
+
+void ParticleContainerLinkedCells::reflectPositionInY(std::array<double, 3> &position) {
+    double difference = middleOfDomainInY - position[1];
+    position[1] += 2 * difference;
+}
+
+void ParticleContainerLinkedCells::reflectPositionInZ(std::array<double, 3> &position) {
+    double difference = middleOfDomainInZ - position[2];
+    position[2] += 2 * difference;
+}
+
+void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCell(
+        const std::array<std::array<int, 3>, 9> &relativePositions, const std::array<double, 3> &positionOfCell) {
+    int indexCombined =
+            positionOfCell[0] + positionOfCell[1] * numberCellsX + positionOfCell[2] * numberCellsX * numberCellsY;
+    Cell *cell = &cells[indexCombined];
+    int numberOfCurrentNeighbourCells = cell->getNeighbourCells().size();
+    cell->getNeighbourCells().resize(numberOfCurrentNeighbourCells + 9);
+    for (int i = 0; i < relativePositions.size(); i++) {
+        indexCombined = relativePositions[i][0] + relativePositions[i][1] * numberCellsX +
+                        relativePositions[i][2] * numberCellsX * numberCellsY;
+        cell->getNeighbourCells()[numberOfCurrentNeighbourCells + i] = &cells[indexCombined];
+    }
 }
 

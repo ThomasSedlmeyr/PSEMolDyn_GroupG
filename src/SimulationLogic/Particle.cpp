@@ -118,14 +118,18 @@ std::array<double, 3> &Particle::getVRef() {
     return v;
 }
 
+std::array<double, 3> &Particle::getXRef() {
+    return x;
+}
+
 std::string Particle::toString() {
     std::string ret;
     // TODO for G/LJ
     ret = std::to_string(x[0]) + " " + std::to_string(x[1]) + " " + std::to_string(x[2])
-            + "\t" + std::to_string(v[0]) + " " + std::to_string(v[1]) + " " + std::to_string(v[2])
-            + "\t" + std::to_string(m) + "\t" + std::to_string(type) + "\t" + std::to_string(f[0])
-            + " " + std::to_string(f[1]) + " " + std::to_string(f[2]) + "\t" + std::to_string(old_f[0])
-            + " " + std::to_string(old_f[1]) + " " + std::to_string(old_f[2]) + "\t" + std::to_string(ID);
+          + "\t" + std::to_string(v[0]) + " " + std::to_string(v[1]) + " " + std::to_string(v[2])
+          + "\t" + std::to_string(m) + "\t" + std::to_string(type) + "\t" + std::to_string(f[0])
+          + " " + std::to_string(f[1]) + " " + std::to_string(f[2]) + "\t" + std::to_string(old_f[0])
+          + " " + std::to_string(old_f[1]) + " " + std::to_string(old_f[2]) + "\t" + std::to_string(ID);
 
     if (XMLParser::calcType_p == Simulation::LENNARDJONES){
         // TODO add epsilon and rho to line, need to be implemented for the particle before

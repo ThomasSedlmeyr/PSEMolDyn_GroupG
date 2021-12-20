@@ -109,6 +109,8 @@ public:
      * @return returns the particles attributes in one line
      */
     std::string toString();
+
+    std::array<double, 3> &getXRef();
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);

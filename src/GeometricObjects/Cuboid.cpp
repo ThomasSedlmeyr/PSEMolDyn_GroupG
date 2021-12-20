@@ -24,7 +24,6 @@ void Cuboid::generateParticles(int startIndex) {
             }
         }
     }
-    numberParticles = particles.size();
 }
 
 void Cuboid::setStructure(const std::array<double, 3> &dim){

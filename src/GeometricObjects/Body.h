@@ -9,19 +9,13 @@
 #include <string>
 #include <vector>
 
-class Body{
-    protected:
+class Body {
+
+protected:
     /**
      * @brief Initial velocity of the body
      */
     std::array<double, 3> initialV;
-public:
-    /**
-     *@brief getter for initiaö velocity
-     */
-    const std::array<double, 3> &getInitialV() const;
-
-protected:
 
     /**
      * @brief the initial position of the body
@@ -37,34 +31,53 @@ protected:
      *@brief the mesh width of the particles in the body
      */
     double meshWidth;
-public:
-    /**
-     *@brief getter for mesh width
-     */
-    double getMeshWidth() const;
-
-protected:
 
     /**
      * @ the mass of every particle in the body
      */
     double massPerParticle;
 
+    /**
+     * @brief this ID is unique for every body
+     */
+    int ID;
+
+    /**
+     * @brief This function is able to parse three with comma separated double values
+     * @param line The string containing the with comma seperated double values
+     * @return the resulting double array
+     */
+    std::array<double, 3> parseLineWithThreeValues(const std::string &line);
+
+    /**
+     * @brief This value specifies the epsilon for all particles in the body
+     */
+    double epsilon;
+
+    /**
+     * @brief This value specifies the rho for all particles in the body
+     */
+    double rho;
+
 public:
+    /**
+     *@brief getter for initiaö velocity
+     */
+    const std::array<double, 3> &getInitialV() const;
+
+    /**
+     *@brief getter for mesh width
+     */
+    double getMeshWidth() const;
+
     Body(int ID, double meshWidth, double massPerParticle);
+
     /**
      * @brief returns the particles of the body
      * @return vector of particles of body
      */
-    std::vector<Particle> & getParticles();
+    std::vector<Particle> &getParticles();
 
-protected:
-    int numberParticles;
-    int ID;
-
-    std::array<double, 3> parseLineWithThreeValues(const std::string& line);
-
-public:
     /**
      * @brief  parse the initialV for one Line
      * @param line the line in the file which contains the comma seperated values

@@ -10,7 +10,7 @@
 #include <memory>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
-#include "BoundaryConditions/BoundaryConditionContainerTest.h"
+#include "BoundaryConditions/BoundaryConditionContainer.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer {
 private:
@@ -18,12 +18,6 @@ private:
      * @brief the BoundaryConditionContainer which is used to calculate the boundary conditions for each domain side
      */
     std::unique_ptr<BoundaryConditionContainer> boundaryContainer;
-
-    /**
-     * @brief all cells of the domain
-     */
-    static std::vector<Cell> cells;
-
     /**
      * @brief a global index for the currentIndex of the cell
      */
@@ -44,26 +38,16 @@ private:
      */
     int currentIndexInnerCells{};
 
-    /**
-     * @brief the x-dimension of the domain
-     */
-    double domainSizeX{};
-
-    /**
-     * @brief the y-dimension of the domain
-     */
-    double domainSizeY{};
-
-    /**
-     * @brief the z-dimension of the domain
-     */
-    double domainSizeZ{};
 
     /**
      * @brief the cutOffRadius. Only particles that are located at a smaller distance around the particle as the cutOffRadius
      * are used for the force calculation.
      */
     double cutOffRadius{};
+
+    static double middleOfDomainInX;
+    static double middleOfDomainInY;
+    static double middleOfDomainInZ;
 
     /**
      * @brief in this variable we can globally store a certain position.
@@ -155,6 +139,11 @@ private:
 
 public:
     /**
+     * @brief all cells of the domain
+     */
+    static std::vector<Cell> cells;
+
+    /**
      * @brief a vector of pointers pointing to all boundaryCells of the domain
      */
     static std::vector<Cell *> boundaryCells;
@@ -183,6 +172,21 @@ public:
      * @brief the number of Cells in Z-direction
      */
     static int numberCellsZ;
+
+    /**
+ * @brief the x-dimension of the domain
+ */
+    static double domainSizeX;
+
+    /**
+     * @brief the y-dimension of the domain
+     */
+    static double domainSizeY;
+
+    /**
+     * @brief the z-dimension of the domain
+     */
+    static double domainSizeZ;
 
     static const std::vector<Cell> &getCells();
 
@@ -258,6 +262,17 @@ public:
      * @param particle the particle which should be insert into the domain
      */
     static void addParticle(Particle &particle);
+
+    static void reflectPositionInY(std::array<double, 3> &position);
+
+    static void reflectPositionInZ(std::array<double, 3> &position);
+
+    static void reflectPositionInX(std::array<double, 3> &position);
+
+    static void
+    add9CellsAtRelativePositionsToNeighboursOfCell(const std::array<std::array<int, 3>, 9> &relativePositions,
+                                                   const std::array<double, 3> &positionOfCell);
+
 };
 
 
