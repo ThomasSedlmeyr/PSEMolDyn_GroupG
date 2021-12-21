@@ -10,7 +10,6 @@
 #include "GeometricObjects/Cuboid.h"
 #include "GeometricObjects/Tetrahedron.h"
 #include "GeometricObjects/Sphere.h"
-//#include "XML_Parser/input.h"
 
 std::vector<std::vector<double>> BodyBuilder::rhoLookUpTable{};
 std::vector<std::vector<double>> BodyBuilder::epsilonLookUpTable{};
@@ -36,7 +35,8 @@ void BodyBuilder::createLookUpTables(const std::vector<double> &valuesForLookUpR
     }
 }
 
-/*bool BodyBuilder::buildBodies(std::list<Body*>& bodies, const particlesLJ::body_sequence& bodySequence){
+
+bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequence& bodySequence){
    Body* body = nullptr;
    int id = 0;
    int particleCounter = 0;
@@ -72,4 +72,4 @@ void BodyBuilder::createLookUpTables(const std::vector<double> &valuesForLookUpR
        id++;
    }
    createLookUpTables(valuesForLookUpRho, valuesForLookUpEpsilon);
-}*/
+}

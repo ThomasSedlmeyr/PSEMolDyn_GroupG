@@ -7,16 +7,15 @@
 
 
 #include <vector>
-//#include "xsd/cxx/tree/containers.hxx"
 #include "GeometricObjects/Body.h"
-//#include "XML_Parser/input.h"
+#include "input.h"
 
 class BodyBuilder {
 public:
     static std::vector<std::vector<double>> rhoLookUpTable;
     static std::vector<std::vector<double>> epsilonLookUpTable;
 
-    //static bool buildBodies(std::list<Body*> &bodies, const particlesLJ::body_sequence& bodySequence);
+    static bool buildBodies(std::list<Body*> &bodies, particlesLJ::body_sequence& bodySequence);
 
 private:
     static void createLookUpTables(const std::vector<double> &valuesForLookUpRho,
