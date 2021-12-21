@@ -72,6 +72,8 @@ public:
 
     Body(int ID, double meshWidth, double massPerParticle);
 
+    virtual ~Body();
+
     /**
      * @brief returns the particles of the body
      * @return vector of particles of body

@@ -30,8 +30,6 @@ void Cuboid::setStructure(const std::array<double, 3> &dim){
     Cuboid::dimensions = dim;
 }
 
-Cuboid::~Cuboid() {
-
-}
+Cuboid::~Cuboid() = default;
 
 

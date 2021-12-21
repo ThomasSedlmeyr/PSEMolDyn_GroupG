@@ -3,10 +3,25 @@
 //
 
 #include "LJForceVisitor.h"
+#include "XML_Parser/BodyBuilder.h"
 
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
+    if (p1.getType() == -1 && p2.getType() == -1){
+        return;
+    }
+    if (p1.getType() == -1){
+        rho = BodyBuilder::rhoLookUpTable[p2.getType()][p2.getType()];
+        epsilon = BodyBuilder::epsilonLookUpTable[p2.getType()][p2.getType()];
+    }else if (p2.getType() == -1){
+        rho = BodyBuilder::rhoLookUpTable[p1.getType()][p1.getType()];
+        epsilon = BodyBuilder::epsilonLookUpTable[p1.getType()][p1.getType()];
+    }else{
+        rho = BodyBuilder::rhoLookUpTable[p1.getType()][p2.getType()];
+        epsilon = BodyBuilder::epsilonLookUpTable[p1.getType()][p2.getType()];
+    }
+
     auto &x1 = p1.getX();
     auto &x2 = p2.getX();
     std::array<double, 3> diff{};
@@ -36,14 +51,6 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
         f1[j] += temp;
         f2[j] -= temp;
     }
-}
-
-void LJForceVisitor::setEpsilon(double epsilon) {
-    LJForceVisitor::epsilon = epsilon;
-}
-
-void LJForceVisitor::setRho(double rho) {
-    LJForceVisitor::rho = rho;
 }
 
 LJForceVisitor::LJForceVisitor() = default;

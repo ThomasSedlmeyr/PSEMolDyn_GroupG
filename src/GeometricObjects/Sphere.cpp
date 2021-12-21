@@ -75,4 +75,6 @@ void Sphere::generateParticles2d(int startID) {
     particles.resize(counter);
 }
 
+Sphere::~Sphere() = default;
+
 

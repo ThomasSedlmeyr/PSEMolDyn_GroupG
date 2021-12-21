@@ -36,6 +36,10 @@ protected:
 
     Thermostat thermostat;
 
+    const double tInit = XMLParser::T_init_p;
+
+    const int dimensions = XMLParser::dimensionType_p;
+
     /**
      * @brief Implementation of the position calculation
      */

@@ -14,8 +14,10 @@
 std::vector<std::vector<double>> BodyBuilder::rhoLookUpTable{};
 std::vector<std::vector<double>> BodyBuilder::epsilonLookUpTable{};
 
-void BodyBuilder::createLookUpTables(const std::vector<double> &valuesForLookUpRho,
-                                     const std::vector<double> &valuesForLookUpEpsilon) {
+std::vector<double> BodyBuilder::valuesForLookUpRho{};
+std::vector<double> BodyBuilder::valuesForLookUpEpsilon{};
+
+void BodyBuilder::createLookUpTables() {
     //create rho lookup
     rhoLookUpTable.resize(valuesForLookUpRho.size());
     for (int i = 0; i < valuesForLookUpRho.size(); i++) {
@@ -37,39 +39,40 @@ void BodyBuilder::createLookUpTables(const std::vector<double> &valuesForLookUpR
 
 
 bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequence& bodySequence){
-   Body* body = nullptr;
-   int id = 0;
-   int particleCounter = 0;
-   double mass,  rho,  epsilon,  h;
-   std::vector<double> valuesForLookUpRho(bodySequence.size());
-   std::vector<double> valuesForLookUpEpsilon(bodySequence.size());
+    Body* body;
+    int id = 0;
+    int particleCounter = 0;
+    double mass, h;
+    valuesForLookUpRho.resize(bodySequence.size());
+    valuesForLookUpEpsilon.resize(bodySequence.size());
 
-   for (particlesLJ::body_iterator i(bodySequence.begin()); i != bodySequence.end(); ++i) {
-       //TODO these values have to be set here mass,  rho,  epsilon,  h;
-       valuesForLookUpRho[id] = rho;
-       valuesForLookUpEpsilon[id] = epsilon;
+    for (auto & i : bodySequence) {
+        valuesForLookUpRho[id] = i.rho();
+        valuesForLookUpEpsilon[id] = i.epsilon();
+        mass = i.mass();
+        h = i.h();
 
-       if (i->bodyType() == "Cuboid") {
-           body =  new Cuboid(id, h, mass);
-       } else if (i->bodyType() == "Tetrahedron") {
-           body =  new Tetrahedron(id, h, mass);
-       } else if (i->bodyType() == "Sphere") {
-           body =  new Sphere(id, h, mass);
-       } else {
-           std::cout << "Parsing of XML-file was not successful!" << std::endl;
-           std::cout << "Unknown body type." << std::endl;
-           return false;
-       }
+        if (i.bodyType() == "Cuboid") {
+            body = new Cuboid(id, h, mass);
+        } else if (i.bodyType() == "Tetrahedron") {
+            body =  new Tetrahedron(id, h, mass);
+        } else if (i.bodyType() == "Sphere") {
+            body =  new Sphere(id, h, mass);
+        } else {
+            std::cout << "Parsing of XML-file was not successful!" << std::endl;
+            std::cout << "Unknown body type." << std::endl;
+            return false;
+        }
+        body->parsePosition(i.position());
+        body->parseInitialV(i.velocity());
+        body->parseStructure(i.objectSpecificFormat());
 
-       body->parsePosition(i->position());
-       body->parseInitialV(i->velocity());
-       body->parseStructure(i->objectSpecificFormat());
+        body->generateParticles(particleCounter);
+        particleCounter += body->getParticles().size();
 
-       body->generateParticles(particleCounter);
-       particleCounter += body->getParticles().size();
-
-       bodies.push_back(body);
-       id++;
-   }
-   createLookUpTables(valuesForLookUpRho, valuesForLookUpEpsilon);
+        bodies.push_back(body);
+        id++;
+    }
+    createLookUpTables();
+    return true;
 }

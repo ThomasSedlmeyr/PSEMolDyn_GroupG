@@ -5,6 +5,7 @@
 #include "GeometricObjects/Tetrahedron.h"
 #include "GeometricObjects/Sphere.h"
 #include "XMLParser.h"
+#include "BodyBuilder.h"
 
 double XMLParser::t_end_p;
 double XMLParser::delta_t_p;
@@ -214,45 +215,7 @@ bool XMLParser::parseXML(const std::string filename) {
 
         // bodies_p parsing with iteration
         particlesLJ::body_sequence &b(input_xml->particlesLJ().body());
-
-        Body* temp = nullptr;
-        int id = 1;
-        int particleCounter = 0;
-
-        double mass_p;
-        double h_p;
-
-        for (particlesLJ::body_iterator i(b.begin()); i != b.end(); ++i) {
-            mass_p = i->mass();
-            h_p = i->h();
-
-            if (i->bodyType() == "Cuboid") {
-                temp =  new Cuboid(id, h_p, mass_p);
-            } else if (i->bodyType() == "Tetrahedron") {
-                temp =  new Tetrahedron(id, h_p, mass_p);
-            } else if (i->bodyType() == "Sphere") {
-                temp =  new Sphere(id, h_p, mass_p);
-            } else {
-                std::cout << "Parsing of XML-file was not successful!" << std::endl;
-                std::cout << "Unknown body type." << std::endl;
-                return false;
-            }
-
-            temp->parsePosition(i->position());
-            temp->parseInitialV(i->velocity());
-            temp->parseStructure(i->objectSpecificFormat());
-            // TODO save epsilon and rho anywhere where they can be accessed and saved by simulation and CheckpointWriter
-            // temp->parsePosition(i->epsilon());
-            // temp->parsePosition(i->rho());
-
-            temp->generateParticles(particleCounter);
-            particleCounter += temp->getParticles().size();
-
-            bodies_p.push_back(temp);
-            id++;
-        }
-
-
+        return BodyBuilder::buildBodies(bodies_p, b);
 
     } catch (const std::exception& e) {
         std::cout << "Parsing of XML-file was not successful!" << std::endl;

@@ -11,7 +11,7 @@
 
 class Cuboid: public Body {
 private:
-    std::array<double, 3> dimensions;
+    std::array<double, 3> dimensions{};
 
 public:
     Cuboid(int ID, double meshWidth, double massPerParticle);

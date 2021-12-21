@@ -39,3 +39,5 @@ const std::array<double, 3> &Body::getInitialV() const {
 double Body::getMeshWidth() const {
     return meshWidth;
 }
+
+Body::~Body() = default;

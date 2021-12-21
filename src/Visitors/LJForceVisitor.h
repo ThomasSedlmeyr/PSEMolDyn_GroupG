@@ -19,16 +19,6 @@ public:
      * @param p2
      */
     void visitParticlePair(Particle &p1, Particle &p2) override;
-    /**
-     * @brief Sets the parameter epsilon for calculation
-     * @param epsilon
-     */
-    void setEpsilon(double epsilon);
-    /**
-     * @brief Sets the parameter rho for calculation
-     * @param rho
-     */
-    void setRho(double rho);
 
 private:
     /**

@@ -39,9 +39,6 @@ private:
     //Allows test to access private method
     void calculateF() override;
 
-public:
-    void setEpsilon(double epsilon);
-    void setRho(double rho);
 };
 
 

@@ -10,7 +10,7 @@
 #include "OutputWriter/VTKWriter.h"
 #include "XML_Parser/XMLParser.h"
 #include "BoundaryConditions//ReflectingCondition.h"
-#include "utils/ArrayUtils.h";
+#include "utils/ArrayUtils.h"
 
 //Code adapted from
 //https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock

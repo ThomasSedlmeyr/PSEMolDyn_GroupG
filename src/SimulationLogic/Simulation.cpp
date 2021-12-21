@@ -26,9 +26,9 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     particleContainer = partContainer;
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
-
-    thermostat = Thermostat(particleContainer, XMLParser::T_init_p, XMLParser::delta_T_p);
-    int nThermostat = XMLParser::n_thermostat_p;
+    thermostat = Thermostat(particleContainer, XMLParser::T_target_p, XMLParser::delta_T_p);
+    const int nThermostat = XMLParser::n_thermostat_p;
+    const bool useThermostat = XMLParser::useThermostat_p;
 
     int iteration = 0;
     double currentTime = 0;
@@ -43,8 +43,10 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         if (iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
-        if (iteration % nThermostat){
-            thermostat.apply();
+        if (useThermostat){
+            if (iteration % nThermostat){
+                thermostat.apply();
+            }
         }
         calculateOneTimeStep();
         iteration++;
