@@ -27,11 +27,8 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
 
-    //TODO zu Parameter machen
-    int nThermostat = 1000;
-    double targetTemp = 10.0;
-    double maxDeltaT = 5.0;
-    thermostat = Thermostat(particleContainer, targetTemp, maxDeltaT);
+    thermostat = Thermostat(particleContainer, XMLParser::T_init_p, XMLParser::delta_T_p);
+    int nThermostat = XMLParser::n_thermostat_p;
 
     int iteration = 0;
     double currentTime = 0;
@@ -47,7 +44,6 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
         if (iteration % nThermostat){
-            //TODO optional machen
             thermostat.apply();
         }
         calculateOneTimeStep();

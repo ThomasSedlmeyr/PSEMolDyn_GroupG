@@ -3,13 +3,15 @@
  * @brief Main class for Simulation
  */
 
-#include "SimulationLogic/GravitationSimulation.h"
 #include "OutputWriter/Writer.h"
 #include <iostream>
 #include <OutputWriter/VTKWriter.h>
 #include <SimulationLogic/LennardJonesSimulation.h>
 #include <spdlog/spdlog.h>
 #include <XML_Parser/XMLParser.h>
+#include <SimulationLogic/GravitationSimulation.h>
+#include <ParticleContainers/ParticleContainer.h>
+#include <2D/ParticleContainerLinkedCells2D.h>
 
 std::string inputFile = "../src/XMLinputFiles/CollisionOfTwoBodies.xml";
 
@@ -59,14 +61,22 @@ int main(int argc, char *argsv[]) {
         case Simulation::LENNARDJONES: {
             auto ljS = LennardJonesSimulation();
             ParticleContainer* particleContainer;
-            if (XMLParser::particleContainerType_p == ParticleContainer::DIRECTSUM){
-                particleContainer = new ParticleContainerDirectSum();
-            }else if (XMLParser::particleContainerType_p == ParticleContainer::LINKEDCELLS){
-                particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+            if (XMLParser::dimensionType_p == 3){
+                if (XMLParser::particleContainerType_p == ParticleContainer::DIRECTSUM){
+                    particleContainer = new ParticleContainerDirectSum();
+                }else if (XMLParser::particleContainerType_p == ParticleContainer::LINKEDCELLS){
+                    particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+                }else{
+                    spdlog::error("Unknown particle container type");
+                    exit(1);
+                }
             }else{
-                spdlog::error("Unknown particle container type");
-                exit(1);
+                //TODO periodic boundary erlauben
+                std::array<int, 4> ones = {1,1,1,1};
+                particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, ones);
             }
+            /*
+             */
             ljS.simulate(*w, particleContainer);
             break;
         }
