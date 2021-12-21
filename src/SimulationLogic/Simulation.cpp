@@ -27,6 +27,12 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
 
+    //TODO zu Parameter machen
+    int nThermostat = 1000;
+    double targetTemp = 10.0;
+    double maxDeltaT = 5.0;
+    thermostat = Thermostat(particleContainer, targetTemp, maxDeltaT);
+
     int iteration = 0;
     double currentTime = 0;
     //read particles file
@@ -39,6 +45,10 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     while (currentTime < endTime) {
         if (iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
+        }
+        if (iteration % nThermostat){
+            //TODO optional machen
+            thermostat.apply();
         }
         calculateOneTimeStep();
         iteration++;

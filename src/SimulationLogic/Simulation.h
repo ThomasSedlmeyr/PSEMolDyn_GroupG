@@ -9,6 +9,7 @@
 #include "ParticleContainers/ParticleContainerDirectSum.h"
 #include "Particle.h"
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
+#include "Thermostat.h"
 #include <vector>
 #include <string>
 #include <Visitors/PosCalculationVisitor.h>
@@ -32,12 +33,14 @@ protected:
      * @brief the particleContainer containing all particles used for the simulation process
      */
     ParticleContainer *particleContainer;
+
+    Thermostat thermostat;
+
     /**
      * @brief Implementation of the position calculation
      */
     PosCalculationVisitor posCalcVisitor;
 
-protected:
     /**
      * @brief Implementation of the velocity calculation
      */
