@@ -34,7 +34,6 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
                                                            double cutOffRadius,
                                                            const std::array<int, 6> &boundaryConditionTypes)
         : cutOffRadius(cutOffRadius) {
-
     domainSizeX = domainSizeXarg;
     domainSizeY = domainSizeYarg;
     domainSizeZ = domainSizeZarg;
@@ -241,17 +240,24 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
     for (Cell &c: cells) {
         auto &particles = c.getParticles();
         for (auto it = particles.begin(); it != particles.end(); it++) {
+            //apply Gravitation
+            if (useGrav){
+                std::array<double, 3> &f = it->getFRef();
+                f[1] += it->getM()*g_grav;
+            }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
                 if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
                     visitor.visitParticlePair(*it, *it2);
                 }
             }
-            //calculate force between particles in different cells
-            for (Cell *c2: c.getNeighbourCells()) {
-                for (Particle &p2: c2->getParticles()) {
-                    if (shouldCalculateForce(it->getX(), p2.getX(), cutOffRadius)) {
-                        visitor.visitParticlePair(*it, p2);
+        }
+        for (Cell *c2: c.getNeighbourCells()) {
+            auto &particles2 = c2->getParticles();
+            for (auto & particle : particles) {
+                for (Particle &p2: particles2) {
+                    if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
+                        visitor.visitParticlePair(particle, p2);
                     }
                 }
             }

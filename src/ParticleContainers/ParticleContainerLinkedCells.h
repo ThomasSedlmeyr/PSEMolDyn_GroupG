@@ -11,6 +11,7 @@
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
 #include "BoundaryConditions/BoundaryConditionContainer.h"
+#include "XML_Parser/XMLParser.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer {
 private:
@@ -44,6 +45,17 @@ private:
      * are used for the force calculation.
      */
     double cutOffRadius{};
+
+    /**
+     * @brief determines whether gravitation should be applied or not
+     */
+    const bool useGrav = XMLParser::useGravity_p;
+
+    /**
+     * @brief downward gravitation factor
+     */
+    const double g_grav = XMLParser::g_grav_p;
+
 
     static double middleOfDomainInX;
     static double middleOfDomainInY;
