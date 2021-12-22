@@ -13,8 +13,8 @@ const int Simulation::GRAVITATION;
  * @brief quick test for reading checkpoint as input
  */
 TEST(InputTests, ReadGCheckpoints) {
-    std::string filename = "../src/Checkpoint_Files/checkpoints_G_example.txt";
-    bool success = CheckpointReader::readCheckpointFile(filename);
+    std::string filename = "checkpoints_G_example.txt";
+    bool success = CheckpointReader::readCheckpointFile(filename, new ParticleContainerDirectSum());
     EXPECT_EQ(success, true);
 
     //std::vector<Particle> parts = CheckpointReader::particleContainer->getParticles();
@@ -39,10 +39,10 @@ TEST(OutputTests, WriteGCheckpoints) {
     particleContainer->addParticleToContainer(b);
     particleContainer->addParticleToContainer(c);
 
-    bool success = CheckpointWriter::writeCheckpointFile("../src/Checkpoint_Files/checkpoint_G_writeExample.txt", particleContainer);
+    bool success = CheckpointWriter::writeCheckpointFile("checkpoint_G_writeExample2.txt", particleContainer);
     EXPECT_EQ(success, true);
 
-    bool successReader = CheckpointReader::readCheckpointFile("../src/Checkpoint_Files/checkpoint_G_writeExample.txt");
+    bool successReader = CheckpointReader::readCheckpointFile("checkpoint_G_writeExample2.txt", new ParticleContainerDirectSum());
     EXPECT_EQ(successReader, true);
 
     EXPECT_EQ(CheckpointReader::checkpointReadCalcType, Simulation::LENNARDJONES);

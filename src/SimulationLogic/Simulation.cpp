@@ -3,6 +3,8 @@
 #include "Simulation.h"
 #include <spdlog/spdlog.h>
 #include "XML_Parser/XMLParser.h"
+#include "Checkpoints/CheckpointReader.h"
+#include "Checkpoints/CheckpointWriter.h"
 
 void Simulation::calculateOneTimeStep() {
     particleContainer->updateParticlePositions(posCalcVisitor);
@@ -26,17 +28,29 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     particleContainer = partContainer;
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
-    thermostat = Thermostat(particleContainer, XMLParser::T_target_p, XMLParser::delta_T_p);
+    auto targetTemp =  XMLParser::T_init_p;
+    if (XMLParser::T_target_p != -1){
+        targetTemp = XMLParser::T_target_p;
+    }
+    thermostat = Thermostat(particleContainer, targetTemp, XMLParser::delta_T_p);
     const int nThermostat = XMLParser::n_thermostat_p;
     const bool useThermostat = XMLParser::useThermostat_p;
 
     int iteration = 0;
     double currentTime = 0;
-    //read particles file
-    bool couldParseFile = readParticles(inputFile);
-    if(!couldParseFile){
-        spdlog::error("Error in File: " + inputFile);
-        exit(EXIT_FAILURE);;
+    if (XMLParser::loadCheckpoint_p){
+        //read paticles from checkpoint
+        if (!CheckpointReader::readCheckpointFile(XMLParser::pathInCheckpoint_p, particleContainer)){
+            spdlog::error("Error in checkpoint file: " + XMLParser::pathInCheckpoint_p);
+            exit(EXIT_FAILURE);;
+        }
+    }else{
+        //read particles from xml file
+        if (!readParticles(inputFile)){
+            spdlog::error("Error in File: " + inputFile);
+            exit(EXIT_FAILURE);;
+        }
+
     }
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (currentTime < endTime) {
@@ -58,6 +72,9 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     std::cout << "Simulation took: " << duration << "ms" << std::endl;
     auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
     std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
+    if (XMLParser::makeCheckpoint_p){
+        CheckpointWriter::writeCheckpointFile(XMLParser::pathOutCheckpoint_p, particleContainer);
+    }
 }
 
 Simulation::~Simulation() = default;

@@ -9,15 +9,10 @@ class CheckpointReader {
 public:
     /**
      * @brief read checkpoint particles to start simulation with
-     * @param fileName path of file of saved checkpoint particles
+     * @param fileName,particleContainer path of file of saved checkpoint particles and particleContainer to add the particles to
      * @return true if reading was successful, false otherwise
      */
-    static bool readCheckpointFile(const std::string &fileName);
-
-    /**
-     * @brief container for all read particles
-     */
-    static ParticleContainer *particleContainer;
+    static bool readCheckpointFile(const std::string &fileName, ParticleContainer *particleContainer);
 
     /**
      * @brief vector for read particles

@@ -6,9 +6,9 @@
 
 bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, ParticleContainer *particleContainer) {
     std::vector<Particle> particles = particleContainer->getParticles();
-
+    auto filePath = "../src/Checkpoint_Files/" + fileName;
     std::ofstream outputFile;
-    outputFile.open(fileName, std::ios::trunc);
+    outputFile.open(filePath, std::ios::trunc);
 
     if (outputFile.is_open()) {
         outputFile << "#\n"
@@ -21,6 +21,10 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "# The second line not being a comment has to either be G or LJ indicating whether the\n"
                       "# particles were saved from a Gravitation Simulation or Lennard Jones Simulation.\n"
                       "#\n"
+                      //TODO löschen?
+                      //"#The third line states the number of bodies in the simulation\n"
+                      //"#The next two lines are the rho/epsilon lookup tables\n"
+                      //"#\n"
                       "# Molecule data consists of:\n"
                       "# * xyz-coordinates (3 double values)\n"
                       "# * velocities (3 double values)\n"
@@ -40,7 +44,8 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
         } else {
             outputFile << "LJ\n";
         }
-
+        //TODO löschen?
+        //outputFile << BodyBuilder::toString();
         // if calcType is LJ, toString will automatically add more parameters
         for (auto particle : particles) {
             outputFile << particle.toString() + "\n";
