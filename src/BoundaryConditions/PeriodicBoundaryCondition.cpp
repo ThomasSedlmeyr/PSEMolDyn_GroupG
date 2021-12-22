@@ -10,6 +10,7 @@ bool PeriodicBoundaryCondition::isDebug = false;
 void PeriodicBoundaryCondition::doWorkAfterCalculationStep() {
     if (!PeriodicBoundaryCondition::isDebug) {
         deleteAllParticlesInHaloCells();
+        deleteGhostParticlesInBoundaryCells();
     }
 }
 

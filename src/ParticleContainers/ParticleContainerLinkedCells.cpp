@@ -449,6 +449,11 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
 void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> &position, double m) {
     Particle p = Particle(position, {0, 0, 0}, m, -1);
     auto index = getCellIndexForParticle(p);
+
+    if (index < 0 || index > static_cast<int>(cells.size())) {
+        std::cout << "Error, Particle got outside of domain!";
+        exit(1);
+    }
     cells[index].getParticles().push_back(p);
 }
 

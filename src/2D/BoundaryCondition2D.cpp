@@ -6,6 +6,29 @@
 #include "ParticleContainerLinkedCells2D.h"
 
 namespace twoD {
+    void BoundaryCondition2D::deleteGhostParticlesInBoundaryCells() {
+        for (auto &cell: specificBoundaryCells) {
+            int numberOfGhostParticles = 0;
+            //This for loop can be eliminated if we store the number of inserted ghost particles for each cell
+            for (auto &particle: cell->getParticles()) {
+                if (particle.getType() == Particle::GHOST_TYPE) {
+                    numberOfGhostParticles++;
+                }
+            }
+            if (numberOfGhostParticles > 0) {
+                std::cout << "Had to delete ghost particle in boundary cell";
+                std::vector<Particle> particles = std::vector<Particle>(
+                        cell->getParticles().size() - numberOfGhostParticles);
+                for (int i = 0; i < cell->getParticles().size(); i++) {
+                    if (particles[i].getType() != Particle::GHOST_TYPE) {
+                        particles[i] = cell->getParticles()[i];
+                    }
+                }
+                cell->getParticles() = particles;
+            }
+        }
+    }
+
     void BoundaryCondition2D::setSpecificCells() {
         switch (side) {
             case RIGHT:

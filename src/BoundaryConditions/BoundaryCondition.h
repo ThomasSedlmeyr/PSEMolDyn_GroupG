@@ -113,6 +113,8 @@ protected:
      *@brief deletes all particles in the halo cells
      */
     void deleteAllParticlesInHaloCells();
+
+    void deleteGhostParticlesInBoundaryCells();
 };
 
 

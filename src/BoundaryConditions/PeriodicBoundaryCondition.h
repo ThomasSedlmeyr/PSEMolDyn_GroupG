@@ -26,6 +26,10 @@ public:
 
     void doWorkAfterCalculationStep() override;
 
+    /**
+     * @brief creates all ghost particles and adds them to the simulation process so that the
+     * periodic boundary has the right behavior
+     */
     void insertGhostParticles();
 
     void reflectPositionToGhostLeftX(std::array<double, 3> &position);

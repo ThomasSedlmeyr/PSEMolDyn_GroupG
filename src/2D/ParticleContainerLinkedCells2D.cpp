@@ -355,17 +355,18 @@ namespace twoD{
         for (Cell &c: cells) {
             std::vector<Particle> &particlesInCell = c.getParticles();
             for (std::size_t i = 0; i < particlesInCell.size(); ++i) {
+                Particle &p = particlesInCell[i];
                 //apply actual implementation of position calculation
-                visitor.visitParticle(particlesInCell[i]);
+                visitor.visitParticle(p);
                 //calculate new cell the particle belongs to
-                int indexNewCell = getCellIndexForParticle(particlesInCell[i]);
+                int indexNewCell = getCellIndexForParticle(p);
                 if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                     std::cout << "Error, Particle got outside of domain!";
                     exit(1);
                 }
                 Cell &newCell = cells[indexNewCell];
                 if (!(newCell == c)) {
-                    if (!newCell.particleLiesInCell(particlesInCell[i])) {
+                    if (!newCell.particleLiesInCell(p)) {
                         std::cout << "Error, Particle got outside of domain!";
                         exit(1);
                     }

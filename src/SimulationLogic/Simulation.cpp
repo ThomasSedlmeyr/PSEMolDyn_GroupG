@@ -5,6 +5,7 @@
 #include "XML_Parser/XMLParser.h"
 #include "Checkpoints/CheckpointReader.h"
 #include "Checkpoints/CheckpointWriter.h"
+#include "Visitors/ParticleCollector.h"
 
 void Simulation::calculateOneTimeStep() {
     particleContainer->updateParticlePositions(posCalcVisitor);
@@ -70,6 +71,11 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     std::cout << "Simulation took: " << duration << "ms" << std::endl;
     auto numIterations = XMLParser::t_end_p / XMLParser::delta_t_p;
     std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
+    ParticleCollector particleCollector = ParticleCollector();
+    particleContainer->walkOverParticles(particleCollector);
+    int numberOfParticles = static_cast<int> (particleCollector.getParticles().size());
+    double mups = (numIterations * numberOfParticles) / (static_cast<double>(duration) / 1000.0);
+    std::cout << (mups / 1000000.0) << " MMUPS/s"<< std::endl;
     if (XMLParser::makeCheckpoint_p){
         CheckpointWriter::writeCheckpointFile(XMLParser::pathOutCheckpoint_p, particleContainer);
     }
@@ -82,7 +88,7 @@ void Simulation::setupThermostat() {
     }
     auto maxDeltaT = XMLParser::delta_T_p;
     if (maxDeltaT == -1){
-        //unlimited maxDeltaÄT
+        //unlimited maxDeltaT
         thermostat = Thermostat(particleContainer, targetTemp, XMLParser::dimensionType_p);
     }else{
         //limited maxDeltaT
