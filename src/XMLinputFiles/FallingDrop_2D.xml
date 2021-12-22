@@ -13,7 +13,7 @@
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>FallingDrop_2D</baseNameOutputFiles>
-        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput></gravInput>
 

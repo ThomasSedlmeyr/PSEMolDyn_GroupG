@@ -13,7 +13,7 @@
 
         <calcType>G</calcType>
         <baseNameOutputFiles>Grav_Test</baseNameOutputFiles>
-        <particleContainerType_p>directSum</particleContainerType_p>
+        <particleContainerType>directSum</particleContainerType>
         <cutoffRadius>0</cutoffRadius>
         <gravInput>../src/Tests/TestInputFiles/eingabe-sonne.txt</gravInput>
 

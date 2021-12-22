@@ -13,7 +13,7 @@
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>DirectSumTest</baseNameOutputFiles>
-        <particleContainerType_p>directSum</particleContainerType_p>
+        <particleContainerType>directSum</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput></gravInput>
 
