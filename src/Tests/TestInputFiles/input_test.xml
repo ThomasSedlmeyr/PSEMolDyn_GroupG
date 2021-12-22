@@ -27,6 +27,7 @@
         <domainSizeZ>10</domainSizeZ>
 
         <useThermostat>no</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
         <T_init>0.5</T_init>
         <T_target>0.5</T_target>
         <delta_T>0</delta_T>

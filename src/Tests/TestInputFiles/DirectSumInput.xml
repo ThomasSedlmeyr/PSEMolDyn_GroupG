@@ -2,32 +2,45 @@
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
 
-    <t_end>0.10001</t_end>
-    <delta_t>0.001</delta_t>
-    <calcType>LJ</calcType>
-    <baseNameOutputFiles>DirectSumTest</baseNameOutputFiles>
-    <writeFrequency>100000</writeFrequency>
-    <gravInput></gravInput>
+    <generalParams>
+        <t_end>0.10001</t_end>
+        <delta_t>0.001</delta_t>
+        <writeFrequency>100000</writeFrequency>
+        <dimensionType>2D</dimensionType>
 
-    <paramsLJ>
-        <epsilon>5.0</epsilon>
-        <mass>1.0</mass>
-        <rho>1.0</rho>
-        <h>1.125</h>
+        <g_grav>0</g_grav>
+        <useGravity>no</useGravity>
+
+        <calcType>LJ</calcType>
+        <baseNameOutputFiles>DirectSumTest</baseNameOutputFiles>
+        <particleContainerType_p>directSum</particleContainerType_p>
+        <cutoffRadius>3</cutoffRadius>
+        <gravInput></gravInput>
+
+        <loadCheckpoint>no</loadCheckpoint>
+        <makeCheckpoint>no</makeCheckpoint>
+        <pathInCheckpoint></pathInCheckpoint>
+        <pathOutCheckpoint></pathOutCheckpoint>
+
         <domainSizeX>100</domainSizeX>
         <domainSizeY>100</domainSizeY>
         <domainSizeZ>10</domainSizeZ>
-        <particleContainerType>1</particleContainerType>
-        <cutoffRadius>3</cutoffRadius>
-    </paramsLJ>
+
+        <useThermostat>no</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
+        <T_init>0</T_init>
+        <T_target>0</T_target>
+        <delta_T>0</delta_T>
+        <n_thermostat>0</n_thermostat>
+    </generalParams>
 
     <boundaryConditions>
-        <top>1</top>
-        <right>1</right>
-        <bottom>1</bottom>
-        <left>1</left>
-        <front>1</front>
-        <back>1</back>
+        <top>outflowType</top>
+        <right>outflowType</right>
+        <bottom>outflowType</bottom>
+        <left>outflowType</left>
+        <front>outflowType</front>
+        <back>outflowType</back>
     </boundaryConditions>
 
     <particlesLJ>
@@ -36,6 +49,10 @@
             <position>10,10,1</position>
             <velocity>0,-8,0</velocity>
             <objectSpecificFormat>5,5,5</objectSpecificFormat>
+            <epsilon>5.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.125</h>
         </body>
     </particlesLJ>
 
