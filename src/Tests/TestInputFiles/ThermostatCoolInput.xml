@@ -13,7 +13,7 @@
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>Lennard</baseNameOutputFiles>
-        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -27,6 +27,7 @@
         <domainSizeZ>10</domainSizeZ>
 
         <useThermostat>yes</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
         <T_init>10.0</T_init>
         <T_target>1.0</T_target>
         <delta_T>0.5</delta_T>

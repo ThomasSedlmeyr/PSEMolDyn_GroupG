@@ -3,17 +3,17 @@
        xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>10</t_end>
+        <t_end>40</t_end>
         <delta_t>0.0005</delta_t>
         <writeFrequency>100</writeFrequency>
-        <dimensionType>3D</dimensionType>
+        <dimensionType>2D</dimensionType>
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>Lennard</baseNameOutputFiles>
-        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <baseNameOutputFiles>FallingDrop</baseNameOutputFiles>
+        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -22,11 +22,12 @@
         <pathInCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathInCheckpoint>
         <pathOutCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathOutCheckpoint>
 
-        <domainSizeX>20</domainSizeX>
-        <domainSizeY>20</domainSizeY>
-        <domainSizeZ>6</domainSizeZ>
+        <domainSizeX>303</domainSizeX>
+        <domainSizeY>180</domainSizeY>
+        <domainSizeZ>0</domainSizeZ>
 
-        <useThermostat>yes</useThermostat>
+        <useThermostat>no</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
         <T_init>40</T_init>
         <T_target>40</T_target>
         <delta_T>2</delta_T>
@@ -34,21 +35,21 @@
     </generalParams>
 
     <boundaryConditions>
-        <top>periodicType</top>
-        <right>periodicType</right>
-        <bottom>periodicType</bottom>
-        <left>periodicType</left>
-        <front>periodicType</front>
-        <back>periodicType</back>
+        <top>betterReflectingType</top>
+        <right>betterReflectingType</right>
+        <bottom>betterReflectingType</bottom>
+        <left>betterReflectingType</left>
+        <front>betterReflectingType</front>
+        <back>betterReflectingType</back>
     </boundaryConditions>
 
     <particlesLJ>
         <body>
-            <bodyType>Cuboid</bodyType>
-            <position>1,1,1</position>
+            <bodyType>Sphere</bodyType>
+            <position>150,150,0</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>10,10,3</objectSpecificFormat>
-            <epsilon>5.0</epsilon>
+            <objectSpecificFormat>20</objectSpecificFormat>
+            <epsilon>1.0</epsilon>
             <mass>1.0</mass>
             <rho>1.2</rho>
             <h>1.2</h>
