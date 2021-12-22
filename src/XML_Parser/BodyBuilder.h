@@ -19,10 +19,15 @@ public:
     static std::vector<double> valuesForLookUpEpsilon;
 
     static bool buildBodies(std::list<Body*> &bodies, particlesLJ::body_sequence& bodySequence);
+    static std::string toString();
+
+    static void parseNumberOfBodies(const std::string& s);
+    static void parseRhoLookupTable(const std::string& lookupTableString);
+    static void parseEpsilonLookupTable(const std::string &lookupTableString);
 
 private:
     static void createLookUpTables();
-
+    static void parseSingleLookupTable(std::vector<std::vector<double>> &lookupTable, const std::string &lookupTableString);
 };
 
 

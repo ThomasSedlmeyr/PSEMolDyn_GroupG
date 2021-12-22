@@ -13,10 +13,6 @@ int XMLParser::calcType_p = 2;
 std::string XMLParser::baseNameOutputFiles_p{};
 int XMLParser::writeFrequency_p;
 std::string XMLParser::gravInput_p{};
-double XMLParser::epsilon_p; // TODO delete
-//double XMLParser::mass_p;
-double XMLParser::rho_p; // TODO delete
-//double XMLParser::h_p;
 std::vector<std::tuple<std::string, double>> XMLParser::params_p{};
 int XMLParser::top_p;
 int XMLParser::right_p;
@@ -36,12 +32,13 @@ bool XMLParser::makeCheckpoint_p;
 std::string XMLParser::pathInCheckpoint_p{};
 std::string XMLParser::pathOutCheckpoint_p{};
 bool XMLParser::useThermostat_p;
-double XMLParser::T_init_p;
-double XMLParser::T_target_p;
+double XMLParser::T_init_p = -1;
+double XMLParser::T_target_p = -1;
 double XMLParser::delta_T_p;
 int XMLParser::n_thermostat_p;
 int XMLParser::dimensionType_p;
 
+//TODO löschen?
 /*
  * old parser
 bool XMLParser::parseXML(const std::string filename) {

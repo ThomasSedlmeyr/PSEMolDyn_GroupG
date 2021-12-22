@@ -76,3 +76,48 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
     createLookUpTables();
     return true;
 }
+//TODO löschen?
+std::string BodyBuilder::toString() {
+    std::string numberOfBodies = std::to_string(rhoLookUpTable.size()) + "\n";
+    std::string outputString = numberOfBodies;
+    for (const auto& v : rhoLookUpTable) {
+        for (auto rho : v) {
+            outputString += std::to_string(rho) + " ";
+        }
+    }
+    outputString += "\n";
+    for (const auto& v : epsilonLookUpTable) {
+        for (auto epsilon : v) {
+            outputString += std::to_string(epsilon) +  " ";
+        }
+    }
+    return outputString + "\n";
+
+}
+
+void BodyBuilder::parseNumberOfBodies(const std::string& s) {
+    int numberOfBodies = std::stoi(s);
+    rhoLookUpTable.resize(numberOfBodies);
+    epsilonLookUpTable.resize(numberOfBodies);
+    for (int i = 0; i < numberOfBodies; ++i) {
+        rhoLookUpTable[i].resize(numberOfBodies);
+        epsilonLookUpTable[i].resize(numberOfBodies);
+    }
+}
+
+void BodyBuilder::parseRhoLookupTable(const std::string& lookupTableString) {
+    BodyBuilder::parseSingleLookupTable(rhoLookUpTable, lookupTableString);
+}
+
+void BodyBuilder::parseEpsilonLookupTable(const std::string& lookupTableString) {
+    BodyBuilder::parseSingleLookupTable(epsilonLookUpTable, lookupTableString);
+}
+
+void BodyBuilder::parseSingleLookupTable(std::vector<std::vector<double>> &lookupTable, const std::string &lookupTableString){
+    std::istringstream charStream(lookupTableString);
+    for (int i = 0; i < lookupTable.size(); ++i) {
+        for (int j = 0; j < lookupTable[i].size(); ++j) {
+            charStream >> lookupTable[i][j];
+        }
+    }
+}
