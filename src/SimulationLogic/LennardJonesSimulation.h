@@ -8,7 +8,6 @@
 #include "Simulation.h"
 #include "GeometricObjects/Body.h"
 #include <vector>
-#include <gtest/gtest.h>
 #include "Visitors/LJForceVisitor.h"
 
 class LennardJonesSimulation: public Simulation{
