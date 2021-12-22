@@ -3,33 +3,33 @@
 //
 
 #include "BoundaryCondition2D.h"
-#include "ParticleContainers/ParticleContainerLinkedCells.h"
+#include "ParticleContainerLinkedCells2D.h"
 
 namespace twoD {
     void BoundaryCondition2D::setSpecificCells() {
         switch (side) {
             case RIGHT:
-                setSpecificCells(std::array<int, 2>{1, 0}, ParticleContainerLinkedCells::numberCellsX - 1,
-                                 ParticleContainerLinkedCells::haloCells, specificHaloCells);
-                setSpecificCells(std::array<int, 2>{1, 0}, ParticleContainerLinkedCells::numberCellsX - 2,
-                                 ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
+                setSpecificCells(std::array<int, 2>{1, 0}, ParticleContainerLinkedCells2D::numberCellsX - 1,
+                                 ParticleContainerLinkedCells2D::haloCells, specificHaloCells);
+                setSpecificCells(std::array<int, 2>{1, 0}, ParticleContainerLinkedCells2D::numberCellsX - 2,
+                                 ParticleContainerLinkedCells2D::boundaryCells, specificBoundaryCells);
                 break;
             case LEFT:
-                setSpecificCells(std::array<int, 2>{1, 0}, 0, ParticleContainerLinkedCells::haloCells,
+                setSpecificCells(std::array<int, 2>{1, 0}, 0, ParticleContainerLinkedCells2D::haloCells,
                                  specificHaloCells);
-                setSpecificCells(std::array<int, 2>{1, 0}, 1, ParticleContainerLinkedCells::boundaryCells,
+                setSpecificCells(std::array<int, 2>{1, 0}, 1, ParticleContainerLinkedCells2D::boundaryCells,
                                  specificBoundaryCells);
                 break;
             case TOP:
-                setSpecificCells(std::array<int, 2>{0, 1}, ParticleContainerLinkedCells::numberCellsY - 1,
-                                 ParticleContainerLinkedCells::haloCells, specificHaloCells);
-                setSpecificCells(std::array<int, 2>{0, 1}, ParticleContainerLinkedCells::numberCellsY - 2,
-                                 ParticleContainerLinkedCells::boundaryCells, specificBoundaryCells);
+                setSpecificCells(std::array<int, 2>{0, 1}, ParticleContainerLinkedCells2D::numberCellsY - 1,
+                                 ParticleContainerLinkedCells2D::haloCells, specificHaloCells);
+                setSpecificCells(std::array<int, 2>{0, 1}, ParticleContainerLinkedCells2D::numberCellsY - 2,
+                                 ParticleContainerLinkedCells2D::boundaryCells, specificBoundaryCells);
                 break;
             case BOTTOM:
-                setSpecificCells(std::array<int, 2>{0, 1}, 0, ParticleContainerLinkedCells::haloCells,
+                setSpecificCells(std::array<int, 2>{0, 1}, 0, ParticleContainerLinkedCells2D::haloCells,
                                  specificHaloCells);
-                setSpecificCells(std::array<int, 2>{0, 1}, 1, ParticleContainerLinkedCells::boundaryCells,
+                setSpecificCells(std::array<int, 2>{0, 1}, 1, ParticleContainerLinkedCells2D::boundaryCells,
                                  specificBoundaryCells);
                 break;
         }

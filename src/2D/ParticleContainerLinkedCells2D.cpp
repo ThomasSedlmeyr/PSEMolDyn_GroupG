@@ -14,6 +14,8 @@ namespace twoD{
     std::vector<Cell> ParticleContainerLinkedCells2D::cells;
     int ParticleContainerLinkedCells2D::numberCellsX;
     int ParticleContainerLinkedCells2D::numberCellsY;
+    double ParticleContainerLinkedCells2D::domainSizeX;
+    double ParticleContainerLinkedCells2D::domainSizeY;
     std::vector<Cell *> ParticleContainerLinkedCells2D::boundaryCells;
     std::vector<Cell *> ParticleContainerLinkedCells2D::haloCells;
     std::vector<Cell *> ParticleContainerLinkedCells2D::innerCells;
@@ -24,8 +26,9 @@ namespace twoD{
     ParticleContainerLinkedCells2D::ParticleContainerLinkedCells2D(double domainSizeX, double domainSizeY,
                                                                    double cutOffRadius,
                                                                    const std::array<int, 4> &boundaryConditionTypes)
-            : domainSizeX(domainSizeX), domainSizeY(domainSizeY), cutOffRadius(cutOffRadius) {
-
+            : cutOffRadius(cutOffRadius) {
+        ParticleContainerLinkedCells2D::domainSizeX = domainSizeX;
+        ParticleContainerLinkedCells2D::domainSizeY = domainSizeY;
         createCells();
         std::array<double, 3> domainSize = {domainSizeX, domainSizeY, 0};
         boundaryContainer = std::make_unique<BoundaryConditionContainer2D>(boundaryConditionTypes,
@@ -39,6 +42,8 @@ namespace twoD{
 
         Cell::sizeX = double(domainSizeX) / numberCellsX;
         Cell::sizeY = double(domainSizeY) / numberCellsY;
+        //to ensure that Cell::particleLiesInCell() works correctly
+        Cell::sizeZ = 1000;
 
         //Two is added because of the HaloCells
         numberCellsX += 2;
@@ -178,16 +183,15 @@ namespace twoD{
     }
 
     void ParticleContainerLinkedCells2D::walkOverParticlePairs(ParticlePairVisitor &visitor) {
-        //TODO zu parameter machen
-        //double ggrav = -12.44;
-        double ggrav = 0.0;
         boundaryContainer->calculateBoundaryConditions();
         for (Cell &c: cells) {
             auto &particles = c.getParticles();
             for (auto it = particles.begin(); it != particles.end(); it++) {
                 //apply Gravitation
-                std::array<double, 3> &f = it->getFRef();
-                f[1] += it->getM()*ggrav;
+                if (useGrav){
+                    std::array<double, 3> &f = it->getFRef();
+                    f[1] += it->getM()*g_grav;
+                }
                 //calculate force between particles inside of cell
                 for (auto it2 = it + 1; it2 != particles.end(); it2++) {
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {

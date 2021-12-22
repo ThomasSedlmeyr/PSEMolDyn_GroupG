@@ -71,12 +71,9 @@ int main(int argc, char *argsv[]) {
                     exit(1);
                 }
             }else{
-                //TODO periodic boundary erlauben
-                std::array<int, 4> ones = {1,1,1,1};
-                particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, ones);
+                std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+                particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
             }
-            /*
-             */
             ljS.simulate(*w, particleContainer);
             break;
         }

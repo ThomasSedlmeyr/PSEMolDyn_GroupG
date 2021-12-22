@@ -5,6 +5,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <XML_Parser/XMLParser.h>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainers/ParticleContainer.h"
 #include "BoundaryConditionContainer2D.h"
@@ -41,16 +42,6 @@ namespace twoD {
          * @brief a global index for the currentIndex of the innerCells
          */
         int currentIndexInnerCells{};
-
-        /**
-         * @brief the x-dimension of the domain
-         */
-        double domainSizeX{};
-
-        /**
-         * @brief the y-dimension of the domain
-         */
-        double domainSizeY{};
 
         /**
          * @brief the cutOffRadius. Only particles that are located at a smaller distance around the particle as the cutOffRadius
@@ -239,5 +230,24 @@ namespace twoD {
 
         bool
         shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius);
+
+        /**
+             * @brief the x-dimension of the domain
+             */
+        static double domainSizeX;
+        /**
+             * @brief the y-dimension of the domain
+             */
+        static double domainSizeY;
+
+        /**
+         * @brief determines whether gravitation should be applied or not
+         */
+        const bool useGrav = XMLParser::useGravity_p;
+
+        /**
+         * @brief downward gravitation factor
+         */
+        const double g_grav = XMLParser::g_grav_p;
     };
 }

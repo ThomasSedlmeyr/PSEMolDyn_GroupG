@@ -48,6 +48,11 @@ namespace twoD{
          */
         static const int BETTER_REFLECTION_TYPE = 3;
 
+        /**
+         * @brief constant value describing the PERIODIC_BOUNDARY_TYPE
+         */
+        static const int PERIODIC_BOUNDARY_TYPE = 4;
+
         [[nodiscard]] const std::vector<Cell *> &getSpecificBoundaryCells() const;
 
         [[nodiscard]] const std::vector<Cell *> &getSpecificHaloCells() const;
