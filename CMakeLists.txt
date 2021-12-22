@@ -14,7 +14,18 @@ endif(NOT CMAKE_BUILD_TYPE)
 
 # collect all cpp files
 file(GLOB_RECURSE MY_SRC
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/2D/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/BoundaryConditions/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Checkpoints/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/GeometricObjects/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/InputReader/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/OutputWriter/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ParticleContainers/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationLogic/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/MolSim.cpp"
 
         # header don't need to be included but this might be necessary for some IDEs
         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
