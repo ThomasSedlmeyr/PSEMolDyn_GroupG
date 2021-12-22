@@ -2,48 +2,69 @@
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
-    <t_end>20</t_end>
-    <delta_t>0.0005</delta_t>
-    <calcType>LJ</calcType>
-    <baseNameOutputFiles>CollisionOfTwoBodies</baseNameOutputFiles>
-    <writeFrequency>100</writeFrequency>
-    <gravInput></gravInput>
+    <generalParams>
+            <t_end>20</t_end>
+            <delta_t>0.0005</delta_t>
+            <writeFrequency>100</writeFrequency>
+            <dimensionType>2D</dimensionType>
 
-    <paramsLJ>
-        <epsilon>5.0</epsilon>
-        <mass>1.0</mass>
-        <rho>1.0</rho>
-        <h>1.1225</h>
-        <domainSizeX>180</domainSizeX>
-        <domainSizeY>90</domainSizeY>
-        <domainSizeZ>6</domainSizeZ>
-        <particleContainerType>2</particleContainerType>
-        <cutoffRadius>3</cutoffRadius>
-    </paramsLJ>
+            <g_grav>0</g_grav>
+            <useGravity>no</useGravity>
 
-    <boundaryConditions>
-        <top>1</top>
-        <right>1</right>
-        <bottom>1</bottom>
-        <left>1</left>
-        <front>1</front>
-        <back>1</back>
-    </boundaryConditions>
+            <calcType>LJ</calcType>
+            <baseNameOutputFiles>CollisionOfTwoBodies</baseNameOutputFiles>
+            <particleContainerType_p>linkedCell</particleContainerType_p>
+            <cutoffRadius>3</cutoffRadius>
+            <gravInput></gravInput>
 
-    <particlesLJ>
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>20,20,1</position>
-            <velocity>0,0,0</velocity>
-            <objectSpecificFormat>100,20,1</objectSpecificFormat>
-        </body>
+            <loadCheckpoint>yes</loadCheckpoint>
+            <makeCheckpoint>no</makeCheckpoint>
+            <pathInCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathInCheckpoint>
+            <pathOutCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathOutCheckpoint>
 
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>70,60,1</position>
-            <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>20,20,1</objectSpecificFormat>
-        </body>
-    </particlesLJ>
+            <domainSizeX>180</domainSizeX>
+            <domainSizeY>90</domainSizeY>
+            <domainSizeZ>6</domainSizeZ>
+
+            <useThermostat>no</useThermostat>
+            <useBrownianMotion>no</useBrownianMotion>
+            <T_init>40</T_init>
+            <T_target>40</T_target>
+            <delta_T>2</delta_T>
+            <n_thermostat>1000</n_thermostat>
+        </generalParams>
+
+        <boundaryConditions>
+            <top>outflowType</top>
+            <right>outflowType</right>
+            <bottom>outflowType</bottom>
+            <left>outflowType</left>
+            <front>outflowType</front>
+            <back>outflowType</back>
+        </boundaryConditions>
+
+        <particlesLJ>
+            <body>
+                <bodyType>Cuboid</bodyType>
+                <position>20,20,1</position>
+                <velocity>0,0,0</velocity>
+                <objectSpecificFormat>100,20,1</objectSpecificFormat>
+                <epsilon>5.0</epsilon>
+                <mass>1.0</mass>
+                <rho>1.0</rho>
+                <h>1.1225</h>
+            </body>
+
+            <body>
+                <bodyType>Cuboid</bodyType>
+                <position>70,60,1</position>
+                <velocity>0,-10,0</velocity>
+                <objectSpecificFormat>20,20,1</objectSpecificFormat>
+                <epsilon>5.0</epsilon>
+                <mass>1.0</mass>
+                <rho>1.0</rho>
+                <h>1.1225</h>
+            </body>
+        </particlesLJ>
 
 </input>

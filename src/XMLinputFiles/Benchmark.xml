@@ -8,7 +8,7 @@
             <writeFrequency>100000</writeFrequency>
             <dimensionType>2D</dimensionType>
 
-            <g_grav>-12.44</g_grav>
+            <g_grav>0</g_grav>
             <useGravity>no</useGravity>
 
             <calcType>LJ</calcType>
