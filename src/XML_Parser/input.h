@@ -734,7 +734,7 @@ class calcType: public ::xml_schema::string
 };
 
 /**
- * @brief Enumeration class corresponding to the %particleContainerType_p
+ * @brief Enumeration class corresponding to the %particleContainerType
  * schema type.
  */
 class particleContainerType: public ::xml_schema::string
@@ -1744,9 +1744,9 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
-   * @name particleContainerType_p
+   * @name particleContainerType
    *
-   * @brief Accessor and modifier functions for the %particleContainerType_p
+   * @brief Accessor and modifier functions for the %particleContainerType
    * required element.
    */
   //@{
@@ -2338,6 +2338,64 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
+   * @name useBrownianMotion
+   *
+   * @brief Accessor and modifier functions for the %useBrownianMotion
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::yesNo useBrownianMotion_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< useBrownianMotion_type, char > useBrownianMotion_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const useBrownianMotion_type&
+  useBrownianMotion () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  useBrownianMotion_type&
+  useBrownianMotion ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  useBrownianMotion (const useBrownianMotion_type& x);
+
+  /**
+   * @brief Set the element value without copying.
+   *
+   * @param p A new value to use.
+   *
+   * This function will try to use the passed value directly
+   * instead of making a copy.
+   */
+  void
+  useBrownianMotion (::std::unique_ptr< useBrownianMotion_type > p);
+
+  //@}
+
+  /**
    * @name T_init
    *
    * @brief Accessor and modifier functions for the %T_init
@@ -2553,6 +2611,7 @@ class generalParams: public ::xml_schema::type
                  const domainSizeY_type&,
                  const domainSizeZ_type&,
                  const useThermostat_type&,
+                 const useBrownianMotion_type&,
                  const T_init_type&,
                  const T_target_type&,
                  const delta_T_type&,
@@ -2647,6 +2706,7 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< domainSizeY_type > domainSizeY_;
   ::xsd::cxx::tree::one< domainSizeZ_type > domainSizeZ_;
   ::xsd::cxx::tree::one< useThermostat_type > useThermostat_;
+  ::xsd::cxx::tree::one< useBrownianMotion_type > useBrownianMotion_;
   ::xsd::cxx::tree::one< T_init_type > T_init_;
   ::xsd::cxx::tree::one< T_target_type > T_target_;
   ::xsd::cxx::tree::one< delta_T_type > delta_T_;

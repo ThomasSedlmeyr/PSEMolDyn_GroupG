@@ -8,7 +8,7 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:simpleType name="particleContainerType_p">
+    <xsd:simpleType name="particleContainerType">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="directSum"/>
             <xsd:enumeration value="linkedCell"/>
@@ -50,7 +50,7 @@
 
             <xsd:element name="calcType" type="calcType"/>
             <xsd:element name="baseNameOutputFiles" type="xsd:string"/>
-            <xsd:element name="particleContainerType_p" type="particleContainerType_p"/>
+            <xsd:element name="particleContainerType" type="particleContainerType"/>
             <xsd:element name="cutoffRadius" type="xsd:double"/>
             <xsd:element name="gravInput" type="xsd:string"/>
 

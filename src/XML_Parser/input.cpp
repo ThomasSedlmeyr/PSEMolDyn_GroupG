@@ -85,7 +85,7 @@ operator= (value v)
 }
 
 
-// particleContainerType_p
+// particleContainerType
 // 
 
 particleContainerType::
@@ -676,6 +676,30 @@ useThermostat (::std::unique_ptr< useThermostat_type > x)
   this->useThermostat_.set (std::move (x));
 }
 
+const generalParams::useBrownianMotion_type& generalParams::
+useBrownianMotion () const
+{
+  return this->useBrownianMotion_.get ();
+}
+
+generalParams::useBrownianMotion_type& generalParams::
+useBrownianMotion ()
+{
+  return this->useBrownianMotion_.get ();
+}
+
+void generalParams::
+useBrownianMotion (const useBrownianMotion_type& x)
+{
+  this->useBrownianMotion_.set (x);
+}
+
+void generalParams::
+useBrownianMotion (::std::unique_ptr< useBrownianMotion_type > x)
+{
+  this->useBrownianMotion_.set (std::move (x));
+}
+
 const generalParams::T_init_type& generalParams::
 T_init () const
 {
@@ -1239,7 +1263,7 @@ _xsd_calcType_indexes_[2] =
   ::calcType::LJ
 };
 
-// particleContainerType_p
+// particleContainerType
 //
 
 particleContainerType::
@@ -1546,6 +1570,7 @@ generalParams (const t_end_type& t_end,
                const domainSizeY_type& domainSizeY,
                const domainSizeZ_type& domainSizeZ,
                const useThermostat_type& useThermostat,
+               const useBrownianMotion_type& useBrownianMotion,
                const T_init_type& T_init,
                const T_target_type& T_target,
                const delta_T_type& delta_T,
@@ -1570,6 +1595,7 @@ generalParams (const t_end_type& t_end,
   domainSizeY_ (domainSizeY, this),
   domainSizeZ_ (domainSizeZ, this),
   useThermostat_ (useThermostat, this),
+  useBrownianMotion_ (useBrownianMotion, this),
   T_init_ (T_init, this),
   T_target_ (T_target, this),
   delta_T_ (delta_T, this),
@@ -1601,6 +1627,7 @@ generalParams (const generalParams& x,
   domainSizeY_ (x.domainSizeY_, f, this),
   domainSizeZ_ (x.domainSizeZ_, f, this),
   useThermostat_ (x.useThermostat_, f, this),
+  useBrownianMotion_ (x.useBrownianMotion_, f, this),
   T_init_ (x.T_init_, f, this),
   T_target_ (x.T_target_, f, this),
   delta_T_ (x.delta_T_, f, this),
@@ -1632,6 +1659,7 @@ generalParams (const ::xercesc::DOMElement& e,
   domainSizeY_ (this),
   domainSizeZ_ (this),
   useThermostat_ (this),
+  useBrownianMotion_ (this),
   T_init_ (this),
   T_target_ (this),
   delta_T_ (this),
@@ -1754,9 +1782,9 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
-    // particleContainerType_p
+    // particleContainerType
     //
-    if (n.name () == "particleContainerType_p" && n.namespace_ ().empty ())
+    if (n.name () == "particleContainerType" && n.namespace_ ().empty ())
     {
       ::std::unique_ptr< particleContainerType_type > r (
         particleContainerType_traits::create (i, f, this));
@@ -1896,6 +1924,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // useBrownianMotion
+    //
+    if (n.name () == "useBrownianMotion" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< useBrownianMotion_type > r (
+        useBrownianMotion_traits::create (i, f, this));
+
+      if (!useBrownianMotion_.present ())
+      {
+        this->useBrownianMotion_.set (::std::move (r));
+        continue;
+      }
+    }
+
     // T_init
     //
     if (n.name () == "T_init" && n.namespace_ ().empty ())
@@ -2002,7 +2044,7 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   if (!particleContainerType_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "particleContainerType_p",
+      "particleContainerType",
       "");
   }
 
@@ -2076,6 +2118,13 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "");
   }
 
+  if (!useBrownianMotion_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "useBrownianMotion",
+      "");
+  }
+
   if (!T_init_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
@@ -2137,6 +2186,7 @@ operator= (const generalParams& x)
     this->domainSizeY_ = x.domainSizeY_;
     this->domainSizeZ_ = x.domainSizeZ_;
     this->useThermostat_ = x.useThermostat_;
+    this->useBrownianMotion_ = x.useBrownianMotion_;
     this->T_init_ = x.T_init_;
     this->T_target_ = x.T_target_;
     this->delta_T_ = x.delta_T_;
