@@ -3,57 +3,57 @@
        xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
 
     <generalParams>
-            <t_end>0.5</t_end>
-            <delta_t>0.0005</delta_t>
-            <writeFrequency>100000</writeFrequency>
-            <dimensionType>2D</dimensionType>
+        <t_end>0.5</t_end>
+        <delta_t>0.0005</delta_t>
+        <writeFrequency>100000</writeFrequency>
+        <dimensionType>2D</dimensionType>
 
-            <g_grav>0</g_grav>
-            <useGravity>no</useGravity>
+        <g_grav>0</g_grav>
+        <useGravity>no</useGravity>
 
-            <calcType>LJ</calcType>
-            <baseNameOutputFiles>Benchmark</baseNameOutputFiles>
-            <particleContainerType_p>linkedCell</particleContainerType_p>
-            <cutoffRadius>3</cutoffRadius>
-            <gravInput></gravInput>
+        <calcType>LJ</calcType>
+        <baseNameOutputFiles>Benchmark</baseNameOutputFiles>
+        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <cutoffRadius>3</cutoffRadius>
+        <gravInput></gravInput>
 
-            <loadCheckpoint>no</loadCheckpoint>
-            <makeCheckpoint>no</makeCheckpoint>
-            <pathInCheckpoint></pathInCheckpoint>
-            <pathOutCheckpoint></pathOutCheckpoint>
+        <loadCheckpoint>no</loadCheckpoint>
+        <makeCheckpoint>no</makeCheckpoint>
+        <pathInCheckpoint></pathInCheckpoint>
+        <pathOutCheckpoint></pathOutCheckpoint>
 
-            <domainSizeX>120</domainSizeX>
-            <domainSizeY>100</domainSizeY>
-            <domainSizeZ>6</domainSizeZ>
+        <domainSizeX>120</domainSizeX>
+        <domainSizeY>100</domainSizeY>
+        <domainSizeZ>6</domainSizeZ>
 
-            <useThermostat>no</useThermostat>
-            <useBrownianMotion>no</useBrownianMotion>
-            <T_init>0</T_init>
-            <T_target>0</T_target>
-            <delta_T>0</delta_T>
-            <n_thermostat>0</n_thermostat>
-        </generalParams>
+        <useThermostat>no</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
+        <T_init>0</T_init>
+        <T_target>0</T_target>
+        <delta_T>0</delta_T>
+        <n_thermostat>0</n_thermostat>
+    </generalParams>
 
-        <boundaryConditions>
-            <top>outflowType</top>
-            <right>outflowType</right>
-            <bottom>outflowType</bottom>
-            <left>outflowType</left>
-            <front>outflowType</front>
-            <back>outflowType</back>
-        </boundaryConditions>
+    <boundaryConditions>
+        <top>outflowType</top>
+        <right>outflowType</right>
+        <bottom>outflowType</bottom>
+        <left>outflowType</left>
+        <front>outflowType</front>
+        <back>outflowType</back>
+    </boundaryConditions>
 
-        <particlesLJ>
-            <body>
-                <bodyType>Cuboid</bodyType>
-                <position>1,1,1</position>
-                <velocity>0,0,0</velocity>
-                <objectSpecificFormat>100,80,1</objectSpecificFormat>
-                <epsilon>5.0</epsilon>
-                <mass>1.0</mass>
-                <rho>1.2</rho>
-                <h>1.1225</h>
-            </body>
-        </particlesLJ>
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>1,1,1</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>100,80,1</objectSpecificFormat>
+            <epsilon>5.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.2</rho>
+            <h>1.1225</h>
+        </body>
+    </particlesLJ>
 
 </input>
