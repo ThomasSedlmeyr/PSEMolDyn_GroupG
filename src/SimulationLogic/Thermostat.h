@@ -15,11 +15,12 @@ private:
     ParticleContainer *particleContainer{};
     double targetTemp{};
     double maxDeltaT{};
+    int dimensions{};
     KineticEnergyVisitor energyVisitor{};
     VelScalingVisitor velScalingVisitor{};
 public:
     Thermostat();
-    Thermostat(ParticleContainer *particleContainer, double targetTemp, double maxDeltaT = 100000);
+    Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimensions, double maxDeltaT = 100000);
 
     void apply();
 };

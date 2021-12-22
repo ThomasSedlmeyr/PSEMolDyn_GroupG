@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../XML_Parser/XMLParser.h"
+#include "XML_Parser/BodyBuilder.h"
 
 /**
  * @brief Test for checking if XML parser is working correctly
@@ -7,6 +8,7 @@
 TEST(GeneralTests, TestXMLParsing) {
     std::string filename = "../src/Tests/TestInputFiles/input_test.xml";
     bool success = XMLParser::parseXML(filename);
+    BodyBuilder::buildBodies(XMLParser::bodies_p, XMLParser::bodySequence);
 
     EXPECT_EQ(success, true);
     EXPECT_DOUBLE_EQ(XMLParser::t_end_p, 5);

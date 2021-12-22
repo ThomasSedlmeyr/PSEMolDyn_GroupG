@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
+
+    <generalParams>
+        <t_end>0.01</t_end>
+        <delta_t>0.0002</delta_t>
+        <writeFrequency>1000</writeFrequency>
+        <dimensionType>2D</dimensionType>
+
+        <g_grav>-12.44</g_grav>
+        <useGravity>no</useGravity>
+
+        <calcType>LJ</calcType>
+        <baseNameOutputFiles>Lennard</baseNameOutputFiles>
+        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <cutoffRadius>3</cutoffRadius>
+        <gravInput>../eingabe-sonne.txt</gravInput>
+
+        <loadCheckpoint>no</loadCheckpoint>
+        <makeCheckpoint>no</makeCheckpoint>
+        <pathInCheckpoint>Checkpoint_Files/checkpointIn.txt</pathInCheckpoint>
+        <pathOutCheckpoint>Checkpoint_Files/checkpointOut.txt</pathOutCheckpoint>
+
+        <domainSizeX>100</domainSizeX>
+        <domainSizeY>100</domainSizeY>
+        <domainSizeZ>10</domainSizeZ>
+
+        <useThermostat>yes</useThermostat>
+        <T_init>10.0</T_init>
+        <T_target>1.0</T_target>
+        <delta_T>0.5</delta_T>
+        <n_thermostat>1</n_thermostat>
+    </generalParams>
+
+    <boundaryConditions>
+        <top>betterReflectingType</top>
+        <right>betterReflectingType</right>
+        <bottom>betterReflectingType</bottom>
+        <left>betterReflectingType</left>
+        <front>betterReflectingType</front>
+        <back>betterReflectingType</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>1,1,1</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>40,8,1</objectSpecificFormat>
+            <epsilon>5.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.125</h>
+        </body>
+
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>15,15,1</position>
+            <velocity>0,-10,0</velocity>
+            <objectSpecificFormat>8,8,1</objectSpecificFormat>
+            <epsilon>5.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.125</h>
+        </body>
+    </particlesLJ>
+
+</input>

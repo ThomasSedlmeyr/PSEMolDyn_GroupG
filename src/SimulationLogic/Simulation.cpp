@@ -56,7 +56,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
         if (useThermostat){
-            if (iteration % nThermostat){
+            if (iteration % nThermostat == 0){
                 thermostat.apply();
             }
         }
@@ -83,10 +83,10 @@ void Simulation::setupThermostat() {
     auto maxDeltaT = XMLParser::delta_T_p;
     if (maxDeltaT == -1){
         //unlimited maxDeltaÄT
-        thermostat = Thermostat(particleContainer, targetTemp);
+        thermostat = Thermostat(particleContainer, targetTemp, XMLParser::dimensionType_p);
     }else{
         //limited maxDeltaT
-        thermostat = Thermostat(particleContainer, targetTemp, maxDeltaT);
+        thermostat = Thermostat(particleContainer, targetTemp, XMLParser::dimensionType_p, maxDeltaT);
     }
 }
 
