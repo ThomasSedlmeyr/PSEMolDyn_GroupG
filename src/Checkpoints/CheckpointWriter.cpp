@@ -38,7 +38,7 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "#\n"
                       "# xyz-coord\t\tvelocity\t\tmass\t\ttype\t\tforce\t\told force\t\tID";
         if (XMLParser::calcType_p == Simulation::LENNARDJONES) {
-            outputFile << "\t\tepsilon\t\trho";
+            outputFile << "\t\trho\t\tepsilon";
         }
         outputFile << "\n";
         outputFile << std::to_string(particles.size()) + "\n";
