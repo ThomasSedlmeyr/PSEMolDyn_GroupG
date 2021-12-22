@@ -17,10 +17,10 @@
             <cutoffRadius>3</cutoffRadius>
             <gravInput></gravInput>
 
-            <loadCheckpoint>yes</loadCheckpoint>
+            <loadCheckpoint>no</loadCheckpoint>
             <makeCheckpoint>no</makeCheckpoint>
-            <pathInCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathInCheckpoint>
-            <pathOutCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathOutCheckpoint>
+            <pathInCheckpoint></pathInCheckpoint>
+            <pathOutCheckpoint></pathOutCheckpoint>
 
             <domainSizeX>180</domainSizeX>
             <domainSizeY>90</domainSizeY>
@@ -28,10 +28,10 @@
 
             <useThermostat>no</useThermostat>
             <useBrownianMotion>no</useBrownianMotion>
-            <T_init>40</T_init>
-            <T_target>40</T_target>
-            <delta_T>2</delta_T>
-            <n_thermostat>1000</n_thermostat>
+            <T_init>0</T_init>
+            <T_target>0</T_target>
+            <delta_T>0</delta_T>
+            <n_thermostat>0</n_thermostat>
         </generalParams>
 
         <boundaryConditions>
