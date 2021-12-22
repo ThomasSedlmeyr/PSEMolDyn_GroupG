@@ -12,6 +12,7 @@ namespace twoD {
     void PeriodicBoundaryCondition2D::doWorkAfterCalculationStep() {
         if (!PeriodicBoundaryCondition2D::isDebug) {
             deleteAllParticlesInHaloCells();
+            deleteGhostParticlesInBoundaryCells();
         }
     }
 
