@@ -166,6 +166,11 @@ public:
     static int dimensionType_p;
 
     /**
+     * @brief making initialisation with brownian motion optional
+     */
+    static bool useBrownianMotion_p;
+
+    /**
      * @brief function for parsing xml input file
      * @return true if parsing successful, false otherwise
      */

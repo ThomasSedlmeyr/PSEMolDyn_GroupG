@@ -64,6 +64,7 @@
             <xsd:element name="domainSizeZ" type="xsd:double"/>
 
             <xsd:element name="useThermostat" type="yesNo"/>
+            <xsd:element name="useBrownianMotion" type="yesNo"/>
             <xsd:element name="T_init" type="xsd:double"/>
             <xsd:element name="T_target" type="xsd:double"/>
             <xsd:element name="delta_T" type="xsd:double"/>

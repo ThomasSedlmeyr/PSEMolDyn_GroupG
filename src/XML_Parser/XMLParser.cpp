@@ -38,6 +38,7 @@ double XMLParser::T_target_p = -1;
 double XMLParser::delta_T_p;
 int XMLParser::n_thermostat_p;
 int XMLParser::dimensionType_p;
+bool XMLParser::useBrownianMotion_p;
 
 //TODO löschen?
 /*
@@ -150,6 +151,7 @@ bool XMLParser::parseXML(const std::string filename) {
         domainSize[2] = input_xml->generalParams().domainSizeZ();
 
         useThermostat_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useThermostat());
+        useBrownianMotion_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useBrownianMotion());
         T_init_p = input_xml->generalParams().T_init();
         T_target_p = input_xml->generalParams().T_target();
         delta_T_p = input_xml->generalParams().delta_T();
