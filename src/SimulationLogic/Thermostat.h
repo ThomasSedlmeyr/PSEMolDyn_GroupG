@@ -6,7 +6,6 @@
 #define PSEMOLDYN_GROUPG_THERMOSTAT_H
 
 
-#include <cfloat>
 #include <Visitors/KineticEnergyVisitor.h>
 #include <Visitors/VelScalingVisitor.h>
 #include <ParticleContainers/ParticleContainer.h>
@@ -20,7 +19,7 @@ private:
     VelScalingVisitor velScalingVisitor{};
 public:
     Thermostat();
-    Thermostat(ParticleContainer *particleContainer, double targetTemp, double maxDeltaT = DBL_MAX);
+    Thermostat(ParticleContainer *particleContainer, double targetTemp, double maxDeltaT = 100000);
 
     void apply();
 };
