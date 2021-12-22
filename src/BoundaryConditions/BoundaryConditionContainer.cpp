@@ -11,11 +11,6 @@
 
 #include <utility>
 
-void BoundaryConditionContainer::calculateBoundaryConditions() {
-    for (auto &boundaryCondition : boundaryConditions) {
-        boundaryCondition->calculateBoundaryCondition();
-    }
-}
 
 
 BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> &boundaryConditionTypes,
@@ -33,14 +28,20 @@ BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> 
                 boundaryConditions[i] = new OutFlowCondition(BoundaryCondition::OUTFLOW_TYPE, i + 1);
                 break;
             case BoundaryCondition::REFLECTING_TYPE:
-                boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize,
-                                                                XMLParser::rho_p);
+                boundaryConditions[i] = new ReflectingCondition(BoundaryCondition::REFLECTING_TYPE, i + 1, domainSize);
                 break;
             case BoundaryCondition::BETTER_REFLECTION_TYPE:
                 boundaryConditions[i] = new BetterReflectingCondition(BoundaryCondition::BETTER_REFLECTION_TYPE, i + 1);
+                break;
             case BoundaryCondition::PERIODIC_BOUNDARY_TYPE:
-                boundaryConditions[i] = new PeriodicBoundaryCondition(BoundaryCondition::BETTER_REFLECTION_TYPE, i + 1);
+                boundaryConditions[i] = new PeriodicBoundaryCondition(BoundaryCondition::PERIODIC_BOUNDARY_TYPE, i + 1);
         }
+    }
+}
+
+void BoundaryConditionContainer::calculateBoundaryConditions() {
+    for (auto &boundaryCondition : boundaryConditions) {
+        boundaryCondition->calculateBoundaryCondition();
     }
 }
 

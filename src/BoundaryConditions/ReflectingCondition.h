@@ -31,12 +31,12 @@ public:
      */
     static bool isDebug;
 
-    ReflectingCondition(int conditionType, int side, const std::array<double, 3> &domainSize, double rho);
+    ReflectingCondition(int conditionType, int side, const std::array<double, 3> &domainSize);
 
 private:
 
     std::array<double, 3> domainSize{};
-    double rho;
+    double rho = 0;
 
     /**
      * @brief Calculates the boundary condition for one cell
