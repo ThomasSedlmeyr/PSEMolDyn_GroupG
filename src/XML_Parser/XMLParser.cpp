@@ -23,6 +23,7 @@ int XMLParser::back_p;
 std::array<double, 3> XMLParser::domainSize = {};
 double XMLParser::cutoffRadius;
 std::array<int, 6> XMLParser::boundaryConditions;
+particlesLJ::body_sequence XMLParser::bodySequence{};
 std::list<Body*> XMLParser::bodies_p{};
 int XMLParser::particleContainerType_p;
 double XMLParser::g_grav_p;
@@ -209,10 +210,8 @@ bool XMLParser::parseXML(const std::string filename) {
             back_p = 4;
         }
         boundaryConditions = {front_p, right_p, back_p, left_p, top_p, bottom_p};
-
-        // bodies_p parsing with iteration
-        particlesLJ::body_sequence &b(input_xml->particlesLJ().body());
-        return BodyBuilder::buildBodies(bodies_p, b);
+        bodySequence = input_xml->particlesLJ().body();
+        return true;
 
     } catch (const std::exception& e) {
         std::cout << "Parsing of XML-file was not successful!" << std::endl;
@@ -221,7 +220,6 @@ bool XMLParser::parseXML(const std::string filename) {
         std::cerr << e.what() << std::endl;
         return false;
     }
-    return true;
 }
 
 void XMLParser::resetInternalData() {

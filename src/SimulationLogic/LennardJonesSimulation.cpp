@@ -8,8 +8,10 @@
 #include <string>
 #include "utils/MaxwellBoltzmannDistribution.h"
 #include "XML_Parser/XMLParser.h"
+#include "XML_Parser/BodyBuilder.h"
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
+    BodyBuilder::buildBodies(XMLParser::bodies_p, XMLParser::bodySequence);
     uniteParticlesFromBodies();
     return true;
 }

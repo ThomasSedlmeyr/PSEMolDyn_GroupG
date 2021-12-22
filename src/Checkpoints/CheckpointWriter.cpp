@@ -1,6 +1,7 @@
 #include "CheckpointWriter.h"
 #include "spdlog/spdlog.h"
 #include <fstream>
+#include <XML_Parser/BodyBuilder.h>
 #include "XML_Parser/XMLParser.h"
 #include "SimulationLogic/Simulation.h"
 
@@ -21,10 +22,9 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "# The second line not being a comment has to either be G or LJ indicating whether the\n"
                       "# particles were saved from a Gravitation Simulation or Lennard Jones Simulation.\n"
                       "#\n"
-                      //TODO löschen?
-                      //"#The third line states the number of bodies in the simulation\n"
-                      //"#The next two lines are the rho/epsilon lookup tables\n"
-                      //"#\n"
+                      "#The third line states the number of bodies in the simulation\n"
+                      "#The next two lines are the rho/epsilon lookup tables\n"
+                      "#\n"
                       "# Molecule data consists of:\n"
                       "# * xyz-coordinates (3 double values)\n"
                       "# * velocities (3 double values)\n"
@@ -44,9 +44,8 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
         } else {
             outputFile << "LJ\n";
         }
-        //TODO löschen?
-        //outputFile << BodyBuilder::toString();
-        // if calcType is LJ, toString will automatically add more parameters
+        outputFile << BodyBuilder::toString();
+         //if calcType is LJ, toString will automatically add more parameters
         for (auto particle : particles) {
             outputFile << particle.toString() + "\n";
         }

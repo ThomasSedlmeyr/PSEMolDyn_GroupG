@@ -28,30 +28,28 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     particleContainer = partContainer;
     posCalcVisitor.setDeltaT(delta_t);
     velCalcVisitor.setDeltaT(delta_t);
-    auto targetTemp =  XMLParser::T_init_p;
-    if (XMLParser::T_target_p != -1){
-        targetTemp = XMLParser::T_target_p;
-    }
-    thermostat = Thermostat(particleContainer, targetTemp, XMLParser::delta_T_p);
-    const int nThermostat = XMLParser::n_thermostat_p;
     const bool useThermostat = XMLParser::useThermostat_p;
+    const int nThermostat = XMLParser::n_thermostat_p;
+    if (useThermostat){
+        setupThermostat();
+    }
 
-    int iteration = 0;
-    double currentTime = 0;
     if (XMLParser::loadCheckpoint_p){
-        //read paticles from checkpoint
+        //read particles from checkpoint
         if (!CheckpointReader::readCheckpointFile(XMLParser::pathInCheckpoint_p, particleContainer)){
             spdlog::error("Error in checkpoint file: " + XMLParser::pathInCheckpoint_p);
             exit(EXIT_FAILURE);;
         }
-    }else{
-        //read particles from xml file
-        if (!readParticles(inputFile)){
-            spdlog::error("Error in File: " + inputFile);
-            exit(EXIT_FAILURE);;
-        }
-
     }
+    //read particles from file
+    if (!readParticles(inputFile)){
+        spdlog::error("Error in File: " + inputFile);
+        exit(EXIT_FAILURE);;
+    }
+
+    int iteration = 0;
+    double currentTime = 0;
+
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (currentTime < endTime) {
         if (iteration % numberSkippedPrintedIterations == 0) {
@@ -74,6 +72,21 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     std::cout << "Time per iteration: " << double(duration) / numIterations << "ms" << std::endl;
     if (XMLParser::makeCheckpoint_p){
         CheckpointWriter::writeCheckpointFile(XMLParser::pathOutCheckpoint_p, particleContainer);
+    }
+}
+
+void Simulation::setupThermostat() {
+    auto targetTemp =  XMLParser::T_init_p;
+    if (XMLParser::T_target_p != -1){
+        targetTemp = XMLParser::T_target_p;
+    }
+    auto maxDeltaT = XMLParser::delta_T_p;
+    if (maxDeltaT == -1){
+        //unlimited maxDeltaÄT
+        thermostat = Thermostat(particleContainer, targetTemp);
+    }else{
+        //limited maxDeltaT
+        thermostat = Thermostat(particleContainer, targetTemp, maxDeltaT);
     }
 }
 

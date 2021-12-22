@@ -100,6 +100,8 @@ public:
     simulateLogic(const double &endTime, const double &delta_t, Writer &writer,
                   const int &numberSkippedPrintedIterations,
                   const std::string &inputFile, const std::string &outputFileName, ParticleContainer *partContainer);
+
+    void setupThermostat();
 };
 
 

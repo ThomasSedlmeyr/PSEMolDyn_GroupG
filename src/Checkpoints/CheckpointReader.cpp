@@ -9,9 +9,8 @@
 #include "SimulationLogic/Simulation.h"
 #include "XML_Parser/BodyBuilder.h"
 
-//ParticleContainer* CheckpointReader::particleContainer;
-int CheckpointReader::checkpointReadCalcType;
-std::vector<Particle> CheckpointReader::particles;
+int CheckpointReader::checkpointReadCalcType{};
+std::vector<Particle> CheckpointReader::particles{};
 
 bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleContainer *particleContainer) {
     std::array<double, 3> x = {};
@@ -21,8 +20,6 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
     std::array<double, 3> f = {};
     std::array<double, 3> old_f = {};
     int id;
-    double rho;
-    double eps;
     int num_particles = 0;
     std::string temp;
     auto filePath = "../src/Checkpoint_Files/" + fileName;
@@ -56,9 +53,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
             spdlog::error("Error reading file: Unknown calculation type.");
             return false;
         }
-        //TODO löschen?
         //epsilon and rho lookup table for LJ simulation
-        /*
         if (checkpointReadCalcType == Simulation::LENNARDJONES){
             //number of bodies
             getline(input_file, tmp_string);
@@ -75,7 +70,6 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
             spdlog::info("Read line: " + tmp_string);
             BodyBuilder::parseEpsilonLookupTable(tmp_string);
         }
-         */
 
         for (int i = 0; i < num_particles; i++) {
             getline(input_file, tmp_string);

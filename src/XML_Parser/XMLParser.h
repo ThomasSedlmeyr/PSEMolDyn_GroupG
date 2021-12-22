@@ -40,13 +40,6 @@ public:
      */
     static std::string gravInput_p;
 
-    // TODO delete, problem used in LennardJonesSimulation.cpp:13:44
-    static double epsilon_p;
-
-    // TODO delete, problem used in BoundaryConditionContainer.cpp:35:131
-    // TODO delete, problem used in LennardJonesSimulation.cpp:14:40
-    static double rho_p;
-
     /**
      * @brief vector for handling parameters
      */
@@ -86,6 +79,11 @@ public:
      * @brief vector for handling boundary conditions
      */
     static std::array<int, 6> boundaryConditions;
+
+    /**
+     * @brief body sequence used for parsing bodies
+     */
+    static particlesLJ::body_sequence bodySequence;
 
     /**
      * @brief list of parsed bodies from xml file
