@@ -33,7 +33,6 @@ file(GLOB_RECURSE MY_SRC
 # create make target
 add_executable(MolSim ${MY_SRC} )
 
-
 # set cxx standard. You may raise this if you want.
 target_compile_features(MolSim
         PRIVATE
@@ -48,10 +47,13 @@ target_include_directories(MolSim
             ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+target_compile_options(MolSim PUBLIC -pg)
+
 target_link_libraries(MolSim
         # stuff that is used in headers and source files
         PUBLIC
         xerces-c
+        -pg
         )
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)

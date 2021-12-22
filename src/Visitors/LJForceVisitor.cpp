@@ -8,18 +8,20 @@
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
-    if (p1.getType() == -1 && p2.getType() == -1){
+    const int &p1Type = p1.getType();
+    const int &p2Type = p2.getType();
+    if (p1Type == -1 && p2Type == -1){
         return;
     }
-    if (p1.getType() == -1){
-        rho = BodyBuilder::rhoLookUpTable[p2.getType()][p2.getType()];
-        epsilon = BodyBuilder::epsilonLookUpTable[p2.getType()][p2.getType()];
-    }else if (p2.getType() == -1){
-        rho = BodyBuilder::rhoLookUpTable[p1.getType()][p1.getType()];
-        epsilon = BodyBuilder::epsilonLookUpTable[p1.getType()][p1.getType()];
+    if (p1Type == -1){
+        rho = BodyBuilder::rhoLookUpTable[p2Type][p2Type];
+        epsilon = BodyBuilder::epsilonLookUpTable[p2Type][p2Type];
+    }else if (p2Type == -1){
+        rho = BodyBuilder::rhoLookUpTable[p1Type][p1Type];
+        epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p1Type];
     }else{
-        rho = BodyBuilder::rhoLookUpTable[p1.getType()][p2.getType()];
-        epsilon = BodyBuilder::epsilonLookUpTable[p1.getType()][p2.getType()];
+        rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
+        epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
     }
 
     auto &x1 = p1.getX();

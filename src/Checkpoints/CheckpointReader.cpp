@@ -73,7 +73,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
 
         for (int i = 0; i < num_particles; i++) {
             getline(input_file, tmp_string);
-            spdlog::info("Read line: " + tmp_string);
+            //spdlog::info("Read line: " + tmp_string);
             std::istringstream datastream(tmp_string);
 
             for (auto &xj: x) {
