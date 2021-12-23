@@ -262,6 +262,9 @@ namespace twoD{
         if (resultIndex < 0) {
             return -1;
         }
+        if (resultIndex >= static_cast<int>(cells.size())){
+            return -1;
+        }
         if (resultIndex > index) {
             //moved to right, so x position of new cell has to be greater
             if (cells[resultIndex].getPosition()[0] > cells[index].getPosition()[0]) {
@@ -282,6 +285,9 @@ namespace twoD{
         }
         auto resultIndex = index + numberCellsX * numberPositionsInY;
         if (resultIndex < 0) {
+            return -1;
+        }
+        if (resultIndex >= static_cast<int>(cells.size())){
             return -1;
         }
         if (resultIndex > index) {

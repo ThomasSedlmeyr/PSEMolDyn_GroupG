@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
+
+    <generalParams>
+        <t_end>0.005</t_end>
+        <delta_t>0.0001</delta_t>
+        <writeFrequency>10</writeFrequency>
+        <dimensionType>2D</dimensionType>
+
+        <g_grav>0</g_grav>
+        <useGravity>no</useGravity>
+
+        <calcType>LJ</calcType>
+        <baseNameOutputFiles>CheckpointTest</baseNameOutputFiles>
+        <particleContainerType>linkedCell</particleContainerType>
+        <cutoffRadius>3</cutoffRadius>
+        <gravInput></gravInput>
+
+        <loadCheckpoint>no</loadCheckpoint>
+        <makeCheckpoint>no</makeCheckpoint>
+        <pathInCheckpoint>checkpointReadWriteTest.txt</pathInCheckpoint>
+        <pathOutCheckpoint>checkpointReadWriteTest.txt</pathOutCheckpoint>
+
+        <domainSizeX>100</domainSizeX>
+        <domainSizeY>100</domainSizeY>
+        <domainSizeZ>10</domainSizeZ>
+
+        <useThermostat>no</useThermostat>
+        <useBrownianMotion>no</useBrownianMotion>
+        <T_init>0</T_init>
+        <T_target>0</T_target>
+        <delta_T>0</delta_T>
+        <n_thermostat>1</n_thermostat>
+    </generalParams>
+
+    <boundaryConditions>
+        <top>betterReflectingType</top>
+        <right>betterReflectingType</right>
+        <bottom>betterReflectingType</bottom>
+        <left>betterReflectingType</left>
+        <front>betterReflectingType</front>
+        <back>betterReflectingType</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>1,1,1</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>10,2,1</objectSpecificFormat>
+            <epsilon>5.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.125</h>
+        </body>
+    </particlesLJ>
+
+</input>

@@ -19,7 +19,7 @@ namespace twoD {
                 std::cout << "Had to delete ghost particle in boundary cell";
                 std::vector<Particle> particles = std::vector<Particle>(
                         cell->getParticles().size() - numberOfGhostParticles);
-                for (int i = 0; i < cell->getParticles().size(); i++) {
+                for (int i = 0; i < static_cast<int>(cell->getParticles().size()); i++) {
                     if (!particles[i].isGhostParticle) {
                         particles[i] = cell->getParticles()[i];
                     }
