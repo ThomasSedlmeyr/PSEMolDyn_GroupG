@@ -22,9 +22,9 @@
             EXPECT_NEAR(expected[idx], actual[idx], thresh) << "at index: " << idx;\
         }
 
-
 /**
- * @brief Tests for every side of the boundary of the reflection and inserting of particle in the halo cells works as expected
+ * @brief Tests for every side of the boundary, that the reflection and inserting of specific particles in the
+ * halo cells works as expected
  */
 TEST(BoundaryConditions, TestReflectionAndInserting) {
     double cutOff = 3.0;
@@ -85,8 +85,13 @@ TEST(BoundaryConditions, TestReflectionAndInserting) {
 }
 
 /**
- * We place in in two corners of the domain and on an edge one particle and check if get 17 get ghostParticles
- * and also checks the correct deletion of the ghost particles
+ * @brief
+ * For this test we use on all sides PeriodicBoundaryConditions
+ * We insert one particle into the the leftBottomFront corner which should give 7 additional ghost particles
+ * We also insert one particle into the rightTopBack corner which should give 7 additional ghost particles
+ * We also insert on particle into the particleLeftBottomEdge which should give 3 additional ghost particles
+ * We then test if the sum of the ghost particles is equal to 17
+ * We also test if we delete all ghost particles after the calculation process of the boundary
  */
 TEST(BoundaryConditions, CheckBoundarTestNumberGhostParticles) {
     double cutOff = 2.0;
@@ -104,11 +109,11 @@ TEST(BoundaryConditions, CheckBoundarTestNumberGhostParticles) {
                                                                                    domainSize);
     std::array<BoundaryCondition *, 6> boundaryConditions = boundaryConditionContainer->getBoundaryConditions();
 
-    Particle particleLeft = Particle({1, 1, 3}, {1, 2, 3}, 23, 1, 1);
+    Particle particleLeftBottomEdge = Particle({1, 1, 3}, {1, 2, 3}, 23, 1, 1);
     Particle particleLeftBottomFront = Particle({1, 1, domainSizeZ - 1}, {1, 2, 3}, 23, 1, 1);
     Particle particleRightTopBack = Particle({domainSizeX - 1, domainSizeY - 1, 1}, {1, 2, 3}, 23, 1, 2);
 
-    ParticleContainerLinkedCells::addParticle(particleLeft);
+    ParticleContainerLinkedCells::addParticle(particleLeftBottomEdge);
     ParticleContainerLinkedCells::addParticle(particleRightTopBack);
     ParticleContainerLinkedCells::addParticle(particleLeftBottomFront);
 
@@ -148,7 +153,14 @@ bool checkIfArrayIsElementInOtherVector(std::array<double, 3> &array, std::vecto
     return false;
 }
 
-
+/**
+ * @brief
+ * For this test we use on all sides PeriodicBoundaryConditions
+ * We insert one particle into the the leftBottomFront corner which should give 7 additional ghost particles
+ * We also insert one particle into the rightTopBack corner which should give 7 additional ghost particles
+ * We also insert on particle into the particleLeftBottomEdge which should give 3 additional ghost particles
+ * Then we check for each of the 17 ghostparticles if it has the right position.
+ */
 TEST(BoundaryConditions, CheckPositionsOfGhostParticles3D) {
     double cutOff = 2.0;
     double domainSizeX = 10;
@@ -165,11 +177,11 @@ TEST(BoundaryConditions, CheckPositionsOfGhostParticles3D) {
                                                                                    domainSize);
     std::array<BoundaryCondition *, 6> boundaryConditions = boundaryConditionContainer->getBoundaryConditions();
 
-    Particle particleLeftTopEdge = Particle({1, 1, 3}, {1, 2, 3}, 23, 1, 1);
+    Particle particleLeftBottomEdge = Particle({1, 1, 3}, {1, 2, 3}, 23, 1, 1);
     Particle particleLeftBottomFront = Particle({1, 1, domainSizeZ - 1}, {1, 2, 3}, 23, 1, 1);
     Particle particleRightTopBack = Particle({domainSizeX - 1, domainSizeY - 1, 1}, {1, 2, 3}, 23, 1, 2);
 
-    ParticleContainerLinkedCells::addParticle(particleLeftTopEdge);
+    ParticleContainerLinkedCells::addParticle(particleLeftBottomEdge);
     ParticleContainerLinkedCells::addParticle(particleLeftBottomFront);
     ParticleContainerLinkedCells::addParticle(particleRightTopBack);
 
@@ -186,38 +198,28 @@ TEST(BoundaryConditions, CheckPositionsOfGhostParticles3D) {
     for (int i = 0; i < ghostParticles.size(); i++) {
         ghostParticlePoints[i] = ghostParticles[i].getX();
     }
-    std::array<std::array<double, 3>, 17> referencePoints{{
-                                                                  //position for ghost particles for particleLeftTopEdge
-                                                                  {1 + domainSizeX, 1, 3},
-                                                                  {1, 1 + domainSizeY, 3},
-                                                                  {1 + domainSizeX, domainSizeY + 1,
-                                                                   3}, //Left particle{}
+    std::array<std::array<double, 3>, 17> referencePoints{{//position for ghost particles for particleLeftBottomEdge
+                                                           {1 + domainSizeX, 1, 3},//we go right
+                                                           {1, 1 + domainSizeY, 3}, //we go up
+                                                           {1 + domainSizeX, domainSizeY + 1, 3}, //we go right and up
 
-                                                                  //positions for ghost particles leftBottomFront
-                                                                  {1 + domainSizeX, 1, domainSizeZ - 1}, //we go right
-                                                                  {1 + domainSizeX, 1, -1}, //we go right and back
-                                                                  {1 + domainSizeX, 1 + domainSizeY,
-                                                                   domainSizeZ - 1}, //we go right up and back
-                                                                  {1 + domainSizeX, 1 + domainSizeY,
-                                                                   -1},//we go right up
-                                                                  {1, 1 + domainSizeY, -1}, // we go up go back
-                                                                  {1, 1 + domainSizeY, domainSizeZ - 1}, //we go up
-                                                                  {1, 1, -1} //we go back
+                                                           //positions for ghost particles leftBottomFront
+                                                           {1 + domainSizeX, 1, domainSizeZ - 1}, //we go right
+                                                           {1 + domainSizeX, 1, -1}, //we go right and back
+                                                           {1 + domainSizeX, 1 + domainSizeY, domainSizeZ - 1}, //we go right up and back
+                                                           {1 + domainSizeX, 1 + domainSizeY, -1},//we go right up
+                                                           {1, 1 + domainSizeY, -1}, // we go up go back
+                                                           {1, 1 + domainSizeY, domainSizeZ - 1}, //we go up
+                                                           {1, 1, -1}, //we go back
 
-                                                                  //positions for ghost particles for rightTopBack
-                                                                  //{domainSizeX - 1, domainSizeY - 1, 1}
-                                                                  ,
-                                                                  {-1, domainSizeY - 1, 1}, //we go left
-                                                                  {-1, -1, 1}, //we go left and down
-                                                                  {-1, domainSizeY - 1,
-                                                                   domainSizeZ + 1}, //we go left and front
-                                                                  {-1, -1,
-                                                                   domainSizeZ + 1}, //we go left, down and front
-                                                                  {domainSizeX - 1, -1, 1}, //we go down
-                                                                  {domainSizeX - 1, domainSizeY - 1,
-                                                                   domainSizeZ + 1}, //we go front
-                                                                  {domainSizeX - 1, -1,
-                                                                   domainSizeZ + 1}, //we go down and front/**/
+                                                           //positions for ghost particles for rightTopBack
+                                                           {-1, domainSizeY - 1, 1}, //we go left
+                                                           {-1, -1, 1}, //we go left and down
+                                                           {-1, domainSizeY - 1, domainSizeZ + 1}, //we go left and front
+                                                           {-1, -1, domainSizeZ + 1}, //we go left, down and front
+                                                           {domainSizeX - 1, -1, 1}, //we go down
+                                                           {domainSizeX - 1, domainSizeY - 1,domainSizeZ + 1}, //we go front
+                                                           {domainSizeX - 1, -1, domainSizeZ + 1}, //we go down and front/**/
                                                           }};
 
 
@@ -229,45 +231,3 @@ TEST(BoundaryConditions, CheckPositionsOfGhostParticles3D) {
         }
     }
 }
-
-/*
-TEST(BoundaryConditions, CheckPositionsOfGhostParticles2D) {
-    double cutOff = 2.0;
-    double domainSizeX = 10;
-    double domainSizeY = 12;
-
-    std::array<int, 4> fours = {4, 4, 4, 4};
-    twoD::ParticleContainerLinkedCells2D particleContainer(domainSizeX, domainSizeY, cutOff, fours);
-    std::array<double, 3> domainSize = {domainSizeX, domainSizeY};
-    auto boundaryConditionContainer = std::make_unique<twoD::BoundaryConditionContainer2D>(fours,
-                                                                                   ParticleContainerLinkedCells::numberCellsX,
-                                                                                   ParticleContainerLinkedCells::numberCellsY,
-                                                                                   domainSize);
-    std::array<twoD::BoundaryCondition2D *, 4> boundaryConditions = boundaryConditionContainer->getBoundaryConditions();
-
-    Particle particleLeft = Particle({1, 1, 0}, {1, 2, 0}, 23, 1, 1);
-    //Particle particleLeftBottomFront = Particle({1, 1, domainSizeZ - 1}, {1, 2, 3}, 23, 1, 1);
-    //Particle particleRightTopBack = Particle({domainSizeX - 1, domainSizeY - 1, 1}, {1, 2, 3}, 23, 1, 2);
-
-    ParticleContainerLinkedCells::addParticle(particleLeft);
-    //ParticleContainerLinkedCells::addParticle(particleRightTopBack);
-    //ParticleContainerLinkedCells::addParticle(particleLeftBottomFront);
-
-    boundaryConditionContainer->calculateBoundaryConditions();
-    std::vector<Particle> particles = particleContainer.getParticles();
-
-    std::vector<Particle> ghostParticles = {};
-    std::copy_if(particles.begin(), particles.end(),
-                 std::back_inserter(ghostParticles),
-                 [](const Particle &p) { return p.getId() == Particle::GHOST_TYPE; });
-
-    std::vector<std::array<double, 3>> ghostParticlePoints(ghostParticles.size());
-    for(int i = 0; i <ghostParticles.size(); i++){
-        ghostParticlePoints[i] = ghostParticles[i].getX();
-    }
-
-    std::array<std::array<double, 3>, 3>  referencePoints{{{1+domainSizeX,1,0}, {1,1+domainSizeY,0}, {1+domainSizeX,1+domainSizeY,0}}};
-    for(auto& referencePoint : referencePoints){
-        EXPECT_EQ(true, checkIfArrayIsElementInOtherVector(referencePoint, ghostParticlePoints));
-    }
-}*/

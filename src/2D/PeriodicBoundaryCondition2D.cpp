@@ -8,6 +8,8 @@
 namespace twoD {
 
     bool PeriodicBoundaryCondition2D::isDebug = false;
+    bool PeriodicBoundaryCondition2D::isBottomPeriodic = false;
+    bool PeriodicBoundaryCondition2D::isRightPeriodic = false;
 
     void PeriodicBoundaryCondition2D::doWorkAfterCalculationStep() {
         if (!PeriodicBoundaryCondition2D::isDebug) {
@@ -72,36 +74,27 @@ namespace twoD {
                         reflectPositionToGhostLeftX(position);
                         ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
-                    //Right_Bottom_Edge
-                    /*if (cell->getRelativePositionInDomain()[1] == 1) {
+                    //Create particles in the corners if we have on all sides PeriodicBoundaryConditions
+                    //Right_Bottom_Corner
+                    if(isBottomPeriodic && isRightPeriodic && cell->getRelativePositionInDomain()[1] == 1){
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostLeftX(position);
                             reflectPositionToGhostTopY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
-                        }
-                        //Reflect to Top
-                        for (auto &particle: cell->getParticles()) {
-                            std::array<double, 3> position = particle.getX();
-                            reflectPositionToGhostTopY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(),
+                                                                             particle.getType());
                         }
                     }
-                    //Right_Top_Edge
-                    if (cell->getRelativePositionInDomain()[1] == ParticleContainerLinkedCells2D::numberCellsY - 2) {
+                    //Right_Top_Corner
+                    if(isBottomPeriodic && isRightPeriodic && cell->getRelativePositionInDomain()[1] == ParticleContainerLinkedCells2D::numberCellsY - 2){
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostLeftX(position);
                             reflectPositionToGhostBottomY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(),
+                                                                             particle.getType());
                         }
-                        //Reflect to bottom
-                        for (auto &particle: cell->getParticles()) {
-                            std::array<double, 3> position = particle.getX();
-                            reflectPositionToGhostBottomY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
-                        }
-                    }*/
+                    }
                 }
                 break;
             case LEFT:
@@ -111,36 +104,26 @@ namespace twoD {
                         reflectPositionToGhostRightX(position);
                         ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
-                    //Left_Bottom_Edge
-                    /*if (cell->getRelativePositionInDomain()[1] == 1) {
+                    //Create particles in the corners if we have on all sides PeriodicBoundaryConditions
+                    //Left_Bottom_Corner
+                    if (isBottomPeriodic && isRightPeriodic && cell->getRelativePositionInDomain()[1] == 1) {
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostRightX(position);
                             reflectPositionToGhostTopY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                         }
-                        //Reflect to top
+
+                    }
+                    //Left_Top_Corner
+                    if (isBottomPeriodic && isRightPeriodic && cell->getRelativePositionInDomain()[1] == ParticleContainerLinkedCells2D::numberCellsY - 2) {
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
-                            reflectPositionToGhostTopY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                            reflectPositionToGhostRightX(position);
+                            reflectPositionToGhostBottomY(position);
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                         }
                     }
-                    //Left_Top_Edge
-                    if (cell->getRelativePositionInDomain()[1] == ParticleContainerLinkedCells2D::numberCellsY - 2) {
-                        for (auto &particle: cell->getParticles()) {
-                            std::array<double, 3> position = particle.getX();
-                            reflectPositionToGhostRightX(position);
-                            reflectPositionToGhostBottomY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
-                        }
-                        //reflect to bottom
-                        for (auto &particle: cell->getParticles()) {
-                            std::array<double, 3> position = particle.getX();
-                            reflectPositionToGhostBottomY(position);
-                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
-                        }
-                    }*/
                 }
                 break;
             case TOP:

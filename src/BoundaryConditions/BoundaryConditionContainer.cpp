@@ -37,6 +37,16 @@ BoundaryConditionContainer::BoundaryConditionContainer(const std::array<int, 6> 
                 boundaryConditions[i] = new PeriodicBoundaryCondition(BoundaryCondition::PERIODIC_BOUNDARY_TYPE, i + 1);
         }
     }
+    //front, right, back, left, top, bottom
+    if(boundaryConditionTypes[0] == BoundaryCondition::PERIODIC_BOUNDARY_TYPE){
+        PeriodicBoundaryCondition::isFrontPeriodic = true;
+    }
+    if(boundaryConditionTypes[1] == BoundaryCondition::PERIODIC_BOUNDARY_TYPE){
+        PeriodicBoundaryCondition::isRightPeriodic = true;
+    }
+    if(boundaryConditionTypes[5] == BoundaryCondition::PERIODIC_BOUNDARY_TYPE){
+        PeriodicBoundaryCondition::isBottomPeriodic = true;
+    }
 }
 
 void BoundaryConditionContainer::calculateBoundaryConditions() {
