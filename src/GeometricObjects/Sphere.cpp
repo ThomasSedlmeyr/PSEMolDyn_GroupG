@@ -1,14 +1,18 @@
 #include "Sphere.h"
 #include "utils/ArrayUtils.h"
+#include "XML_Parser/XMLParser.h"
 
 bool Sphere::is2D = true;
 
 Sphere::Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadiusArg) : Body(ID, meshWidth,
                                                                                                          massPerParticle) {
     numberParticlesPerRadius = numberParticlesPerRadiusArg;
+    is2D = XMLParser::dimensionType_p==2;
 }
 
-Sphere::Sphere(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {}
+Sphere::Sphere(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
+    is2D = XMLParser::dimensionType_p==2;
+}
 
 void Sphere::parseStructure(const std::string &line) {
     numberParticlesPerRadius = std::stoi(line);

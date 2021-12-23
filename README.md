@@ -81,13 +81,25 @@ Members:
 
 ### Run of 'Simulation of a falling drop - Wall' ###
 * compile with all options
-* run ./MolSim -input ./src/XMLinputFiles/FallingRaindrop_2D.xml
-* for 3D Simulation, change boolean is2D in Sphere.cpp to false, change dimension of Brownian Motion initialization 
-to 3 in LennardJonesSimulation.cpp and use FallingRaindrop_3D.xml as input
+* 2D Mode: run ./MolSim -input ../src/XMLinputFiles/FallingRaindropWall_2D.xml
+* 3D Mode: run ./MolSim -input ../src/XMLinputFiles/FallingRaindropWall_3D.xml
 
 ### Run of 'Collision of two bodies' ###
 * compile with all options
-* run ./MolSim -input ./src/XMLinputFiles/CollisionOfTwoBodies.xml
+* run ./MolSim -input ../src/XMLinputFiles/CollisionOfTwoBodies.xml
+ 
+### Run of 'Simulation of the Rayleigh-Taylor instability' ###
+* compile with all options
+* run ./MolSim -input ../src/XMLinputFiles/RayleighTaylor_(small|large).xml
+
+### Run of 'Simulation of a falling drop - Liquid Part 1' ###
+* compile with all options
+* run ./MolSim -input ../src/XMLinputFiles/FallingDropLiquid_makeCheckpoint.xml
+* creates Checkpoint which can be used for Part 2
+ 
+### Run of 'Simulation of a falling drop - Liquid Part 2' ###
+* compile with all options
+* run ./MolSim -input ../src/XMLinputFiles/FallingDropLiquid_loadCheckpoint.xml
 
 ## Crating a doxygen ##
 * compile with BUILD_DOXYGEN=ON
@@ -105,3 +117,5 @@ to 3 in LennardJonesSimulation.cpp and use FallingRaindrop_3D.xml as input
 * [Collision of two bodies] (https://youtu.be/t2qEI6jBcac)
 * [Simulation of a falling drop 2D] (https://youtu.be/4SnxIbpA4Ls)
 * [Simulation of a falling drop 3D] (https://youtu.be/SpSl7pDTNRo)
+* [Simulation of the Rayleigh-Taylor instability] (https://youtu.be/Xhbvmt33hQg)
+* [Simulation of a falling drop - Liquid] (https://youtu.be/zm5DIcyTuBw)

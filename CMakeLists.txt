@@ -47,13 +47,13 @@ target_include_directories(MolSim
             ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_compile_options(MolSim PUBLIC -pg)
+#target_compile_options(MolSim PUBLIC -pg)
 
 target_link_libraries(MolSim
         # stuff that is used in headers and source files
         PUBLIC
         xerces-c
-        -pg
+        #-pg
         )
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)

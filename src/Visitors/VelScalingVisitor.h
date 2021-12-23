@@ -9,9 +9,16 @@
 
 class VelScalingVisitor : public ParticleVisitor{
 private:
+    /**
+     * @brief Scaling factor
+     */
     double beta{};
 public:
     VelScalingVisitor();
+    /**
+     * @brief Apply scaling to Particle
+     * @param p
+     */
     void visitParticle(Particle &p) override;
     void setBeta(double beta);
 };

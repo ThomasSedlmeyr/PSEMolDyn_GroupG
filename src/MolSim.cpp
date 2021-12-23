@@ -13,7 +13,7 @@
 #include <ParticleContainers/ParticleContainer.h>
 #include <2D/ParticleContainerLinkedCells2D.h>
 
-std::string inputFile = "../src/XMLinputFiles/CollisionOfTwoBodies.xml";
+std::string inputFile = "../src/XMLinputFiles/RayleighTaylor_small.xml";
 
 /**
  * @brief shows guidelines for correct program calls

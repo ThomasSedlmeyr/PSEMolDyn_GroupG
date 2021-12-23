@@ -5,12 +5,12 @@
 #include <iostream>
 #include "Thermostat.h"
 
-Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimensions, double maxDeltaT) : particleContainer(particleContainer), targetTemp(targetTemp), maxDeltaT(maxDeltaT), dimensions(dimensions){
+Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT) : particleContainer(particleContainer), targetTemp(targetTemp), maxDeltaT(maxDeltaT), dimension(dimension){
 }
 
 void Thermostat::apply() {
     particleContainer->walkOverParticles(energyVisitor);
-    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * dimensions / 2);
+    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * dimension / 2);
     //std::cout << "CurrentTemp: " << currentTemp << std::endl;
     double newTargetTemp;
     //limit update range to currentTemp +- maxDeltaT
