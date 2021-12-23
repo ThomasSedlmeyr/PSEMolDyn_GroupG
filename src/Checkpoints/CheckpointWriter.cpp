@@ -32,6 +32,7 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "# * type (1 int value)\n"
                       "# * force (3 double values)\n"
                       "# * old force (3 double values)\n"
+                      "# * ID (1 int value)\n"
                       "#\n"
                       "# xyz-coord\t\tvelocity\t\tmass\t\ttype\t\tforce\t\told force\t\tID\n";
 

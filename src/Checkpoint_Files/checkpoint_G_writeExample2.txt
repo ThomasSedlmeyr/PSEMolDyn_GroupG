@@ -18,11 +18,9 @@
 # * type (1 int value)
 # * force (3 double values)
 # * old force (3 double values)
-# For LJ also:
-# * rho (1 double value)
-# * epsilon (1 double value)
+# * ID (1 int value)
 #
-# xyz-coord		velocity		mass		type		force		old force		ID		rho		epsilon
+# xyz-coord		velocity		mass		type		force		old force		ID
 3
 LJ
 0
