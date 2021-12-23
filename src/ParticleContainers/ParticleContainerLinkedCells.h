@@ -249,7 +249,7 @@ public:
 
     void addParticleToContainer(Particle &p) override;
 
-    static void addGhostParticle(const std::array<double, 3> &position, double m);
+    static void addGhostParticle(const std::array<double, 3> &position, const double m, const int type);
 
     void updateParticlePositions(ParticleVisitor &visitor) override;
 

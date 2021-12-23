@@ -385,8 +385,9 @@ namespace twoD{
         }
     }
 
-    void ParticleContainerLinkedCells2D::addGhostParticle(const std::array<double, 3> &position, double m) {
-        Particle p = Particle(position, {0, 0, 0}, m, -1);
+    void ParticleContainerLinkedCells2D::addGhostParticle(const std::array<double, 3> &position, const double m, const int type) {
+        Particle p = Particle(position, {0, 0, 0}, m, type);
+        p.isGhostParticle = true;
         auto index = getCellIndexForParticle(p);
         cells[index].getParticles().push_back(p);
     }

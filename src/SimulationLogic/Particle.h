@@ -40,16 +40,15 @@ private:
 
   /**
    * Type of the particle.
-   * -1: stands for ghost particle
    */
   int type;
-  /**
-   * Unique identifier for everyParticle
-   */
+
+    /**
+     * Unique identifier for everyParticle
+     */
   int ID;
 
 public:
-    static const int GHOST_TYPE = -1;
     explicit Particle(int type = 0);
 
     Particle(const Particle &other);
@@ -99,6 +98,8 @@ public:
 
     void setOldF(const std::array<double, 3> &oldF);
 
+    void setIsGhostParticle(const bool& b);
+
     /**
      * @brief sets old_f to f and sets f to zeroes to allow for new calculation of f
      */
@@ -111,6 +112,8 @@ public:
     std::string toString();
 
     std::array<double, 3> &getXRef();
+
+    bool isGhostParticle = false;
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);

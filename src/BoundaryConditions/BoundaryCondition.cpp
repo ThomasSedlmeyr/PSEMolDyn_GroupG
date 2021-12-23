@@ -64,7 +64,7 @@ void BoundaryCondition::deleteGhostParticlesInBoundaryCells() {
         int numberOfGhostParticles = 0;
         //This for loop can be eliminated if we store the number of inserted ghost particles for each cell
         for (auto &particle: cell->getParticles()) {
-            if (particle.getType() == Particle::GHOST_TYPE) {
+            if (particle.isGhostParticle) {
                 numberOfGhostParticles++;
             }
         }
@@ -73,7 +73,7 @@ void BoundaryCondition::deleteGhostParticlesInBoundaryCells() {
             std::vector<Particle> particles = std::vector<Particle>(
                     cell->getParticles().size() - numberOfGhostParticles);
             for (int i = 0; i < cell->getParticles().size(); i++) {
-                if (particles[i].getType() != Particle::GHOST_TYPE) {
+                if (!particles[i].isGhostParticle) {
                     particles[i] = cell->getParticles()[i];
                 }
             }

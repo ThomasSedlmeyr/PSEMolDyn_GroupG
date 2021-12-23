@@ -12,7 +12,7 @@ namespace twoD {
     void PeriodicBoundaryCondition2D::doWorkAfterCalculationStep() {
         if (!PeriodicBoundaryCondition2D::isDebug) {
             deleteAllParticlesInHaloCells();
-            //deleteGhostParticlesInBoundaryCells();
+            deleteGhostParticlesInBoundaryCells();
         }
     }
 
@@ -21,7 +21,7 @@ namespace twoD {
             case RIGHT:
                 for (auto &haloCell: specificHaloCells) {
                     for (auto &particle: haloCell->getParticles()) {
-                        if (particle.getType() != Particle::GHOST_TYPE) {
+                        if (!particle.isGhostParticle) {
                             reflectPositionToGhostLeftX(particle.getXRef());
                             ParticleContainerLinkedCells2D::addParticle(particle);
                         }
@@ -31,7 +31,7 @@ namespace twoD {
             case LEFT:
                 for (auto &haloCell: specificHaloCells) {
                     for (auto &particle: haloCell->getParticles()) {
-                        if (particle.getType() != Particle::GHOST_TYPE) {
+                        if (!particle.isGhostParticle) {
                             reflectPositionToGhostRightX(particle.getXRef());
                             ParticleContainerLinkedCells2D::addParticle(particle);
                         }
@@ -41,7 +41,7 @@ namespace twoD {
             case TOP:
                 for (auto &haloCell: specificHaloCells) {
                     for (auto &particle: haloCell->getParticles()) {
-                        if (particle.getType() != Particle::GHOST_TYPE) {
+                        if (!particle.isGhostParticle) {
                             reflectPositionToGhostBottomY(particle.getXRef());
                             ParticleContainerLinkedCells2D::addParticle(particle);
                         }
@@ -51,7 +51,7 @@ namespace twoD {
             case BOTTOM:
                 for (auto &haloCell: specificHaloCells) {
                     for (auto &particle: haloCell->getParticles()) {
-                        if (particle.getType() != Particle::GHOST_TYPE) {
+                        if (!particle.isGhostParticle) {
                             reflectPositionToGhostTopY(particle.getXRef());
                             ParticleContainerLinkedCells2D::addParticle(particle);
                         }
@@ -59,6 +59,7 @@ namespace twoD {
                 }
                 break;
         }
+        deleteAllParticlesInHaloCells();
         insertGhostParticles();
     }
 
@@ -69,7 +70,7 @@ namespace twoD {
                     for (auto &particle: cell->getParticles()) {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostLeftX(position);
-                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                     //Right_Bottom_Edge
                     /*if (cell->getRelativePositionInDomain()[1] == 1) {
@@ -108,7 +109,7 @@ namespace twoD {
                     for (auto &particle: cell->getParticles()) {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostRightX(position);
-                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                     //Left_Bottom_Edge
                     /*if (cell->getRelativePositionInDomain()[1] == 1) {
@@ -147,7 +148,7 @@ namespace twoD {
                     for (auto &particle: cell->getParticles()) {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostBottomY(position);
-                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 break;
@@ -156,7 +157,7 @@ namespace twoD {
                     for (auto &particle: cell->getParticles()) {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostTopY(position);
-                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 break;

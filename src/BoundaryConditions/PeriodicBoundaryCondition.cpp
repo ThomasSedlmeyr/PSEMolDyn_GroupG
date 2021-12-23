@@ -19,7 +19,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case FRONT:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostBackZ(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -29,7 +29,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case BACK:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostFrontZ(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -39,7 +39,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case RIGHT:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostLeftX(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -49,7 +49,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case LEFT:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostRightX(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -59,7 +59,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case TOP:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostBottomY(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -69,7 +69,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
         case BOTTOM:
             for (auto &haloCell: specificHaloCells) {
                 for (auto &particle: haloCell->getParticles()) {
-                    if (particle.getType() != Particle::GHOST_TYPE) {
+                    if (!particle.isGhostParticle) {
                         reflectPositionToGhostTopY(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
                     }
@@ -87,7 +87,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostBackZ(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
                 //Here we do the reflection on the diagonal for the four front corners
                 //left_bottom_front corner
@@ -97,7 +97,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostTopY(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //right_bottom_front corner
@@ -108,7 +108,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostTopY(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //left_top_front corner
@@ -119,7 +119,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostBottomY(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //right_top_front corner
@@ -130,7 +130,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostBottomY(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
@@ -140,7 +140,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostFrontZ(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
 
                 //Here we do the reflection on the diagonal for the four back corners
@@ -151,7 +151,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostTopY(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //right_bottom_back corner
@@ -162,7 +162,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostTopY(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //left_top_back corner
@@ -173,7 +173,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostBottomY(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //right_top_back corner
@@ -184,7 +184,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostBottomY(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
@@ -194,7 +194,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostLeftX(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
                 //Right_Bottom_Edge
                 if (cell->getRelativePositionInDomain()[1] == 1) {
@@ -202,7 +202,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostTopY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Right_Top_Edge
@@ -211,7 +211,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostBottomY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Right_Back_Edge
@@ -220,7 +220,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Right_Front_Edge
@@ -229,7 +229,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostLeftX(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
@@ -239,7 +239,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostRightX(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
                 //Left_Bottom_Edge
                 if (cell->getRelativePositionInDomain()[1] == 1) {
@@ -247,7 +247,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostTopY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Left_Top_Edge
@@ -256,7 +256,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostBottomY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Left_Back_Edge
@@ -265,7 +265,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostFrontZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Left_Front_Edge
@@ -274,7 +274,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostRightX(position);
                         reflectPositionToGhostBackZ(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
@@ -284,7 +284,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostBottomY(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
                 //Top_Back_Edge
                 if (cell->getRelativePositionInDomain()[2] == 1) {
@@ -292,7 +292,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostFrontZ(position);
                         reflectPositionToGhostBottomY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Top_Front_Edge
@@ -301,7 +301,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostBackZ(position);
                         reflectPositionToGhostBottomY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
@@ -311,7 +311,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                 for (auto &particle: cell->getParticles()) {
                     std::array<double, 3> position = particle.getX();
                     reflectPositionToGhostTopY(position);
-                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                    ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                 }
                 //Bottom_Back_Edge
                 if (cell->getRelativePositionInDomain()[2] == 1) {
@@ -319,7 +319,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostFrontZ(position);
                         reflectPositionToGhostTopY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
                 //Bottom_Front_Edge the additional two addition conditions were used for not reflection the corners twice
@@ -328,7 +328,7 @@ void PeriodicBoundaryCondition::insertGhostParticles() {
                         std::array<double, 3> position = particle.getX();
                         reflectPositionToGhostBackZ(position);
                         reflectPositionToGhostTopY(position);
-                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM());
+                        ParticleContainerLinkedCells::addGhostParticle(position, particle.getM(), particle.getType());
                     }
                 }
             }
