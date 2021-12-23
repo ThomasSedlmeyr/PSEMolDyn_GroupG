@@ -28,6 +28,7 @@ TEST(SimulationTests, TestFullGravitation) {
         particles_1_test = reader.readOnlyPositions("Grav_Test_0500.xyz");
         particles_2_test = reader.readOnlyPositions("Grav_Test_1000.xyz");
     }catch(const std::exception& e){
+        std::cout << e.what() << std::endl;
         FAIL();
     }
     for (std::size_t i = 0; i < particles_2_Expected.size(); ++i) {

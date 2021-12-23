@@ -22,30 +22,6 @@
             EXPECT_NEAR(expected[idx], actual[idx], thresh) << "at index: " << idx;\
         }
 
-/**
- * @brief When the PeriodicBoundaryCondition is used every Cell should have 26 neighbour cells.
- */
-TEST(BoundaryConditions, TestNumberOfNeighbourCellsForPeriodicCondition) {
-    double cutOff = 3.0;
-    double domainSizeX = 20;
-    double domainSizeY = 30;
-    double domainSizeZ = 40;
-
-    std::array<int, 6> fours = {4, 4, 4, 4, 4, 4};
-    ParticleContainerLinkedCells particleContainer(domainSizeX, domainSizeY, domainSizeZ, cutOff, fours);
-    std::array<double, 3> domainSize = {domainSizeX, domainSizeY, domainSizeZ};
-    auto boundaryConditionContainer = std::make_unique<BoundaryConditionContainer>(fours,
-                                                                                   ParticleContainerLinkedCells::numberCellsX,
-                                                                                   ParticleContainerLinkedCells::numberCellsY,
-                                                                                   ParticleContainerLinkedCells::numberCellsZ,
-                                                                                   domainSize);
-
-    std::array<BoundaryCondition *, 6> boundaryConditions = boundaryConditionContainer->getBoundaryConditions();
-
-    for (auto cell: ParticleContainerLinkedCells::boundaryCells) {
-        EXPECT_EQ(cell->getNeighbourCells().size(), 26);
-    }
-}
 
 /**
  * @brief Tests for every side of the boundary of the reflection and inserting of particle in the halo cells works as expected
@@ -142,7 +118,7 @@ TEST(BoundaryConditions, CheckBoundarTestNumberGhostParticles) {
     std::vector<Particle> ghostParticles = {};
     std::copy_if(particles.begin(), particles.end(),
                  std::back_inserter(ghostParticles),
-                 [](const Particle &p) { return p.getId() == Particle::GHOST_TYPE; });
+                 [](const Particle &p) { return p.isGhostParticle; });
     EXPECT_EQ(17, ghostParticles.size());
 
     boundaryConditionContainer->doWorkAfterCalculationStep();
@@ -151,7 +127,7 @@ TEST(BoundaryConditions, CheckBoundarTestNumberGhostParticles) {
     particles = particleContainer.getParticles();
     std::copy_if(particles.begin(), particles.end(),
                  std::back_inserter(ghostParticles),
-                 [](const Particle &p) { return p.getId() == Particle::GHOST_TYPE; });
+                 [](const Particle &p) { return p.isGhostParticle; });
     EXPECT_EQ(0, ghostParticles.size());
     EXPECT_EQ(3, particles.size());
 }
@@ -204,7 +180,7 @@ TEST(BoundaryConditions, CheckPositionsOfGhostParticles3D) {
     std::vector<Particle> ghostParticles = {};
     std::copy_if(particles.begin(), particles.end(),
                  std::back_inserter(ghostParticles),
-                 [](const Particle &p) { return p.getId() == Particle::GHOST_TYPE; });
+                 [](const Particle &p) { return p.isGhostParticle; });
 
     std::vector<std::array<double, 3>> ghostParticlePoints(ghostParticles.size());
     for (int i = 0; i < ghostParticles.size(); i++) {

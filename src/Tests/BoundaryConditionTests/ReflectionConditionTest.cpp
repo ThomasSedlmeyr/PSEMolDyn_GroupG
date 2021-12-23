@@ -33,7 +33,7 @@ TEST(BoundaryConditions, TestsReflectionCondition) {
 
     int counter = 0;
     for (auto & particle : particles) {
-        if (particle.getId() == Particle::GHOST_TYPE) {
+        if (particle.isGhostParticle) {
             counter++;
         }
     }
