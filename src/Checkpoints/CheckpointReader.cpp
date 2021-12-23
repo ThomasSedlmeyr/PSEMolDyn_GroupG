@@ -69,6 +69,10 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
             getline(input_file, tmp_string);
             spdlog::info("Read line: " + tmp_string);
             BodyBuilder::parseEpsilonLookupTable(tmp_string);
+        } else {
+            getline(input_file, tmp_string);
+            getline(input_file, tmp_string);
+            getline(input_file, tmp_string);
         }
 
         for (int i = 0; i < num_particles; i++) {

@@ -7,7 +7,7 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: 8cef2511fe24bbe21c3527f73ab7fcbabdaff2b6
+* Revision: 8e1fe85d301e094e0bd5321c52849098d78c1001
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
@@ -27,19 +27,31 @@ Members:
 
 * xml-file must be formatted correctly according to schema
 * you can use and change the default file in ../src/XML_Parser/input.xml
-  * t_end : specifies end time of simulation
-  * delta_t : specifies stepsize for calculation
-  * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
-  * baseNameOutputFiles : specifies the output name
-  * writeFrequency : specifies the write frequency
-  * gravInput : path to input file for Gravitation Simulation, can otherwise be left blank
-  * paramsLJ : 
-    * epsilon, mass, rho, h : double value for the corresponding parameter
+  * generalParams :
+    * t_end : specifies end time of simulation
+    * delta_t : specifies stepsize for calculation
+    * writeFrequency : specifies the write frequency
+    * dimensionType : 2D or 3D as Type for simulation
+    * g_grav : gravitational force (0 if not used)
+    * useGravity : yes or no
+    * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
+    * baseNameOutputFiles : specifies the output name
+    * particlesContainerType : directSum or linkedCell
+    * cutoffRadius : corresponding calculated cuttoff radius for linked cells algorithm
+    * gravInput : path to input file for Gravitation Simulation, can otherwise be left blank
+    * loadCheckpoint : yes or no
+    * makeCheckpoint : yes or no
+    * pathInCheckpoint : path for input checkpoint file
+    * pathOutCheckpoint : path for file to write output checkpoints
     * domainSizeX, domainSizeY, domainSizeZ : domain size of corresponding coordinates
-    * particlesContainerType : 1 for direct sum, 2 for linked cells
-    * cutoffRadius : corresponding cuttoff radius for linked cells algorithm
-  * boundaryConditions :
-    * top, right, bottom, left, front, back : for either one pick 1 for outflow, 2 for reflection, 3 for reflection with improved implementation
+    * useThermostat : yes or no
+    * useBrownianMotion : yes or no (for initialisation with brownian motion)
+    * T_init : initial temperature
+    * T_target : target temperature
+    * delta_T : max temperature difference in one scaling step
+    * n_thermostat : time steps after which thermostat is applied periodically
+  *boundaryConditions:
+    * top, right, bottom, left, front, back : outflowType, reflectingType, betterReflectingType or periodicType
   * particles : specify as many bodies as needed here
     * body : 
       * bodyType : Cuboid, Sphere or Tetrahedron
@@ -49,9 +61,13 @@ Members:
         * for Cuboid : particles per dimension, e.g. "8,8,1"
         * for Tetrahedron : numberParticles per edge, e.g. "15"
         * for Sphere : radius, e.g. "10"
+      * epsilon : value for epsilon
+      * mass : value for mass
+      * rho : value for rho
+      * h : mesh width of grid
 
 * optional : when performing a 
-  * Gravitation Simulation : tags in paramsLJ and boundaryConditions can all be put to 0, particlesLJ can be left empty
+  * Gravitation Simulation : other tags in generalParams and boundaryConditions can all be put to 0, particlesLJ can be left empty
   * LennardJones Simulation - direct Sum : cutoffRadius can be put to zero
 
 ## Run with predefined xml-files ##
