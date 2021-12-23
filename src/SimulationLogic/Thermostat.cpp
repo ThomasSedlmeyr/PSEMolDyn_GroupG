@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Thermostat.h"
 
-Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimensions, double maxDeltaT) : particleContainer(particleContainer), targetTemp(targetTemp), dimensions(dimensions), maxDeltaT(maxDeltaT){
+Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimensions, double maxDeltaT) : particleContainer(particleContainer), targetTemp(targetTemp), maxDeltaT(maxDeltaT), dimensions(dimensions){
 }
 
 void Thermostat::apply() {

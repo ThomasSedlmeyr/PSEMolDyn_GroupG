@@ -262,7 +262,7 @@ namespace twoD{
         if (resultIndex < 0) {
             return -1;
         }
-        if (resultIndex >= cells.size()){
+        if (resultIndex >= static_cast<int>(cells.size())){
             return -1;
         }
         if (resultIndex > index) {
@@ -287,7 +287,7 @@ namespace twoD{
         if (resultIndex < 0) {
             return -1;
         }
-        if (resultIndex >= cells.size()){
+        if (resultIndex >= static_cast<int>(cells.size())){
             return -1;
         }
         if (resultIndex > index) {

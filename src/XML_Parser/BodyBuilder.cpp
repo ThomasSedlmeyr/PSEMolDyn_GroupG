@@ -23,10 +23,10 @@ void BodyBuilder::createLookUpTables() {
     rhoLookUpTable.resize(valuesForLookUpRho.size());
     epsilonLookUpTable.resize(valuesForLookUpEpsilon.size());
     //both tables have same size, so one for loop is enough
-    for (int i = 0; i < valuesForLookUpRho.size(); i++) {
+    for (int i = 0; i < static_cast<int>(valuesForLookUpRho.size()); i++) {
         rhoLookUpTable[i] = std::vector<double>(valuesForLookUpRho.size());
         epsilonLookUpTable[i] = std::vector<double>(valuesForLookUpEpsilon.size());
-        for (int j = 0; j < valuesForLookUpRho.size(); j++) {
+        for (int j = 0; j < static_cast<int>(valuesForLookUpRho.size()); j++) {
             rhoLookUpTable[i][j] = (valuesForLookUpRho[i] + valuesForLookUpRho[j]) / 2;
             epsilonLookUpTable[i][j] = sqrt(valuesForLookUpEpsilon[i] * valuesForLookUpEpsilon[j]);
         }
@@ -122,8 +122,8 @@ void BodyBuilder::parseEpsilonLookupTable(const std::string& lookupTableString) 
 
 void BodyBuilder::parseSingleLookupTable(std::vector<std::vector<double>> &lookupTable, const std::string &lookupTableString){
     std::istringstream charStream(lookupTableString);
-    for (int i = 0; i < lookupTable.size(); ++i) {
-        for (int j = 0; j < lookupTable[i].size(); ++j) {
+    for (int i = 0; i < static_cast<int>(lookupTable.size()); ++i) {
+        for (int j = 0; j < static_cast<int>(lookupTable[i].size()); ++j) {
             charStream >> lookupTable[i][j];
         }
     }

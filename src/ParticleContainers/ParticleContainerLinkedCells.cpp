@@ -485,7 +485,7 @@ void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCel
     Cell *cell = &cells[indexCombined];
     int numberOfCurrentNeighbourCells = cell->getNeighbourCells().size();
     cell->getNeighbourCells().resize(numberOfCurrentNeighbourCells + 9);
-    for (int i = 0; i < relativePositions.size(); i++) {
+    for (int i = 0; i < static_cast<int>(relativePositions.size()); i++) {
         indexCombined = relativePositions[i][0] + relativePositions[i][1] * numberCellsX +
                         relativePositions[i][2] * numberCellsX * numberCellsY;
         cell->getNeighbourCells()[numberOfCurrentNeighbourCells + i] = &cells[indexCombined];
