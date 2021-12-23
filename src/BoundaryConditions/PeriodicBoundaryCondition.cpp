@@ -349,7 +349,7 @@ void PeriodicBoundaryCondition::addAdditionalNeighbours() {
 }
 
 void PeriodicBoundaryCondition::setNeighbourCell(Cell *cell) {
-    std::array<std::array<int, 3>, 9> positionsOfNewNeighbours{};
+    //std::array<std::array<int, 3>, 9> positionsOfNewNeighbours{};
     std::array<int, 3> positionOfPartnerCell = cell->getRelativePositionInDomain();
     switch (side) {
         case FRONT:
