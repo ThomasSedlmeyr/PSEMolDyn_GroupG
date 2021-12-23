@@ -202,7 +202,7 @@ namespace twoD {
 
         void addParticleToContainer(Particle &p) override;
 
-        static void addGhostParticle(const std::array<double, 3> &position, double m);
+        static void addGhostParticle(const std::array<double, 3> &position, double m, int type);
 
         void updateParticlePositions(ParticleVisitor &visitor) override;
 
@@ -228,8 +228,7 @@ namespace twoD {
          */
         static void addParticle(Particle &particle);
 
-        bool
-        shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius);
+        static bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius);
 
         /**
              * @brief the x-dimension of the domain

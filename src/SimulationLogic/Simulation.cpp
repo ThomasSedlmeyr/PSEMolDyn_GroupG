@@ -51,9 +51,10 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     int iteration = 0;
     double currentTime = 0;
 
+    writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (currentTime < endTime) {
-        if (iteration % numberSkippedPrintedIterations == 0) {
+        if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
         if (useThermostat){

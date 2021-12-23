@@ -2,6 +2,7 @@
 // Created by philip on 29.11.21.
 //
 
+#include <iostream>
 #include "LJForceVisitor.h"
 #include "XML_Parser/BodyBuilder.h"
 
@@ -10,19 +11,9 @@ LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), r
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     const int &p1Type = p1.getType();
     const int &p2Type = p2.getType();
-    if (p1Type == -1 && p2Type == -1){
-        return;
-    }
-    if (p1Type == -1){
-        rho = BodyBuilder::rhoLookUpTable[p2Type][p2Type];
-        epsilon = BodyBuilder::epsilonLookUpTable[p2Type][p2Type];
-    }else if (p2Type == -1){
-        rho = BodyBuilder::rhoLookUpTable[p1Type][p1Type];
-        epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p1Type];
-    }else{
-        rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
-        epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
-    }
+
+    rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
+    epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
 
     auto &x1 = p1.getX();
     auto &x2 = p2.getX();
@@ -34,6 +25,9 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
         singleDiff = x1[i] - x2[i];
         diff[i] = singleDiff;
         squaredNorm += singleDiff*singleDiff;
+    }
+    if (squaredNorm < 0.00001){
+        std::cout << "suspiciously close\n";
     }
 
     double term1 = -24.0*epsilon/squaredNorm;
