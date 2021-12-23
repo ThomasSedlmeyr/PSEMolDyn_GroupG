@@ -5,7 +5,7 @@
     <generalParams>
         <t_end>5</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>1000000</writeFrequency>
+        <writeFrequency>100</writeFrequency>
         <dimensionType>2D</dimensionType>
 
         <g_grav>-12.44</g_grav>

@@ -362,13 +362,19 @@ namespace twoD{
                 int indexNewCell = getCellIndexForParticle(p);
                 if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                     std::cout << "Error, Particle got outside of domain!";
-                    exit(1);
+                    particlesInCell.erase(particlesInCell.begin() + i);
+                    i--;
+                    continue;
+                    //exit(1);
                 }
                 Cell &newCell = cells[indexNewCell];
                 if (!(newCell == c)) {
                     if (!newCell.particleLiesInCell(p)) {
                         std::cout << "Error, Particle got outside of domain!";
-                        exit(1);
+                        //exit(1);
+                        particlesInCell.erase(particlesInCell.begin() + i);
+                        i--;
+                        continue;
                     }
                     //Particle p has to be moved from c to newCell
                     newCell.getParticles().push_back(particlesInCell[i]);

@@ -12,7 +12,7 @@ namespace twoD {
     void PeriodicBoundaryCondition2D::doWorkAfterCalculationStep() {
         if (!PeriodicBoundaryCondition2D::isDebug) {
             deleteAllParticlesInHaloCells();
-            deleteGhostParticlesInBoundaryCells();
+            //deleteGhostParticlesInBoundaryCells();
         }
     }
 
@@ -72,10 +72,16 @@ namespace twoD {
                         ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                     }
                     //Right_Bottom_Edge
-                    if (cell->getRelativePositionInDomain()[1] == 1) {
+                    /*if (cell->getRelativePositionInDomain()[1] == 1) {
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostLeftX(position);
+                            reflectPositionToGhostTopY(position);
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        }
+                        //Reflect to Top
+                        for (auto &particle: cell->getParticles()) {
+                            std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostTopY(position);
                             ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                         }
@@ -88,7 +94,13 @@ namespace twoD {
                             reflectPositionToGhostBottomY(position);
                             ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                         }
-                    }
+                        //Reflect to bottom
+                        for (auto &particle: cell->getParticles()) {
+                            std::array<double, 3> position = particle.getX();
+                            reflectPositionToGhostBottomY(position);
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        }
+                    }*/
                 }
                 break;
             case LEFT:
@@ -99,10 +111,16 @@ namespace twoD {
                         ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                     }
                     //Left_Bottom_Edge
-                    if (cell->getRelativePositionInDomain()[1] == 1) {
+                    /*if (cell->getRelativePositionInDomain()[1] == 1) {
                         for (auto &particle: cell->getParticles()) {
                             std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostRightX(position);
+                            reflectPositionToGhostTopY(position);
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        }
+                        //Reflect to top
+                        for (auto &particle: cell->getParticles()) {
+                            std::array<double, 3> position = particle.getX();
                             reflectPositionToGhostTopY(position);
                             ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                         }
@@ -115,7 +133,13 @@ namespace twoD {
                             reflectPositionToGhostBottomY(position);
                             ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
                         }
-                    }
+                        //reflect to bottom
+                        for (auto &particle: cell->getParticles()) {
+                            std::array<double, 3> position = particle.getX();
+                            reflectPositionToGhostBottomY(position);
+                            ParticleContainerLinkedCells2D::addGhostParticle(position, particle.getM());
+                        }
+                    }*/
                 }
                 break;
             case TOP:
