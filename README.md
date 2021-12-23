@@ -115,7 +115,7 @@ Members:
 * ![Performance Comparison](PerformanceComparison.png)
 ## Videos ##
 * [Collision of two bodies] (https://youtu.be/t2qEI6jBcac)
-* [Simulation of a falling drop 2D] (https://youtu.be/4SnxIbpA4Ls)
-* [Simulation of a falling drop 3D] (https://youtu.be/SpSl7pDTNRo)
+* [Simulation of a falling drop - Wall 2D] (https://youtu.be/4SnxIbpA4Ls)
+* [Simulation of a falling drop - Wall 3D] (https://youtu.be/SpSl7pDTNRo)
 * [Simulation of the Rayleigh-Taylor instability] (https://youtu.be/Xhbvmt33hQg)
 * [Simulation of a falling drop - Liquid] (https://youtu.be/zm5DIcyTuBw)
