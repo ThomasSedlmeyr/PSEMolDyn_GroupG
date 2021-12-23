@@ -13,7 +13,7 @@
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>Lennard</baseNameOutputFiles>
-        <particleContainerType_p>linkedCell</particleContainerType_p>
+        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>2.5</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
