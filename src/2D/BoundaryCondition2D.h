@@ -111,6 +111,9 @@ namespace twoD{
          */
         void deleteAllParticlesInHaloCells();
 
+        /**
+         * @brief deletes all ghost particles in the boundaryCells
+         */
         void deleteGhostParticlesInBoundaryCells();
     };
 }

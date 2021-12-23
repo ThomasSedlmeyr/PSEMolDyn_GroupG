@@ -21,7 +21,14 @@ namespace twoD {
          */
         std::vector<Cell *> allHaloCells{};
 
+        /**
+         * @brief the number of Cells in xDirection including the haloCells
+         */
         int numberCellsInX{};
+
+        /**
+         * @brief the number of Cells in yDirection including the haloCells
+         */
         int numberCellsInY{};
 
         /**

@@ -5,6 +5,9 @@
 #include "ParticleContainers/ParticleContainer.h"
 #include "Checkpoints/CheckpointWriter.h"
 #include "XML_Parser/XMLParser.h"
+#include "SimulationLogic/LennardJonesSimulation.h"
+#include "2D/ParticleContainerLinkedCells2D.h"
+#include "OutputWriter/VTKWriter.h"
 
 const int Simulation::LENNARDJONES;
 const int Simulation::GRAVITATION;
@@ -27,6 +30,9 @@ TEST(InputTests, ReadGCheckpoints) {
     EXPECT_DOUBLE_EQ(parts.back().getM(), 3.0e-6);
 }
 
+/**
+ * @brief test for writing checkpoints
+ */
 TEST(OutputTests, WriteGCheckpoints) {
     bool xmlSuccess = XMLParser::parseXML("../src/Tests/TestInputFiles/input_test.xml");
     EXPECT_EQ(xmlSuccess, true);
@@ -54,4 +60,66 @@ TEST(OutputTests, WriteGCheckpoints) {
     parts.pop_back();
     EXPECT_DOUBLE_EQ(parts.back().getM(), 5);
     EXPECT_EQ(parts.back().getId(), 7);
+}
+
+/**
+ * @brief sorts two particles by ID
+ * @param p1
+ * @param p2
+ * @return first parameters id is smaller
+ */
+bool sortHelper(Particle &p1, Particle &p2){
+    return p1.getId() < p2.getId();
+}
+
+/**
+ * @brief test to compare regular simulation with one that is saved into checkpoints and resumed afterwards
+ */
+TEST(InOutTests, ReadWriteCheckpoints) {
+
+    //
+    bool xmlSuccess1 = XMLParser::parseXML("../src/Tests/TestInputFiles/CheckpointReadWriteTest_1.xml");
+    EXPECT_EQ(xmlSuccess1, true);
+
+    LennardJonesSimulation lj = LennardJonesSimulation();
+    Writer *w = new VTKWriter();
+    std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+    //ParticleContainer *particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
+    ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+    lj.simulate(*w, particleContainer);
+
+    //
+    XMLParser::resetInternalData();
+    bool xmlSuccess2 = XMLParser::parseXML("../src/Tests/TestInputFiles/CheckpointReadWriteTest_2.xml");
+    EXPECT_EQ(xmlSuccess2, true);
+    LennardJonesSimulation lj2 = LennardJonesSimulation();
+    Writer *w2 = new VTKWriter();
+    std::array<int, 4> boundaryConditions2 = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+    //ParticleContainer *particleContainer2 = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
+    ParticleContainer* particleContainer2 = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+    lj2.simulate(*w2, particleContainer2);
+    std::vector<Particle> particles_1 = particleContainer2->getParticles();
+
+    //
+    XMLParser::resetInternalData();
+    bool xmlSuccess3 = XMLParser::parseXML("../src/Tests/TestInputFiles/CheckpointReadWriteTest_3.xml");
+    EXPECT_EQ(xmlSuccess3, true);
+    LennardJonesSimulation lj3 = LennardJonesSimulation();
+    Writer *w3 = new VTKWriter();
+    std::array<int, 4> boundaryConditions3 = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+    //ParticleContainer *particleContainer3 = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
+    ParticleContainer* particleContainer3 = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+    lj2.simulate(*w3, particleContainer3);
+    std::vector<Particle> particles_2 = particleContainer3->getParticles();
+
+    //
+    std::sort(particles_1.begin(), particles_1.end(), sortHelper);
+    std::sort(particles_2.begin(), particles_2.end(), sortHelper);
+    for (int i = 0; i < particles_2.size(); ++i) {
+        std::cout << "particle: " << i << std::endl;
+        EXPECT_EQ(particles_1[i].getId(), particles_2[i].getId());
+        for (int j = 0; j < 2; ++j) {
+            EXPECT_NEAR(particles_1[i].getX()[j], particles_2[i].getX()[j], 0.005);
+        }
+    }
 }

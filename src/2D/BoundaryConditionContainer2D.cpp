@@ -42,6 +42,13 @@ namespace twoD {
                     boundaryConditions[i] = new PeriodicBoundaryCondition2D(BoundaryCondition2D::PERIODIC_BOUNDARY_TYPE, i + 1);
             }
         }
+        //right, left, top, bottom
+        if(boundaryConditionTypes[0] == BoundaryCondition2D::PERIODIC_BOUNDARY_TYPE){
+            PeriodicBoundaryCondition2D::isRightPeriodic = true;
+        }
+        if(boundaryConditionTypes[3] == BoundaryCondition2D::PERIODIC_BOUNDARY_TYPE){
+            PeriodicBoundaryCondition2D::isBottomPeriodic = true;
+        }
     }
 
     const std::array<BoundaryCondition2D *, 4> &BoundaryConditionContainer2D::getBoundaryConditions() const {
