@@ -12,6 +12,7 @@
 #include <random>
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include <chrono>
+#include <XML_Parser/BodyBuilder.h>
 #include "XML_Parser/XMLParser.h"
 
 /**
@@ -77,6 +78,8 @@ TEST(SimulationTests, TestLennardJonesOptimization){
 
     double epsilon = 5;
     double rho = 1;
+    BodyBuilder::rhoLookUpTable = {{rho}};
+    BodyBuilder::epsilonLookUpTable = {{epsilon}};
 
     LJForceVisitor ljForceVisitor = LJForceVisitor(epsilon, rho);
 
