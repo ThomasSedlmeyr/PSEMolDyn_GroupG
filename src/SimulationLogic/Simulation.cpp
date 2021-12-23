@@ -57,7 +57,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
         }
-        if (useThermostat){
+        if (iteration != 0 && useThermostat){
             if (iteration % nThermostat == 0){
                 thermostat.apply();
             }
