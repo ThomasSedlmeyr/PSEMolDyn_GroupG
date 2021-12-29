@@ -14,7 +14,7 @@ private:
     std::array<double, 3> dimensions{};
 
 public:
-    Cuboid(int ID, double meshWidth, double massPerParticle);
+    Cuboid(int ID, double meshWidth, double massPerParticle, bool isMovingAllowed = true);
     ~Cuboid();
 
     void parseStructure(const std::string& line) override;

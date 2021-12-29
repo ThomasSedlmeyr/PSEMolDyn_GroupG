@@ -14,9 +14,9 @@ void Tetrahedron::parseStructure(const std::string &line) {
 
 void Tetrahedron::generateParticles(int startID) {
     edgeLength = numberParticlesPerEdge *  meshWidth;
-    //x Rechts
-    //y hoch runter
-    //z raus
+    //x right
+    //y up and down
+    //z behind
     std::array<double, 3> vectorX = {meshWidth,0.0,0.0};
     std::array<double, 3> vectorXZ = {meshWidth*0.5,0.0,sqrt(3)*0.5*meshWidth};
     std::array<double, 3> vectorXYZ = {meshWidth*0.5,meshWidth * sqrt(6) / 3, sqrt(3)*meshWidth/6};
@@ -34,7 +34,7 @@ void Tetrahedron::generateParticles(int startID) {
     numberParticlesPerEdge = particles.size();
 }
 
-Tetrahedron::Tetrahedron(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
+Tetrahedron::Tetrahedron(int ID, double meshWidth, double massPerParticle, bool movingIsAllowed) : Body(ID, meshWidth, massPerParticle, movingIsAllowed) {
 
 }
 

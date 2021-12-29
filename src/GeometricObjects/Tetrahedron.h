@@ -23,8 +23,9 @@ class Tetrahedron: public Body {
     int numberParticlesPerEdge;
 
 public:
-    Tetrahedron(int ID, double meshWidth, double massPerParticle);
+    Tetrahedron(int ID, double meshWidth, double massPerParticle, bool movingIsAllowed);
     ~Tetrahedron();
+
 protected:
     void parseStructure(const std::string& line) override;
     void generateParticles(int startID) override;

@@ -59,6 +59,11 @@ protected:
      */
     double rho;
 
+    /**
+     * @brief If this
+     */
+     bool movingIsAllowed;
+
 public:
     /**
      *@brief getter for initiaö velocity
@@ -70,7 +75,7 @@ public:
      */
     double getMeshWidth() const;
 
-    Body(int ID, double meshWidth, double massPerParticle);
+    Body(int ID, double meshWidth, double massPerParticle, bool movingIsAllowed = true);
 
     virtual ~Body();
 
@@ -103,6 +108,8 @@ public:
      * @param startID the startId with which the first particle is initialized
      */
     virtual void generateParticles(int startID) = 0;
+
+    void parseMovingIsAllowed();
 };
 
 

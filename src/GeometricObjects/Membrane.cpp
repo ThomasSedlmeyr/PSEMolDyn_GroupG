@@ -1,15 +1,15 @@
-#include "Cuboid.h"
-Cuboid :: Cuboid(int ID, double meshWidth, double massPerParticle, bool isMovingAllowed) : Body(ID, meshWidth, massPerParticle, isMovingAllowed){}
+//
+// Created by thomas on 29.12.21.
+//
 
+#include "Membrane.h"
 
-void Cuboid::parseStructure(const std::string &line) {
-    dimensions = parseLineWithThreeValues(line);
+void Membrane::parseStructure(const std::string &line) {
+
 }
 
-void Cuboid::generateParticles(int startIndex) {
+void Membrane::generateParticles(int startIndex) {
     particles = std::vector<Particle>(dimensions[0] * dimensions[1] * dimensions[2]);
-    //Particle::Particle(std::array<double, 3> x_arg, std::array<double, 3> v_arg,
-    //        double m_arg, int type_arg
     std::array<double, 3> newPosition{};
     int counter = 0;
     for (int i = 0; i < dimensions[0]; ++i) {
@@ -26,10 +26,20 @@ void Cuboid::generateParticles(int startIndex) {
     }
 }
 
-void Cuboid::setStructure(const std::array<double, 3> &dim){
-    Cuboid::dimensions = dim;
+Membrane::Membrane(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
+
 }
 
-Cuboid::~Cuboid() = default;
+Membrane::~Membrane() {}
 
+void Membrane::applyTheHarmonicPotential() {
 
+}
+
+/*void Membrane::setParticlesWhereFisApplied(int startIndex) {
+    int indexOfBody;
+    for(auto& position : positionsWhereFisApplied){
+        indexOfBody = position[0] + position[1] * dimensions[0];
+        particles[indexOfBody] = 0;
+    }
+}*/

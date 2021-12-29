@@ -1,10 +1,11 @@
 #include "Body.h"
 #include <sstream>
 
-Body::Body(int ID, double meshWidth, double massPerParticle) {
+Body::Body(int ID, double meshWidth, double massPerParticle, bool movingIsAllowed) {
     this->ID = ID;
     this->meshWidth = meshWidth;
     this->massPerParticle = massPerParticle;
+    this->movingIsAllowed = movingIsAllowed;
 }
 
 std::array<double, 3> Body::parseLineWithThreeValues(const std::string &line) {
@@ -26,6 +27,10 @@ void Body::parseInitialV(const std::string &line) {
 
 void Body::parsePosition(const std::string &line) {
     position = parseLineWithThreeValues(line);
+}
+
+void Body::parseMovingIsAllowed(){
+    //TODO: Here we have to parse the line of XML file
 }
 
 std::vector<Particle> & Body::getParticles() {

@@ -11,6 +11,7 @@
 #include "GeometricObjects/Tetrahedron.h"
 #include "GeometricObjects/Sphere.h"
 #include "Checkpoints/CheckpointReader.h"
+#include "GeometricObjects/Membrane.h"
 
 std::vector<std::vector<double>> BodyBuilder::rhoLookUpTable{};
 std::vector<std::vector<double>> BodyBuilder::epsilonLookUpTable{};
@@ -39,6 +40,8 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
     int id = 0;
     int particleCounter = 0;
     double mass, h;
+    bool isMoving = true;
+
     int numberOfBodiesReadFromCheckpoint = static_cast<int>(rhoLookUpTable.size());
     //sets the sizes to the total number of bodies in the simulation
     valuesForLookUpRho.resize(numberOfBodiesReadFromCheckpoint +  bodySequence.size());
@@ -60,12 +63,16 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
         h = i.h();
 
         if (i.bodyType() == "Cuboid") {
-            body = new Cuboid(id, h, mass);
+            body = new Cuboid(id, h, mass, isMoving);
         } else if (i.bodyType() == "Tetrahedron") {
-            body =  new Tetrahedron(id, h, mass);
+            body =  new Tetrahedron(id, h, mass, isMoving);
         } else if (i.bodyType() == "Sphere") {
-            body =  new Sphere(id, h, mass);
-        } else {
+            body =  new Sphere(id, h, mass, isMoving);
+        }
+        else if(i.bodyType() == "Membrane"){
+            body =  new Membrane(id, h, mass);
+        }
+        else {
             std::cout << "Parsing of XML-file was not successful!" << std::endl;
             std::cout << "Unknown body type." << std::endl;
             return false;
