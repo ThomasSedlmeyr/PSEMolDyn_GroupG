@@ -171,6 +171,16 @@ public:
     static bool useBrownianMotion_p;
 
     /**
+     * @brief type of parallelism for calculation
+     */
+     static int parallelType_p;
+
+     /**
+      * @brief type of thermostat
+      */
+      static int thermostatType_p;
+
+    /**
      * @brief function for parsing xml input file
      * @return true if parsing successful, false otherwise
      */

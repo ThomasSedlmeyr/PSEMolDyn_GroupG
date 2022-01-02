@@ -39,6 +39,8 @@ double XMLParser::delta_T_p;
 int XMLParser::n_thermostat_p;
 int XMLParser::dimensionType_p;
 bool XMLParser::useBrownianMotion_p;
+int XMLParser::parallelType_p;
+int XMLParser::thermostatType_p;
 
 //TODO löschen?
 /*
@@ -131,6 +133,16 @@ bool XMLParser::parseXML(const std::string filename) {
         delta_t_p = input_xml->generalParams().delta_t();
         writeFrequency_p = input_xml->generalParams().writeFrequency();
         dimensionType_p = [](dimensionType x) {if (x == dimensionType::cxx_2D) return 2; else return 3;} (input_xml->generalParams().dimensionType());
+        switch (input_xml->generalParams().parallelType()) {
+            case parallelType::notParallel:
+                parallelType_p = 0;
+            case parallelType::first:
+                parallelType_p = 1;
+            case parallelType::second:
+                parallelType_p = 2;
+            default:
+                parallelType_p = 0;
+        }
 
         g_grav_p = input_xml->generalParams().g_grav();
         useGravity_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useGravity());
@@ -151,6 +163,7 @@ bool XMLParser::parseXML(const std::string filename) {
         domainSize[2] = input_xml->generalParams().domainSizeZ();
 
         useThermostat_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useThermostat());
+        thermostatType_p = [](thermostatType x) {if (x == thermostatType::regular) return 1; else return 2;} (input_xml->generalParams().thermostatType());
         useBrownianMotion_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useBrownianMotion());
         T_init_p = input_xml->generalParams().T_init();
         T_target_p = input_xml->generalParams().T_target();

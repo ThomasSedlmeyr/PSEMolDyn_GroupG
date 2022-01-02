@@ -58,8 +58,7 @@
     <xsd:simpleType name="bodyState">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="fixed"/>
-            <xsd:enumeration value="movable"/>
-            <xsd:enumeration value="membrane"/>
+            <xsd:enumeration value="moving"/>
         </xsd:restriction>
     </xsd:simpleType>
 

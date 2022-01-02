@@ -55,7 +55,7 @@
             <mass>1.0</mass>
             <rho>1.2</rho>
             <h>1.2</h>
-            <bodyState>movable</bodyState>
+            <bodyState>moving</bodyState>
         </body>
 
         <body>
@@ -67,6 +67,7 @@
             <mass>2.0</mass>
             <rho>1.1</rho>
             <h>1.2</h>
+            <bodyState>moving</bodyState>
         </body>
     </particlesLJ>
 </input>

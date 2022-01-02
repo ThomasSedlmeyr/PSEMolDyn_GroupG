@@ -40,6 +40,51 @@
 
 #include "input.h"
 
+// bodyType
+// 
+
+bodyType::
+bodyType (value v)
+: ::xml_schema::string (_xsd_bodyType_literals_[v])
+{
+}
+
+bodyType::
+bodyType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyType::
+bodyType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyType::
+bodyType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyType::
+bodyType (const bodyType& v,
+          ::xml_schema::flags f,
+          ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+bodyType& bodyType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_bodyType_literals_[v]);
+
+  return *this;
+}
+
+
 // calcType
 // 
 
@@ -175,6 +220,51 @@ operator= (value v)
 }
 
 
+// parallelType
+// 
+
+parallelType::
+parallelType (value v)
+: ::xml_schema::string (_xsd_parallelType_literals_[v])
+{
+}
+
+parallelType::
+parallelType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+parallelType::
+parallelType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+parallelType::
+parallelType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+parallelType::
+parallelType (const parallelType& v,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+parallelType& parallelType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_parallelType_literals_[v]);
+
+  return *this;
+}
+
+
 // boundaryCondition
 // 
 
@@ -265,6 +355,96 @@ operator= (value v)
 }
 
 
+// bodyState
+// 
+
+bodyState::
+bodyState (value v)
+: ::xml_schema::string (_xsd_bodyState_literals_[v])
+{
+}
+
+bodyState::
+bodyState (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyState::
+bodyState (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyState::
+bodyState (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+bodyState::
+bodyState (const bodyState& v,
+           ::xml_schema::flags f,
+           ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+bodyState& bodyState::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_bodyState_literals_[v]);
+
+  return *this;
+}
+
+
+// thermostatType
+// 
+
+thermostatType::
+thermostatType (value v)
+: ::xml_schema::string (_xsd_thermostatType_literals_[v])
+{
+}
+
+thermostatType::
+thermostatType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+thermostatType::
+thermostatType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+thermostatType::
+thermostatType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+thermostatType::
+thermostatType (const thermostatType& v,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+thermostatType& thermostatType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_thermostatType_literals_[v]);
+
+  return *this;
+}
+
+
 // generalParams
 // 
 
@@ -344,6 +524,30 @@ void generalParams::
 dimensionType (::std::unique_ptr< dimensionType_type > x)
 {
   this->dimensionType_.set (std::move (x));
+}
+
+const generalParams::parallelType_type& generalParams::
+parallelType () const
+{
+  return this->parallelType_.get ();
+}
+
+generalParams::parallelType_type& generalParams::
+parallelType ()
+{
+  return this->parallelType_.get ();
+}
+
+void generalParams::
+parallelType (const parallelType_type& x)
+{
+  this->parallelType_.set (x);
+}
+
+void generalParams::
+parallelType (::std::unique_ptr< parallelType_type > x)
+{
+  this->parallelType_.set (std::move (x));
 }
 
 const generalParams::g_grav_type& generalParams::
@@ -674,6 +878,30 @@ void generalParams::
 useThermostat (::std::unique_ptr< useThermostat_type > x)
 {
   this->useThermostat_.set (std::move (x));
+}
+
+const generalParams::thermostatType_type& generalParams::
+thermostatType () const
+{
+  return this->thermostatType_.get ();
+}
+
+generalParams::thermostatType_type& generalParams::
+thermostatType ()
+{
+  return this->thermostatType_.get ();
+}
+
+void generalParams::
+thermostatType (const thermostatType_type& x)
+{
+  this->thermostatType_.set (x);
+}
+
+void generalParams::
+thermostatType (::std::unique_ptr< thermostatType_type > x)
+{
+  this->thermostatType_.set (std::move (x));
 }
 
 const generalParams::useBrownianMotion_type& generalParams::
@@ -1190,8 +1418,106 @@ h (const h_type& x)
   this->h_.set (x);
 }
 
+const body::bodyState_type& body::
+bodyState () const
+{
+  return this->bodyState_.get ();
+}
+
+body::bodyState_type& body::
+bodyState ()
+{
+  return this->bodyState_.get ();
+}
+
+void body::
+bodyState (const bodyState_type& x)
+{
+  this->bodyState_.set (x);
+}
+
+void body::
+bodyState (::std::unique_ptr< bodyState_type > x)
+{
+  this->bodyState_.set (std::move (x));
+}
+
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
+
+// bodyType
+//
+
+bodyType::
+bodyType (const ::xercesc::DOMElement& e,
+          ::xml_schema::flags f,
+          ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_bodyType_convert ();
+}
+
+bodyType::
+bodyType (const ::xercesc::DOMAttr& a,
+          ::xml_schema::flags f,
+          ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_bodyType_convert ();
+}
+
+bodyType::
+bodyType (const ::std::string& s,
+          const ::xercesc::DOMElement* e,
+          ::xml_schema::flags f,
+          ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_bodyType_convert ();
+}
+
+bodyType* bodyType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class bodyType (*this, f, c);
+}
+
+bodyType::value bodyType::
+_xsd_bodyType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_bodyType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_bodyType_indexes_,
+                    _xsd_bodyType_indexes_ + 4,
+                    *this,
+                    c));
+
+  if (i == _xsd_bodyType_indexes_ + 4 || _xsd_bodyType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const bodyType::
+_xsd_bodyType_literals_[4] =
+{
+  "Cuboid",
+  "Tetrahedron",
+  "Sphere",
+  "Membrane"
+};
+
+const bodyType::value bodyType::
+_xsd_bodyType_indexes_[4] =
+{
+  ::bodyType::Cuboid,
+  ::bodyType::Membrane,
+  ::bodyType::Sphere,
+  ::bodyType::Tetrahedron
+};
 
 // calcType
 //
@@ -1403,6 +1729,78 @@ _xsd_yesNo_indexes_[2] =
   ::yesNo::yes
 };
 
+// parallelType
+//
+
+parallelType::
+parallelType (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_parallelType_convert ();
+}
+
+parallelType::
+parallelType (const ::xercesc::DOMAttr& a,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_parallelType_convert ();
+}
+
+parallelType::
+parallelType (const ::std::string& s,
+              const ::xercesc::DOMElement* e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_parallelType_convert ();
+}
+
+parallelType* parallelType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class parallelType (*this, f, c);
+}
+
+parallelType::value parallelType::
+_xsd_parallelType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_parallelType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_parallelType_indexes_,
+                    _xsd_parallelType_indexes_ + 3,
+                    *this,
+                    c));
+
+  if (i == _xsd_parallelType_indexes_ + 3 || _xsd_parallelType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const parallelType::
+_xsd_parallelType_literals_[3] =
+{
+  "notParallel",
+  "first",
+  "second"
+};
+
+const parallelType::value parallelType::
+_xsd_parallelType_indexes_[3] =
+{
+  ::parallelType::first,
+  ::parallelType::notParallel,
+  ::parallelType::second
+};
+
 // boundaryCondition
 //
 
@@ -1547,6 +1945,148 @@ _xsd_dimensionType_indexes_[2] =
   ::dimensionType::cxx_3D
 };
 
+// bodyState
+//
+
+bodyState::
+bodyState (const ::xercesc::DOMElement& e,
+           ::xml_schema::flags f,
+           ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_bodyState_convert ();
+}
+
+bodyState::
+bodyState (const ::xercesc::DOMAttr& a,
+           ::xml_schema::flags f,
+           ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_bodyState_convert ();
+}
+
+bodyState::
+bodyState (const ::std::string& s,
+           const ::xercesc::DOMElement* e,
+           ::xml_schema::flags f,
+           ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_bodyState_convert ();
+}
+
+bodyState* bodyState::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class bodyState (*this, f, c);
+}
+
+bodyState::value bodyState::
+_xsd_bodyState_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_bodyState_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_bodyState_indexes_,
+                    _xsd_bodyState_indexes_ + 3,
+                    *this,
+                    c));
+
+  if (i == _xsd_bodyState_indexes_ + 3 || _xsd_bodyState_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const bodyState::
+_xsd_bodyState_literals_[3] =
+{
+  "fixed",
+  "movable",
+  "membrane"
+};
+
+const bodyState::value bodyState::
+_xsd_bodyState_indexes_[3] =
+{
+  ::bodyState::fixed,
+  ::bodyState::membrane,
+  ::bodyState::movable
+};
+
+// thermostatType
+//
+
+thermostatType::
+thermostatType (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_thermostatType_convert ();
+}
+
+thermostatType::
+thermostatType (const ::xercesc::DOMAttr& a,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_thermostatType_convert ();
+}
+
+thermostatType::
+thermostatType (const ::std::string& s,
+                const ::xercesc::DOMElement* e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_thermostatType_convert ();
+}
+
+thermostatType* thermostatType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class thermostatType (*this, f, c);
+}
+
+thermostatType::value thermostatType::
+_xsd_thermostatType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_thermostatType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_thermostatType_indexes_,
+                    _xsd_thermostatType_indexes_ + 2,
+                    *this,
+                    c));
+
+  if (i == _xsd_thermostatType_indexes_ + 2 || _xsd_thermostatType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const thermostatType::
+_xsd_thermostatType_literals_[2] =
+{
+  "regular",
+  "onlyFluid"
+};
+
+const thermostatType::value thermostatType::
+_xsd_thermostatType_indexes_[2] =
+{
+  ::thermostatType::onlyFluid,
+  ::thermostatType::regular
+};
+
 // generalParams
 //
 
@@ -1555,6 +2095,7 @@ generalParams (const t_end_type& t_end,
                const delta_t_type& delta_t,
                const writeFrequency_type& writeFrequency,
                const dimensionType_type& dimensionType,
+               const parallelType_type& parallelType,
                const g_grav_type& g_grav,
                const useGravity_type& useGravity,
                const calcType_type& calcType,
@@ -1570,6 +2111,7 @@ generalParams (const t_end_type& t_end,
                const domainSizeY_type& domainSizeY,
                const domainSizeZ_type& domainSizeZ,
                const useThermostat_type& useThermostat,
+               const thermostatType_type& thermostatType,
                const useBrownianMotion_type& useBrownianMotion,
                const T_init_type& T_init,
                const T_target_type& T_target,
@@ -1580,6 +2122,7 @@ generalParams (const t_end_type& t_end,
   delta_t_ (delta_t, this),
   writeFrequency_ (writeFrequency, this),
   dimensionType_ (dimensionType, this),
+  parallelType_ (parallelType, this),
   g_grav_ (g_grav, this),
   useGravity_ (useGravity, this),
   calcType_ (calcType, this),
@@ -1595,6 +2138,7 @@ generalParams (const t_end_type& t_end,
   domainSizeY_ (domainSizeY, this),
   domainSizeZ_ (domainSizeZ, this),
   useThermostat_ (useThermostat, this),
+  thermostatType_ (thermostatType, this),
   useBrownianMotion_ (useBrownianMotion, this),
   T_init_ (T_init, this),
   T_target_ (T_target, this),
@@ -1612,6 +2156,7 @@ generalParams (const generalParams& x,
   delta_t_ (x.delta_t_, f, this),
   writeFrequency_ (x.writeFrequency_, f, this),
   dimensionType_ (x.dimensionType_, f, this),
+  parallelType_ (x.parallelType_, f, this),
   g_grav_ (x.g_grav_, f, this),
   useGravity_ (x.useGravity_, f, this),
   calcType_ (x.calcType_, f, this),
@@ -1627,6 +2172,7 @@ generalParams (const generalParams& x,
   domainSizeY_ (x.domainSizeY_, f, this),
   domainSizeZ_ (x.domainSizeZ_, f, this),
   useThermostat_ (x.useThermostat_, f, this),
+  thermostatType_ (x.thermostatType_, f, this),
   useBrownianMotion_ (x.useBrownianMotion_, f, this),
   T_init_ (x.T_init_, f, this),
   T_target_ (x.T_target_, f, this),
@@ -1644,6 +2190,7 @@ generalParams (const ::xercesc::DOMElement& e,
   delta_t_ (this),
   writeFrequency_ (this),
   dimensionType_ (this),
+  parallelType_ (this),
   g_grav_ (this),
   useGravity_ (this),
   calcType_ (this),
@@ -1659,6 +2206,7 @@ generalParams (const ::xercesc::DOMElement& e,
   domainSizeY_ (this),
   domainSizeZ_ (this),
   useThermostat_ (this),
+  thermostatType_ (this),
   useBrownianMotion_ (this),
   T_init_ (this),
   T_target_ (this),
@@ -1725,6 +2273,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       if (!dimensionType_.present ())
       {
         this->dimensionType_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // parallelType
+    //
+    if (n.name () == "parallelType" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< parallelType_type > r (
+        parallelType_traits::create (i, f, this));
+
+      if (!parallelType_.present ())
+      {
+        this->parallelType_.set (::std::move (r));
         continue;
       }
     }
@@ -1924,6 +2486,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // thermostatType
+    //
+    if (n.name () == "thermostatType" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< thermostatType_type > r (
+        thermostatType_traits::create (i, f, this));
+
+      if (!thermostatType_.present ())
+      {
+        this->thermostatType_.set (::std::move (r));
+        continue;
+      }
+    }
+
     // useBrownianMotion
     //
     if (n.name () == "useBrownianMotion" && n.namespace_ ().empty ())
@@ -2010,6 +2586,13 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   {
     throw ::xsd::cxx::tree::expected_element< char > (
       "dimensionType",
+      "");
+  }
+
+  if (!parallelType_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "parallelType",
       "");
   }
 
@@ -2118,6 +2701,13 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "");
   }
 
+  if (!thermostatType_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "thermostatType",
+      "");
+  }
+
   if (!useBrownianMotion_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
@@ -2171,6 +2761,7 @@ operator= (const generalParams& x)
     this->delta_t_ = x.delta_t_;
     this->writeFrequency_ = x.writeFrequency_;
     this->dimensionType_ = x.dimensionType_;
+    this->parallelType_ = x.parallelType_;
     this->g_grav_ = x.g_grav_;
     this->useGravity_ = x.useGravity_;
     this->calcType_ = x.calcType_;
@@ -2186,6 +2777,7 @@ operator= (const generalParams& x)
     this->domainSizeY_ = x.domainSizeY_;
     this->domainSizeZ_ = x.domainSizeZ_;
     this->useThermostat_ = x.useThermostat_;
+    this->thermostatType_ = x.thermostatType_;
     this->useBrownianMotion_ = x.useBrownianMotion_;
     this->T_init_ = x.T_init_;
     this->T_target_ = x.T_target_;
@@ -2671,7 +3263,8 @@ body (const bodyType_type& bodyType,
       const epsilon_type& epsilon,
       const mass_type& mass,
       const rho_type& rho,
-      const h_type& h)
+      const h_type& h,
+      const bodyState_type& bodyState)
 : ::xml_schema::type (),
   bodyType_ (bodyType, this),
   position_ (position, this),
@@ -2680,7 +3273,8 @@ body (const bodyType_type& bodyType,
   epsilon_ (epsilon, this),
   mass_ (mass, this),
   rho_ (rho, this),
-  h_ (h, this)
+  h_ (h, this),
+  bodyState_ (bodyState, this)
 {
 }
 
@@ -2696,7 +3290,8 @@ body (const body& x,
   epsilon_ (x.epsilon_, f, this),
   mass_ (x.mass_, f, this),
   rho_ (x.rho_, f, this),
-  h_ (x.h_, f, this)
+  h_ (x.h_, f, this),
+  bodyState_ (x.bodyState_, f, this)
 {
 }
 
@@ -2712,7 +3307,8 @@ body (const ::xercesc::DOMElement& e,
   epsilon_ (this),
   mass_ (this),
   rho_ (this),
-  h_ (this)
+  h_ (this),
+  bodyState_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -2831,6 +3427,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // bodyState
+    //
+    if (n.name () == "bodyState" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< bodyState_type > r (
+        bodyState_traits::create (i, f, this));
+
+      if (!bodyState_.present ())
+      {
+        this->bodyState_.set (::std::move (r));
+        continue;
+      }
+    }
+
     break;
   }
 
@@ -2889,6 +3499,13 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "h",
       "");
   }
+
+  if (!bodyState_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "bodyState",
+      "");
+  }
 }
 
 body* body::
@@ -2912,6 +3529,7 @@ operator= (const body& x)
     this->mass_ = x.mass_;
     this->rho_ = x.rho_;
     this->h_ = x.h_;
+    this->bodyState_ = x.bodyState_;
   }
 
   return *this;
