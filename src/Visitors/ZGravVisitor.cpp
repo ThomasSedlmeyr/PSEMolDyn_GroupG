@@ -4,11 +4,14 @@
 
 #include "ZGravVisitor.h"
 
+std::vector<int> ZGravVisitor::particlesWithZGrav{};
+//TODO faktor aus XML parsen
+double ZGravVisitor::gGrav = -0.001;
+
 void ZGravVisitor::visitParticle(Particle &p) {
     if (std::find(particlesWithZGrav.begin(), particlesWithZGrav.end(), p.getId()) != particlesWithZGrav.end()){
         auto &fRef = p.getFRef();
-        //TODO faktor aus XML parsen
-        fRef[2] += p.getM() * -0.001;
+        fRef[2] += p.getM() * gGrav;
     }
 }
 

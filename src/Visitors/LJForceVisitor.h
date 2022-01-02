@@ -7,6 +7,7 @@
 
 
 #include <SimulationLogic/Particle.h>
+#include <vector>
 #include "ParticlePairVisitor.h"
 
 class LJForceVisitor : public ParticlePairVisitor{
@@ -19,6 +20,8 @@ public:
      * @param p2
      */
     void visitParticlePair(Particle &p1, Particle &p2) override;
+
+    static std::vector<int> membraneIDs;
 
 private:
     /**

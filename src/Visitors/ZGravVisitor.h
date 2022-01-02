@@ -6,14 +6,15 @@
 #include "ParticleVisitor.h"
 
 class ZGravVisitor : public ParticleVisitor{
-private:
-    /**
-     * @brief Scaling factor
-     */
-    std::vector<int> particlesWithZGrav{};
 public:
     /**
-     * @brief Apply scaling to Particle
+     * @brief The particle IDs for which the gravitation along the z-axis should be applied
+     */
+    static std::vector<int> particlesWithZGrav;
+
+    static double gGrav;
+    /**
+     * @brief Apply Fz to p
      * @param p
      */
     void visitParticle(Particle &p) override;

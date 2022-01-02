@@ -3,20 +3,27 @@
 //
 
 #include <iostream>
+#include <cmath>
 #include "LJForceVisitor.h"
 #include "XML_Parser/BodyBuilder.h"
+#include "utils/ArrayUtils.h"
 
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
+
+std::vector<int> LJForceVisitor::membraneIDs{};
 
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     const int &p1Type = p1.getType();
     const int &p2Type = p2.getType();
-
     rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
     epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
 
     auto &x1 = p1.getX();
     auto &x2 = p2.getX();
+
+    auto &f1 = p1.getFRef();
+    auto &f2 = p2.getFRef();
+
     std::array<double, 3> diff{};
     double squaredNorm = 0;
 
@@ -30,6 +37,29 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
         std::cout << "suspiciously close\n";
     }
 
+    //TODO this only works for one membrane!
+    if (!membraneIDs.empty()){
+        if (p1Type == membraneIDs[0] && p1Type == p2Type){
+            //TODO parse from XML
+            double rZero = 2.2;
+            double k = 300;
+
+            auto norm = sqrt(squaredNorm);
+            auto scalar = k * (norm - sqrt(2) * rZero) * (1/norm);
+            auto invertedDiff = -1 * diff;
+            double force;
+            for (int i = 0; i < 3; ++i) {
+                force = scalar * invertedDiff[i];
+                f1[i] += force;
+                f2[i] -= force;
+            }
+            //Makes sure that only the repulsive part of the LJ potential is applied
+            if (norm > pow(rho, 1.0/6)){
+                return;
+            }
+        }
+    }
+
     double term1 = -24.0*epsilon/squaredNorm;
     double term2 =  (rho*rho*rho*rho*rho*rho) / (squaredNorm * squaredNorm * squaredNorm);
     double term3 =  term2 - 2 * term2 * term2;
@@ -38,8 +68,6 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     for (double &d:diff) {
         d *= scalar;
     }
-    auto &f1 = p1.getFRef();
-    auto &f2 = p2.getFRef();
     //faster than using ArrayUtils
     double temp;
     for (int j = 0; j < 3; ++j) {

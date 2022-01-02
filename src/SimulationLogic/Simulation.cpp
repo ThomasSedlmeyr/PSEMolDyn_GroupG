@@ -9,7 +9,7 @@
 
 void Simulation::calculateOneTimeStep(int iteration) {
     //TODO aus XML parsen
-    const int numberOfTimeStepsWithFZUp = 15000;
+    const int numberOfTimeStepsWithFZUp = 0;
     particleContainer->updateParticlePositions(posCalcVisitor);
     if (iteration < numberOfTimeStepsWithFZUp){
         particleContainer->applyZGrav();

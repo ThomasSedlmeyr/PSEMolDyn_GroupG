@@ -2,6 +2,8 @@
 // Created by thomas on 29.12.21.
 //
 
+#include <Visitors/LJForceVisitor.h>
+#include <Visitors/ZGravVisitor.h>
 #include "Membrane.h"
 #include "utils/ArrayUtils.h"
 
@@ -25,26 +27,18 @@ void Membrane::generateParticles(int startIndex) {
             }
         }
     }
+    setParticlesWhereFisApplied();
 }
 
 Membrane::Membrane(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
-
+    LJForceVisitor::membraneIDs.push_back(ID);
 }
 
 Membrane::~Membrane() {}
 
-void Membrane::applyTheHarmonicPotential() {
-    for (int i = 0; i < particles.size(); ++i) {
-        for (int j = i + 1; j < particles.size(); ++j) {
-            auto norm = ArrayUtils::L2Norm(particles[i].getX() - particles[j].getX());
-            auto fij = k * (norm - sqrt(2) * rZero) * (particles[j].getX() - 1/norm * particles[i].getX());
-        }
-    }
-}
-
 void Membrane::setParticlesWhereFisApplied() {
     for(auto& position : positionsWhereFisApplied){
         int index = position[0] + position[1] * dimensions[0];
-        particlesWhereFisApplied.push_back(particles[index].getId());
+        ZGravVisitor::particlesWithZGrav.push_back(particles[index].getId());
     }
 }
