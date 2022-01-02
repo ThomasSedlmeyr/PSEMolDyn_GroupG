@@ -6,6 +6,7 @@
 #include "GeometricObjects/Sphere.h"
 #include "XMLParser.h"
 #include "BodyBuilder.h"
+#include "SimulationLogic/Thermostat.h"
 
 double XMLParser::t_end_p;
 double XMLParser::delta_t_p;
@@ -163,7 +164,7 @@ bool XMLParser::parseXML(const std::string filename) {
         domainSize[2] = input_xml->generalParams().domainSizeZ();
 
         useThermostat_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useThermostat());
-        thermostatType_p = [](thermostatType x) {if (x == thermostatType::regular) return 1; else return 2;} (input_xml->generalParams().thermostatType());
+        thermostatType_p = [](thermostatType x) {if (x == thermostatType::regular) return Thermostat::REGULAR; else return Thermostat::ONLYFLUID;} (input_xml->generalParams().thermostatType());
         useBrownianMotion_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useBrownianMotion());
         T_init_p = input_xml->generalParams().T_init();
         T_target_p = input_xml->generalParams().T_target();

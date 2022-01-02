@@ -50,6 +50,9 @@ public:
      * @brief Applies the thermostat once
      */
     void apply();
+
+    static const int REGULAR = 0;
+    static const int ONLYFLUID = 1;
 };
 
 
