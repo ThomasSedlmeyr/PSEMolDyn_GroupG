@@ -42,10 +42,9 @@ void Membrane::applyTheHarmonicPotential() {
     }
 }
 
-/*void Membrane::setParticlesWhereFisApplied(int startIndex) {
-    int indexOfBody;
+void Membrane::setParticlesWhereFisApplied() {
     for(auto& position : positionsWhereFisApplied){
-        indexOfBody = position[0] + position[1] * dimensions[0];
-        particles[indexOfBody] = 0;
+        int index = position[0] + position[1] * dimensions[0];
+        particlesWhereFisApplied.push_back(particles[index].getId());
     }
-}*/
+}

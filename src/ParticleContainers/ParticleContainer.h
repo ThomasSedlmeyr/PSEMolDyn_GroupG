@@ -41,6 +41,9 @@ public:
      * @param p Particle to be added
      */
     virtual void addParticleToContainer(Particle &p) = 0;
+
+    virtual void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) = 0;
+    virtual void applyZGrav() = 0;
 };
 
 #endif //PSEMOLDYN_GROUPG_PARTICLECONTAINER_H

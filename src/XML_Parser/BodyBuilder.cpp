@@ -54,6 +54,8 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
             valuesForLookUpRho[i] = rhoLookUpTable[i][i];
             valuesForLookUpEpsilon[i] = epsilonLookUpTable[i][i];
         }
+        //particleCounter has to be set to avoid duplicate particle ID's
+        particleCounter = static_cast<int>(CheckpointReader::particles.size());
     }
 
     for (auto & i : bodySequence) {

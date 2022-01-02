@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <memory>
+#include <Visitors/ZGravVisitor.h>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
 #include "BoundaryConditions/BoundaryConditionContainer.h"
@@ -65,6 +66,8 @@ private:
      * @brief in this variable we can globally store a certain position.
      */
     std::array<double, 3> currentPosition{};
+
+    ZGravVisitor zGravVisitor{};
 
     /**
      * @brief builds one row of cells with the same type
@@ -256,6 +259,10 @@ public:
     void walkOverParticles(ParticleVisitor &visitor) override;
 
     void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
+
+    void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) override;
+
+    void applyZGrav() override;
 
     /**
      * @brief Returns the cell a given particle belongs to

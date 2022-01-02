@@ -402,4 +402,12 @@ namespace twoD{
         auto index = getCellIndexForParticle(particle);
         cells[index].getParticles().push_back(particle);
     }
+
+    void ParticleContainerLinkedCells2D::applyZGrav() {
+        walkOverParticles(zGravVisitor);
+    }
+
+    void ParticleContainerLinkedCells2D::setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) {
+        zGravVisitor.setParticlesWithZGrav(particlesWithZGravIndices);
+    }
 }

@@ -492,3 +492,11 @@ void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCel
     }
 }
 
+
+void ParticleContainerLinkedCells::applyZGrav() {
+    walkOverParticles(zGravVisitor);
+}
+
+void ParticleContainerLinkedCells::setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) {
+    zGravVisitor.setParticlesWithZGrav(particlesWithZGravIndices);
+}

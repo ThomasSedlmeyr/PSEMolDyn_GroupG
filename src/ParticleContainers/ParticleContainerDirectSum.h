@@ -19,6 +19,9 @@ private:
      */
     std::vector<Particle> particles;
 
+    std::vector<Particle *> particlesWithZGrav;
+
+
 public:
     void updateParticlePositions(ParticleVisitor &visitor) override;
 
@@ -29,4 +32,8 @@ public:
     void addParticleToContainer(Particle &p) override;
 
     std::vector<Particle> &getParticles() override;
+
+    void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) override;
+
+    void applyZGrav() override;
 };

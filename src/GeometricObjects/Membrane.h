@@ -46,7 +46,7 @@ private:
     /**
      * @brief a vector of pointers pointing on the particles on which f should be applied
      */
-    std::vector<Particle*> particlesWhereFisApplied;
+    std::vector<int> particlesWhereFisApplied;
 
     /**
      * @brief applies the harmonic potential to all particles of the membrane
@@ -56,7 +56,7 @@ private:
     /**
      * @brief calculates with positionsWhereFisApplied the particles on which f should be applied
      */
-    //void setParticlesWhereFisApplied();
+    void setParticlesWhereFisApplied();
 
 
 public:
@@ -65,8 +65,6 @@ public:
 
     void parseStructure(const std::string& line) override;
     void generateParticles(int startID) override;
-
-
     };
 
 #endif //PSEMOLDYN_GROUPG_MEMBRANE_H

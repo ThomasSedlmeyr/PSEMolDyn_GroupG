@@ -7,8 +7,13 @@
 #include "Checkpoints/CheckpointWriter.h"
 #include "Visitors/ParticleCollector.h"
 
-void Simulation::calculateOneTimeStep() {
+void Simulation::calculateOneTimeStep(int iteration) {
+    //TODO aus XML parsen
+    const int numberOfTimeStepsWithFZUp = 15000;
     particleContainer->updateParticlePositions(posCalcVisitor);
+    if (iteration < numberOfTimeStepsWithFZUp){
+        particleContainer->applyZGrav();
+    }
     calculateF();
     particleContainer->walkOverParticles(velCalcVisitor);
 }
@@ -62,7 +67,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
                 thermostat.apply();
             }
         }
-        calculateOneTimeStep();
+        calculateOneTimeStep(iteration);
         iteration++;
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;

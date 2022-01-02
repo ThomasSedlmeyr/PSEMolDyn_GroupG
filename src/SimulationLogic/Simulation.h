@@ -21,7 +21,7 @@ private:
     /**
      * @brief Calculates the new position, the new force and the new velocity for one time step
      */
-    void calculateOneTimeStep();
+    void calculateOneTimeStep(int iteration);
 
     /**
      * @brief calculates the force depending on the type of simulation
