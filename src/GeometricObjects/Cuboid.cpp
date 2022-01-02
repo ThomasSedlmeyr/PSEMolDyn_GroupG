@@ -18,7 +18,7 @@ void Cuboid::generateParticles(int startIndex) {
                 newPosition[0] = position[0] + meshWidth * i;
                 newPosition[1] = position[1] + meshWidth * j;
                 newPosition[2] = position[2] + meshWidth * k;
-                particles[counter] = Particle(newPosition, initialV, massPerParticle, ID, startIndex);
+                particles[counter] = Particle(newPosition, initialV, massPerParticle, ID, startIndex, movingIsAllowed);
                 startIndex++;
                 counter++;
             }
