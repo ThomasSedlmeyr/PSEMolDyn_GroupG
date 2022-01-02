@@ -65,6 +65,10 @@ public:
     static const int GRAVITATION = 1;
     static const int LENNARDJONES = 2;
 
+    static const int NOTPARALLEL = 0;
+    static const int FIRSTPARALLEL = 1;
+    static const int SECONDPARALLEL = 2;
+
     virtual~Simulation();
 
     /**

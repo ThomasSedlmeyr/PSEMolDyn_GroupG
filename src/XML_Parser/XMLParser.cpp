@@ -7,6 +7,7 @@
 #include "XMLParser.h"
 #include "BodyBuilder.h"
 #include "SimulationLogic/Thermostat.h"
+#include "SimulationLogic/Simulation.h"
 
 double XMLParser::t_end_p;
 double XMLParser::delta_t_p;
@@ -136,13 +137,13 @@ bool XMLParser::parseXML(const std::string filename) {
         dimensionType_p = [](dimensionType x) {if (x == dimensionType::cxx_2D) return 2; else return 3;} (input_xml->generalParams().dimensionType());
         switch (input_xml->generalParams().parallelType()) {
             case parallelType::notParallel:
-                parallelType_p = 0;
+                parallelType_p = Simulation::NOTPARALLEL;
             case parallelType::first:
-                parallelType_p = 1;
+                parallelType_p = Simulation::FIRSTPARALLEL;
             case parallelType::second:
-                parallelType_p = 2;
+                parallelType_p = Simulation::SECONDPARALLEL;
             default:
-                parallelType_p = 0;
+                parallelType_p = Simulation::NOTPARALLEL;
         }
 
         g_grav_p = input_xml->generalParams().g_grav();
