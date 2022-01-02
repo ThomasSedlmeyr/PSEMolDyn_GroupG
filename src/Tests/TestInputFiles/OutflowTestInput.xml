@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../../XML_Parser/input_alt.xsd">
+       xsi:noNamespaceSchemaLocation="../../XML_Parser/input.xsd">
 
     <generalParams>
         <t_end>0.0005</t_end>
         <delta_t>0.0005</delta_t>
         <writeFrequency>100000</writeFrequency>
         <dimensionType>2D</dimensionType>
+        <parallelType>notParallel</parallelType>
 
         <g_grav>0</g_grav>
         <useGravity>no</useGravity>
@@ -27,6 +28,7 @@
         <domainSizeZ>12.5</domainSizeZ>
 
         <useThermostat>no</useThermostat>
+        <thermostatType>regular</thermostatType>
         <useBrownianMotion>no</useBrownianMotion>
         <T_init>0</T_init>
         <T_target>0</T_target>
@@ -53,6 +55,7 @@
             <mass>1.0</mass>
             <rho>1.0</rho>
             <h>1.125</h>
+            <bodyState>moving</bodyState>
         </body>
     </particlesLJ>
 
