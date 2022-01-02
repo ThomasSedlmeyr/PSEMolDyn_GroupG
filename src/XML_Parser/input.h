@@ -1626,8 +1626,7 @@ class bodyState: public ::xml_schema::string
   enum value
   {
     fixed,
-    movable,
-    membrane
+    moving
   };
 
   /**
@@ -1752,8 +1751,8 @@ class bodyState: public ::xml_schema::string
   _xsd_bodyState_convert () const;
 
   public:
-  static const char* const _xsd_bodyState_literals_[3];
-  static const value _xsd_bodyState_indexes_[3];
+  static const char* const _xsd_bodyState_literals_[2];
+  static const value _xsd_bodyState_indexes_[2];
 
   //@endcond
 };

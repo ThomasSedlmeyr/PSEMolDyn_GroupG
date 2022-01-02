@@ -1989,11 +1989,11 @@ _xsd_bodyState_convert () const
   ::xsd::cxx::tree::enum_comparator< char > c (_xsd_bodyState_literals_);
   const value* i (::std::lower_bound (
                     _xsd_bodyState_indexes_,
-                    _xsd_bodyState_indexes_ + 3,
+                    _xsd_bodyState_indexes_ + 2,
                     *this,
                     c));
 
-  if (i == _xsd_bodyState_indexes_ + 3 || _xsd_bodyState_literals_[*i] != *this)
+  if (i == _xsd_bodyState_indexes_ + 2 || _xsd_bodyState_literals_[*i] != *this)
   {
     throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
   }
@@ -2002,19 +2002,17 @@ _xsd_bodyState_convert () const
 }
 
 const char* const bodyState::
-_xsd_bodyState_literals_[3] =
+_xsd_bodyState_literals_[2] =
 {
   "fixed",
-  "movable",
-  "membrane"
+  "moving"
 };
 
 const bodyState::value bodyState::
-_xsd_bodyState_indexes_[3] =
+_xsd_bodyState_indexes_[2] =
 {
   ::bodyState::fixed,
-  ::bodyState::membrane,
-  ::bodyState::movable
+  ::bodyState::moving
 };
 
 // thermostatType

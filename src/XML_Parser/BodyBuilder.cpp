@@ -63,6 +63,7 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
         valuesForLookUpEpsilon[id] = i.epsilon();
         mass = i.mass();
         h = i.h();
+        isMoving = [](bodyState x) {if (x == bodyState::moving) return true; else return false;} (i.bodyState());
 
         if (i.bodyType() == "Cuboid") {
             body = new Cuboid(id, h, mass, isMoving);
