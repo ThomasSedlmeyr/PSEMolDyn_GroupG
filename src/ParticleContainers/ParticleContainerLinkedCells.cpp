@@ -492,7 +492,6 @@ void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCel
     }
 }
 
-
 void ParticleContainerLinkedCells::applyZGrav() {
     walkOverParticles(zGravVisitor);
 }
