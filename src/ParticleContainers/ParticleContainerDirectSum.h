@@ -19,7 +19,7 @@ private:
      */
     std::vector<Particle> particles;
 
-    std::vector<Particle *> particlesWithZGrav;
+    std::vector<Particle *> particlesWithFZUp;
 
 
 public:
@@ -33,7 +33,5 @@ public:
 
     std::vector<Particle> &getParticles() override;
 
-    void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) override;
-
-    void applyZGrav() override;
+    void applyFZUp() override;
 };

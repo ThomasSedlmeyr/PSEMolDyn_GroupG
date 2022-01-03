@@ -19,7 +19,6 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
 void LennardJonesSimulation::uniteParticlesFromBodies() {
     for (Body* body : XMLParser::bodies_p) {
         for(Particle &particle : body->getParticles()){
-            //TODO Keine ahnung ob das so stimmt bzw. gedacht ist
             if (XMLParser::useBrownianMotion_p){
                 auto factor = sqrt(tInit / particle.getM());
                 particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(factor, dimensions));

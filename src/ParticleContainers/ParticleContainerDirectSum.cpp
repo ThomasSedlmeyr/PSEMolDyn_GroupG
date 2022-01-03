@@ -28,16 +28,8 @@ void ParticleContainerDirectSum::updateParticlePositions(ParticleVisitor &visito
     walkOverParticles(visitor);
 }
 
-void ParticleContainerDirectSum::setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) {
-    for (Particle &p : particles) {
-        if (std::find(particlesWithZGravIndices.begin(), particlesWithZGravIndices.end(), p.getId()) != particlesWithZGravIndices.end()){
-            particlesWithZGrav.push_back(&p);
-        }
-    }
-}
-
-void ParticleContainerDirectSum::applyZGrav() {
-    for (Particle *p : particlesWithZGrav) {
+void ParticleContainerDirectSum::applyFZUp() {
+    for (Particle *p : particlesWithFZUp) {
         auto &fRef = p->getFRef();
         //TODO faktor aus XML parsen
         fRef[2] += p->getM() * -0.001;

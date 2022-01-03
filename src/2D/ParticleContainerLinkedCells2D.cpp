@@ -10,6 +10,7 @@
 #include "ParticleContainerLinkedCells2D.h"
 #include "utils/ArrayUtils.h"
 #include "utils/FastMath.h"
+#include "utils/HarmonicPotentialCalculator.h"
 namespace twoD{
     std::vector<Cell> ParticleContainerLinkedCells2D::cells;
     int ParticleContainerLinkedCells2D::numberCellsX;
@@ -194,6 +195,7 @@ namespace twoD{
                 }
                 //calculate force between particles inside of cell
                 for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                    calculateHarmonicPotential(*it, *it2);
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
                         visitor.visitParticlePair(*it, *it2);
                     }
@@ -203,6 +205,7 @@ namespace twoD{
                 auto &particles2 = c2->getParticles();
                 for (auto & particle : particles) {
                     for (Particle &p2: particles2) {
+                        calculateHarmonicPotential(particle, p2);
                         if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
                             visitor.visitParticlePair(particle, p2);
                         }
@@ -403,11 +406,8 @@ namespace twoD{
         cells[index].getParticles().push_back(particle);
     }
 
-    void ParticleContainerLinkedCells2D::applyZGrav() {
+    void ParticleContainerLinkedCells2D::applyFZUp() {
         walkOverParticles(zGravVisitor);
     }
 
-    void ParticleContainerLinkedCells2D::setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) {
-        zGravVisitor.setParticlesWithZGrav(particlesWithZGravIndices);
-    }
 }
