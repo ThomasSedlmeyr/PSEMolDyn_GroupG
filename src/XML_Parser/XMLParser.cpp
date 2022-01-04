@@ -26,7 +26,6 @@ std::array<double, 3> XMLParser::domainSize = {};
 double XMLParser::cutoffRadius;
 std::array<int, 6> XMLParser::boundaryConditions;
 particlesLJ::body_sequence XMLParser::bodySequence{};
-std::list<Body*> XMLParser::bodies_p{};
 int XMLParser::particleContainerType_p;
 double XMLParser::g_grav_p;
 bool XMLParser::useGravity_p;
@@ -241,7 +240,6 @@ bool XMLParser::parseXML(const std::string filename) {
 
 void XMLParser::resetInternalData() {
     params_p.clear();
-    bodies_p.clear();
     domainSize = {};
     boundaryConditions = {};
 }

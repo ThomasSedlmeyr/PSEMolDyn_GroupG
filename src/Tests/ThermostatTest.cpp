@@ -13,9 +13,10 @@
 TEST(ThemostatTests, TestSetTemp){
     std::string filename = "../src/Tests/TestInputFiles/input_test.xml";
     XMLParser::parseXML(filename);
-    BodyBuilder::buildBodies(XMLParser::bodies_p, XMLParser::bodySequence);
+    std::list<Body*> bodies{};
+    BodyBuilder::buildBodies(bodies, XMLParser::bodySequence);
     ParticleContainerDirectSum pc;
-    for (Body *body : XMLParser::bodies_p) {
+    for (Body *body : bodies) {
         for (Particle p : body->getParticles()) {
             pc.addParticleToContainer(p);
         }

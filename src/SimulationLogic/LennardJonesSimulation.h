@@ -31,11 +31,7 @@ private:
     LJForceVisitor forceCalcVisitor;
 
     bool readParticles(const std::string &filename) override;
-    /**
-     * @brief unites the particles from all bodies to single vector in particle container
-     */
-    void uniteParticlesFromBodies();
-    //Allows test to access private method
+
     void calculateF() override;
 
 };

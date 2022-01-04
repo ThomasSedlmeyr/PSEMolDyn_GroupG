@@ -6,7 +6,6 @@
 #include <cmath>
 #include "LJForceVisitor.h"
 #include "XML_Parser/BodyBuilder.h"
-#include "utils/ArrayUtils.h"
 
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
@@ -42,7 +41,7 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
         if (p1Type == membraneIDs[0] && p1Type == p2Type){
             //Makes sure that only the repulsive part of the LJ potential is applied
             auto threshold = pow(rho, 1.0 / 6);
-            if (sqrt(squaredNorm) > threshold){
+            if (squaredNorm > threshold * threshold){
                 return;
             }
         }

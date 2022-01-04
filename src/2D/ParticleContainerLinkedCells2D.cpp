@@ -365,30 +365,32 @@ namespace twoD{
             std::vector<Particle> &particlesInCell = c.getParticles();
             for (std::size_t i = 0; i < particlesInCell.size(); ++i) {
                 Particle &p = particlesInCell[i];
-                //apply actual implementation of position calculation
-                visitor.visitParticle(p);
-                //calculate new cell the particle belongs to
-                int indexNewCell = getCellIndexForParticle(p);
-                if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
-                    std::cout << "Error, Particle got outside of domain!";
-                    particlesInCell.erase(particlesInCell.begin() + i);
-                    i--;
-                    continue;
-                    //exit(1);
-                }
-                Cell &newCell = cells[indexNewCell];
-                if (!(newCell == c)) {
-                    if (!newCell.particleLiesInCell(p)) {
+                if (p.getMovingAllowed()) {
+                    //apply actual implementation of position calculation
+                    visitor.visitParticle(p);
+                    //calculate new cell the particle belongs to
+                    int indexNewCell = getCellIndexForParticle(p);
+                    if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                         std::cout << "Error, Particle got outside of domain!";
-                        //exit(1);
                         particlesInCell.erase(particlesInCell.begin() + i);
                         i--;
                         continue;
+                        //exit(1);
                     }
-                    //Particle p has to be moved from c to newCell
-                    newCell.getParticles().push_back(particlesInCell[i]);
-                    particlesInCell.erase(particlesInCell.begin() + i);
-                    i--;
+                    Cell &newCell = cells[indexNewCell];
+                    if (!(newCell == c)) {
+                        if (!newCell.particleLiesInCell(p)) {
+                            std::cout << "Error, Particle got outside of domain!";
+                            //exit(1);
+                            particlesInCell.erase(particlesInCell.begin() + i);
+                            i--;
+                            continue;
+                        }
+                        //Particle p has to be moved from c to newCell
+                        newCell.getParticles().push_back(particlesInCell[i]);
+                        particlesInCell.erase(particlesInCell.begin() + i);
+                        i--;
+                    }
                 }
             }
         }

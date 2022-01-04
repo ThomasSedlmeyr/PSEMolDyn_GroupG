@@ -11,13 +11,9 @@
 #include "XML_Parser/BodyBuilder.h"
 
 bool LennardJonesSimulation::readParticles(const std::string &fileName) {
-    BodyBuilder::buildBodies(XMLParser::bodies_p, XMLParser::bodySequence);
-    uniteParticlesFromBodies();
-    return true;
-}
-
-void LennardJonesSimulation::uniteParticlesFromBodies() {
-    for (Body* body : XMLParser::bodies_p) {
+    std::list<Body*> bodies{};
+    BodyBuilder::buildBodies(bodies, XMLParser::bodySequence);
+    for (Body* body : bodies) {
         for(Particle &particle : body->getParticles()){
             if (XMLParser::useBrownianMotion_p){
                 auto factor = sqrt(tInit / particle.getM());
@@ -28,6 +24,7 @@ void LennardJonesSimulation::uniteParticlesFromBodies() {
             particleContainer->addParticleToContainer(particle);
         }
     }
+    return true;
 }
 
 void LennardJonesSimulation::calculateF() {

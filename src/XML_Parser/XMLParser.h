@@ -86,11 +86,6 @@ public:
     static particlesLJ::body_sequence bodySequence;
 
     /**
-     * @brief list of parsed bodies from xml file
-     */
-    static std::list<Body*> bodies_p;
-
-    /**
      * @brief parsed particle container type from xml file (1=directSum, 2=linkedCells
      */
     static int particleContainerType_p;

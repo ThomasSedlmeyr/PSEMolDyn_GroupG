@@ -8,12 +8,12 @@
 #include "SimulationLogic/Particle.h"
 #include "ArrayUtils.h"
 
+//TODO parse from XML
 double rZero = 2.2;
 double k = 300;
 
-void calculateHarmonicPotential(Particle &p1, Particle &p2){
+inline void calculateHarmonicPotential(Particle &p1, Particle &p2){
     if (Particle::particlesAreNeighbours(p1, p2)){
-        //TODO parse from XML
         auto diff = p1.getXRef()-p2.getXRef();
         auto norm = ArrayUtils::L2Norm(diff);
         double scalar;

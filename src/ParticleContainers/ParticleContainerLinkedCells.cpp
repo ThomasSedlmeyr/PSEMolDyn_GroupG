@@ -426,24 +426,27 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
     for (Cell &c: cells) {
         std::vector<Particle> &particlesInCell = c.getParticles();
         for (std::size_t i = 0; i < particlesInCell.size(); ++i) {
-            //apply actual implementation of position calculation
-            visitor.visitParticle(particlesInCell[i]);
-            //calculate new cell the particle belongs to
-            int indexNewCell = getCellIndexForParticle(particlesInCell[i]);
-            if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
-                std::cout << "Error, Particle got outside of domain!";
-                exit(1);
-            }
-            Cell &newCell = cells[indexNewCell];
-            if (!(newCell == c)) {
-                if (!newCell.particleLiesInCell(particlesInCell[i])) {
+            Particle &p = particlesInCell[i];
+            if (p.getMovingAllowed()) {
+                //apply actual implementation of position calculation
+                visitor.visitParticle(p);
+                //calculate new cell the particle belongs to
+                int indexNewCell = getCellIndexForParticle(p);
+                if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                     std::cout << "Error, Particle got outside of domain!";
                     exit(1);
                 }
-                //Particle p has to be moved from c to newCell
-                newCell.getParticles().push_back(particlesInCell[i]);
-                particlesInCell.erase(particlesInCell.begin() + i);
-                i--;
+                Cell &newCell = cells[indexNewCell];
+                if (!(newCell == c)) {
+                    if (!newCell.particleLiesInCell(p)) {
+                        std::cout << "Error, Particle got outside of domain!";
+                        exit(1);
+                    }
+                    //Particle p has to be moved from c to newCell
+                    newCell.getParticles().push_back(p);
+                    particlesInCell.erase(particlesInCell.begin() + i);
+                    i--;
+                }
             }
         }
     }
