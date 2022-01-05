@@ -238,12 +238,18 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
     boundaryContainer->calculateBoundaryConditions();
-    for (Cell &c: cells) {
+    #ifdef _OPENMP
+    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
+    #endif //_OPENMP
+    for (Cell &c : cells) {
         auto &particles = c.getParticles();
         for (auto it = particles.begin(); it != particles.end(); it++) {
             //apply Gravitation
             if (useGrav){
                 std::array<double, 3> &f = it->getFRef();
+                #ifdef _OPENMP
+                #pragma omp atomic
+                #endif //_OPENMP
                 f[1] += it->getM()*g_grav;
             }
             //calculate force between particles inside of cell
