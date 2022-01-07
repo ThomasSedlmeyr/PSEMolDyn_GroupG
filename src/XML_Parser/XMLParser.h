@@ -175,6 +175,11 @@ public:
       */
       static int thermostatType_p;
 
+      /**
+       * @brief direction of gravitaion force being applied
+       */
+      static int gravDirection_p;
+
     /**
      * @brief function for parsing xml input file
      * @return true if parsing successful, false otherwise

@@ -42,89 +42,7 @@ int XMLParser::dimensionType_p;
 bool XMLParser::useBrownianMotion_p;
 int XMLParser::parallelType_p;
 int XMLParser::thermostatType_p;
-
-//TODO löschen?
-/*
- * old parser
-bool XMLParser::parseXML(const std::string filename) {
-    try {
-        std::unique_ptr<input> input_xml(input_(filename));
-
-        // parameters parsing
-        t_end_p = input_xml->t_end();
-        delta_t_p = input_xml->delta_t();
-        calcType_p = [](calcType x) {if (x == calcType::G) return 1; else return 2;} (input_xml->calcType());
-        baseNameOutputFiles_p = input_xml->baseNameOutputFiles();
-        writeFrequency_p = input_xml->writeFrequency();
-        gravInput_p = input_xml->gravInput();
-
-        epsilon_p = input_xml->paramsLJ().epsilon();
-        mass_p = input_xml->paramsLJ().mass();
-        rho_p = input_xml->paramsLJ().rho();
-        h_p = input_xml->paramsLJ().h();
-        params_p.emplace_back("epsilon", epsilon_p);
-        params_p.emplace_back("mass", mass_p);
-        params_p.emplace_back("rho", rho_p);
-        params_p.emplace_back("h", h_p);
-        domainSize[0] = input_xml->paramsLJ().domainSizeX();
-        domainSize[1] = input_xml->paramsLJ().domainSizeY();
-        domainSize[2] = input_xml->paramsLJ().domainSizeZ();
-        particleContainerType_p = input_xml->paramsLJ().particleContainerType_p();
-        cutoffRadius = input_xml->paramsLJ().cutoffRadius();
-
-        top_p = input_xml->boundaryConditions().top();
-        right_p = input_xml->boundaryConditions().right();
-        bottom_p = input_xml->boundaryConditions().bottom();
-        left_p = input_xml->boundaryConditions().left();
-        front_p = input_xml->boundaryConditions().front();
-        back_p = input_xml->boundaryConditions().back();
-
-        boundaryConditions = {front_p, right_p, back_p, left_p, top_p, bottom_p};
-
-        // bodies_p parsing with iteration
-        particlesLJ::body_sequence &b(input_xml->particlesLJ().body());
-
-        Body* temp = nullptr;
-        int id = 1;
-        int particleCounter = 0;
-
-        for (particlesLJ::body_iterator i(b.begin()); i != b.end(); ++i) {
-            if (i->bodyType() == "Cuboid") {
-                temp =  new Cuboid(id, h_p, mass_p);
-            } else if (i->bodyType() == "Tetrahedron") {
-                temp =  new Tetrahedron(id, h_p, mass_p);
-            } else if (i->bodyType() == "Sphere") {
-                temp =  new Sphere(id, h_p, mass_p);
-            } else {
-                std::cout << "Parsing of XML-file was not successful!" << std::endl;
-                std::cout << "Unknown body type." << std::endl;
-                return false;
-            }
-
-            temp->parsePosition(i->position());
-            temp->parseInitialV(i->velocity());
-            temp->parseStructure(i->objectSpecificFormat());
-
-            temp->generateParticles(particleCounter);
-            particleCounter += temp->getParticles().size();
-
-            bodies_p.push_back(temp);
-            id++;
-
-        }
-
-    } catch (const std::exception& e) {
-        std::cout << "Parsing of XML-file was not successful!" << std::endl;
-        std::cout << "Please check that correct path was provided." << std::endl;
-        std::cout << "Please check that file was correctly formatted." << std::endl;
-        std::cerr << e.what() << std::endl;
-        return false;
-    }
-
-
-    return true;
-}
-*/
+int XMLParser::gravDirection_p;
 
 bool XMLParser::parseXML(const std::string filename) {
     try {
@@ -147,6 +65,13 @@ bool XMLParser::parseXML(const std::string filename) {
 
         g_grav_p = input_xml->generalParams().g_grav();
         useGravity_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useGravity());
+        if (input_xml->generalParams().gravDirection() == gravDirectionType::z) {
+            gravDirection_p = 2;
+        } else if (input_xml->generalParams().gravDirection() == gravDirectionType::y) {
+            gravDirection_p = 1;
+        } else {
+            gravDirection_p = 0;
+        }
 
         calcType_p = [](calcType x) {if (x == calcType::G) return 1; else return 2;} (input_xml->generalParams().calcType());
         baseNameOutputFiles_p = input_xml->generalParams().baseNameOutputFiles();
