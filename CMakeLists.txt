@@ -69,3 +69,4 @@ target_compile_options(MolSim
 )
 
 include(doxygen)
+include(openmp)

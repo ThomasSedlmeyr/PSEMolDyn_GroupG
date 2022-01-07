@@ -8,7 +8,7 @@
 
 #include <vector>
 #include <memory>
-#include <Visitors/ZGravVisitor.h>
+#include <Visitors/UpwardForceVisitor.h>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainer.h"
 #include "BoundaryConditions/BoundaryConditionContainer.h"
@@ -67,7 +67,7 @@ private:
      */
     std::array<double, 3> currentPosition{};
 
-    ZGravVisitor zGravVisitor{};
+    UpwardForceVisitor zGravVisitor{};
 
     /**
      * @brief builds one row of cells with the same type
@@ -260,9 +260,7 @@ public:
 
     void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
 
-    void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) override;
-
-    void applyZGrav() override;
+    void applyFZUp() override;
 
     /**
      * @brief Returns the cell a given particle belongs to

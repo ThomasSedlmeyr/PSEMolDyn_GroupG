@@ -3,12 +3,11 @@
 //
 
 #include <Visitors/LJForceVisitor.h>
-#include <Visitors/ZGravVisitor.h>
+#include <Visitors/UpwardForceVisitor.h>
 #include "Membrane.h"
-#include "utils/ArrayUtils.h"
 
 void Membrane::parseStructure(const std::string &line) {
-
+    dimensions = parseLineWithThreeValues(line);
 }
 
 void Membrane::generateParticles(int startIndex) {
@@ -27,11 +26,15 @@ void Membrane::generateParticles(int startIndex) {
             }
         }
     }
+    setNeighbourParticles();
     setParticlesWhereFisApplied();
 }
 
 Membrane::Membrane(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
     LJForceVisitor::membraneIDs.push_back(ID);
+    //TODO LÖSCHEN!!!!!!!
+    positionsWhereFisApplied = {{17,24},{17,25},{18,24},{18,25}};
+    //TODO LÖSCHEN!!!!!!!
 }
 
 Membrane::~Membrane() {}
@@ -39,6 +42,44 @@ Membrane::~Membrane() {}
 void Membrane::setParticlesWhereFisApplied() {
     for(auto& position : positionsWhereFisApplied){
         int index = position[0] + position[1] * dimensions[0];
-        ZGravVisitor::particlesWithZGrav.push_back(particles[index].getId());
+        UpwardForceVisitor::particlesWithFZUp.push_back(particles[index].getId());
+    }
+}
+
+void Membrane::setNeighbourParticles() {
+    for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+        auto topNeighbour = i + int(dimensions[0]);
+        auto bottomNeighbour = i - int(dimensions[0]);
+        if (topNeighbour >= particles.size()){
+            topNeighbour = -2;
+        }
+        if (bottomNeighbour < 0){
+            bottomNeighbour = -2;
+        }
+
+        //Vertical neighbours
+        particles[i].addParticleToNeighbours(topNeighbour);
+        particles[i].addParticleToNeighbours(bottomNeighbour);
+
+        particles[i].addParticleToDirectNeighbours(topNeighbour);
+        particles[i].addParticleToDirectNeighbours(bottomNeighbour);
+
+        if (i % int(dimensions[0]) != 0){
+            //Not on left edge
+            particles[i].addParticleToNeighbours(i-1);
+            particles[i].addParticleToDirectNeighbours(i-1);
+            //diagonal neighbours
+            particles[i].addParticleToNeighbours(topNeighbour - 1);
+            particles[i].addParticleToNeighbours(bottomNeighbour - 1);
+        }
+
+        if ((i + 1) % int(dimensions[0]) != 0){
+            //Not on right edge
+            particles[i].addParticleToNeighbours(i+1);
+            particles[i].addParticleToDirectNeighbours(i+1);
+            //diagonal neighbours
+            particles[i].addParticleToNeighbours(topNeighbour + 1);
+            particles[i].addParticleToNeighbours(bottomNeighbour + 1);
+        }
     }
 }

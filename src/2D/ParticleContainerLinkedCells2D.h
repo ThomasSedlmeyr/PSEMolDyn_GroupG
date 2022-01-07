@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 #include <XML_Parser/XMLParser.h>
-#include <Visitors/ZGravVisitor.h>
+#include <Visitors/UpwardForceVisitor.h>
 #include "SimulationLogic/Cell.h"
 #include "ParticleContainers/ParticleContainer.h"
 #include "BoundaryConditionContainer2D.h"
@@ -50,7 +50,7 @@ namespace twoD {
          */
         double cutOffRadius{};
 
-        ZGravVisitor zGravVisitor{};
+        UpwardForceVisitor zGravVisitor{};
 
         /**
          * @brief in this variable we can globally store a certain position.
@@ -213,9 +213,7 @@ namespace twoD {
 
         void walkOverParticlePairs(ParticlePairVisitor &visitor) override;
 
-        void setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) override;
-
-        void applyZGrav() override;
+        void applyFZUp() override;
 
 
         /**

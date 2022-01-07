@@ -10,6 +10,7 @@
 #include "ParticleContainerLinkedCells.h"
 #include "utils/ArrayUtils.h"
 #include "utils/FastMath.h"
+#include "utils/HarmonicPotentialCalculator.h"
 
 std::vector<Cell> ParticleContainerLinkedCells::cells;
 int ParticleContainerLinkedCells::numberCellsX;
@@ -237,16 +238,23 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
     boundaryContainer->calculateBoundaryConditions();
-    for (Cell &c: cells) {
+    #ifdef _OPENMP
+    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
+    #endif //_OPENMP
+    for (Cell &c : cells) {
         auto &particles = c.getParticles();
         for (auto it = particles.begin(); it != particles.end(); it++) {
             //apply Gravitation
             if (useGrav){
                 std::array<double, 3> &f = it->getFRef();
+                #ifdef _OPENMP
+                #pragma omp atomic
+                #endif //_OPENMP
                 f[1] += it->getM()*g_grav;
             }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                calculateHarmonicPotential(*it, *it2);
                 if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
                     visitor.visitParticlePair(*it, *it2);
                 }
@@ -256,6 +264,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             auto &particles2 = c2->getParticles();
             for (auto & particle : particles) {
                 for (Particle &p2: particles2) {
+                    calculateHarmonicPotential(particle, p2);
                     if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
                         visitor.visitParticlePair(particle, p2);
                     }
@@ -423,24 +432,27 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
     for (Cell &c: cells) {
         std::vector<Particle> &particlesInCell = c.getParticles();
         for (std::size_t i = 0; i < particlesInCell.size(); ++i) {
-            //apply actual implementation of position calculation
-            visitor.visitParticle(particlesInCell[i]);
-            //calculate new cell the particle belongs to
-            int indexNewCell = getCellIndexForParticle(particlesInCell[i]);
-            if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
-                std::cout << "Error, Particle got outside of domain!";
-                exit(1);
-            }
-            Cell &newCell = cells[indexNewCell];
-            if (!(newCell == c)) {
-                if (!newCell.particleLiesInCell(particlesInCell[i])) {
+            Particle &p = particlesInCell[i];
+            if (p.getMovingAllowed()) {
+                //apply actual implementation of position calculation
+                visitor.visitParticle(p);
+                //calculate new cell the particle belongs to
+                int indexNewCell = getCellIndexForParticle(p);
+                if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                     std::cout << "Error, Particle got outside of domain!";
                     exit(1);
                 }
-                //Particle p has to be moved from c to newCell
-                newCell.getParticles().push_back(particlesInCell[i]);
-                particlesInCell.erase(particlesInCell.begin() + i);
-                i--;
+                Cell &newCell = cells[indexNewCell];
+                if (!(newCell == c)) {
+                    if (!newCell.particleLiesInCell(p)) {
+                        std::cout << "Error, Particle got outside of domain!";
+                        exit(1);
+                    }
+                    //Particle p has to be moved from c to newCell
+                    newCell.getParticles().push_back(p);
+                    particlesInCell.erase(particlesInCell.begin() + i);
+                    i--;
+                }
             }
         }
     }
@@ -491,12 +503,6 @@ void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCel
         cell->getNeighbourCells()[numberOfCurrentNeighbourCells + i] = &cells[indexCombined];
     }
 }
-
-
-void ParticleContainerLinkedCells::applyZGrav() {
+void ParticleContainerLinkedCells::applyFZUp() {
     walkOverParticles(zGravVisitor);
-}
-
-void ParticleContainerLinkedCells::setParticlesWithZGrav(const std::vector<int> &particlesWithZGravIndices) {
-    zGravVisitor.setParticlesWithZGrav(particlesWithZGravIndices);
 }

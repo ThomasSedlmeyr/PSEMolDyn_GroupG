@@ -40,7 +40,7 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
     int id = 0;
     int particleCounter = 0;
     double mass, h;
-    bool isMoving = true;
+    bool isMoving;
 
     int numberOfBodiesReadFromCheckpoint = static_cast<int>(rhoLookUpTable.size());
     //sets the sizes to the total number of bodies in the simulation

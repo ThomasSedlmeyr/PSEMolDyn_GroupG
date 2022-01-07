@@ -6,7 +6,6 @@
 #include <cmath>
 #include "LJForceVisitor.h"
 #include "XML_Parser/BodyBuilder.h"
-#include "utils/ArrayUtils.h"
 
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
@@ -40,21 +39,9 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     //TODO this only works for one membrane!
     if (!membraneIDs.empty()){
         if (p1Type == membraneIDs[0] && p1Type == p2Type){
-            //TODO parse from XML
-            double rZero = 2.2;
-            double k = 300;
-
-            auto norm = sqrt(squaredNorm);
-            auto scalar = k * (norm - sqrt(2) * rZero) * (1/norm);
-            auto invertedDiff = -1 * diff;
-            double force;
-            for (int i = 0; i < 3; ++i) {
-                force = scalar * invertedDiff[i];
-                f1[i] += force;
-                f2[i] -= force;
-            }
             //Makes sure that only the repulsive part of the LJ potential is applied
-            if (norm > pow(rho, 1.0/6)){
+            auto threshold = pow(rho, 1.0 / 6);
+            if (squaredNorm > threshold * threshold){
                 return;
             }
         }
@@ -72,7 +59,13 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     double temp;
     for (int j = 0; j < 3; ++j) {
         temp = diff[j];
+        #ifdef _OPENMP
+        #pragma omp atomic
+        #endif //_OPENMP
         f1[j] += temp;
+        #ifdef _OPENMP
+        #pragma omp atomic
+        #endif //_OPENMP
         f2[j] -= temp;
     }
 }

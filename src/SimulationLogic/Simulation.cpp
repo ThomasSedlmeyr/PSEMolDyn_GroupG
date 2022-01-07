@@ -12,7 +12,7 @@ void Simulation::calculateOneTimeStep(int iteration) {
     const int numberOfTimeStepsWithFZUp = 0;
     particleContainer->updateParticlePositions(posCalcVisitor);
     if (iteration < numberOfTimeStepsWithFZUp){
-        particleContainer->applyZGrav();
+        particleContainer->applyFZUp();
     }
     calculateF();
     particleContainer->walkOverParticles(velCalcVisitor);

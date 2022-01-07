@@ -34,6 +34,8 @@ public:
 
     void parseStructure(const std::string& line) override;
     void generateParticles(int startID) override;
-    };
+
+    void setNeighbourParticles();
+};
 
 #endif //PSEMOLDYN_GROUPG_MEMBRANE_H

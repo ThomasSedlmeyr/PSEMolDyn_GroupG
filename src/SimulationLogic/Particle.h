@@ -9,6 +9,7 @@
 
 #include <array>
 #include <string>
+#include <vector>
 
 class Particle {
 
@@ -52,6 +53,16 @@ private:
    * @brief Determines if particle is allowed to be moved during Simulation
    */
   bool movingIsAllowed;
+
+  /**
+   * @brief IDs of the neighbour particles; used for membranes
+   */
+  std::vector<int> neighbourIDs{};
+
+    /**
+     * @brief IDs of the direct neighbour particles; used for membranes
+     */
+    std::vector<int> directNeighbourIDs{};
 
 public:
     explicit Particle(int type = 0);
@@ -121,6 +132,18 @@ public:
     bool getMovingAllowed() const;
 
     bool isGhostParticle = false;
+
+    void addParticleToNeighbours(int neighbourID);
+
+    void addParticleToDirectNeighbours(int neighbourID);
+
+    static bool particlesAreNeighbours(const Particle &p1, const Particle &p2);
+
+    static bool particlesAreDirectNeighbours(const Particle &p1, const Particle &p2);
+
+    const std::vector<int> &getNeighbourIDs() const;
+
+    const std::vector<int> &getDirectNeighbourIDs() const;
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);
