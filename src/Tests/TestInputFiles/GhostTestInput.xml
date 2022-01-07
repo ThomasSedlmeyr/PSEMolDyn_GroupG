@@ -11,6 +11,7 @@
 
         <g_grav>0</g_grav>
         <useGravity>no</useGravity>
+        <gravDirection>z</gravDirection>
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>Ghost_Test</baseNameOutputFiles>
