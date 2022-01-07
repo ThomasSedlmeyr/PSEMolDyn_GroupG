@@ -69,6 +69,14 @@
         </xsd:restriction>
     </xsd:simpleType>
 
+    <xsd:simpleType name="gravDirectionType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="x"/>
+            <xsd:enumeration value="y"/>
+            <xsd:enumeration value="z"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:complexType name="generalParams">
         <xsd:sequence>
             <xsd:element name="t_end" type="xsd:double"/>
@@ -79,6 +87,7 @@
 
             <xsd:element name="g_grav" type="xsd:double"/>
             <xsd:element name="useGravity" type="yesNo"/>
+            <xsd:element name="gravDirection" type="gravDirectionType"/>
 
             <xsd:element name="calcType" type="calcType"/>
             <xsd:element name="baseNameOutputFiles" type="xsd:string"/>

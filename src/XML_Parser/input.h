@@ -572,6 +572,7 @@ class boundaryCondition;
 class dimensionType;
 class bodyState;
 class thermostatType;
+class gravDirectionType;
 class generalParams;
 class boundaryConditions;
 class particlesLJ;
@@ -1903,6 +1904,152 @@ class thermostatType: public ::xml_schema::string
 };
 
 /**
+ * @brief Enumeration class corresponding to the %gravDirectionType
+ * schema type.
+ */
+class gravDirectionType: public ::xml_schema::string
+{
+  public:
+
+  /**
+   * @brief Underlying enum type.
+   */
+  enum value
+  {
+    x,
+    y,
+    z
+  };
+
+  /**
+   * @brief Create an instance from the underlying enum value.
+   *
+   * @param v A enum value.
+   */
+  gravDirectionType (value v);
+
+  /**
+   * @brief Create an instance from a C string.
+   *
+   * @param v A string value.
+   */
+  gravDirectionType (const char* v);
+
+  /**
+   * @brief Create an instance from a string.
+   *
+   * @param v A string value.
+   */
+  gravDirectionType (const ::std::string& v);
+
+  /**
+   * @brief Create an instance from the base value.
+   *
+   * @param v A base value.
+   */
+  gravDirectionType (const ::xml_schema::string& v);
+
+  /**
+   * @brief Create an instance from a DOM element.
+   *
+   * @param e A DOM element to extract the data from.
+   * @param f Flags to create the new instance with.
+   * @param c A pointer to the object that will contain the new
+   * instance.
+   */
+  gravDirectionType (const ::xercesc::DOMElement& e,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  /**
+   * @brief Create an instance from a DOM attribute.
+   *
+   * @param a A DOM attribute to extract the data from.
+   * @param f Flags to create the new instance with.
+   * @param c A pointer to the object that will contain the new
+   * instance.
+   */
+  gravDirectionType (const ::xercesc::DOMAttr& a,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  /**
+   * @brief Create an instance from a string fragment.
+   *
+   * @param s A string fragment to extract the data from.
+   * @param e A pointer to DOM element containing the string fragment.
+   * @param f Flags to create the new instance with.
+   * @param c A pointer to the object that will contain the new
+   * instance.
+   */
+  gravDirectionType (const ::std::string& s,
+                     const ::xercesc::DOMElement* e,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  /**
+   * @brief Copy constructor.
+   *
+   * @param x An instance to make a copy of.
+   * @param f Flags to create the copy with.
+   * @param c A pointer to the object that will contain the copy.
+   *
+   * For polymorphic object models use the @c _clone function instead.
+   */
+  gravDirectionType (const gravDirectionType& x,
+                     ::xml_schema::flags f = 0,
+                     ::xml_schema::container* c = 0);
+
+  /**
+   * @brief Copy the instance polymorphically.
+   *
+   * @param f Flags to create the copy with.
+   * @param c A pointer to the object that will contain the copy.
+   * @return A pointer to the dynamically allocated copy.
+   *
+   * This function ensures that the dynamic type of the instance is
+   * used for copying and should be used for polymorphic object
+   * models instead of the copy constructor.
+   */
+  virtual gravDirectionType*
+  _clone (::xml_schema::flags f = 0,
+          ::xml_schema::container* c = 0) const;
+
+  /**
+   * @brief Assign the underlying enum value.
+   *
+   * @param v A enum value.
+   * @return A refernce to the instance.
+   */
+  gravDirectionType&
+  operator= (value v);
+
+  /**
+   * @brief Implicit conversion operator to the underlying
+   * enum value.
+   *
+   * @return A enum value.
+   */
+  virtual
+  operator value () const
+  {
+    return _xsd_gravDirectionType_convert ();
+  }
+
+  //@cond
+
+  protected:
+  value
+  _xsd_gravDirectionType_convert () const;
+
+  public:
+  static const char* const _xsd_gravDirectionType_literals_[3];
+  static const value _xsd_gravDirectionType_indexes_[3];
+
+  //@endcond
+};
+
+/**
  * @brief Class corresponding to the %generalParams schema type.
  *
  * @nosubgrouping
@@ -2269,6 +2416,64 @@ class generalParams: public ::xml_schema::type
    */
   void
   useGravity (::std::unique_ptr< useGravity_type > p);
+
+  //@}
+
+  /**
+   * @name gravDirection
+   *
+   * @brief Accessor and modifier functions for the %gravDirection
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::gravDirectionType gravDirection_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< gravDirection_type, char > gravDirection_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const gravDirection_type&
+  gravDirection () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  gravDirection_type&
+  gravDirection ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  gravDirection (const gravDirection_type& x);
+
+  /**
+   * @brief Set the element value without copying.
+   *
+   * @param p A new value to use.
+   *
+   * This function will try to use the passed value directly
+   * instead of making a copy.
+   */
+  void
+  gravDirection (::std::unique_ptr< gravDirection_type > p);
 
   //@}
 
@@ -3302,6 +3507,7 @@ class generalParams: public ::xml_schema::type
                  const parallelType_type&,
                  const g_grav_type&,
                  const useGravity_type&,
+                 const gravDirection_type&,
                  const calcType_type&,
                  const baseNameOutputFiles_type&,
                  const particleContainerType_type&,
@@ -3399,6 +3605,7 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< parallelType_type > parallelType_;
   ::xsd::cxx::tree::one< g_grav_type > g_grav_;
   ::xsd::cxx::tree::one< useGravity_type > useGravity_;
+  ::xsd::cxx::tree::one< gravDirection_type > gravDirection_;
   ::xsd::cxx::tree::one< calcType_type > calcType_;
   ::xsd::cxx::tree::one< baseNameOutputFiles_type > baseNameOutputFiles_;
   ::xsd::cxx::tree::one< particleContainerType_type > particleContainerType_;

@@ -445,6 +445,51 @@ operator= (value v)
 }
 
 
+// gravDirectionType
+// 
+
+gravDirectionType::
+gravDirectionType (value v)
+: ::xml_schema::string (_xsd_gravDirectionType_literals_[v])
+{
+}
+
+gravDirectionType::
+gravDirectionType (const char* v)
+: ::xml_schema::string (v)
+{
+}
+
+gravDirectionType::
+gravDirectionType (const ::std::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+gravDirectionType::
+gravDirectionType (const ::xml_schema::string& v)
+: ::xml_schema::string (v)
+{
+}
+
+gravDirectionType::
+gravDirectionType (const gravDirectionType& v,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (v, f, c)
+{
+}
+
+gravDirectionType& gravDirectionType::
+operator= (value v)
+{
+  static_cast< ::xml_schema::string& > (*this) = 
+  ::xml_schema::string (_xsd_gravDirectionType_literals_[v]);
+
+  return *this;
+}
+
+
 // generalParams
 // 
 
@@ -590,6 +635,30 @@ void generalParams::
 useGravity (::std::unique_ptr< useGravity_type > x)
 {
   this->useGravity_.set (std::move (x));
+}
+
+const generalParams::gravDirection_type& generalParams::
+gravDirection () const
+{
+  return this->gravDirection_.get ();
+}
+
+generalParams::gravDirection_type& generalParams::
+gravDirection ()
+{
+  return this->gravDirection_.get ();
+}
+
+void generalParams::
+gravDirection (const gravDirection_type& x)
+{
+  this->gravDirection_.set (x);
+}
+
+void generalParams::
+gravDirection (::std::unique_ptr< gravDirection_type > x)
+{
+  this->gravDirection_.set (std::move (x));
 }
 
 const generalParams::calcType_type& generalParams::
@@ -2085,6 +2154,78 @@ _xsd_thermostatType_indexes_[2] =
   ::thermostatType::regular
 };
 
+// gravDirectionType
+//
+
+gravDirectionType::
+gravDirectionType (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (e, f, c)
+{
+  _xsd_gravDirectionType_convert ();
+}
+
+gravDirectionType::
+gravDirectionType (const ::xercesc::DOMAttr& a,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (a, f, c)
+{
+  _xsd_gravDirectionType_convert ();
+}
+
+gravDirectionType::
+gravDirectionType (const ::std::string& s,
+                   const ::xercesc::DOMElement* e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+: ::xml_schema::string (s, e, f, c)
+{
+  _xsd_gravDirectionType_convert ();
+}
+
+gravDirectionType* gravDirectionType::
+_clone (::xml_schema::flags f,
+        ::xml_schema::container* c) const
+{
+  return new class gravDirectionType (*this, f, c);
+}
+
+gravDirectionType::value gravDirectionType::
+_xsd_gravDirectionType_convert () const
+{
+  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_gravDirectionType_literals_);
+  const value* i (::std::lower_bound (
+                    _xsd_gravDirectionType_indexes_,
+                    _xsd_gravDirectionType_indexes_ + 3,
+                    *this,
+                    c));
+
+  if (i == _xsd_gravDirectionType_indexes_ + 3 || _xsd_gravDirectionType_literals_[*i] != *this)
+  {
+    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+  }
+
+  return *i;
+}
+
+const char* const gravDirectionType::
+_xsd_gravDirectionType_literals_[3] =
+{
+  "x",
+  "y",
+  "z"
+};
+
+const gravDirectionType::value gravDirectionType::
+_xsd_gravDirectionType_indexes_[3] =
+{
+  ::gravDirectionType::x,
+  ::gravDirectionType::y,
+  ::gravDirectionType::z
+};
+
 // generalParams
 //
 
@@ -2096,6 +2237,7 @@ generalParams (const t_end_type& t_end,
                const parallelType_type& parallelType,
                const g_grav_type& g_grav,
                const useGravity_type& useGravity,
+               const gravDirection_type& gravDirection,
                const calcType_type& calcType,
                const baseNameOutputFiles_type& baseNameOutputFiles,
                const particleContainerType_type& particleContainerType,
@@ -2123,6 +2265,7 @@ generalParams (const t_end_type& t_end,
   parallelType_ (parallelType, this),
   g_grav_ (g_grav, this),
   useGravity_ (useGravity, this),
+  gravDirection_ (gravDirection, this),
   calcType_ (calcType, this),
   baseNameOutputFiles_ (baseNameOutputFiles, this),
   particleContainerType_ (particleContainerType, this),
@@ -2157,6 +2300,7 @@ generalParams (const generalParams& x,
   parallelType_ (x.parallelType_, f, this),
   g_grav_ (x.g_grav_, f, this),
   useGravity_ (x.useGravity_, f, this),
+  gravDirection_ (x.gravDirection_, f, this),
   calcType_ (x.calcType_, f, this),
   baseNameOutputFiles_ (x.baseNameOutputFiles_, f, this),
   particleContainerType_ (x.particleContainerType_, f, this),
@@ -2191,6 +2335,7 @@ generalParams (const ::xercesc::DOMElement& e,
   parallelType_ (this),
   g_grav_ (this),
   useGravity_ (this),
+  gravDirection_ (this),
   calcType_ (this),
   baseNameOutputFiles_ (this),
   particleContainerType_ (this),
@@ -2310,6 +2455,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       if (!useGravity_.present ())
       {
         this->useGravity_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // gravDirection
+    //
+    if (n.name () == "gravDirection" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< gravDirection_type > r (
+        gravDirection_traits::create (i, f, this));
+
+      if (!gravDirection_.present ())
+      {
+        this->gravDirection_.set (::std::move (r));
         continue;
       }
     }
@@ -2608,6 +2767,13 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "");
   }
 
+  if (!gravDirection_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "gravDirection",
+      "");
+  }
+
   if (!calcType_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
@@ -2762,6 +2928,7 @@ operator= (const generalParams& x)
     this->parallelType_ = x.parallelType_;
     this->g_grav_ = x.g_grav_;
     this->useGravity_ = x.useGravity_;
+    this->gravDirection_ = x.gravDirection_;
     this->calcType_ = x.calcType_;
     this->baseNameOutputFiles_ = x.baseNameOutputFiles_;
     this->particleContainerType_ = x.particleContainerType_;
