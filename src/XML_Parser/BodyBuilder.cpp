@@ -63,25 +63,31 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
         valuesForLookUpEpsilon[id] = i.epsilon();
         mass = i.mass();
         h = i.h();
-        isMoving = [](bodyState x) {if (x == bodyState::moving) return true; else return false;} (i.bodyState());
+        isMoving = [](bodyState x) { if (x == bodyState::moving) return true; else return false; }(i.bodyState());
 
-        if (i.bodyType() == "Cuboid") {
+        if (i.bodyType() == bodyType::Cuboid) {
             body = new Cuboid(id, h, mass, isMoving);
-        } else if (i.bodyType() == "Tetrahedron") {
-            body =  new Tetrahedron(id, h, mass, isMoving);
-        } else if (i.bodyType() == "Sphere") {
-            body =  new Sphere(id, h, mass, isMoving);
-        }
-        else if(i.bodyType() == "Membrane"){
-            body =  new Membrane(id, h, mass);
-        }
-        else {
+        } else if (i.bodyType() == bodyType::Tetrahedron) {
+            body = new Tetrahedron(id, h, mass, isMoving);
+        } else if (i.bodyType() == bodyType::Sphere) {
+            body = new Sphere(id, h, mass, isMoving);
+        } else if (i.bodyType() == bodyType::Membrane) {
+            body = new Membrane(id, h, mass);
+        } else {
             std::cout << "Parsing of XML-file was not successful!" << std::endl;
             std::cout << "Unknown body type." << std::endl;
             return false;
         }
         body->parsePosition(i.position());
         body->parseInitialV(i.velocity());
+        try {
+            body->parseStructure(i.objectSpecificFormat());
+        } catch (const std::exception& e) {
+            std::cout << "Parsing of XML-file was not successful!" << std::endl;
+            std::cout << "Please check that correct path was provided." << std::endl;
+            std::cout << "Please check that file was correctly formatted." << std::endl;
+            return false;
+        }
         body->parseStructure(i.objectSpecificFormat());
 
         body->generateParticles(particleCounter);

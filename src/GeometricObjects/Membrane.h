@@ -27,6 +27,20 @@ private:
      */
     void setParticlesWhereFisApplied();
 
+    /**
+     * @brief average bond lenght
+     */
+    double r_zero;
+
+    /**
+     * @brief stiffness constant
+     */
+    double k;
+
+    /**
+     * @brief farce pulling upwards
+     */
+    double fUp;
 
 public:
     Membrane(int ID, double meshWidth, double massPerParticle);

@@ -4,10 +4,99 @@
 
 #include <Visitors/LJForceVisitor.h>
 #include <Visitors/UpwardForceVisitor.h>
+#include <iostream>
 #include "Membrane.h"
 
 void Membrane::parseStructure(const std::string &line) {
-    dimensions = parseLineWithThreeValues(line);
+
+    std::string n_p = "";
+    std::string r_p = "";
+    std::string k_p = "";
+    std::string fUp_p = "";
+    std::string p_p = "";
+    std::string tmp = line;
+
+    int begin = 2;
+    int end = tmp.find_first_of(" ");
+    if (tmp.substr(0, 1) == "n") {
+        n_p = tmp.substr(begin, end - begin);
+        tmp.erase(0, end + 1);
+    } else {
+        std::cout << "Parsing of membrane was not successful!" << std::endl;
+        std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+        throw std::runtime_error("");
+    }
+
+    end = tmp.find_first_of(" ");
+    if (tmp.substr(0, 1) == "r") {
+        r_p = tmp.substr(begin, end - begin);
+        tmp.erase(0, end + 1);
+    } else {
+        std::cout << "Parsing of membrane was not successful!" << std::endl;
+        std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+        throw std::runtime_error("");
+    }
+
+    end = tmp.find_first_of(" ");
+    if (tmp.substr(0, 1) == "k") {
+        k_p = tmp.substr(begin, end - begin);
+        tmp.erase(0, end + 1);
+    } else {
+        std::cout << "Parsing of membrane was not successful!" << std::endl;
+        std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+        throw std::runtime_error("");
+    }
+
+    if (!tmp.empty()) {
+        end = tmp.find_first_of(" ");
+        if (tmp.substr(0, 1) == "f") {
+            fUp_p = tmp.substr(begin, end - begin);
+            tmp.erase(0, end + 1);
+        } else {
+            std::cout << "Parsing of membrane was not successful!" << std::endl;
+            std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+            throw std::runtime_error("");
+        }
+
+        end = tmp.find_first_of(" ");
+        if (tmp.substr(0, 1) == "p") {
+            p_p = tmp.substr(begin, end - begin);
+            tmp.erase(0, end + 1);
+        } else {
+            std::cout << "Parsing of membrane was not successful!" << std::endl;
+            std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+            throw std::runtime_error("");
+        }
+    } else {
+        fUp = 0;
+        positionsWhereFisApplied = {{0,0}};
+    }
+
+    dimensions = parseLineWithThreeValues(n_p);
+    r_zero = std::stod(r_p);
+    k = std::stod(k_p);
+    fUp = std::stod(fUp_p);
+
+    int first;
+    int comma;
+    int second;
+    int bracket;
+    std::array<int, 2> arr = {};
+    while (!p_p.empty()) {
+        if (p_p.substr(0, 1) == ",") {
+            p_p.erase(0, 2);
+        } else {
+            p_p.erase(0, 1);
+        }
+        p_p.erase(0, 1);
+        comma = p_p.find_first_of(",");
+        bracket = p_p.find_first_of(")");
+        first = std::stoi(p_p.substr(0, comma));
+        second = std::stoi(p_p.substr(comma + 1, bracket - (comma + 1)));
+        p_p.erase(0, bracket + 1);
+        arr = {first, second};
+        positionsWhereFisApplied.push_back(arr);
+    }
 }
 
 void Membrane::generateParticles(int startIndex) {
@@ -32,9 +121,10 @@ void Membrane::generateParticles(int startIndex) {
 
 Membrane::Membrane(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
     LJForceVisitor::membraneIDs.push_back(ID);
-    //TODO LÖSCHEN!!!!!!!
+    /*
     positionsWhereFisApplied = {{17,24},{17,25},{18,24},{18,25}};
-    //TODO LÖSCHEN!!!!!!!
+    */
+
 }
 
 Membrane::~Membrane() {}

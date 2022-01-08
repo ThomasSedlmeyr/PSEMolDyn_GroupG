@@ -51,7 +51,7 @@
             <bodyType>Membrane</bodyType>
             <position>15,15,1.5</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>50,50,1</objectSpecificFormat>
+            <objectSpecificFormat>n_50,50,1 r_2.2 k_300 f_0.8 p_(17,24),(17,25),(18,24),(18,25)</objectSpecificFormat>
             <epsilon>1.0</epsilon>
             <mass>1.0</mass>
             <rho>1.0</rho>
