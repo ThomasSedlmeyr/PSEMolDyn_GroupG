@@ -54,9 +54,14 @@ private:
     const bool useGrav = XMLParser::useGravity_p;
 
     /**
-     * @brief downward gravitation factor
+     * @brief gravitation factor
      */
     const double g_grav = XMLParser::g_grav_p;
+
+    /**
+     * @brief gravitation direction (0 for x, 1 for y and 2 for z)
+     */
+    const int gravDirection = XMLParser::gravDirection_p;
 
 
     static double middleOfDomainInX;

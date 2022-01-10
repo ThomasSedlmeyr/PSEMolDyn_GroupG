@@ -6,6 +6,7 @@
 #include "Thermostat.h"
 
 Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT) : particleContainer(particleContainer), targetTemp(targetTemp), maxDeltaT(maxDeltaT), dimension(dimension){
+    type = XMLParser::thermostatType_p;
 }
 
 void Thermostat::apply() {

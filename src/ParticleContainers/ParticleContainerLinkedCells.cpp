@@ -255,10 +255,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             //apply Gravitation
             if (useGrav){
                 std::array<double, 3> &f = it->getFRef();
-                #ifdef _OPENMP
-                #pragma omp atomic
-                #endif //_OPENMP
-                f[1] += it->getM()*g_grav;
+                f[gravDirection] += it->getM()*g_grav;
             }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
