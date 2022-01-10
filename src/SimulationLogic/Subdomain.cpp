@@ -2,9 +2,12 @@
 // Created by thomas on 31.12.21.
 //
 
+#include <iostream>
 #include "Subdomain.h"
+#include "ParticleContainers/ParticleContainerLinkedCells.h"
 
-Subdomain::Subdomain(std::vector<SubdomainCell> *cells, std::array<int, 3> dimensions, std::array<int, 3> leftBottomBackPosition) : cells(
+Subdomain::Subdomain(std::vector<SubdomainCell> *cells, std::array<int, 3> dimensions,
+                     std::array<int, 3> leftBottomBackPosition) : cells(
         cells), dimensions(dimensions), leftBottomBackPosition(leftBottomBackPosition) {
     calculateNumberOfParticles();
 }
@@ -20,13 +23,13 @@ int Subdomain::getNumberParticles() const {
     return numberParticles;
 }
 
-void Subdomain::setSynchronizedSubdomainCells(){
+void Subdomain::setSynchronizedSubdomainCells() {
 
 }
 
-inline bool Subdomain::checkIfOneValuesMatches(int value1, int value2, const std::array<int, 3>& array){
+inline bool Subdomain::checkIfOneValuesMatches(int value1, int value2, const std::array<int, 3> &array) {
     for (int i = 0; i < array.size(); ++i) {
-        if(array[i] == value1 || array[i] == value2){
+        if (array[i] == value1 || array[i] == value2) {
             return true;
         }
     }
@@ -35,4 +38,8 @@ inline bool Subdomain::checkIfOneValuesMatches(int value1, int value2, const std
 
 void Subdomain::calculateF() {
 
+}
+
+std::vector<SubdomainCell> *Subdomain::getCells() const {
+    return cells;
 }

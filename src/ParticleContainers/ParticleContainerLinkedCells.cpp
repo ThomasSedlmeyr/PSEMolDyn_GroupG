@@ -44,6 +44,14 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
     boundaryContainer = std::make_unique<BoundaryConditionContainer>(boundaryConditionTypes,
                                                                      numberCellsX,
                                                                      numberCellsY, numberCellsZ, domainSize);
+
+    int numberOfThreads = 4;
+    bool splitDomain = true;
+
+    if(splitDomain){
+        subdomainContainer = SubdomainContainer();
+        subdomainContainer.generateSubdomainsWithNumberOfThreads2(numberOfThreads);
+    }
 }
 
 void ParticleContainerLinkedCells::createCells() {
@@ -273,6 +281,53 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
         }
     }
     boundaryContainer->doWorkAfterCalculationStep();
+    /*walkOverParticlePairs2(visitor);*/
+}
+
+void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
+    boundaryContainer->calculateBoundaryConditions();
+    #ifdef _OPENMP
+    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
+    #endif //_OPENMP
+    for (auto& subdomain: subdomainContainer.getSubdomains()) {
+        for (auto& subdomainCell : *subdomain->getCells()) {
+            Cell* c = subdomainCell.getPointerToCell();
+            auto &particles = c->getParticles();
+            if(subdomainCell.getIsSynchronized()){
+
+            }else {
+                for (auto it = particles.begin(); it != particles.end(); it++) {
+                    //apply Gravitation
+                    if (useGrav) {
+                        std::array<double, 3> &f = it->getFRef();
+                        #ifdef _OPENMP
+                        #pragma omp atomic
+                        #endif //_OPENMP
+                        f[1] += it->getM() * g_grav;
+                    }
+                    //calculate force between particles inside of cell
+                    for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                        calculateHarmonicPotential(*it, *it2);
+                        if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
+                            visitor.visitParticlePair(*it, *it2);
+                        }
+                    }
+                }
+                for (Cell *c2: c->getNeighbourCells()) {
+                    auto &particles2 = c2->getParticles();
+                    for (auto &particle: particles) {
+                        for (Particle &p2: particles2) {
+                            calculateHarmonicPotential(particle, p2);
+                            if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
+                                visitor.visitParticlePair(particle, p2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    boundaryContainer->doWorkAfterCalculationStep();
 }
 
 void ParticleContainerLinkedCells::setNeighbourCells() {
@@ -459,7 +514,7 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
 }
 
 void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> &position, const double m, const int type) {
-    Particle p = Particle(position, {0, 0, 0}, m, type);
+    Particle p = Particle(position, {0, 0, 0}, m, type, -1,false);
     p.isGhostParticle = true;
     auto index = getCellIndexForParticle(p);
 

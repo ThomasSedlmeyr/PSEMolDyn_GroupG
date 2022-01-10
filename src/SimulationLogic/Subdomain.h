@@ -15,7 +15,10 @@ private:
      * @brief The dimensions in number of cells
      */
     std::vector<SubdomainCell>* cells;
+public:
+    std::vector<SubdomainCell> *getCells() const;
 
+private:
     /**
      * @brief The dimensions in number of cells
      */

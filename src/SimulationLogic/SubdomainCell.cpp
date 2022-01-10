@@ -20,3 +20,7 @@ Cell *SubdomainCell::getPointerToCell() const {
 SubdomainCell::SubdomainCell(const std::array<int, 3> &relativePositionInSubdomain, Cell *pointerToCell,
                              bool isSynchronized) : relativePositionInSubdomain(relativePositionInSubdomain),
                                                     pointerToCell(pointerToCell), isSynchronized(isSynchronized) {}
+
+bool SubdomainCell::getIsSynchronized() const {
+    return isSynchronized;
+}

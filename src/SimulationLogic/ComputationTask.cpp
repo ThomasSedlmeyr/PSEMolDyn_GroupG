@@ -3,8 +3,18 @@
 //
 
 #include "ComputationTask.h"
+#include "SubdomainContainer.h"
 
 #include <utility>
+
+void ComputationTask::runTask(){
+    SubdomainContainer subdomainContainer = SubdomainContainer();
+    subdomainContainer.generateComputationTasks(4);
+    for(auto& subdomain : subdomains){
+        subdomain->calculateF();
+    }
+}
+
 
 int ComputationTask::getNumberOfParticles() const {
     return numberOfParticles;

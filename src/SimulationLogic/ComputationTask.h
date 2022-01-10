@@ -23,6 +23,8 @@ private:
     int numberOfParticles;
 public:
     int getNumberOfParticles() const;
+
+    void runTask();
 };
 
 

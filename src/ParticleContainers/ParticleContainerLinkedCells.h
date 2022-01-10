@@ -13,6 +13,7 @@
 #include "ParticleContainer.h"
 #include "BoundaryConditions/BoundaryConditionContainer.h"
 #include "XML_Parser/XMLParser.h"
+#include "SimulationLogic/SubdomainContainer.h"
 
 class ParticleContainerLinkedCells : public ParticleContainer {
 private:
@@ -68,6 +69,8 @@ private:
     std::array<double, 3> currentPosition{};
 
     UpwardForceVisitor zGravVisitor{};
+
+    SubdomainContainer subdomainContainer;
 
     /**
      * @brief builds one row of cells with the same type
@@ -290,6 +293,7 @@ public:
     add9CellsAtRelativePositionsToNeighboursOfCell(const std::array<std::array<int, 3>, 9> &relativePositions,
                                                    const std::array<double, 3> &positionOfCell);
 
+    void walkOverParticlePairs2(ParticlePairVisitor &visitor);
 };
 
 

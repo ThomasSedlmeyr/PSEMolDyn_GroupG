@@ -15,7 +15,7 @@ PeriodicBoundaryCondition::PeriodicBoundaryCondition(int conditionType, int side
 void PeriodicBoundaryCondition::doWorkAfterCalculationStep() {
     if (!PeriodicBoundaryCondition::isDebug) {
         deleteAllParticlesInHaloCells();
-        deleteGhostParticlesInBoundaryCells();
+        //deleteGhostParticlesInBoundaryCells();
     }
 }
 

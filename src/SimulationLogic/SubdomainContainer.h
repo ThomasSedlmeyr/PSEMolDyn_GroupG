@@ -16,6 +16,7 @@ private:
     std::vector<Subdomain*> subdomains;
     std::vector<ComputationTask> computationTasks;
 
+
 public:
     void generateSubdomains(int numberCellsX, int numberCellsY, int numberCellsZ);
 
@@ -31,6 +32,13 @@ public:
 
     [[nodiscard]] const std::vector<ComputationTask> &getComputationTasks() const;
 
+    void generateSubdomainsWithNumberOfThreads(int numberOfThreads);
+
+    void splitInNearlyEqualParts(int value, int numberOfParts, std::vector<int> &parts);
+
+    void generateSubdomainsWithNumberOfThreads2(int numberOfThreads);
+
+    void generateSubdomains2(const std::vector<int> &sizesXSubdomains, const std::vector<int> &sizesYSubdomains);
 };
 
 

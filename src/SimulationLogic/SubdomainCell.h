@@ -24,6 +24,8 @@ public:
     [[nodiscard]] const std::array<int, 3> &getRelativePositionInSubdomain() const;
 
     Cell *getPointerToCell() const;
+
+    [[nodiscard]] bool getIsSynchronized() const;
 };
 
 
