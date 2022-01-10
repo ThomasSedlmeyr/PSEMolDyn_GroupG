@@ -8,10 +8,10 @@
         <writeFrequency>100</writeFrequency>
         <dimensionType>3D</dimensionType>
         <parallelType>notParallel</parallelType>
-        <gravDirection>z</gravDirection>
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
+        <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>RayleighTaylor_3D</baseNameOutputFiles>
