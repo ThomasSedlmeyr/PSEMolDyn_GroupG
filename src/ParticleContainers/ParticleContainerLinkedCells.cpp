@@ -11,6 +11,7 @@
 #include "utils/ArrayUtils.h"
 #include "utils/FastMath.h"
 #include "utils/HarmonicPotentialCalculator.h"
+#include "utils/LJForceCalculation.h"
 
 std::vector<Cell> ParticleContainerLinkedCells::cells;
 int ParticleContainerLinkedCells::numberCellsX;
@@ -46,7 +47,7 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
                                                                      numberCellsY, numberCellsZ, domainSize);
 
     int numberOfThreads = 4;
-    bool splitDomain = true;
+    bool splitDomain = false;
 
     if(splitDomain){
         subdomainContainer = SubdomainContainer();
@@ -245,7 +246,6 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
-/*
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
     #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
@@ -262,7 +262,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
                 calculateHarmonicPotential(*it, *it2);
                 if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                    visitor.visitParticlePair(*it, *it2);
+                    calculateLJForce(*it, *it2, false);
                 }
             }
         }
@@ -272,15 +272,14 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
                 for (Particle &p2: particles2) {
                     calculateHarmonicPotential(particle, p2);
                     if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                        visitor.visitParticlePair(particle, p2);
+                        calculateLJForce(particle, p2, false);
                     }
                 }
             }
         }
     }
     boundaryContainer->doWorkAfterCalculationStep();
-    */
-    walkOverParticlePairs2(visitor);
+    //walkOverParticlePairs2(visitor);
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
