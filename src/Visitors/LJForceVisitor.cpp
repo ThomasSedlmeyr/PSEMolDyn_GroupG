@@ -10,6 +10,7 @@
 LJForceVisitor::LJForceVisitor(double epsilon, double rho) : epsilon(epsilon), rho(rho) {}
 
 std::vector<int> LJForceVisitor::membraneIDs{};
+bool LJForceVisitor::atomic = false;
 
 void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     const int &p1Type = p1.getType();
@@ -59,14 +60,19 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
     double temp;
     for (int j = 0; j < 3; ++j) {
         temp = diff[j];
-        #ifdef _OPENMP
-        #pragma omp atomic
-        #endif //_OPENMP
-        f1[j] += temp;
-        #ifdef _OPENMP
-        #pragma omp atomic
-        #endif //_OPENMP
-        f2[j] -= temp;
+        if (atomic){
+            #ifdef _OPENMP
+            #pragma omp atomic
+            #endif //_OPENMP
+            f1[j] += temp;
+            #ifdef _OPENMP
+            #pragma omp atomic
+            #endif //_OPENMP
+            f2[j] -= temp;
+        }else{
+            f1[j] += temp;
+            f2[j] -= temp;
+        }
     }
 }
 

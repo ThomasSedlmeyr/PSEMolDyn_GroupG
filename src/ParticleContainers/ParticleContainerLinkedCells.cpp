@@ -245,6 +245,7 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
+/*
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
     #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
@@ -278,46 +279,45 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
         }
     }
     boundaryContainer->doWorkAfterCalculationStep();
-    /*walkOverParticlePairs2(visitor);*/
+    */
+    walkOverParticlePairs2(visitor);
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
+    #pragma omp parallel for default(none) shared(visitor) schedule(static, 1)
     #endif //_OPENMP
     for (auto& subdomain: subdomainContainer.getSubdomains()) {
         for (auto& subdomainCell : *subdomain->getCells()) {
             Cell* c = subdomainCell.getPointerToCell();
             auto &particles = c->getParticles();
             if(subdomainCell.getIsSynchronized()){
-
+                LJForceVisitor::atomic = true;
             }else {
-                for (auto it = particles.begin(); it != particles.end(); it++) {
-                    //apply Gravitation
-                    if (useGrav) {
-                        std::array<double, 3> &f = it->getFRef();
-                        #ifdef _OPENMP
-                        #pragma omp atomic
-                        #endif //_OPENMP
-                        f[1] += it->getM() * g_grav;
-                    }
-                    //calculate force between particles inside of cell
-                    for (auto it2 = it + 1; it2 != particles.end(); it2++) {
-                        calculateHarmonicPotential(*it, *it2);
-                        if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                            visitor.visitParticlePair(*it, *it2);
-                        }
+                LJForceVisitor::atomic = false;
+            }
+            for (auto it = particles.begin(); it != particles.end(); it++) {
+                //apply Gravitation
+                if (useGrav) {
+                    std::array<double, 3> &f = it->getFRef();
+                    f[gravDirection] += it->getM() * g_grav;
+                }
+                //calculate force between particles inside of cell
+                for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                    calculateHarmonicPotential(*it, *it2);
+                    if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
+                        visitor.visitParticlePair(*it, *it2);
                     }
                 }
-                for (Cell *c2: c->getNeighbourCells()) {
-                    auto &particles2 = c2->getParticles();
-                    for (auto &particle: particles) {
-                        for (Particle &p2: particles2) {
-                            calculateHarmonicPotential(particle, p2);
-                            if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                                visitor.visitParticlePair(particle, p2);
-                            }
+            }
+            for (Cell *c2: c->getNeighbourCells()) {
+                auto &particles2 = c2->getParticles();
+                for (auto &particle: particles) {
+                    for (Particle &p2: particles2) {
+                        calculateHarmonicPotential(particle, p2);
+                        if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
+                            visitor.visitParticlePair(particle, p2);
                         }
                     }
                 }

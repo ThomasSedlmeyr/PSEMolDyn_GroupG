@@ -23,6 +23,8 @@ public:
 
     static std::vector<int> membraneIDs;
 
+    static bool atomic;
+
 private:
     /**
      * @brief Parameter for force calculation
