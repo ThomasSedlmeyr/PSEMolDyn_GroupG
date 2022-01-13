@@ -82,7 +82,14 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
             }
             break;
     }
-    deleteAllParticlesInHaloCells();
+    for (auto &specificHaloCell: specificHaloCells) {
+        for (int i = 0; i < static_cast<int>(specificHaloCell->getParticles().size()); i++) {
+            if (!specificHaloCell->getParticles()[i].isGhostParticle) {
+                specificHaloCell->getParticles().erase(specificHaloCell->getParticles().end() + i);
+                i--;
+            }
+        }
+    }
     insertGhostParticles();
 }
 
