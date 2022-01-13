@@ -498,14 +498,22 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
                 //calculate new cell the particle belongs to
                 int indexNewCell = getCellIndexForParticle(p);
                 if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
-                    std::cout << "Error, Particle got outside of domain!";
-                    exit(1);
+                    std::cout << "Particle got outside of domain!\n";
+                    particlesInCell.erase(particlesInCell.begin() + i);
+                    i--;
+                    continue;
+                    //std::cout << "Error, Particle got outside of domain!";
+                    //exit(1);
                 }
                 Cell &newCell = cells[indexNewCell];
                 if (!(newCell == c)) {
                     if (!newCell.particleLiesInCell(p)) {
-                        std::cout << "Error, Particle got outside of domain!";
-                        exit(1);
+                        std::cout << "Particle got outside of domain!\n";
+                        particlesInCell.erase(particlesInCell.begin() + i);
+                        i--;
+                        continue;
+                        //std::cout << "Error, Particle got outside of domain!";
+                        //exit(1);
                     }
                     //Particle p has to be moved from c to newCell
                     newCell.getParticles().push_back(p);
