@@ -82,6 +82,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
             }
             break;
     }
+    deleteAllParticlesInHaloCells();
     insertGhostParticles();
 }
 

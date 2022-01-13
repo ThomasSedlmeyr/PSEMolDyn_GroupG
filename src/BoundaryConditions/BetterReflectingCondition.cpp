@@ -9,68 +9,80 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
     switch (side) {
         case FRONT:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectZtoBackCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[2] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle){
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectZtoBackCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[2] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
         case BACK:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectZtoFrontCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[2] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle) {
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectZtoFrontCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[2] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
         case RIGHT:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectXtoLeftCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[0] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle) {
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectXtoLeftCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[0] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
         case LEFT:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectXtoRightCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[0] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle) {
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectXtoRightCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[0] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
         case TOP:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectYtoBottomCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[1] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle) {
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectYtoBottomCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[1] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
         case BOTTOM:
             for (int i = 0; i < static_cast<int>(cell->getParticles().size()); ++i) {
-                std::array<double, 3> reflectedPoint{};
                 Particle particle = cell->getParticles()[i];
-                cell->reflectYtoTopCell(particle.getX(), reflectedPoint);
-                particle.setX(reflectedPoint);
-                //inverting the velocity component
-                particle.getVRef()[1] *= -1;
-                ParticleContainerLinkedCells::addParticle(particle);
+                if (!particle.isGhostParticle) {
+                    std::array<double, 3> reflectedPoint{};
+                    cell->reflectYtoTopCell(particle.getX(), reflectedPoint);
+                    particle.setX(reflectedPoint);
+                    //inverting the velocity component
+                    particle.getVRef()[1] *= -1;
+                    ParticleContainerLinkedCells::addParticle(particle);
+                }
             }
             break;
     }
