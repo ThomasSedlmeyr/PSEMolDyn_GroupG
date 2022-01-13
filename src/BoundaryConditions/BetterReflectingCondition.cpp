@@ -17,6 +17,8 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[2] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
@@ -30,6 +32,8 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[2] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
@@ -43,6 +47,8 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[0] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
@@ -56,6 +62,8 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[0] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
@@ -69,6 +77,8 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[1] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
@@ -82,12 +92,12 @@ void BetterReflectingCondition::calculateBoundaryConditionForCell(Cell *cell) {
                     //inverting the velocity component
                     particle.getVRef()[1] *= -1;
                     ParticleContainerLinkedCells::addParticle(particle);
+                    cell->getParticles().erase(cell->getParticles().begin() + i);
+                    i--;
                 }
             }
             break;
     }
-    //Delete all particles
-    cell->getParticles().clear();
 }
 
 BetterReflectingCondition::BetterReflectingCondition(int conditionType, int side)
