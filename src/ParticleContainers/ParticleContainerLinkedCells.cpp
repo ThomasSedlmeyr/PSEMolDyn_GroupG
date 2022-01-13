@@ -265,7 +265,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
                     calculateHarmonicPotential(*it, *it2);
                 }
                 if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                    calculateLJForce(*it, *it2, false);
+                    calculateLJForce(*it, *it2, true);
                     //visitor.visitParticlePair(*it, *it2);
                 }
             }
@@ -278,7 +278,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
                         calculateHarmonicPotential(particle, p2);
                     }
                     if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                        calculateLJForce(particle, p2, false);
+                        calculateLJForce(particle, p2, true);
                         //visitor.visitParticlePair(particle, p2);
                     }
                 }
