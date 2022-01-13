@@ -1069,6 +1069,48 @@ n_thermostat (const n_thermostat_type& x)
   this->n_thermostat_.set (x);
 }
 
+const generalParams::useVelDensProfiling_type& generalParams::
+useVelDensProfiling () const
+{
+  return this->useVelDensProfiling_.get ();
+}
+
+generalParams::useVelDensProfiling_type& generalParams::
+useVelDensProfiling ()
+{
+  return this->useVelDensProfiling_.get ();
+}
+
+void generalParams::
+useVelDensProfiling (const useVelDensProfiling_type& x)
+{
+  this->useVelDensProfiling_.set (x);
+}
+
+void generalParams::
+useVelDensProfiling (::std::unique_ptr< useVelDensProfiling_type > x)
+{
+  this->useVelDensProfiling_.set (std::move (x));
+}
+
+const generalParams::numberOfBins_type& generalParams::
+numberOfBins () const
+{
+  return this->numberOfBins_.get ();
+}
+
+generalParams::numberOfBins_type& generalParams::
+numberOfBins ()
+{
+  return this->numberOfBins_.get ();
+}
+
+void generalParams::
+numberOfBins (const numberOfBins_type& x)
+{
+  this->numberOfBins_.set (x);
+}
+
 
 // boundaryConditions
 // 
@@ -2256,7 +2298,9 @@ generalParams (const t_end_type& t_end,
                const T_init_type& T_init,
                const T_target_type& T_target,
                const delta_T_type& delta_T,
-               const n_thermostat_type& n_thermostat)
+               const n_thermostat_type& n_thermostat,
+               const useVelDensProfiling_type& useVelDensProfiling,
+               const numberOfBins_type& numberOfBins)
 : ::xml_schema::type (),
   t_end_ (t_end, this),
   delta_t_ (delta_t, this),
@@ -2284,7 +2328,9 @@ generalParams (const t_end_type& t_end,
   T_init_ (T_init, this),
   T_target_ (T_target, this),
   delta_T_ (delta_T, this),
-  n_thermostat_ (n_thermostat, this)
+  n_thermostat_ (n_thermostat, this),
+  useVelDensProfiling_ (useVelDensProfiling, this),
+  numberOfBins_ (numberOfBins, this)
 {
 }
 
@@ -2319,7 +2365,9 @@ generalParams (const generalParams& x,
   T_init_ (x.T_init_, f, this),
   T_target_ (x.T_target_, f, this),
   delta_T_ (x.delta_T_, f, this),
-  n_thermostat_ (x.n_thermostat_, f, this)
+  n_thermostat_ (x.n_thermostat_, f, this),
+  useVelDensProfiling_ (x.useVelDensProfiling_, f, this),
+  numberOfBins_ (x.numberOfBins_, f, this)
 {
 }
 
@@ -2354,7 +2402,9 @@ generalParams (const ::xercesc::DOMElement& e,
   T_init_ (this),
   T_target_ (this),
   delta_T_ (this),
-  n_thermostat_ (this)
+  n_thermostat_ (this),
+  useVelDensProfiling_ (this),
+  numberOfBins_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -2715,6 +2765,31 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // useVelDensProfiling
+    //
+    if (n.name () == "useVelDensProfiling" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< useVelDensProfiling_type > r (
+        useVelDensProfiling_traits::create (i, f, this));
+
+      if (!useVelDensProfiling_.present ())
+      {
+        this->useVelDensProfiling_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // numberOfBins
+    //
+    if (n.name () == "numberOfBins" && n.namespace_ ().empty ())
+    {
+      if (!numberOfBins_.present ())
+      {
+        this->numberOfBins_.set (numberOfBins_traits::create (i, f, this));
+        continue;
+      }
+    }
+
     break;
   }
 
@@ -2906,6 +2981,20 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "n_thermostat",
       "");
   }
+
+  if (!useVelDensProfiling_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "useVelDensProfiling",
+      "");
+  }
+
+  if (!numberOfBins_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "numberOfBins",
+      "");
+  }
 }
 
 generalParams* generalParams::
@@ -2948,6 +3037,8 @@ operator= (const generalParams& x)
     this->T_target_ = x.T_target_;
     this->delta_T_ = x.delta_T_;
     this->n_thermostat_ = x.n_thermostat_;
+    this->useVelDensProfiling_ = x.useVelDensProfiling_;
+    this->numberOfBins_ = x.numberOfBins_;
   }
 
   return *this;

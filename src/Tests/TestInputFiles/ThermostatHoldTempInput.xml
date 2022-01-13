@@ -35,6 +35,9 @@
         <T_target>10.0</T_target>
         <delta_T>10000</delta_T>
         <n_thermostat>1</n_thermostat>
+
+        <useVelDensProfiling>no</useVelDensProfiling>
+        <numberOfBins>1</numberOfBins>
     </generalParams>
 
     <boundaryConditions>

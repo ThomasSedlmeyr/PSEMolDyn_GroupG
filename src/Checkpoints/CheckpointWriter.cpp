@@ -48,6 +48,7 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
         for (auto particle : particles) {
             outputFile << particle.toString() + "\n";
         }
+        outputFile.close();
         return true;
     } else {
         spdlog::error("Error: could not open file " + fileName);

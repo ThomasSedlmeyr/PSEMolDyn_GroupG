@@ -180,6 +180,16 @@ public:
        */
       static int gravDirection_p;
 
+      /**
+       * @brief make density- and velocity-profile
+       */
+      static bool useVelDensProfiling_p;
+
+      /**
+       * @brief specify number of bins for density- and velocity-profile
+       */
+       static int numberOfBins_p;
+
     /**
      * @brief function for parsing xml input file
      * @return true if parsing successful, false otherwise

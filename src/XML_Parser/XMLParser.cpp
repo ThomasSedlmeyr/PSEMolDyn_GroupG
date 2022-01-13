@@ -43,6 +43,8 @@ bool XMLParser::useBrownianMotion_p;
 int XMLParser::parallelType_p;
 int XMLParser::thermostatType_p;
 int XMLParser::gravDirection_p;
+bool XMLParser::useVelDensProfiling_p;
+int XMLParser::numberOfBins_p;
 
 bool XMLParser::parseXML(const std::string filename) {
     try {
@@ -95,6 +97,9 @@ bool XMLParser::parseXML(const std::string filename) {
         T_target_p = input_xml->generalParams().T_target();
         delta_T_p = input_xml->generalParams().delta_T();
         n_thermostat_p = input_xml->generalParams().n_thermostat();
+
+        useVelDensProfiling_p = input_xml->generalParams().useVelDensProfiling();
+        numberOfBins_p = input_xml->generalParams().numberOfBins();
 
         if (input_xml->boundaryConditions().top() == "outflowType") {
             top_p = 1;

@@ -3492,6 +3492,111 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
+   * @name useVelDensProfiling
+   *
+   * @brief Accessor and modifier functions for the %useVelDensProfiling
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::yesNo useVelDensProfiling_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< useVelDensProfiling_type, char > useVelDensProfiling_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const useVelDensProfiling_type&
+  useVelDensProfiling () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  useVelDensProfiling_type&
+  useVelDensProfiling ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  useVelDensProfiling (const useVelDensProfiling_type& x);
+
+  /**
+   * @brief Set the element value without copying.
+   *
+   * @param p A new value to use.
+   *
+   * This function will try to use the passed value directly
+   * instead of making a copy.
+   */
+  void
+  useVelDensProfiling (::std::unique_ptr< useVelDensProfiling_type > p);
+
+  //@}
+
+  /**
+   * @name numberOfBins
+   *
+   * @brief Accessor and modifier functions for the %numberOfBins
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::int_ numberOfBins_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< numberOfBins_type, char > numberOfBins_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const numberOfBins_type&
+  numberOfBins () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  numberOfBins_type&
+  numberOfBins ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  numberOfBins (const numberOfBins_type& x);
+
+  //@}
+
+  /**
    * @name Constructors
    */
   //@{
@@ -3526,7 +3631,9 @@ class generalParams: public ::xml_schema::type
                  const T_init_type&,
                  const T_target_type&,
                  const delta_T_type&,
-                 const n_thermostat_type&);
+                 const n_thermostat_type&,
+                 const useVelDensProfiling_type&,
+                 const numberOfBins_type&);
 
   /**
    * @brief Create an instance from a DOM element.
@@ -3625,6 +3732,8 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< T_target_type > T_target_;
   ::xsd::cxx::tree::one< delta_T_type > delta_T_;
   ::xsd::cxx::tree::one< n_thermostat_type > n_thermostat_;
+  ::xsd::cxx::tree::one< useVelDensProfiling_type > useVelDensProfiling_;
+  ::xsd::cxx::tree::one< numberOfBins_type > numberOfBins_;
 
   //@endcond
 };
