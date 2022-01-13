@@ -246,9 +246,10 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
+    bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 2)
+    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 2)
     #endif //_OPENMP
     for (Cell &c : cells) {
         auto &particles = c.getParticles();
@@ -260,9 +261,12 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
-                calculateHarmonicPotential(*it, *it2);
+                if (includesMembranes){
+                    calculateHarmonicPotential(*it, *it2);
+                }
                 if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
                     calculateLJForce(*it, *it2, false);
+                    //visitor.visitParticlePair(*it, *it2);
                 }
             }
         }
@@ -270,9 +274,12 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             auto &particles2 = c2->getParticles();
             for (auto & particle : particles) {
                 for (Particle &p2: particles2) {
-                    calculateHarmonicPotential(particle, p2);
+                    if (includesMembranes){
+                        calculateHarmonicPotential(particle, p2);
+                    }
                     if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
                         calculateLJForce(particle, p2, false);
+                        //visitor.visitParticlePair(particle, p2);
                     }
                 }
             }
@@ -283,19 +290,16 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
+    bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(visitor) schedule(static, 1)
+    #pragma omp parallel for default(none) shared(includesMembranes) schedule(static, 1)
     #endif //_OPENMP
     for (auto& subdomain: subdomainContainer.getSubdomains()) {
         for (auto& subdomainCell : *subdomain->getCells()) {
             Cell* c = subdomainCell.getPointerToCell();
             auto &particles = c->getParticles();
-            if(subdomainCell.getIsSynchronized()){
-                LJForceVisitor::atomic = true;
-            }else {
-                LJForceVisitor::atomic = false;
-            }
+            bool atomic = subdomainCell.getIsSynchronized();
             for (auto it = particles.begin(); it != particles.end(); it++) {
                 //apply Gravitation
                 if (useGrav) {
@@ -304,9 +308,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                 }
                 //calculate force between particles inside of cell
                 for (auto it2 = it + 1; it2 != particles.end(); it2++) {
-                    calculateHarmonicPotential(*it, *it2);
+                    if (includesMembranes){
+                        calculateHarmonicPotential(*it, *it2);
+                    }
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                        visitor.visitParticlePair(*it, *it2);
+                        calculateLJForce(*it, *it2, atomic);
                     }
                 }
             }
@@ -314,9 +320,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                 auto &particles2 = c2->getParticles();
                 for (auto &particle: particles) {
                     for (Particle &p2: particles2) {
-                        calculateHarmonicPotential(particle, p2);
+                        if (includesMembranes){
+                            calculateHarmonicPotential(particle, p2);
+                        }
                         if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                            visitor.visitParticlePair(particle, p2);
+                            calculateLJForce(particle, p2, atomic);
                         }
                     }
                 }

@@ -10,7 +10,10 @@
 
 
 inline void calculateHarmonicPotential(Particle &p1, Particle &p2){
-//TODO parse from XML
+    if (p1.getType() != p2.getType()){
+        return;
+    }
+    //TODO parse from XML
     double rZero = 2.2;
     double k = 300;
     if (Particle::particlesAreNeighbours(p1, p2)){
