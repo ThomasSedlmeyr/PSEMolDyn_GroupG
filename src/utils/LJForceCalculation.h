@@ -13,8 +13,6 @@ inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
     auto &x1 = p1.getX();
     auto &x2 = p2.getX();
 
-    auto &f1 = p1.getFRef();
-    auto &f2 = p2.getFRef();
 
     std::array<double, 3> diff{};
     double squaredNorm = 0;
@@ -38,21 +36,19 @@ inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
         d *= scalar;
     }
     //faster than using ArrayUtils
+    auto *f1 = &p1.getFRef();
+    auto *f2 = &p2.getFRef();
     double temp;
     for (int j = 0; j < 3; ++j) {
         temp = diff[j];
         if (atomic){
-            #ifdef _OPENMP
             #pragma omp atomic
-            #endif //_OPENMP
-            f1[j] += temp;
-            #ifdef _OPENMP
+            (*f1)[j] += temp;
             #pragma omp atomic
-            #endif //_OPENMP
-            f2[j] -= temp;
+            (*f2)[j] -= temp;
         }else{
-            f1[j] += temp;
-            f2[j] -= temp;
+            (*f1)[j] += temp;
+            (*f2)[j] -= temp;
         }
     }
 }

@@ -55,10 +55,13 @@ bool XMLParser::parseXML(const std::string filename) {
         switch (input_xml->generalParams().parallelType()) {
             case parallelType::notParallel:
                 parallelType_p = Simulation::NOTPARALLEL;
+                break;
             case parallelType::first:
                 parallelType_p = Simulation::FIRSTPARALLEL;
+                break;
             case parallelType::second:
                 parallelType_p = Simulation::SECONDPARALLEL;
+                break;
             default:
                 parallelType_p = Simulation::NOTPARALLEL;
         }

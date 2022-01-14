@@ -12,6 +12,8 @@
 #include "utils/FastMath.h"
 #include "utils/HarmonicPotentialCalculator.h"
 #include "utils/LJForceCalculation.h"
+#include "SimulationLogic/Simulation.h"
+#include "omp.h"
 
 std::vector<Cell> ParticleContainerLinkedCells::cells;
 int ParticleContainerLinkedCells::numberCellsX;
@@ -249,15 +251,16 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 2)
+    #pragma omp parallel for default(none) shared(includesMembranes, std::cout) schedule(dynamic, 2) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
     #endif //_OPENMP
     for (Cell &c : cells) {
         auto &particles = c.getParticles();
         for (auto it = particles.begin(); it != particles.end(); it++) {
             //apply Gravitation
             if (useGrav){
-                std::array<double, 3> &f = it->getFRef();
-                f[gravDirection] += it->getM()*g_grav;
+                auto *f = &it->getFRef();
+                #pragma omp atomic
+                (*f)[gravDirection] += it->getM() * g_grav;
             }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
@@ -499,6 +502,12 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
                 int indexNewCell = getCellIndexForParticle(p);
                 if (indexNewCell < 0 || indexNewCell > static_cast<int>(cells.size())) {
                     std::cout << "Particle got outside of domain!\n";
+                    std::cout << "Particle velocity: " << p.getV()[0] << ", " << p.getV()[1] << ", " << p.getV()[2] << std::endl;
+                    std::cout << "Particle force: " << p.getF()[0] << ", " << p.getF()[1] << ", " << p.getF()[2] << std::endl;
+                    std::cout << "Particle type: " << p.getType() << std::endl;
+                    std::cout << "Particle ID: " << p.getId() << std::endl;
+                    std::cout << "Particle is Ghost?: " << p.isGhostParticle << std::endl;
+
                     particlesInCell.erase(particlesInCell.begin() + i);
                     i--;
                     continue;
@@ -509,6 +518,11 @@ void ParticleContainerLinkedCells::updateParticlePositions(ParticleVisitor &visi
                 if (!(newCell == c)) {
                     if (!newCell.particleLiesInCell(p)) {
                         std::cout << "Particle got outside of domain!\n";
+                        std::cout << "Particle velocity: " << p.getV()[0] << ", " << p.getV()[1] << ", " << p.getV()[2] << std::endl;
+                        std::cout << "Particle force: " << p.getF()[0] << ", " << p.getF()[1] << ", " << p.getF()[2] << std::endl;
+                        std::cout << "Particle type: " << p.getType() << std::endl;
+                        std::cout << "Particle ID: " << p.getId() << std::endl;
+                        std::cout << "Particle is Ghost?: " << p.isGhostParticle << std::endl;
                         particlesInCell.erase(particlesInCell.begin() + i);
                         i--;
                         continue;
