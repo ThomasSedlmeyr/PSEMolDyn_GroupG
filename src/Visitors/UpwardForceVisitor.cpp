@@ -6,7 +6,6 @@
 #include <spdlog/spdlog.h>
 
 std::vector<int> UpwardForceVisitor::particlesWithFZUp{};
-//TODO faktor aus XML parsen
 double UpwardForceVisitor::fZUp = 0.8;
 
 void UpwardForceVisitor::visitParticle(Particle &p) {

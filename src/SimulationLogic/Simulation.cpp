@@ -7,9 +7,10 @@
 #include "Checkpoints/CheckpointWriter.h"
 #include "Visitors/ParticleCollector.h"
 
+//TODO Wert aus XML parsen
+int Simulation::numberOfTimeStepsWithFZUp = 15000;
+
 void Simulation::calculateOneTimeStep(int iteration) {
-    //TODO aus XML parsen
-    const int numberOfTimeStepsWithFZUp = 0;
     particleContainer->updateParticlePositions(posCalcVisitor);
     if (iteration < numberOfTimeStepsWithFZUp){
         particleContainer->applyFZUp();

@@ -35,8 +35,8 @@ TEST(ParallelAlgorithmsTests, TestBasicParallelization) {
     particlesSequential = reader.readOnlyPositions("../src/Tests/ReferenceTestFiles/RayleighTaylorTest_1000.xyz");
     particlesParallel = reader.readOnlyPositions("RayleighTaylorTest_1000.xyz");
     for (std::size_t i = 0; i < particlesParallel.size(); ++i) {
-        EXPECT_NEAR(particlesSequential[i][0], particlesParallel[i][0], 0.01);
-        EXPECT_NEAR(particlesSequential[i][1], particlesParallel[i][1], 0.01);
-        EXPECT_NEAR(particlesSequential[i][2], particlesParallel[i][2], 0.01);
+        EXPECT_NEAR(particlesSequential[i][0], particlesParallel[i][0], 0.0001);
+        EXPECT_NEAR(particlesSequential[i][1], particlesParallel[i][1], 0.0001);
+        EXPECT_NEAR(particlesSequential[i][2], particlesParallel[i][2], 0.0001);
     }
 }

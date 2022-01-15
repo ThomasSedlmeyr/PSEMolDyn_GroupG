@@ -4,6 +4,8 @@
 
 #include <XML_Parser/BodyBuilder.h>
 
+const double threshholdFactor = pow(2, 1.0/6);
+
 inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
     const int &p1Type = p1.getType();
     const int &p2Type = p2.getType();
@@ -25,6 +27,16 @@ inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
     }
     if (squaredNorm < 0.00001){
         std::cout << "suspiciously close\n";
+    }
+
+    if (!LJForceVisitor::membraneIDs.empty()){
+        if (p1Type == LJForceVisitor::membraneIDs[0] && p1Type == p2Type){
+            //Makes sure that only the repulsive part of the LJ potential is applied
+            auto threshold = rho * threshholdFactor;
+            if (squaredNorm > threshold * threshold){
+                return;
+            }
+        }
     }
 
     double term1 = -24.0*epsilon/squaredNorm;

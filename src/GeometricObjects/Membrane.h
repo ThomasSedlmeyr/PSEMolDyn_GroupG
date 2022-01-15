@@ -10,6 +10,9 @@
 #include <string>
 #include "Body.h"
 
+extern double rZero;
+extern double k;
+
 class Membrane : public Body {
 private:
     /**
@@ -26,21 +29,6 @@ private:
      * @brief calculates with positionsWhereFisApplied the particles on which f should be applied
      */
     void setParticlesWhereFisApplied();
-
-    /**
-     * @brief average bond lenght
-     */
-    double r_zero;
-
-    /**
-     * @brief stiffness constant
-     */
-    double k;
-
-    /**
-     * @brief farce pulling upwards
-     */
-    double fUp;
 
 public:
     Membrane(int ID, double meshWidth, double massPerParticle);

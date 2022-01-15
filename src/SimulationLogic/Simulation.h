@@ -69,6 +69,7 @@ public:
     static const int FIRSTPARALLEL = 1;
     static const int SECONDPARALLEL = 2;
 
+    static int numberOfTimeStepsWithFZUp;
     virtual~Simulation();
 
     /**

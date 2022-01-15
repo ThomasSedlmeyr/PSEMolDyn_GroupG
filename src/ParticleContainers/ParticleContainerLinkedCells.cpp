@@ -248,10 +248,14 @@ bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<do
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
+    if (XMLParser::parallelType_p == Simulation::SECONDPARALLEL){
+        walkOverParticlePairs2(visitor);
+        return;
+    }
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(includesMembranes, std::cout) schedule(dynamic, 2) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
+    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 1) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
     #endif //_OPENMP
     for (Cell &c : cells) {
         auto &particles = c.getParticles();
@@ -289,7 +293,6 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
         }
     }
     boundaryContainer->doWorkAfterCalculationStep();
-    //walkOverParticlePairs2(visitor);
 }
 
 void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
@@ -306,8 +309,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
             for (auto it = particles.begin(); it != particles.end(); it++) {
                 //apply Gravitation
                 if (useGrav) {
-                    std::array<double, 3> &f = it->getFRef();
-                    f[gravDirection] += it->getM() * g_grav;
+                    auto *f = &it->getFRef();
+                    #pragma omp atomic
+                    (*f)[gravDirection] += it->getM() * g_grav;
                 }
                 //calculate force between particles inside of cell
                 for (auto it2 = it + 1; it2 != particles.end(); it2++) {
