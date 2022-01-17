@@ -15,7 +15,7 @@ inline void calculateHarmonicPotential(Particle &p1, Particle &p2){
         return;
     }
     if (Particle::particlesAreNeighbours(p1, p2)){
-        auto diff = p2.getXRef()-p1.getXRef();
+        auto diff = p2.getX()-p1.getX();
         auto norm = ArrayUtils::L2Norm(diff);
         double scalar;
         if (Particle::particlesAreDirectNeighbours(p1, p2)){

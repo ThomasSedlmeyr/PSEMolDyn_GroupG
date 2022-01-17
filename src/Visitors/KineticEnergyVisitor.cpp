@@ -5,10 +5,15 @@
 #include "KineticEnergyVisitor.h"
 
 void KineticEnergyVisitor::visitParticle(Particle &p) {
-    numberOfParticles++;
     double scalarProduct = 0;
-    for (int i = 0; i < 3; ++i) {
-        scalarProduct += p.getV()[i] * p.getV()[i];
+    if (type == 0){
+        for (int i = 0; i < 3; ++i) {
+            scalarProduct += p.getV()[i] * p.getV()[i];
+        }
+    }else{
+        scalarProduct += p.getV()[0] * p.getV()[0];
+        scalarProduct += (p.getV()[1] - meanVelocity) * (p.getV()[1] - meanVelocity);
+        scalarProduct += p.getV()[2] * p.getV()[2];
     }
     totalEnergy += p.getM() * scalarProduct / 2;
 }
@@ -19,9 +24,9 @@ double KineticEnergyVisitor::getTotalEnergy() const {
 
 void KineticEnergyVisitor::reset() {
     totalEnergy = 0;
-    numberOfParticles = 0;
 }
 
-int KineticEnergyVisitor::getNumberOfParticles() const {
-    return numberOfParticles;
+void KineticEnergyVisitor::setMeanVelocity(double d) {
+    meanVelocity = d;
 }
+

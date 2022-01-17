@@ -8,6 +8,7 @@
 
 #include <Visitors/KineticEnergyVisitor.h>
 #include <Visitors/VelScalingVisitor.h>
+#include <Visitors/MeanVelocityVisitor.h>
 #include <ParticleContainers/ParticleContainer.h>
 
 class Thermostat {
@@ -40,6 +41,8 @@ private:
      * @brief Visitor that calculates total kinetic energy in system
      */
     KineticEnergyVisitor energyVisitor{};
+
+    MeanVelocityVisitor meanVelocityVisitor{};
 
     /**
      * @brief Visitor that scales all velocities by a scaling factor

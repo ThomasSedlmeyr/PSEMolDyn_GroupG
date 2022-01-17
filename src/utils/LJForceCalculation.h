@@ -6,28 +6,21 @@
 
 const double threshholdFactor = pow(2, 1.0/6);
 
-inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
-    const int &p1Type = p1.getType();
-    const int &p2Type = p2.getType();
-    double rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
-    double epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
-
-    auto &x1 = p1.getX();
-    auto &x2 = p2.getX();
-
-
+inline void calculateLJForce(Particle &p1, Particle &p2, const std::array<double, 3>& pos1, const std::array<double, 3>& pos2, bool atomic) {
     std::array<double, 3> diff{};
     double squaredNorm = 0;
 
     double singleDiff;
     for (int i = 0; i < 3; ++i) {
-        singleDiff = x1[i] - x2[i];
+        singleDiff = pos1[i] - pos2[i];
         diff[i] = singleDiff;
         squaredNorm += singleDiff*singleDiff;
     }
-    if (squaredNorm < 0.00001){
-        std::cout << "suspiciously close\n";
-    }
+
+    const int &p1Type = p1.getType();
+    const int &p2Type = p2.getType();
+    double rho = BodyBuilder::rhoLookUpTable[p1Type][p2Type];
+    double epsilon = BodyBuilder::epsilonLookUpTable[p1Type][p2Type];
 
     if (!LJForceVisitor::membraneIDs.empty()){
         if (p1Type == LJForceVisitor::membraneIDs[0] && p1Type == p2Type){
@@ -47,10 +40,10 @@ inline void calculateLJForce(Particle &p1, Particle &p2, bool atomic) {
     for (double &d:diff) {
         d *= scalar;
     }
+    double temp;
     //faster than using ArrayUtils
     auto *f1 = &p1.getFRef();
     auto *f2 = &p2.getFRef();
-    double temp;
     for (int j = 0; j < 3; ++j) {
         temp = diff[j];
         if (atomic){

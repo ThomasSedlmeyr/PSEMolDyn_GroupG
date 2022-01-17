@@ -234,14 +234,12 @@ void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
     }
 }
 
-bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius) {
-    std::array<double, 3> diff{};
+inline bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::array<double, 3> &pos2, double cutOffRadius) {
     double squaredNorm = 0;
     double singleDiff;
 
     for (int i = 0; i < 3; ++i) {
         singleDiff = pos1[i] - pos2[i];
-        diff[i] = singleDiff;
         squaredNorm += singleDiff * singleDiff;
     }
     return squaredNorm < cutOffRadius * cutOffRadius;
@@ -255,11 +253,12 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 1) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
+    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 2) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
     #endif //_OPENMP
     for (Cell &c : cells) {
         auto &particles = c.getParticles();
         for (auto it = particles.begin(); it != particles.end(); it++) {
+            const auto pos1 = it->getX();
             //apply Gravitation
             if (useGrav){
                 auto *f = &it->getFRef();
@@ -268,24 +267,25 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             }
             //calculate force between particles inside of cell
             for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                const auto &pos2 = it2->getX();
                 if (includesMembranes){
                     calculateHarmonicPotential(*it, *it2);
                 }
-                if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                    calculateLJForce(*it, *it2, true);
-                    //visitor.visitParticlePair(*it, *it2);
-                }
+                calculateLJForce(*it, *it2, pos1, pos2, true);
+                //visitor.visitParticlePair(*it, *it2);
             }
         }
         for (Cell *c2: c.getNeighbourCells()) {
             auto &particles2 = c2->getParticles();
-            for (auto & particle : particles) {
+            for (auto &particle : particles) {
+                const auto &pos1 = particle.getX();
                 for (Particle &p2: particles2) {
+                    const auto &pos2 = p2.getX();
                     if (includesMembranes){
                         calculateHarmonicPotential(particle, p2);
                     }
-                    if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                        calculateLJForce(particle, p2, true);
+                    if (shouldCalculateForce(pos1, pos2, cutOffRadius)) {
+                        calculateLJForce(particle, p2, pos1, pos2, true);
                         //visitor.visitParticlePair(particle, p2);
                     }
                 }
@@ -319,7 +319,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                         calculateHarmonicPotential(*it, *it2);
                     }
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                        calculateLJForce(*it, *it2, atomic);
+                        calculateLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
                     }
                 }
             }
@@ -331,7 +331,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                             calculateHarmonicPotential(particle, p2);
                         }
                         if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                            calculateLJForce(particle, p2, atomic);
+                            calculateLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
                         }
                     }
                 }
