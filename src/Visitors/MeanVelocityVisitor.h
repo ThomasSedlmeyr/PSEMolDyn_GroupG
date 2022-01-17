@@ -16,6 +16,8 @@ private:
     int numberOfParticles{};
     double meanVelocity{};
 public:
+    MeanVelocityVisitor();
+
     void visitParticle(Particle &p) override;
 
     double getMeanVelocity() const;
