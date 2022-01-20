@@ -25,7 +25,9 @@ file(GLOB_RECURSE MY_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationAnalysis/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/MolSim.cpp"
+
 
         # header don't need to be included but this might be necessary for some IDEs
         "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"

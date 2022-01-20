@@ -59,10 +59,21 @@ private:
    */
   std::vector<int> neighbourIDs{};
 
-    /**
-     * @brief IDs of the direct neighbour particles; used for membranes
-     */
-    std::vector<int> directNeighbourIDs{};
+   /**
+   * @brief IDs of the direct neighbour particles; used for membranes
+   */
+   std::vector<int> directNeighbourIDs{};
+
+   /**
+    * @brief If a particle leafs one side and is insert at the opposite side of the domain
+    * this will be saved in this array. For example if a particles leafs the domain at the right
+    * side the first element of this array  will be incremented. If the particle leafs the left
+    * side of the domain the first element will be decremented.
+    */
+   std::array<short, 3> numberOfTimesCrossedWholeDomain{0, 0, 0};
+
+public:
+    [[nodiscard]] const std::array<short, 3> &getNumberOfTimesCrossedWholeDomain() const;
 
 public:
     explicit Particle(int type = 0);
@@ -99,12 +110,12 @@ public:
 
     double getM() const;
 
-  int getType() const;
+      int getType() const;
 
-  bool operator==(Particle &other);
-  bool operator==(const Particle &other);
+      bool operator==(Particle &other);
+      bool operator==(const Particle &other);
 
-  std::string toString() const;
+      std::string toString() const;
 
     void setX(const std::array<double, 3> &x);
 
@@ -115,6 +126,8 @@ public:
     void setOldF(const std::array<double, 3> &oldF);
 
     void setIsGhostParticle(const bool& b);
+
+
 
     /**
      * @brief sets old_f to f and sets f to zeroes to allow for new calculation of f
@@ -144,6 +157,38 @@ public:
     const std::vector<int> &getNeighbourIDs() const;
 
     const std::vector<int> &getDirectNeighbourIDs() const;
+
+
+    /**
+     * @brief decrements the number of times the particle crossed the domain in x-direction
+     */
+    inline void decrementNumberOfTimesCrossedDomainX();
+
+    /**
+     * @brief decrements the number of times the particle crossed the domain in y-direction
+     */
+    inline void decrementNumberOfTimesCrossedDomainY();
+
+    /**
+     * @brief decrements the number of times the particle crossed the domain in z-direction
+     */
+    inline void decrementNumberOfTimesCrossedDomainZ();
+
+    /**
+     * @brief increments the number of times the particle crossed the domain in x-direction
+     */
+    inline void incrementNumberOfTimesCrossedDomainX();
+
+    /**
+     * @brief increments the number of times the particle crossed the domain in y-direction
+     */
+    inline void incrementNumberOfTimesCrossedDomainY();
+
+    /**
+     * @brief increments the number of times the particle crossed the domain in z-direction
+     */
+    inline void incrementNumberOfTimesCrossedDomainZ();
+
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);
