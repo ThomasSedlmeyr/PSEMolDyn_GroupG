@@ -7,9 +7,10 @@
 #include "Checkpoints/CheckpointWriter.h"
 #include "Visitors/ParticleCollector.h"
 
+//TODO Wert aus XML parsen
+int Simulation::numberOfTimeStepsWithFZUp = 15000;
+
 void Simulation::calculateOneTimeStep(int iteration) {
-    //TODO aus XML parsen
-    const int numberOfTimeStepsWithFZUp = 0;
     particleContainer->updateParticlePositions(posCalcVisitor);
     if (iteration < numberOfTimeStepsWithFZUp){
         particleContainer->applyFZUp();
@@ -61,6 +62,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     while (currentTime < endTime) {
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
+            std::cout << "Iteration: " << iteration << std::endl;
         }
         if (iteration != 0 && useThermostat){
             if (iteration % nThermostat == 0){

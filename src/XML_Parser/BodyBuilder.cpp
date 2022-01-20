@@ -88,7 +88,6 @@ bool BodyBuilder::buildBodies(std::list<Body*>& bodies, particlesLJ::body_sequen
             std::cout << "Please check that file was correctly formatted." << std::endl;
             return false;
         }
-        body->parseStructure(i.objectSpecificFormat());
 
         body->generateParticles(particleCounter);
         particleCounter += body->getParticles().size();

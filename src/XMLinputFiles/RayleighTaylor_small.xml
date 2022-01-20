@@ -6,12 +6,12 @@
         <t_end>5</t_end>
         <delta_t>0.0005</delta_t>
         <writeFrequency>100</writeFrequency>
-        <dimensionType>2D</dimensionType>
+        <dimensionType>3D</dimensionType>
         <parallelType>notParallel</parallelType>
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
-        <gravDirection>z</gravDirection>
+        <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>RayleighTaylor</baseNameOutputFiles>

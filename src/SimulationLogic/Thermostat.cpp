@@ -10,8 +10,12 @@ Thermostat::Thermostat(ParticleContainer *particleContainer, double targetTemp, 
 }
 
 void Thermostat::apply() {
+    particleContainer->walkOverParticles(meanVelocityVisitor);
+    auto numParticles = meanVelocityVisitor.getNumberOfParticles();
+    auto meanVelocity = meanVelocityVisitor.getMeanVelocity();
+    energyVisitor.setMeanVelocity(meanVelocity);
     particleContainer->walkOverParticles(energyVisitor);
-    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * dimension / 2);
+    double currentTemp = energyVisitor.getTotalEnergy() / (double(numParticles) * dimension / 2);
     //std::cout << "CurrentTemp: " << currentTemp << std::endl;
     double newTargetTemp;
     //limit update range to currentTemp +- maxDeltaT
@@ -23,6 +27,7 @@ void Thermostat::apply() {
     double beta = sqrt(newTargetTemp/currentTemp);
     velScalingVisitor.setBeta(beta);
     particleContainer->walkOverParticles(velScalingVisitor);
+    meanVelocityVisitor.reset();
     energyVisitor.reset();
 }
 

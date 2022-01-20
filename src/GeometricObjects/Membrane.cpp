@@ -7,6 +7,9 @@
 #include <iostream>
 #include "Membrane.h"
 
+double rZero = 0;
+double k = 0;
+
 void Membrane::parseStructure(const std::string &line) {
 
     std::string n_p = "";
@@ -68,14 +71,14 @@ void Membrane::parseStructure(const std::string &line) {
             throw std::runtime_error("");
         }
     } else {
-        fUp = 0;
+        UpwardForceVisitor::fZUp = 0;
         positionsWhereFisApplied = {{0,0}};
     }
 
     dimensions = parseLineWithThreeValues(n_p);
-    r_zero = std::stod(r_p);
+    UpwardForceVisitor::fZUp = std::stod(fUp_p);
+    rZero = std::stod(r_p);
     k = std::stod(k_p);
-    fUp = std::stod(fUp_p);
 
     int first;
     int comma;
