@@ -43,7 +43,7 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
  */
 TEST(SimulationAnalysisTest, checkOutputCSVFile) {
     bool xmlSuccess = XMLParser::parseXML("../src/Tests/TestInputFiles/SimulationAnalyzerTest.xml");
-    // EXPECT_EQ(xmlSuccess, true);
+    EXPECT_EQ(xmlSuccess, true);
 
     LennardJonesSimulation lj = LennardJonesSimulation();
     Writer *w = new VTKWriter();
