@@ -7,7 +7,7 @@
 
 bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, ParticleContainer *particleContainer) {
     std::vector<Particle> particles = particleContainer->getParticles();
-    auto filePath = "../src/Checkpoint_Files/" + fileName;
+    auto filePath = "../Checkpoint_Files/" + fileName;
     std::ofstream outputFile;
     outputFile.open(filePath, std::ios::trunc);
 

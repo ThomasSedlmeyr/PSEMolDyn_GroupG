@@ -13,7 +13,7 @@
 #include <ParticleContainers/ParticleContainer.h>
 #include <2D/ParticleContainerLinkedCells2D.h>
 
-std::string inputFile = "../src/XMLinputFiles/RayleighTaylor_small.xml";
+std::string inputFile = "../XMLinputFiles/RayleighTaylor_small.xml";
 
 /**
  * @brief shows guidelines for correct program calls
@@ -120,7 +120,7 @@ void show_help() {
     // prints how to make correct program call
     std::cout << "Please enter a correct program call!" << std::endl;
     std::cout << "\t-h : help page" << std::endl;
-    std::cout << "\t-input : path to input xml-file, defaults to ../src/XML_Parser/input.xml" << std::endl;
+    std::cout << "\t-input : path to input xml-file, defaults to ../XMLinputFiles/RayleighTaylor_small.xml" << std::endl;
     std::cout << "--------------------------------" << std::endl;
     std::cout << "Example Calls:" << std::endl;
     std::cout << "\t./MolSim" << std::endl;

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+       xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>10</t_end>
-        <delta_t>0.00005</delta_t>
-        <writeFrequency>50</writeFrequency>
+        <t_end>0.5</t_end>
+        <delta_t>0.0005</delta_t>
+        <writeFrequency>100000</writeFrequency>
         <dimensionType>2D</dimensionType>
         <parallelType>notParallel</parallelType>
 
@@ -14,7 +14,7 @@
         <gravDirection>z</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>FallingDropWall_2D</baseNameOutputFiles>
+        <baseNameOutputFiles>Benchmark</baseNameOutputFiles>
         <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput></gravInput>
@@ -25,7 +25,7 @@
         <pathOutCheckpoint></pathOutCheckpoint>
 
         <domainSizeX>120</domainSizeX>
-        <domainSizeY>50</domainSizeY>
+        <domainSizeY>100</domainSizeY>
         <domainSizeZ>6</domainSizeZ>
 
         <useThermostat>no</useThermostat>
@@ -41,24 +41,24 @@
     </generalParams>
 
     <boundaryConditions>
-        <top>betterReflectingType</top>
-        <right>betterReflectingType</right>
-        <bottom>betterReflectingType</bottom>
-        <left>betterReflectingType</left>
-        <front>betterReflectingType</front>
-        <back>betterReflectingType</back>
+        <top>outflowType</top>
+        <right>outflowType</right>
+        <bottom>outflowType</bottom>
+        <left>outflowType</left>
+        <front>outflowType</front>
+        <back>outflowType</back>
     </boundaryConditions>
 
     <particlesLJ>
         <body>
-            <bodyType>Sphere</bodyType>
-            <position>60,25,3</position>
-            <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>15</objectSpecificFormat>
+            <bodyType>Cuboid</bodyType>
+            <position>1,1,1</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>100,80,1</objectSpecificFormat>
             <epsilon>5.0</epsilon>
             <mass>1.0</mass>
-            <rho>1.0</rho>
-            <h>1.125</h>
+            <rho>1.2</rho>
+            <h>1.1225</h>
             <bodyState>moving</bodyState>
         </body>
     </particlesLJ>

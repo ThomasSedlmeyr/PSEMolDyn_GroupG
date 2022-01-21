@@ -22,7 +22,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
     int id;
     int num_particles = 0;
     std::string temp;
-    auto filePath = "../src/Checkpoint_Files/" + fileName;
+    auto filePath = "../Checkpoint_Files/" + fileName;
     std::ifstream input_file(filePath);
     std::string tmp_string;
 
@@ -106,6 +106,7 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
             //getline(input_file, tmp_string);
             //spdlog::info("Read line: " + tmp_string);
         }
+        input_file.close();
         return true;
     } else {
         spdlog::error("Error: could not open file " + fileName);

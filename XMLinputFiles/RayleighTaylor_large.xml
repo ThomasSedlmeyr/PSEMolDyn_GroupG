@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+       xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>15</t_end>
+        <t_end>50</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>1000</writeFrequency>
+        <writeFrequency>100</writeFrequency>
         <dimensionType>2D</dimensionType>
         <parallelType>notParallel</parallelType>
 
@@ -14,25 +14,25 @@
         <gravDirection>z</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>FallingDropLiquid_1</baseNameOutputFiles>
+        <baseNameOutputFiles>RayleighTaylor_large</baseNameOutputFiles>
         <particleContainerType>linkedCell</particleContainerType>
-        <cutoffRadius>3</cutoffRadius>
+        <cutoffRadius>3.0</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
         <loadCheckpoint>no</loadCheckpoint>
-        <makeCheckpoint>yes</makeCheckpoint>
+        <makeCheckpoint>no</makeCheckpoint>
         <pathInCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathInCheckpoint>
         <pathOutCheckpoint>checkpoint_FallingDropLiquid_fluid.txt</pathOutCheckpoint>
 
-        <domainSizeX>303</domainSizeX>
-        <domainSizeY>180</domainSizeY>
+        <domainSizeX>300</domainSizeX>
+        <domainSizeY>54</domainSizeY>
         <domainSizeZ>0</domainSizeZ>
 
         <useThermostat>yes</useThermostat>
         <thermostatType>regular</thermostatType>
         <useBrownianMotion>yes</useBrownianMotion>
-        <T_init>0.5</T_init>
-        <T_target>0.5</T_target>
+        <T_init>40</T_init>
+        <T_target>40</T_target>
         <delta_T>-1</delta_T>
         <n_thermostat>1000</n_thermostat>
 
@@ -42,9 +42,9 @@
 
     <boundaryConditions>
         <top>betterReflectingType</top>
-        <right>betterReflectingType</right>
+        <right>periodicType</right>
         <bottom>betterReflectingType</bottom>
-        <left>betterReflectingType</left>
+        <left>periodicType</left>
         <front>betterReflectingType</front>
         <back>betterReflectingType</back>
     </boundaryConditions>
@@ -52,12 +52,24 @@
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>1.5,2,0</position>
+            <position>0.6,2,0</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>250,50,1</objectSpecificFormat>
+            <objectSpecificFormat>250,20,1</objectSpecificFormat>
             <epsilon>1.0</epsilon>
             <mass>1.0</mass>
             <rho>1.2</rho>
+            <h>1.2</h>
+            <bodyState>moving</bodyState>
+        </body>
+
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>0.6,27,0</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>250,20,1</objectSpecificFormat>
+            <epsilon>1.0</epsilon>
+            <mass>2.0</mass>
+            <rho>1.1</rho>
             <h>1.2</h>
             <bodyState>moving</bodyState>
         </body>

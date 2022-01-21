@@ -8,15 +8,34 @@
 
 #include <array>
 #include "Bin.h"
+#include "XML_Parser/XMLParser.h"
+#include "ParticleContainers/ParticleContainer.h"
 
 class SimulationAnalyzer {
 
 private:
-    std::array<Bin, 50> bins;
-    void calculateVelocityAndDensityProfile();
+    /**
+     * @brief bins of domain
+     */
+    std::vector<Bin> bins;
+
+    /**
+     * @brief calculate velocity and density profile
+     */
+    void calculateVelocityAndDensityProfile(ParticleContainer *particleContainer);
 
 public:
+    /**
+     * @brief write in output file
+     * @param timeStep used as timestamp
+     */
     void appendLineToCSVfile(int timeStep);
+
+    /**
+     * @brief create or reset CSV file
+     * @return returns whether it worked
+     */
+    bool createCSV();
 };
 
 

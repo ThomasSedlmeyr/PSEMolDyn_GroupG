@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+       xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>5</t_end>
+        <t_end>0.01</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>100</writeFrequency>
+        <writeFrequency>450</writeFrequency>
         <dimensionType>3D</dimensionType>
-        <parallelType>notParallel</parallelType>
+        <parallelType>first</parallelType>
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
         <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>RayleighTaylor</baseNameOutputFiles>
+        <baseNameOutputFiles>RayleighTaylor_3D</baseNameOutputFiles>
         <particleContainerType>linkedCell</particleContainerType>
-        <cutoffRadius>2.5</cutoffRadius>
+        <cutoffRadius>3.6</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
         <loadCheckpoint>no</loadCheckpoint>
@@ -24,9 +24,9 @@
         <pathInCheckpoint>checkpoint_RT.txt</pathInCheckpoint>
         <pathOutCheckpoint>checkpoint_RT.txt</pathOutCheckpoint>
 
-        <domainSizeX>63</domainSizeX>
-        <domainSizeY>36</domainSizeY>
-        <domainSizeZ>6</domainSizeZ>
+        <domainSizeX>60</domainSizeX>
+        <domainSizeY>60</domainSizeY>
+        <domainSizeZ>60</domainSizeZ>
 
         <useThermostat>yes</useThermostat>
         <thermostatType>regular</thermostatType>
@@ -45,31 +45,31 @@
         <right>periodicType</right>
         <bottom>betterReflectingType</bottom>
         <left>periodicType</left>
-        <front>betterReflectingType</front>
-        <back>betterReflectingType</back>
+        <front>periodicType</front>
+        <back>periodicType</back>
     </boundaryConditions>
 
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>0.6,2,1</position>
+            <position>0.6,0.6,0.6</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>50,14,1</objectSpecificFormat>
+            <objectSpecificFormat>50,20,50</objectSpecificFormat>
             <epsilon>1.0</epsilon>
             <mass>1.0</mass>
-            <rho>1.0</rho>
+            <rho>1.2</rho>
             <h>1.2</h>
             <bodyState>moving</bodyState>
         </body>
 
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>0.6,19,1</position>
+            <position>0.6,24.6,0.6</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>50,14,1</objectSpecificFormat>
+            <objectSpecificFormat>50,20,50</objectSpecificFormat>
             <epsilon>1.0</epsilon>
             <mass>2.0</mass>
-            <rho>0.9412</rho>
+            <rho>1.1</rho>
             <h>1.2</h>
             <bodyState>moving</bodyState>
         </body>

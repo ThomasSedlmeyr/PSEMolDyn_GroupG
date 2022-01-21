@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../XML_Parser/input.xsd">
+       xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>20</t_end>
-        <delta_t>0.0005</delta_t>
-        <writeFrequency>100</writeFrequency>
+        <t_end>10</t_end>
+        <delta_t>0.00005</delta_t>
+        <writeFrequency>50</writeFrequency>
         <dimensionType>2D</dimensionType>
         <parallelType>notParallel</parallelType>
 
@@ -14,7 +14,7 @@
         <gravDirection>z</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>CollisionOfTwoBodies</baseNameOutputFiles>
+        <baseNameOutputFiles>FallingDropWall_2D</baseNameOutputFiles>
         <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput></gravInput>
@@ -24,8 +24,8 @@
         <pathInCheckpoint></pathInCheckpoint>
         <pathOutCheckpoint></pathOutCheckpoint>
 
-        <domainSizeX>180</domainSizeX>
-        <domainSizeY>90</domainSizeY>
+        <domainSizeX>120</domainSizeX>
+        <domainSizeY>50</domainSizeY>
         <domainSizeZ>6</domainSizeZ>
 
         <useThermostat>no</useThermostat>
@@ -41,36 +41,24 @@
     </generalParams>
 
     <boundaryConditions>
-        <top>outflowType</top>
-        <right>outflowType</right>
-        <bottom>outflowType</bottom>
-        <left>outflowType</left>
-        <front>outflowType</front>
-        <back>outflowType</back>
+        <top>betterReflectingType</top>
+        <right>betterReflectingType</right>
+        <bottom>betterReflectingType</bottom>
+        <left>betterReflectingType</left>
+        <front>betterReflectingType</front>
+        <back>betterReflectingType</back>
     </boundaryConditions>
 
     <particlesLJ>
         <body>
-            <bodyType>Cuboid</bodyType>
-            <position>20,20,1</position>
-            <velocity>0,0,0</velocity>
-            <objectSpecificFormat>100,20,1</objectSpecificFormat>
-            <epsilon>5.0</epsilon>
-            <mass>1.0</mass>
-            <rho>1.0</rho>
-            <h>1.1225</h>
-            <bodyState>moving</bodyState>
-        </body>
-
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>70,60,1</position>
+            <bodyType>Sphere</bodyType>
+            <position>60,25,3</position>
             <velocity>0,-10,0</velocity>
-            <objectSpecificFormat>20,20,1</objectSpecificFormat>
+            <objectSpecificFormat>15</objectSpecificFormat>
             <epsilon>5.0</epsilon>
             <mass>1.0</mass>
             <rho>1.0</rho>
-            <h>1.1225</h>
+            <h>1.125</h>
             <bodyState>moving</bodyState>
         </body>
     </particlesLJ>
