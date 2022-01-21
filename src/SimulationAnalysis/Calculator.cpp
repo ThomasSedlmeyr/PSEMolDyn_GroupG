@@ -4,15 +4,19 @@
 
 #include "Calculator.h"
 
-void Calculator::updateParticles() {
-    std::vector<Particle> particlesWithGhostParticles = particleContainer.getParticles();
-
+void Calculator::getSimulationParticles() {
+    particles.clear();
+    std::vector<Particle> particlesWithGhostParticles = particleContainer->getParticles();
     std::copy_if(begin(particlesWithGhostParticles), end(particlesWithGhostParticles), std::back_inserter(particles),
                  [&](Particle const &p) { return !p.isGhostParticle;});
 }
 
 void Calculator::appendLineToCSVFile(std::string& name) {
 
+}
+
+Calculator::Calculator(ParticleContainer *particleContainer) : particleContainer(particleContainer) {
+    getSimulationParticles();
 }
 
 Calculator::~Calculator() = default;

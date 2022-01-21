@@ -18,6 +18,7 @@ file(GLOB_RECURSE TEST_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Visitors/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Tests/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/XML_Parser/*.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/SimulationAnalysis/*.cpp"
         )
 
 add_executable(Tests ${TEST_SRC})

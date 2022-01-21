@@ -14,10 +14,12 @@ private:
     double startOfIntervall;
     double stepSize;
 public:
-    RadialPairDistributionCalculator(double startOfIntervall, double stepSize, double numberOfValues);
+    RadialPairDistributionCalculator(ParticleContainer *particleContainer,
+                                     double startOfIntervall, double stepSize,
+                                     int numberOfValues);
 
 private:
-    double numberOfValues;
+    int numberOfValues;
     std::vector<int> numberParticlesInIntervall;
     std::vector<double> localDensities;
 
@@ -26,6 +28,10 @@ public:
     void calculateLocalDensities();
 
     ~RadialPairDistributionCalculator() override;
+
+    const std::vector<double> &getLocalDensities() const;
+
+    const std::vector<int> &getNumberParticlesInIntervall() const;
 
 };
 

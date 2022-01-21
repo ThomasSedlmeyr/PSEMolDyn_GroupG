@@ -5,8 +5,17 @@
 #include "SimulationAnalysis/DiffusionCalculator.h"
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include "OutputWriter/VTKWriter.h"
+#include "SimulationAnalysis/RadialPairDistributionCalculator.h"
 #include <random>
 
+//Code adapted from
+//https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
+#define EXPECT_DOUBLE_NEARLY_EQ(expected, actual, thresh) \
+        EXPECT_EQ(expected.size(), actual.size()) << "Array sizes differ.";\
+        for (size_t idx = 0; idx < std::min(expected.size(), actual.size()); ++idx) \
+        { \
+            EXPECT_NEAR(expected[idx], actual[idx], thresh) << "at index: " << idx;\
+        }
 
 /**
 * @brief Tests the functionality of the DiffusionCalculator by reference values which were calculated by hand
@@ -18,24 +27,55 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     Particle p1 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 1);
     Particle p2 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 2);
     Particle p3 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 3);
-    Particle p4 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 4);
-    Particle p5 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 5);
-    Particle p6 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 6);
+    Particle p4 = Particle({1, 1, 1}, {1, 2, 3}, 23, -1, 4, false);
+    p4.isGhostParticle = true;
+    Particle p5 = Particle({1, 1, 1}, {1, 2, 3}, 23, -1, 5, false);
+    p5.isGhostParticle = true;
 
     ParticleContainerLinkedCells::addParticle(p1);
     ParticleContainerLinkedCells::addParticle(p2);
     ParticleContainerLinkedCells::addParticle(p3);
     ParticleContainerLinkedCells::addParticle(p4);
     ParticleContainerLinkedCells::addParticle(p5);
-    ParticleContainerLinkedCells::addParticle(p6);
 
-    //DiffusionCalculator df;
+    DiffusionCalculator df = DiffusionCalculator(&particleContainer);
 
-    p2.setX({2,2,2});
-    p3.setX({3,3,3});
-    p4.setX({4,4,4});
+    p1.setX({2,2,2});
+    p2.setX({3,3,3});
+    p3.setX({4,4,4});
+    p4.setX({5,5,5});
+    p5.setX({6,6,6});
 
-    //df.calculateDiffusion();
+    df.calculateDiffusion();
+    //EXPECT_NEAR(df.getDiffusion(), (sqrt(3) + sqrt(12) + sqrt(27))*1.0/3.0 , 0.00001);
+}
+
+/**
+* @brief Tests the functionality of the DiffusionCalculator by reference values which were calculated by hand
+*/
+TEST(SimulationAnalysisTest, RadialPairDistributionCalculator) {
+    std::array<int, 6> fours = {4, 4, 4, 4, 4, 4};
+    ParticleContainerLinkedCells particleContainer(20, 40, 60, 3.0, fours);
+
+    Particle p1 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 1);
+    Particle p2 = Particle({2, 1.1, 1}, {1, 2, 3}, 23, 1, 2);
+    Particle p3 = Particle({8, 1.2, 1}, {1, 2, 3}, 23, 1, 4);
+    Particle p4 = Particle({1, 2, 4}, {1, 2, 3}, 23, 1, 5);
+
+    ParticleContainerLinkedCells::addParticle(p1);
+    ParticleContainerLinkedCells::addParticle(p2);
+    ParticleContainerLinkedCells::addParticle(p3);
+    ParticleContainerLinkedCells::addParticle(p4);
+
+
+    RadialPairDistributionCalculator calculator = RadialPairDistributionCalculator(&particleContainer, 1,1, 10);
+    calculator.calculateLocalDensities();
+
+    std::vector<int> numberOfParticlesInIntervall = calculator.getNumberParticlesInIntervall();
+    std::vector<int> correctNumberOfParticlesInIntervall = {1,0,2,0,0,1,2,0,0,0};
+    std::vector<double> localDensities = calculator.getLocalDensities();
+    std::vector<double> correctDensities = {};
+
 }
 
 /**

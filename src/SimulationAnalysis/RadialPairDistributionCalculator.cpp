@@ -2,8 +2,10 @@
 #include "utils/ArrayUtils.h"
 #include <math.h>
 
-RadialPairDistributionCalculator::RadialPairDistributionCalculator(double startOfIntervall, double stepSize,
-                                                                   double numberOfValues) : startOfIntervall(
+RadialPairDistributionCalculator::RadialPairDistributionCalculator(ParticleContainer *particleContainer,
+                                                                   double startOfIntervall, double stepSize,
+                                                                   int numberOfValues) : Calculator(
+        particleContainer), startOfIntervall(
         startOfIntervall), stepSize(stepSize), numberOfValues(numberOfValues) {
 
     double currentValue = startOfIntervall;
@@ -46,6 +48,14 @@ void RadialPairDistributionCalculator::calculateLocalDensities() {
         riPlusStepSizeCubic = riPlusStepSize * riPlusStepSize * riPlusStepSize;
         localDensities[i] = numberParticlesInIntervall[i] / ((4.0/3)*M_PI*(riPlusStepSizeCubic - riCubic));
     }
+}
+
+const std::vector<int> &RadialPairDistributionCalculator::getNumberParticlesInIntervall() const {
+    return numberParticlesInIntervall;
+}
+
+const std::vector<double> &RadialPairDistributionCalculator::getLocalDensities() const {
+    return localDensities;
 }
 
 RadialPairDistributionCalculator::~RadialPairDistributionCalculator() = default;

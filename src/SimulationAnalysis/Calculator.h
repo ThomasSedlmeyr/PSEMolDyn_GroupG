@@ -4,16 +4,18 @@
 
 #include <vector>
 #include "SimulationLogic/Particle.h"
-#include "ParticleContainers/ParticleContainerLinkedCells.h"
+#include "ParticleContainers/ParticleContainer.h"
 #include <string>
 
 class Calculator {
 protected:
-    ParticleContainerLinkedCells particleContainer;
+    ParticleContainer* particleContainer;
     std::vector<Particle> particles;
-    void updateParticles();
+    void getSimulationParticles();
 
 public:
+    Calculator(ParticleContainer *particleContainer);
+
     virtual void calculationResultsToString() = 0;
     void appendLineToCSVFile(std::string& name);
     virtual ~Calculator();

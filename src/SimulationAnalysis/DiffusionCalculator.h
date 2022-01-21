@@ -13,6 +13,7 @@
 
 class DiffusionCalculator : public Calculator{
 private:
+    double diffusion;
     std::vector<std::array<double, 3>> oldPositions;
     void initializeOldPositions();
     void calculationResultsToString() override;
@@ -22,9 +23,9 @@ public:
 
     ~DiffusionCalculator() override;
 
-    DiffusionCalculator();
+    explicit DiffusionCalculator(ParticleContainer *particleContainer);
 
-
+    double getDiffusion() const;
 };
 
 
