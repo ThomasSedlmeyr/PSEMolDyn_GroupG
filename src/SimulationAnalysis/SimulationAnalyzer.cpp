@@ -1,6 +1,10 @@
 #include "SimulationAnalyzer.h"
 #include <fstream>
 
+/*
+ * first call createCSV
+ * then repeatedly call calculate + appendLine
+ */
 
 void SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
     // append with timestamp
