@@ -175,6 +175,35 @@ const std::vector<int> &Particle::getNeighbourIDs() const {
     return neighbourIDs;
 }
 
+void Particle::decrementNumberOfTimesCrossedDomainX() {
+    numberOfTimesCrossedWholeDomain[0]--;
+}
+
+void Particle::decrementNumberOfTimesCrossedDomainY() {
+    numberOfTimesCrossedWholeDomain[1]--;
+}
+
+void Particle::decrementNumberOfTimesCrossedDomainZ() {
+    numberOfTimesCrossedWholeDomain[2]--;
+}
+
+void Particle::incrementNumberOfTimesCrossedDomainX() {
+    numberOfTimesCrossedWholeDomain[0]++;
+}
+
+void Particle::incrementNumberOfTimesCrossedDomainY() {
+    numberOfTimesCrossedWholeDomain[1]++;
+}
+
+void Particle::incrementNumberOfTimesCrossedDomainZ() {
+    numberOfTimesCrossedWholeDomain[2]++;
+}
+
+const std::array<short, 3> &Particle::getNumberOfTimesCrossedWholeDomain() const {
+    return numberOfTimesCrossedWholeDomain;
+}
+
+
 std::ostream &operator<<(std::ostream &stream, Particle &p) {
     stream << p.toString();
     return stream;

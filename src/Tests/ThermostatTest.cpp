@@ -26,8 +26,10 @@ TEST(ThemostatTests, TestSetTemp){
         t.apply();
         //test if thermostat worked
         KineticEnergyVisitor energyVisitor;
+        MeanVelocityVisitor meanVelocityVisitor;
+        pc.walkOverParticles(meanVelocityVisitor);
         pc.walkOverParticles(energyVisitor);
-        double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * 3 / 2);
+        double currentTemp = energyVisitor.getTotalEnergy() / (double(meanVelocityVisitor.getNumberOfParticles()) * 3 / 2);
         ASSERT_NEAR(currentTemp, i, 0.0001);
     }
 }
@@ -39,9 +41,11 @@ TEST(ThemostatTests, TestHoldTemp){
     VTKWriter w = VTKWriter();
     lj.simulate(w, &pc);
     //test if thermostat worked
+    MeanVelocityVisitor meanVelocityVisitor;
+    pc.walkOverParticles(meanVelocityVisitor);
     KineticEnergyVisitor energyVisitor;
     pc.walkOverParticles(energyVisitor);
-    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * 2 / 2);
+    double currentTemp = energyVisitor.getTotalEnergy() / (double(meanVelocityVisitor.getNumberOfParticles()) * 2 / 2);
     ASSERT_NEAR(currentTemp, 10.0, 0.1);
 
 }
@@ -54,9 +58,11 @@ TEST(ThemostatTests, TestCoolDown){
     VTKWriter w = VTKWriter();
     lj.simulate(w, &pc);
     //test if thermostat worked
+    MeanVelocityVisitor meanVelocityVisitor;
+    pc.walkOverParticles(meanVelocityVisitor);
     KineticEnergyVisitor energyVisitor;
     pc.walkOverParticles(energyVisitor);
-    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * 2 / 2);
+    double currentTemp = energyVisitor.getTotalEnergy() / (double(meanVelocityVisitor.getNumberOfParticles()) * 2 / 2);
     ASSERT_NEAR(currentTemp, 1.0, 0.1);
 }
 
@@ -68,8 +74,10 @@ TEST(ThemostatTests, TestHeatUp){
     VTKWriter w = VTKWriter();
     lj.simulate(w, &pc);
     //test if thermostat worked
+    MeanVelocityVisitor meanVelocityVisitor;
+    pc.walkOverParticles(meanVelocityVisitor);
     KineticEnergyVisitor energyVisitor;
     pc.walkOverParticles(energyVisitor);
-    double currentTemp = energyVisitor.getTotalEnergy() / (double(energyVisitor.getNumberOfParticles()) * 2 / 2);
+    double currentTemp = energyVisitor.getTotalEnergy() / (double(meanVelocityVisitor.getNumberOfParticles()) * 2 / 2);
     ASSERT_NEAR(currentTemp, 32.0, 0.1);
 }
