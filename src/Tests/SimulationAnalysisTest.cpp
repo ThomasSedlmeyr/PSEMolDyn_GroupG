@@ -3,6 +3,8 @@
 #include "utils/FastMath.h"
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
 #include "SimulationAnalysis/DiffusionCalculator.h"
+#include "SimulationLogic/LennardJonesSimulation.h"
+#include "OutputWriter/VTKWriter.h"
 #include <random>
 
 
@@ -34,4 +36,20 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     p4.setX({4,4,4});
 
     //df.calculateDiffusion();
+}
+
+/**
+ * @brief quick test checking simulation analyzer writing to csv file
+ */
+TEST(SimulationAnalysisTest, checkOutputCSVFile) {
+    bool xmlSuccess = XMLParser::parseXML("../src/Tests/TestInputFiles/SimulationAnalzyerTest.xml");
+    EXPECT_EQ(xmlSuccess, true);
+
+    LennardJonesSimulation lj = LennardJonesSimulation();
+    Writer *w = new VTKWriter();
+    std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+    ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+    lj.simulate(*w, particleContainer);
+
+    // TODO check correctnes of csv file after SimulationAnalyzer has been incorporated into simulation
 }
