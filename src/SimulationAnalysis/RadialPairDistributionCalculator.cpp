@@ -21,16 +21,16 @@ void RadialPairDistributionCalculator::calculateLocalDensities() {
             Particle p1 = *it;
             Particle p2 = *it2;
             double distance = 0;
-            if(!(p1 == p2)){
-                difference = p1.getX()[0] - p2.getX()[0];
-                distance = difference * difference;
-                difference = p1.getX()[1] - p2.getX()[1];
-                distance += difference * difference;
-                difference = p1.getX()[2] - p2.getX()[2];
-                distance += difference * difference;
-            }
+
+            difference = p1.getX()[0] - p2.getX()[0];
+            distance = difference * difference;
+            difference = p1.getX()[1] - p2.getX()[1];
+            distance += difference * difference;
+            difference = p1.getX()[2] - p2.getX()[2];
+            distance += difference * difference;
+
             distance = sqrt(distance);
-            index = ((int) (distance - startOfIntervall) / stepSize) - 1;
+            index = ((int) (distance - startOfIntervall) / stepSize);
 
             //We have to check if the index is in our intervall
             if(index < numberParticlesInIntervall.size()){

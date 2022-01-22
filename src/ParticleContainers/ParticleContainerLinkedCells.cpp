@@ -48,12 +48,9 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
                                                                      numberCellsX,
                                                                      numberCellsY, numberCellsZ, domainSize);
 
-    int numberOfThreads = 4;
-    bool splitDomain = false;
-
-    if(splitDomain){
+    if(Simulation::SECONDPARALLEL == XMLParser::parallelType_p){
         subdomainContainer = SubdomainContainer();
-        subdomainContainer.generateSubdomainsWithNumberOfThreads2(numberOfThreads);
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(omp_get_num_threads());
     }
 }
 

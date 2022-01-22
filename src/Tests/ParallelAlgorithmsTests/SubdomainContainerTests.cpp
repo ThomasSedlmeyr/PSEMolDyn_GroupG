@@ -12,10 +12,10 @@ TEST(ParallelAlgorithmsTests, TestForCorrectPartition) {
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(21, 12, 110, 1.0, ones);
 
     SubdomainContainer subdomainContainer{};
-    subdomainContainer.generateSubdomains(5, 4, 17);
+    subdomainContainer.generateSubdomainsWithNumberOfThreads(28);
 
     //We first check if get the correct number of Subdomains
-    EXPECT_EQ(4*3*6, subdomainContainer.getSubdomains().size());
+    EXPECT_EQ(28, subdomainContainer.getSubdomains().size());
 }
 
 TEST(ParallelAlgorithmsTests, TestSplitInNearlyEqualParts) {
@@ -51,10 +51,10 @@ TEST(ParallelAlgorithmsTests, TestForCorrectNumberOfComputationTasks) {
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(60, 60, 60, 3.6, ones);
 
     SubdomainContainer subdomainContainer{};
-    std::array<int, 6> numberOfThreads = {2,4,8,14,16,28};
+    std::array<int, 9> numberOfThreads = {2,4,8,14,16,28,56,64,256};
 
     for (int i = 0; i < numberOfThreads.size(); ++i) {
-        subdomainContainer.generateSubdomainsWithNumberOfThreads2(numberOfThreads[i]);
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberOfThreads[i]);
         EXPECT_EQ(numberOfThreads[i], subdomainContainer.getSubdomains().size());
     }
 
