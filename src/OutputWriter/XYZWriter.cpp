@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 
 XYZWriter::XYZWriter() = default;
@@ -17,6 +18,8 @@ XYZWriter::XYZWriter() = default;
 XYZWriter::~XYZWriter() = default;
 
 void XYZWriter :: writeParticlesToFile(const std::string &filename, int iteration, const std::vector<Particle> &particles) {
+    std::vector<Particle> particlesSorted = particles;
+    std::sort(particlesSorted.begin(), particlesSorted.end(), [](Particle &p1, Particle &p2){return p1.getId() < p2.getId();});
     std::ofstream file;
     std::stringstream strstr;
     strstr << filename << "_" << std::setfill('0') << std::setw(4) << iteration << ".xyz";
