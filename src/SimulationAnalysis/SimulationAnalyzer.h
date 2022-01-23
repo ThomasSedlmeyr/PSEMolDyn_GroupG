@@ -17,19 +17,19 @@ private:
     /**
      * @brief bins of domain
      */
-    std::vector<Bin> bins;
+    std::vector<Bin*> bins;
 
+public:
     /**
      * @brief calculate velocity and density profile
      */
     void calculateVelocityAndDensityProfile(ParticleContainer *particleContainer);
 
-public:
     /**
      * @brief write in output file
      * @param timeStep used as timestamp
      */
-    void appendLineToCSVfile(int timeStep);
+    bool appendLineToCSVfile(int timeStep);
 
     /**
      * @brief create or reset CSV file

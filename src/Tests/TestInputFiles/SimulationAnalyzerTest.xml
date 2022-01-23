@@ -5,7 +5,7 @@
     <generalParams>
         <t_end>0.1</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>500</writeFrequency>
+        <writeFrequency>100</writeFrequency>
         <dimensionType>3D</dimensionType>
         <parallelType>first</parallelType>
 
@@ -37,7 +37,7 @@
         <n_thermostat>10</n_thermostat>
 
         <useVelDensProfiling>no</useVelDensProfiling>
-        <numberOfBins>1</numberOfBins>
+        <numberOfBins>5</numberOfBins>
     </generalParams>
 
     <boundaryConditions>

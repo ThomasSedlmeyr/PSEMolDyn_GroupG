@@ -7,6 +7,8 @@
 #include "OutputWriter/VTKWriter.h"
 #include "SimulationAnalysis/RadialPairDistributionCalculator.h"
 #include <random>
+#include <fstream>
+#include "SimulationAnalysis/SimulationAnalyzer.h"
 
 //Code adapted from
 //https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
@@ -97,7 +99,33 @@ TEST(SimulationAnalysisTest, checkOutputCSVFile) {
     Writer *w = new VTKWriter();
     std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
     ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+
+    SimulationAnalyzer* analysis = new SimulationAnalyzer();
+    bool createCSV = analysis->createCSV();
+    EXPECT_EQ(createCSV, true);
+    analysis->calculateVelocityAndDensityProfile(particleContainer);
+    bool appendLine =  analysis->appendLineToCSVfile(0);
+    EXPECT_EQ(appendLine, true);
+
     lj.simulate(*w, particleContainer);
 
-    // TODO check correctnes of csv file after SimulationAnalyzer has been incorporated into simulation
+    analysis->calculateVelocityAndDensityProfile(particleContainer);
+    appendLine = analysis->appendLineToCSVfile(20);
+    EXPECT_EQ(appendLine, true);
+
+    std::ifstream inFile;
+    std::string tmp_string;
+    inFile.open("../SimulationAnalysis_Files/analysisFile.csv");
+    bool writeSuccess = false;
+    if (inFile.is_open()) {
+        getline(inFile, tmp_string);
+        getline(inFile, tmp_string);
+        EXPECT_EQ(tmp_string, "0,0,0,0,0,0,0,0,0,0,0");
+        getline(inFile, tmp_string);
+        EXPECT_EQ(tmp_string, "20,0.347222,0.0253106,0.578704,-0.0626215,0.578704,-0.330271,0.577778,-0.135999,0.232407,-0.165731");
+
+        writeSuccess = true;
+        inFile.close();
+    }
+    EXPECT_EQ(writeSuccess, true);
 }

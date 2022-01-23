@@ -11,7 +11,11 @@ void Bin::calculateVelocity() {
     for (Particle particle : particles) {
         v += particle.getV()[1];
     }
-    v /= particles.size();
+    if (particles.size() != 0) {
+        v /= particles.size();
+    } else {
+        v = 0;
+    }
     meanVelocity = v;
 }
 

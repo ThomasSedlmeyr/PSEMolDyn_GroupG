@@ -6,23 +6,32 @@
  * then repeatedly call calculate + appendLine
  */
 
-void SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
+bool SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
+
     // append with timestamp
     std::ofstream outputFile;
-    outputFile.open("../src/SimulationAnalysis_Files/analysisFile.csv", std::ios::app);
-    outputFile << timeStep;
-    // TODO ordered correctly? use list instead?
-    for (Bin tempBin : bins) {
-        outputFile << ",d" << tempBin.getDensity() << ",v" << tempBin.getMeanVelocity();
+    outputFile.open("../SimulationAnalysis_Files/analysisFile.csv", std::ios::app);
+    if (outputFile.is_open()) {
+        outputFile << timeStep;
+        // ordered correctly? use list instead?
+        for (Bin* tempBin : bins) {
+            // outputFile << ",d" << tempBin->getDensity() << ",v" << tempBin->getMeanVelocity();
+            outputFile << "," << tempBin->getDensity() << "," << tempBin->getMeanVelocity();
+        }
+        outputFile << "\n";
+        outputFile.close();
+    } else {
+        return false;
     }
-    outputFile << "\n";
-    outputFile.close();
+    return true;
 }
 
 void SimulationAnalyzer::calculateVelocityAndDensityProfile(ParticleContainer *particleContainer) {
     std::vector<Particle> particles = particleContainer->getParticles();
 
     double binWidth = XMLParser::domainSize[0] / XMLParser::numberOfBins_p;
+
+    bins.clear();
 
     for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
         Bin* bin = new Bin();
@@ -36,6 +45,7 @@ void SimulationAnalyzer::calculateVelocityAndDensityProfile(ParticleContainer *p
         bin->setParticles(particles_bin);
         bin->calculateDensity();
         bin->calculateVelocity();
+        bins.push_back(bin);
     }
 }
 
