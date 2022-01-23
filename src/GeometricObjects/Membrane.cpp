@@ -9,6 +9,7 @@
 
 double rZero = 0;
 double k = 0;
+double t_lift_end  = 0;
 
 void Membrane::parseStructure(const std::string &line) {
 
@@ -17,6 +18,7 @@ void Membrane::parseStructure(const std::string &line) {
     std::string k_p = "";
     std::string fUp_p = "";
     std::string p_p = "";
+    std::string t_p = "";
     std::string tmp = line;
 
     int begin = 2;
@@ -70,6 +72,16 @@ void Membrane::parseStructure(const std::string &line) {
             std::cout << "Please make sure to format the parameters according to the README." << std::endl;
             throw std::runtime_error("");
         }
+
+        end = tmp.find_first_of(" ");
+        if (tmp.substr(0, 1) == "t") {
+            t_p = tmp.substr(begin, end - begin);
+            tmp.erase(0, end + 1);
+        } else {
+            std::cout << "Parsing of membrane was not successful!" << std::endl;
+            std::cout << "Please make sure to format the parameters according to the README." << std::endl;
+            throw std::runtime_error("");
+        }
     } else {
         UpwardForceVisitor::fZUp = 0;
         positionsWhereFisApplied = {{0,0}};
@@ -79,6 +91,7 @@ void Membrane::parseStructure(const std::string &line) {
     UpwardForceVisitor::fZUp = std::stod(fUp_p);
     rZero = std::stod(r_p);
     k = std::stod(k_p);
+    t_lift_end = std::stod(t_p); // TODO replace hardcoded value with this parsed one
 
     int first;
     int comma;
