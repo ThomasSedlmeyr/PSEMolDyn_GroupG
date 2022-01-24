@@ -371,12 +371,12 @@ std::array<int, 26> ParticleContainerLinkedCells::getNeighbourIndices(int index)
             if (currentYIndex < 0) {
                 continue;
             }
-            for (int k = -1; k < 2; ++k) {
-                if (i == 0 && j == 0 && k == 0) {
+            for (int l = -1; l < 2; ++l) {
+                if (i == 0 && j == 0 && l == 0) {
                     continue;
                 }
-                //move by k in z direction
-                currentNeighbourIndex = movePositionsInZ(currentYIndex, k);
+                //move by l in z direction
+                currentNeighbourIndex = movePositionsInZ(currentYIndex, l);
                 //only add neighbour if it has a larger index to avoid duplicate force calculation
                 if (currentNeighbourIndex > index && currentNeighbourIndex >= 0 &&
                     currentNeighbourIndex < static_cast<int>(cells.size())) {
@@ -394,7 +394,7 @@ int ParticleContainerLinkedCells::movePositionsInX(int index, int numberPosition
         return index;
     }
     auto resultIndex = index + numberPositionsInX;
-    if (resultIndex < 0) {
+    if (resultIndex < 0 || resultIndex > static_cast<int>(cells.size())) {
         return -1;
     }
     if (resultIndex > index) {
@@ -416,7 +416,7 @@ int ParticleContainerLinkedCells::movePositionsInY(int index, int numberPosition
         return index;
     }
     auto resultIndex = index + numberCellsX * numberPositionsInY;
-    if (resultIndex < 0) {
+    if (resultIndex < 0 || resultIndex > static_cast<int>(cells.size())) {
         return -1;
     }
     if (resultIndex > index) {
