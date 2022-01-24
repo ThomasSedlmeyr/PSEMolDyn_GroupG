@@ -299,6 +299,8 @@ public:
                                                    const std::array<double, 3> &positionOfCell);
 
     void walkOverParticlePairs2(ParticlePairVisitor &visitor);
+
+    static void clearAllParticles();
 };
 
 

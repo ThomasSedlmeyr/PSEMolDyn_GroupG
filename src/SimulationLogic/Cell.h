@@ -167,6 +167,11 @@ public:
     void
     reflectZtoBackCell(const std::array<double, 3> &pointWhichShouldBeReflected, std::array<double, 3> &resultPoint);
 
+    /**
+     * @brief Deletes all particles which were stored in the cell
+     */
+    void clearParticles();
+
 private:
     /**
      * @brief the relative position of the cell in the domain
@@ -194,5 +199,6 @@ private:
     std::array<double, 3> position{};
 
     int cellType = INNER_CELL;
+
 };
 #endif //PSEMOLDYN_GROUPG_CELL_H

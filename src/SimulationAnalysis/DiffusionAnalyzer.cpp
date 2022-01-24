@@ -1,7 +1,7 @@
-#include "DiffusionCalculator.h"
+#include "DiffusionAnalyzer.h"
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
 
-void DiffusionCalculator::calculateDiffusion() {
+void DiffusionAnalyzer::calculateDiffusion() {
     getSimulationParticles();
 
     double difference;
@@ -27,11 +27,11 @@ void DiffusionCalculator::calculateDiffusion() {
     }
 }
 
-double DiffusionCalculator::getDiffusion() const {
+double DiffusionAnalyzer::getDiffusion() const {
     return diffusion;
 }
 
-void DiffusionCalculator::initializeOldPositions(){
+void DiffusionAnalyzer::initializeOldPositions(){
     int size = particles.size();
     oldPositions = std::vector<std::array<double, 3>>(size);
     oldPositions[2] = {0,2,2};
@@ -48,12 +48,18 @@ void DiffusionCalculator::initializeOldPositions(){
     }
 }
 
-DiffusionCalculator::~DiffusionCalculator() = default;
+DiffusionAnalyzer::~DiffusionAnalyzer() = default;
 
-void DiffusionCalculator::calculationResultsToString() {
+DiffusionAnalyzer::DiffusionAnalyzer(ParticleContainer *particleContainer) : Analyzer(particleContainer) {
+    initializeOldPositions();
 }
 
-DiffusionCalculator::DiffusionCalculator(ParticleContainer *particleContainer) : Calculator(particleContainer) {
-    initializeOldPositions();
+std::string DiffusionAnalyzer::calculationResultsToString() {
+    calculateDiffusion();
+    return std::to_string(diffusion);
+}
+
+std::string DiffusionAnalyzer::createHeaderLine() {
+    return "Diffustion";
 }
 

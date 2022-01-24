@@ -2,10 +2,10 @@
 #include <gtest/gtest.h>
 #include "utils/FastMath.h"
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
-#include "SimulationAnalysis/DiffusionCalculator.h"
+#include "SimulationAnalysis/DiffusionAnalyzer.h"
 #include "SimulationLogic/LennardJonesSimulation.h"
 #include "OutputWriter/VTKWriter.h"
-#include "SimulationAnalysis/RadialPairDistributionCalculator.h"
+#include "SimulationAnalysis/RadialPairDistributionAnalyzer.h"
 #include <random>
 #include <fstream>
 #include "SimulationAnalysis/SimulationAnalyzer.h"
@@ -26,7 +26,7 @@
             EXPECT_EQ(expected[idx], actual[idx]) << "at index: " << idx;\
         }
 /**
-* @brief Tests the functionality of the DiffusionCalculator by reference values which were calculated by hand
+* @brief Tests the functionality of the DiffusionAnalyzer by reference values which were calculated by hand
 */
 TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     std::array<int, 6> fours = {4, 4, 4, 4, 4, 4};
@@ -46,21 +46,26 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     ParticleContainerLinkedCells::addParticle(p4);
     ParticleContainerLinkedCells::addParticle(p5);
 
-    DiffusionCalculator df = DiffusionCalculator(&particleContainer);
+    DiffusionAnalyzer df = DiffusionAnalyzer(&particleContainer);
 
-    //TODO wie kann ich die Position der Partikel im ParticleContainer setzen?
+    ParticleContainerLinkedCells::clearAllParticles();
     p1.setX({2,2,2});
     p2.setX({3,3,3});
     p3.setX({4,4,4});
     p4.setX({5,5,5});
     p5.setX({6,6,6});
+    ParticleContainerLinkedCells::addParticle(p1);
+    ParticleContainerLinkedCells::addParticle(p2);
+    ParticleContainerLinkedCells::addParticle(p3);
+    ParticleContainerLinkedCells::addParticle(p4);
+    ParticleContainerLinkedCells::addParticle(p5);
 
     df.calculateDiffusion();
-    //EXPECT_NEAR(df.getDiffusion(), (sqrt(3) + sqrt(12) + sqrt(27))*1.0/3.0 , 0.00001);
+    EXPECT_NEAR(df.getDiffusion(), (3 + 12 + 27)*1.0/3.0 , 0.00001);
 }
 
 /**
-* @brief Tests the functionality of the DiffusionCalculator by reference values which were calculated by hand
+* @brief Tests the functionality of the DiffusionAnalyzer by reference values which were calculated by hand
 */
 TEST(SimulationAnalysisTest, RadialPairDistributionCalculator) {
     std::array<int, 6> fours = {4, 4, 4, 4, 4, 4};
@@ -76,7 +81,7 @@ TEST(SimulationAnalysisTest, RadialPairDistributionCalculator) {
     ParticleContainerLinkedCells::addParticle(p3);
     ParticleContainerLinkedCells::addParticle(p4);
 
-    RadialPairDistributionCalculator calculator = RadialPairDistributionCalculator(&particleContainer, 1,1, 10);
+    RadialPairDistributionAnalyzer calculator = RadialPairDistributionAnalyzer(&particleContainer, 1, 1, 10,0,10);
     calculator.calculateLocalDensities();
 
     std::vector<int> numberOfParticlesInIntervall = calculator.getNumberParticlesInIntervall();

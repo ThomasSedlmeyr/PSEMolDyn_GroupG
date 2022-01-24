@@ -50,7 +50,8 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
 
     if(Simulation::SECONDPARALLEL == XMLParser::parallelType_p){
         subdomainContainer = SubdomainContainer();
-        subdomainContainer.generateSubdomainsWithNumberOfThreads(omp_get_num_threads());
+        //int numberOfThreads = omp_get_num_threads();
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(4);
     }
 }
 
@@ -303,6 +304,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
             Cell* c = subdomainCell.getPointerToCell();
             auto &particles = c->getParticles();
             bool atomic = subdomainCell.getIsSynchronized();
+            if(atomic){
+                int sdfsd = 0;
+            }
             for (auto it = particles.begin(); it != particles.end(); it++) {
                 //apply Gravitation
                 if (useGrav) {
@@ -585,6 +589,13 @@ void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCel
         cell->getNeighbourCells()[numberOfCurrentNeighbourCells + i] = &cells[indexCombined];
     }
 }
+
 void ParticleContainerLinkedCells::applyFZUp() {
     walkOverParticles(zGravVisitor);
+}
+
+void ParticleContainerLinkedCells::clearAllParticles(){
+    for(auto& cell : cells){
+        cell.clearParticles();
+    }
 }

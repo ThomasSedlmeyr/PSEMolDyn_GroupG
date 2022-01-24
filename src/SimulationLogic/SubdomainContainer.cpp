@@ -15,11 +15,11 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
     int sizeSubdomainZ;
     int indexInDomain = 0;
     subdomains.resize(sizesXSubdomains.size() * sizesZSubdomains.size());
+    sizeSubdomainY = ParticleContainerLinkedCells::numberCellsY;
     for (int i = 0; i < sizesXSubdomains.size(); ++i) {
         sizeSubdomainX = sizesXSubdomains[i];
         currentPositionZ = 0;
         for (int j = 0; j < sizesZSubdomains.size(); ++j) {
-            sizeSubdomainY = ParticleContainerLinkedCells::numberCellsY;
             sizeSubdomainZ = sizesZSubdomains[j];
 
             std::vector<SubdomainCell> *subdomainCells = new std::vector<SubdomainCell>(
@@ -29,20 +29,19 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
             for (int x = 0; x < sizeSubdomainX; ++x) {
                 for (int z = 0; z < sizeSubdomainZ; ++z) {
                     for (int y = 0; y < sizeSubdomainY; ++y) {
-                        indexInDomain = currentPositionX + x + ParticleContainerLinkedCells::numberCellsY * y +
-                                        ParticleContainerLinkedCells::numberCellsZ * (z + currentPositionZ);
+                        indexInDomain = (currentPositionX + x) + (ParticleContainerLinkedCells::numberCellsX * y) +
+                                ParticleContainerLinkedCells::numberCellsY * ParticleContainerLinkedCells::numberCellsX * (z + currentPositionZ);
                         auto &relativePositionInDomain = ParticleContainerLinkedCells::cells[indexInDomain].getRelativePositionInDomain();
                         bool cellIsSynchronized =
-                                (x == 0 || x == sizeSubdomainX - 1 || y == 0 || y == sizeSubdomainY - 1 || z == 0 ||
-                                 z == sizeSubdomainZ - 1) &&
+                                (x == 0 || x == sizeSubdomainX - 1 || z == 0 || z == sizeSubdomainZ - 1) &&
                                 //the borders of the domain have not to be synchronized
                                 relativePositionInDomain[0] != 0 &&
-                                relativePositionInDomain[1] != 0 &&
                                 relativePositionInDomain[2] != 0 &&
                                 relativePositionInDomain[0] != ParticleContainerLinkedCells::numberCellsX - 1 &&
-                                relativePositionInDomain[1] != ParticleContainerLinkedCells::numberCellsY - 1 &&
                                 relativePositionInDomain[2] != ParticleContainerLinkedCells::numberCellsZ - 1;
-
+                        if(cellIsSynchronized){
+                            int sdfsd = 0;
+                        }
                         (*subdomainCells)[counter] = SubdomainCell({x, y, z},
                                                                    &ParticleContainerLinkedCells::cells[indexInDomain],
                                                                    cellIsSynchronized);
@@ -63,6 +62,9 @@ void SubdomainContainer::generateSubdomainsWithNumberOfThreads(int numberOfThrea
     std::vector<int> sizesXParts = {};
     std::vector<int> sizesZParts = {ParticleContainerLinkedCells::numberCellsZ};
     switch (numberOfThreads) {
+        case 1:
+            splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 1, sizesXParts);
+            break;
         case 2:
             splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 2, sizesXParts);
             break;

@@ -128,6 +128,10 @@ Cell::reflectZtoBackCell(const std::array<double, 3> &pointWhichShouldBeReflecte
     resultPoint[2] = pointWhichShouldBeReflected[2] + 2 * (position[2] - pointWhichShouldBeReflected[2]);
 }
 
+void Cell::clearParticles(){
+    particles.clear();
+}
+
 const int Cell::getInnerCellType() {
     return INNER_CELL;
 }
