@@ -27,6 +27,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostBackZ(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.incrementNumberOfTimesCrossedDomainZ();
                     }
                 }
             }
@@ -37,6 +38,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostFrontZ(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.decrementNumberOfTimesCrossedDomainZ();
                     }
                 }
             }
@@ -47,6 +49,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostLeftX(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.incrementNumberOfTimesCrossedDomainX();
                     }
                 }
             }
@@ -57,6 +60,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostRightX(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.decrementNumberOfTimesCrossedDomainX();
                     }
                 }
             }
@@ -67,6 +71,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostBottomY(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.incrementNumberOfTimesCrossedDomainY();
                     }
                 }
             }
@@ -77,6 +82,7 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostTopY(particle.getXRef());
                         ParticleContainerLinkedCells::addParticle(particle);
+                        particle.decrementNumberOfTimesCrossedDomainY();
                     }
                 }
             }

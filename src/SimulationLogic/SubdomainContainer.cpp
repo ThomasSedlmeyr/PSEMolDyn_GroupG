@@ -32,13 +32,12 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
                         indexInDomain = (currentPositionX + x) + (ParticleContainerLinkedCells::numberCellsX * y) +
                                 ParticleContainerLinkedCells::numberCellsY * ParticleContainerLinkedCells::numberCellsX * (z + currentPositionZ);
                         auto &relativePositionInDomain = ParticleContainerLinkedCells::cells[indexInDomain].getRelativePositionInDomain();
-                        bool cellIsSynchronized =
-                                (x == 0 || x == sizeSubdomainX - 1 || z == 0 || z == sizeSubdomainZ - 1) &&
-                                //the borders of the domain have not to be synchronized
-                                relativePositionInDomain[0] != 0 &&
-                                relativePositionInDomain[2] != 0 &&
-                                relativePositionInDomain[0] != ParticleContainerLinkedCells::numberCellsX - 1 &&
+                        bool cellIsSynchronizedBecauseOfX = (x == 0 || x == sizeSubdomainX - 1) && relativePositionInDomain[0] != 0 &&
+                                relativePositionInDomain[0] != ParticleContainerLinkedCells::numberCellsX - 1;;
+                        bool cellIsSynchronizedBecauseOfZ = (z == 0 || z == sizeSubdomainZ - 1) && relativePositionInDomain[2] != 0  &&
                                 relativePositionInDomain[2] != ParticleContainerLinkedCells::numberCellsZ - 1;
+                        bool cellIsSynchronized = cellIsSynchronizedBecauseOfX || cellIsSynchronizedBecauseOfZ;
+
                         if(cellIsSynchronized){
                             int sdfsd = 0;
                         }
@@ -71,8 +70,15 @@ void SubdomainContainer::generateSubdomainsWithNumberOfThreads(int numberOfThrea
         case 4:
             splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 4, sizesXParts);
             break;
+        case 6:
+            splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 6, sizesXParts);
+            break;
         case 8:
             splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 4, sizesXParts);
+            splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsZ, 2, sizesZParts);
+            break;
+        case 12:
+            splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsX, 6, sizesXParts);
             splitInNearlyEqualParts(ParticleContainerLinkedCells::numberCellsZ, 2, sizesZParts);
             break;
         case 14:

@@ -57,5 +57,32 @@ TEST(ParallelAlgorithmsTests, TestForCorrectNumberOfComputationTasks) {
         subdomainContainer.generateSubdomainsWithNumberOfThreads(numberOfThreads[i]);
         EXPECT_EQ(numberOfThreads[i], subdomainContainer.getSubdomains().size());
     }
+}
 
+TEST(ParallelAlgorithmsTests, TestForCorrectSynchronizationOfSubdomains) {
+    std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
+    ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(35, 35, 35, 3.6, ones);
+
+    SubdomainContainer subdomainContainer{};
+    subdomainContainer.generateSubdomainsWithNumberOfThreads(8);
+    std::vector<Subdomain *> subdomains = subdomainContainer.getSubdomains();
+
+    std::vector<SubdomainCell> subdomainCells = std::vector<SubdomainCell>();
+    for(auto& subdomain : subdomains){
+        auto cells = subdomain->getCells();
+        for(auto& subdomainCell : *cells){
+            subdomainCells.push_back(subdomainCell);
+        }
+    }
+
+    std::array<std::array<int, 3>, 7> cellsWhichHaveToBeSynchronized = {{{2,0,0},{3,0,0},{5,0,0},{6,0,5},{5,0,11},{0,0,5},{10,0,5}}};
+    for(auto subdomainCell : subdomainCells){
+        for(auto& position : cellsWhichHaveToBeSynchronized){
+            auto cell = subdomainCell.getPointerToCell();
+            auto cellPosition = cell->getRelativePositionInDomain();
+            if(position[0] == cellPosition[0] && position[1] == cellPosition[1] && position[2] == cellPosition[2]){
+                EXPECT_EQ(true, subdomainCell.getIsSynchronized());
+            }
+        }
+    }
 }

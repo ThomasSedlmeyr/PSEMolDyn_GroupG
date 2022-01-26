@@ -50,8 +50,8 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
 
     if(Simulation::SECONDPARALLEL == XMLParser::parallelType_p){
         subdomainContainer = SubdomainContainer();
-        //int numberOfThreads = omp_get_num_threads();
-        subdomainContainer.generateSubdomainsWithNumberOfThreads(4);
+        int numberOfThreads = omp_get_num_threads();
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberOfThreads);
     }
 }
 

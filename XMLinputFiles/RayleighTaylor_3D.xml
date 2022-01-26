@@ -3,11 +3,11 @@
        xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
 
     <generalParams>
-        <t_end>0.01</t_end>
+        <t_end>0.04</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>450</writeFrequency>
+        <writeFrequency>1000</writeFrequency>
         <dimensionType>3D</dimensionType>
-        <parallelType>first</parallelType>
+        <parallelType>second</parallelType>
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>

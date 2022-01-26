@@ -162,32 +162,32 @@ public:
     /**
      * @brief decrements the number of times the particle crossed the domain in x-direction
      */
-    inline void decrementNumberOfTimesCrossedDomainX();
+    void decrementNumberOfTimesCrossedDomainX();
 
     /**
      * @brief decrements the number of times the particle crossed the domain in y-direction
      */
-    inline void decrementNumberOfTimesCrossedDomainY();
+    void decrementNumberOfTimesCrossedDomainY();
 
     /**
      * @brief decrements the number of times the particle crossed the domain in z-direction
      */
-    inline void decrementNumberOfTimesCrossedDomainZ();
+    void decrementNumberOfTimesCrossedDomainZ();
 
     /**
      * @brief increments the number of times the particle crossed the domain in x-direction
      */
-    inline void incrementNumberOfTimesCrossedDomainX();
+    void incrementNumberOfTimesCrossedDomainX();
 
     /**
      * @brief increments the number of times the particle crossed the domain in y-direction
      */
-    inline void incrementNumberOfTimesCrossedDomainY();
+    void incrementNumberOfTimesCrossedDomainY();
 
     /**
      * @brief increments the number of times the particle crossed the domain in z-direction
      */
-    inline void incrementNumberOfTimesCrossedDomainZ();
+    void incrementNumberOfTimesCrossedDomainZ();
 
 };
 
