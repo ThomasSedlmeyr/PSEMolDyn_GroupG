@@ -74,7 +74,7 @@ Members:
           * k : stiffness constant (double)
           * f : force lifting membrane (double)
           * p : points to be lifted (coordinates, see example)
-          * t : time for lifting to last for (double)
+          * t : time for lifting to last for (int)
       * epsilon : value for epsilon
       * mass : value for mass
       * rho : value for rho
