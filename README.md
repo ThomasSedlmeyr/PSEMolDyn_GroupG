@@ -54,7 +54,7 @@ Members:
     * delta_T : max temperature difference in one scaling step
     * n_thermostat : time steps after which thermostat is applied periodically
     * useVelDensProfiling : create CSV file every 1000 iterations about density and velocity downwards (not possible to be used with Gravitation simulation)
-    * numberOfBins : number of bins that the domain is supposed to be grouped into 
+    * numberOfBins : number of bins that the domain is supposed to be grouped into (greater 0)
   *boundaryConditions:
     * top, right, bottom, left, front, back : outflowType, reflectingType, betterReflectingType or periodicType
   * particles : specify as many bodies as needed here

@@ -1,36 +1,32 @@
 #include "SimulationAnalyzer.h"
+#include "OutputWriter/CSVWriter.h"
 #include <fstream>
 
-/*
- * first call createCSV
- * then repeatedly call calculate + appendLine
- */
+SimulationAnalyzer::~SimulationAnalyzer() = default;
 
-bool SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
-
-    // append with timestamp
-    std::ofstream outputFile;
-    outputFile.open("../SimulationAnalysis_Files/analysisFile.csv", std::ios::app);
-    if (outputFile.is_open()) {
-        outputFile << timeStep;
-        // ordered correctly? use list instead?
-        for (Bin* tempBin : bins) {
-            // outputFile << ",d" << tempBin->getDensity() << ",v" << tempBin->getMeanVelocity();
-            outputFile << "," << tempBin->getDensity() << "," << tempBin->getMeanVelocity();
-        }
-        outputFile << "\n";
-        outputFile.close();
-    } else {
-        return false;
-    }
-    return true;
+SimulationAnalyzer::SimulationAnalyzer(ParticleContainer *particleContainer) : Analyzer(particleContainer) {
+    binWidth = XMLParser::domainSize[0] / XMLParser::numberOfBins_p;
+    pathToCSVfile = XMLParser::pathToAnalysisFolder_p + "/velocity_density.csv";
 }
 
-void SimulationAnalyzer::calculateVelocityAndDensityProfile(ParticleContainer *particleContainer) {
-    std::vector<Particle> particles = particleContainer->getParticles();
+std::string SimulationAnalyzer::calculationResultsToString() {
+    calculateVelocityAndDensityProfile();
+    std::string line = "";
+    for (Bin* bin : bins) {
+        line += "," + std::to_string(bin->getDensity()) + "," + std::to_string(bin->getMeanVelocity());
+    }
+    return line;
+}
 
-    double binWidth = XMLParser::domainSize[0] / XMLParser::numberOfBins_p;
+std::string SimulationAnalyzer::createHeaderLine() {
+    std::string line = "d1,v1";
+    for (int i = 2; i <= XMLParser::numberOfBins_p; ++i) {
+        line += ",d" + std::to_string(i) + ",v" + std::to_string(i);
+    }
+    return line;
+}
 
+void SimulationAnalyzer::calculateVelocityAndDensityProfile() {
     bins.clear();
 
     for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
@@ -49,9 +45,32 @@ void SimulationAnalyzer::calculateVelocityAndDensityProfile(ParticleContainer *p
     }
 }
 
+/*
+bool SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
+
+    // append with timestamp
+    std::ofstream outputFile;
+    outputFile.open("../Analysis_Files/analysisFile.csv", std::ios::app);
+    if (outputFile.is_open()) {
+        outputFile << timeStep;
+        // ordered correctly? use list instead?
+        for (Bin* tempBin : bins) {
+            // outputFile << ",d" << tempBin->getDensity() << ",v" << tempBin->getMeanVelocity();
+            outputFile << "," << tempBin->getDensity() << "," << tempBin->getMeanVelocity();
+        }
+        outputFile << "\n";
+        outputFile.close();
+    } else {
+        return false;
+    }
+    return true;
+}
+ */
+
+/*
 bool SimulationAnalyzer::createCSV() {
     std::ofstream outputFile;
-    outputFile.open("../SimulationAnalysis_Files/analysisFile.csv", std::ios::trunc);
+    outputFile.open("../Analysis_Files/analysisFile.csv", std::ios::trunc);
 
     if (outputFile.is_open()) {
         // write first line
@@ -66,3 +85,5 @@ bool SimulationAnalyzer::createCSV() {
         return false;
     }
 }
+*/
+

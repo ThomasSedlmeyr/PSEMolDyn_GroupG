@@ -10,20 +10,27 @@
 #include "Bin.h"
 #include "XML_Parser/XMLParser.h"
 #include "ParticleContainers/ParticleContainer.h"
+#include "Analyzer.h"
 
-class SimulationAnalyzer {
+class SimulationAnalyzer : public Analyzer{
 
 private:
+
     /**
      * @brief bins of domain
      */
     std::vector<Bin*> bins;
 
+    /**
+     * @brief width of individual bins
+     */
+    double binWidth;
+
 public:
     /**
      * @brief calculate velocity and density profile
      */
-    void calculateVelocityAndDensityProfile(ParticleContainer *particleContainer);
+    void calculateVelocityAndDensityProfile();
 
     /**
      * @brief write in output file
@@ -36,6 +43,14 @@ public:
      * @return returns whether it worked
      */
     bool createCSV();
+
+    explicit SimulationAnalyzer(ParticleContainer *particleContainer);
+
+    ~SimulationAnalyzer() override;
+
+    std::string calculationResultsToString() override;
+
+    std::string createHeaderLine();
 };
 
 

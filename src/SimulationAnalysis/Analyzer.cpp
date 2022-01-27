@@ -2,7 +2,10 @@
 // Created by thomas on 20.01.22.
 //
 
+#include <fstream>
 #include "SimulationAnalysis/Analyzer.h"
+#include "XML_Parser/XMLParser.h"
+#include "OutputWriter/CSVWriter.h"
 
 void Analyzer::getSimulationParticles() {
     particles.clear();
@@ -15,16 +18,20 @@ void Analyzer::getSimulationParticles() {
 
 Analyzer::Analyzer(ParticleContainer *particleContainer) : particleContainer(particleContainer) {
     getSimulationParticles();
+    writer = new CSVWriter(); // TODO CSV files for all?
 }
 
 void Analyzer::appendLineToCSVFile() {
     std::string line = calculationResultsToString();
     //TODO Hier soll der CSV-Writer aufgerufen werden mit dem pathToCSVfile
+    writer->writeToFile(pathToCSVfile, line);
 }
 
 void Analyzer::writeHeaderLineToCSVFile() {
     std::string line = createHeaderLine();
     //TODO Hier soll der CSV-Writer aufgerufen werden mit dem pathToCSVfile
+    writer->createCSV(pathToCSVfile);
+    writer->writeToFile(pathToCSVfile, line);
 }
 
 Analyzer::~Analyzer() = default;

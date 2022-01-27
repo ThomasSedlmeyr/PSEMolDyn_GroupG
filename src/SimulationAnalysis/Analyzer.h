@@ -5,6 +5,8 @@
 #include <vector>
 #include "SimulationLogic/Particle.h"
 #include "ParticleContainers/ParticleContainer.h"
+#include "OutputWriter/Writer.h"
+#include "OutputWriter/CSVWriter.h"
 #include <string>
 
 class Analyzer {
@@ -35,6 +37,8 @@ protected:
      */
     virtual std::string createHeaderLine() = 0;
 
+    CSVWriter *writer;
+
 public:
     /**
      * @brief the constructor
@@ -59,7 +63,6 @@ public:
     void writeHeaderLineToCSVFile();
 
     virtual ~Analyzer();
-
 
 };
 #endif //PSEMOLDYN_GROUPG_ANALYZER_H

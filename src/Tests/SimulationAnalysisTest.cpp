@@ -105,16 +105,16 @@ TEST(SimulationAnalysisTest, checkOutputCSVFile) {
     std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
     ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
 
-    SimulationAnalyzer* analysis = new SimulationAnalyzer();
+    SimulationAnalyzer* analysis = new SimulationAnalyzer(particleContainer);
     bool createCSV = analysis->createCSV();
     EXPECT_EQ(createCSV, true);
-    analysis->calculateVelocityAndDensityProfile(particleContainer);
+    analysis->calculateVelocityAndDensityProfile();
     bool appendLine =  analysis->appendLineToCSVfile(0);
     EXPECT_EQ(appendLine, true);
 
     lj.simulate(*w, particleContainer);
 
-    analysis->calculateVelocityAndDensityProfile(particleContainer);
+    analysis->calculateVelocityAndDensityProfile();
     appendLine = analysis->appendLineToCSVfile(20);
     EXPECT_EQ(appendLine, true);
 
