@@ -17,9 +17,11 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
         for(Particle &particle : body->getParticles()){
             if (XMLParser::useBrownianMotion_p){
                 auto factor = sqrt(tInit / particle.getM());
-                particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(factor, dimensions));
+                if (particle.getMovingAllowed()){
+                    particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(factor, dimensions));
+                }
             }else{
-                particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, dimensions));
+                //particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, dimensions));
             }
             particleContainer->addParticleToContainer(particle);
         }

@@ -51,7 +51,7 @@ private:
     VelScalingVisitor velScalingVisitor{};
 public:
     Thermostat();
-    Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT = DBL_MAX);
+    Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT = 1000000000000);
 
     /**
      * @brief Applies the thermostat once
