@@ -6,13 +6,11 @@
 #include "Checkpoints/CheckpointReader.h"
 #include "Checkpoints/CheckpointWriter.h"
 #include "Visitors/ParticleCollector.h"
+#include "GeometricObjects/Membrane.h"
 
-//TODO Wert aus XML parsen
-int Simulation::numberOfTimeStepsWithFZUp = 15000;
-
-void Simulation::calculateOneTimeStep(int iteration) {
+void Simulation::calculateOneTimeStep(double currentTime) {
     particleContainer->updateParticlePositions(posCalcVisitor);
-    if (iteration < numberOfTimeStepsWithFZUp){
+    if (currentTime < t_lift_end){
         particleContainer->applyFZUp();
     }
     calculateF();
@@ -69,7 +67,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
                 thermostat.apply();
             }
         }
-        calculateOneTimeStep(iteration);
+        calculateOneTimeStep(currentTime);
         iteration++;
         spdlog::info("Iteration " + std::to_string(iteration) + " finished.");
         currentTime += delta_t;

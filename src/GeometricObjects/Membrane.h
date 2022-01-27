@@ -12,6 +12,7 @@
 
 extern double rZero;
 extern double k;
+extern int t_lift_end;
 
 class Membrane : public Body {
 private:

@@ -3,10 +3,11 @@
 //
 
 #include "KineticEnergyVisitor.h"
+#include "SimulationLogic/Thermostat.h"
 
 void KineticEnergyVisitor::visitParticle(Particle &p) {
     double scalarProduct = 0;
-    if (type == 0){
+    if (type == Thermostat::REGULAR){
         for (int i = 0; i < 3; ++i) {
             scalarProduct += p.getV()[i] * p.getV()[i];
         }

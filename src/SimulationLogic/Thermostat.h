@@ -9,6 +9,7 @@
 #include <Visitors/KineticEnergyVisitor.h>
 #include <Visitors/VelScalingVisitor.h>
 #include <Visitors/MeanVelocityVisitor.h>
+#include <float.h>
 #include <ParticleContainers/ParticleContainer.h>
 
 class Thermostat {
@@ -50,7 +51,7 @@ private:
     VelScalingVisitor velScalingVisitor{};
 public:
     Thermostat();
-    Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT = 100000);
+    Thermostat(ParticleContainer *particleContainer, double targetTemp, int dimension, double maxDeltaT = DBL_MAX);
 
     /**
      * @brief Applies the thermostat once

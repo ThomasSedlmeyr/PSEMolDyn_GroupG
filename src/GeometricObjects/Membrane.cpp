@@ -9,7 +9,7 @@
 
 double rZero = 0;
 double k = 0;
-double t_lift_end  = 0;
+int t_lift_end  = 0;
 
 void Membrane::parseStructure(const std::string &line) {
 
@@ -91,7 +91,7 @@ void Membrane::parseStructure(const std::string &line) {
     UpwardForceVisitor::fZUp = std::stod(fUp_p);
     rZero = std::stod(r_p);
     k = std::stod(k_p);
-    t_lift_end = std::stod(t_p); // TODO replace hardcoded value with this parsed one
+    t_lift_end = std::stoi(t_p);
 
     int first;
     int comma;

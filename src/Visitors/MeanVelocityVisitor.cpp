@@ -18,6 +18,7 @@ int MeanVelocityVisitor::getNumberOfParticles() const {
 
 void MeanVelocityVisitor::reset() {
     numberOfParticles = 0;
+    meanVelocity = 0;
 }
 
 MeanVelocityVisitor::MeanVelocityVisitor() = default;

@@ -17,6 +17,7 @@ void Thermostat::apply() {
     particleContainer->walkOverParticles(energyVisitor);
     double currentTemp = energyVisitor.getTotalEnergy() / (double(numParticles) * dimension / 2);
     //std::cout << "CurrentTemp: " << currentTemp << std::endl;
+    //std::cout << "Mean Vel: " << meanVelocity << std::endl;
     double newTargetTemp;
     //limit update range to currentTemp +- maxDeltaT
     if (targetTemp >= currentTemp){

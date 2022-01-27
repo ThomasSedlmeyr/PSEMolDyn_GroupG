@@ -19,15 +19,15 @@ inline void calculateHarmonicPotential(Particle &p1, Particle &p2){
         auto norm = ArrayUtils::L2Norm(diff);
         double scalar;
         if (Particle::particlesAreDirectNeighbours(p1, p2)){
-            scalar = k * (norm - rZero) * (1/norm);
+            scalar = k * (norm - rZero);
         }else{
-            scalar = k * (norm - sqrt(2) * rZero) * (1/norm);
+            scalar = k * (norm - sqrt(2) * rZero);
         }
         double force;
         auto *f1 = &p1.getFRef();
         auto *f2 = &p2.getFRef();
         for (int i = 0; i < 3; ++i) {
-            force = scalar * diff[i];
+            force = scalar * (diff[i] / norm);
             #pragma omp atomic
             (*f1)[i] += force;
             #pragma omp atomic
