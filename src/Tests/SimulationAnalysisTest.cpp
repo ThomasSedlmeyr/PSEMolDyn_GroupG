@@ -127,7 +127,7 @@ TEST(SimulationAnalysisTest, checkOutputCSVFile) {
         getline(inFile, tmp_string);
         EXPECT_EQ(tmp_string, "0,0,0,0,0,0,0,0,0,0,0");
         getline(inFile, tmp_string);
-        EXPECT_EQ(tmp_string, "20,0.324537,0.0428124,0.581944,-0.0466533,0.587037,-0.304951,0.572222,-0.192807,0.249074,-0.103235");
+        EXPECT_EQ(tmp_string, "20,0.326852,-0.395317,0.577778,-0.100323,0.580093,-0.0107589,0.583333,-0.24756,0.246759,-0.157414");
 
         writeSuccess = true;
         inFile.close();
