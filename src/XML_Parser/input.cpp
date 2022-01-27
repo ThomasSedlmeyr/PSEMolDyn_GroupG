@@ -130,51 +130,6 @@ operator= (value v)
 }
 
 
-// particleContainerType
-// 
-
-particleContainerType::
-particleContainerType (value v)
-: ::xml_schema::string (_xsd_particleContainerType_literals_[v])
-{
-}
-
-particleContainerType::
-particleContainerType (const char* v)
-: ::xml_schema::string (v)
-{
-}
-
-particleContainerType::
-particleContainerType (const ::std::string& v)
-: ::xml_schema::string (v)
-{
-}
-
-particleContainerType::
-particleContainerType (const ::xml_schema::string& v)
-: ::xml_schema::string (v)
-{
-}
-
-particleContainerType::
-particleContainerType (const particleContainerType& v,
-                       ::xml_schema::flags f,
-                       ::xml_schema::container* c)
-: ::xml_schema::string (v, f, c)
-{
-}
-
-particleContainerType& particleContainerType::
-operator= (value v)
-{
-  static_cast< ::xml_schema::string& > (*this) = 
-  ::xml_schema::string (_xsd_particleContainerType_literals_[v]);
-
-  return *this;
-}
-
-
 // yesNo
 // 
 
@@ -709,30 +664,6 @@ baseNameOutputFiles (::std::unique_ptr< baseNameOutputFiles_type > x)
   this->baseNameOutputFiles_.set (std::move (x));
 }
 
-const generalParams::particleContainerType_type& generalParams::
-particleContainerType () const
-{
-  return this->particleContainerType_.get ();
-}
-
-generalParams::particleContainerType_type& generalParams::
-particleContainerType ()
-{
-  return this->particleContainerType_.get ();
-}
-
-void generalParams::
-particleContainerType (const particleContainerType_type& x)
-{
-  this->particleContainerType_.set (x);
-}
-
-void generalParams::
-particleContainerType (::std::unique_ptr< particleContainerType_type > x)
-{
-  this->particleContainerType_.set (std::move (x));
-}
-
 const generalParams::cutoffRadius_type& generalParams::
 cutoffRadius () const
 {
@@ -1109,6 +1040,66 @@ void generalParams::
 numberOfBins (const numberOfBins_type& x)
 {
   this->numberOfBins_.set (x);
+}
+
+const generalParams::pathToAnalysisFolder_type& generalParams::
+pathToAnalysisFolder () const
+{
+  return this->pathToAnalysisFolder_.get ();
+}
+
+generalParams::pathToAnalysisFolder_type& generalParams::
+pathToAnalysisFolder ()
+{
+  return this->pathToAnalysisFolder_.get ();
+}
+
+void generalParams::
+pathToAnalysisFolder (const pathToAnalysisFolder_type& x)
+{
+  this->pathToAnalysisFolder_.set (x);
+}
+
+void generalParams::
+pathToAnalysisFolder (::std::unique_ptr< pathToAnalysisFolder_type > x)
+{
+  this->pathToAnalysisFolder_.set (std::move (x));
+}
+
+const generalParams::crystallization_r_c_type& generalParams::
+crystallization_r_c () const
+{
+  return this->crystallization_r_c_.get ();
+}
+
+generalParams::crystallization_r_c_type& generalParams::
+crystallization_r_c ()
+{
+  return this->crystallization_r_c_.get ();
+}
+
+void generalParams::
+crystallization_r_c (const crystallization_r_c_type& x)
+{
+  this->crystallization_r_c_.set (x);
+}
+
+const generalParams::crystallization_r_l_type& generalParams::
+crystallization_r_l () const
+{
+  return this->crystallization_r_l_.get ();
+}
+
+generalParams::crystallization_r_l_type& generalParams::
+crystallization_r_l ()
+{
+  return this->crystallization_r_l_.get ();
+}
+
+void generalParams::
+crystallization_r_l (const crystallization_r_l_type& x)
+{
+  this->crystallization_r_l_.set (x);
 }
 
 
@@ -1674,11 +1665,11 @@ _xsd_calcType_convert () const
   ::xsd::cxx::tree::enum_comparator< char > c (_xsd_calcType_literals_);
   const value* i (::std::lower_bound (
                     _xsd_calcType_indexes_,
-                    _xsd_calcType_indexes_ + 2,
+                    _xsd_calcType_indexes_ + 3,
                     *this,
                     c));
 
-  if (i == _xsd_calcType_indexes_ + 2 || _xsd_calcType_literals_[*i] != *this)
+  if (i == _xsd_calcType_indexes_ + 3 || _xsd_calcType_literals_[*i] != *this)
   {
     throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
   }
@@ -1687,87 +1678,19 @@ _xsd_calcType_convert () const
 }
 
 const char* const calcType::
-_xsd_calcType_literals_[2] =
+_xsd_calcType_literals_[3] =
 {
   "LJ",
-  "G"
+  "G",
+  "smoothedLJ"
 };
 
 const calcType::value calcType::
-_xsd_calcType_indexes_[2] =
+_xsd_calcType_indexes_[3] =
 {
   ::calcType::G,
-  ::calcType::LJ
-};
-
-// particleContainerType
-//
-
-particleContainerType::
-particleContainerType (const ::xercesc::DOMElement& e,
-                       ::xml_schema::flags f,
-                       ::xml_schema::container* c)
-: ::xml_schema::string (e, f, c)
-{
-  _xsd_particleContainerType_convert ();
-}
-
-particleContainerType::
-particleContainerType (const ::xercesc::DOMAttr& a,
-                       ::xml_schema::flags f,
-                       ::xml_schema::container* c)
-: ::xml_schema::string (a, f, c)
-{
-  _xsd_particleContainerType_convert ();
-}
-
-particleContainerType::
-particleContainerType (const ::std::string& s,
-                       const ::xercesc::DOMElement* e,
-                       ::xml_schema::flags f,
-                       ::xml_schema::container* c)
-: ::xml_schema::string (s, e, f, c)
-{
-  _xsd_particleContainerType_convert ();
-}
-
-particleContainerType* particleContainerType::
-_clone (::xml_schema::flags f,
-        ::xml_schema::container* c) const
-{
-  return new class particleContainerType (*this, f, c);
-}
-
-particleContainerType::value particleContainerType::
-_xsd_particleContainerType_convert () const
-{
-  ::xsd::cxx::tree::enum_comparator< char > c (_xsd_particleContainerType_literals_);
-  const value* i (::std::lower_bound (
-                    _xsd_particleContainerType_indexes_,
-                    _xsd_particleContainerType_indexes_ + 2,
-                    *this,
-                    c));
-
-  if (i == _xsd_particleContainerType_indexes_ + 2 || _xsd_particleContainerType_literals_[*i] != *this)
-  {
-    throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
-  }
-
-  return *i;
-}
-
-const char* const particleContainerType::
-_xsd_particleContainerType_literals_[2] =
-{
-  "directSum",
-  "linkedCell"
-};
-
-const particleContainerType::value particleContainerType::
-_xsd_particleContainerType_indexes_[2] =
-{
-  ::particleContainerType::directSum,
-  ::particleContainerType::linkedCell
+  ::calcType::LJ,
+  ::calcType::smoothedLJ
 };
 
 // yesNo
@@ -2282,7 +2205,6 @@ generalParams (const t_end_type& t_end,
                const gravDirection_type& gravDirection,
                const calcType_type& calcType,
                const baseNameOutputFiles_type& baseNameOutputFiles,
-               const particleContainerType_type& particleContainerType,
                const cutoffRadius_type& cutoffRadius,
                const gravInput_type& gravInput,
                const loadCheckpoint_type& loadCheckpoint,
@@ -2300,7 +2222,10 @@ generalParams (const t_end_type& t_end,
                const delta_T_type& delta_T,
                const n_thermostat_type& n_thermostat,
                const useVelDensProfiling_type& useVelDensProfiling,
-               const numberOfBins_type& numberOfBins)
+               const numberOfBins_type& numberOfBins,
+               const pathToAnalysisFolder_type& pathToAnalysisFolder,
+               const crystallization_r_c_type& crystallization_r_c,
+               const crystallization_r_l_type& crystallization_r_l)
 : ::xml_schema::type (),
   t_end_ (t_end, this),
   delta_t_ (delta_t, this),
@@ -2312,7 +2237,6 @@ generalParams (const t_end_type& t_end,
   gravDirection_ (gravDirection, this),
   calcType_ (calcType, this),
   baseNameOutputFiles_ (baseNameOutputFiles, this),
-  particleContainerType_ (particleContainerType, this),
   cutoffRadius_ (cutoffRadius, this),
   gravInput_ (gravInput, this),
   loadCheckpoint_ (loadCheckpoint, this),
@@ -2330,7 +2254,10 @@ generalParams (const t_end_type& t_end,
   delta_T_ (delta_T, this),
   n_thermostat_ (n_thermostat, this),
   useVelDensProfiling_ (useVelDensProfiling, this),
-  numberOfBins_ (numberOfBins, this)
+  numberOfBins_ (numberOfBins, this),
+  pathToAnalysisFolder_ (pathToAnalysisFolder, this),
+  crystallization_r_c_ (crystallization_r_c, this),
+  crystallization_r_l_ (crystallization_r_l, this)
 {
 }
 
@@ -2349,7 +2276,6 @@ generalParams (const generalParams& x,
   gravDirection_ (x.gravDirection_, f, this),
   calcType_ (x.calcType_, f, this),
   baseNameOutputFiles_ (x.baseNameOutputFiles_, f, this),
-  particleContainerType_ (x.particleContainerType_, f, this),
   cutoffRadius_ (x.cutoffRadius_, f, this),
   gravInput_ (x.gravInput_, f, this),
   loadCheckpoint_ (x.loadCheckpoint_, f, this),
@@ -2367,7 +2293,10 @@ generalParams (const generalParams& x,
   delta_T_ (x.delta_T_, f, this),
   n_thermostat_ (x.n_thermostat_, f, this),
   useVelDensProfiling_ (x.useVelDensProfiling_, f, this),
-  numberOfBins_ (x.numberOfBins_, f, this)
+  numberOfBins_ (x.numberOfBins_, f, this),
+  pathToAnalysisFolder_ (x.pathToAnalysisFolder_, f, this),
+  crystallization_r_c_ (x.crystallization_r_c_, f, this),
+  crystallization_r_l_ (x.crystallization_r_l_, f, this)
 {
 }
 
@@ -2386,7 +2315,6 @@ generalParams (const ::xercesc::DOMElement& e,
   gravDirection_ (this),
   calcType_ (this),
   baseNameOutputFiles_ (this),
-  particleContainerType_ (this),
   cutoffRadius_ (this),
   gravInput_ (this),
   loadCheckpoint_ (this),
@@ -2404,7 +2332,10 @@ generalParams (const ::xercesc::DOMElement& e,
   delta_T_ (this),
   n_thermostat_ (this),
   useVelDensProfiling_ (this),
-  numberOfBins_ (this)
+  numberOfBins_ (this),
+  pathToAnalysisFolder_ (this),
+  crystallization_r_c_ (this),
+  crystallization_r_l_ (this)
 {
   if ((f & ::xml_schema::flags::base) == 0)
   {
@@ -2547,20 +2478,6 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       if (!baseNameOutputFiles_.present ())
       {
         this->baseNameOutputFiles_.set (::std::move (r));
-        continue;
-      }
-    }
-
-    // particleContainerType
-    //
-    if (n.name () == "particleContainerType" && n.namespace_ ().empty ())
-    {
-      ::std::unique_ptr< particleContainerType_type > r (
-        particleContainerType_traits::create (i, f, this));
-
-      if (!particleContainerType_.present ())
-      {
-        this->particleContainerType_.set (::std::move (r));
         continue;
       }
     }
@@ -2790,6 +2707,42 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
+    // pathToAnalysisFolder
+    //
+    if (n.name () == "pathToAnalysisFolder" && n.namespace_ ().empty ())
+    {
+      ::std::unique_ptr< pathToAnalysisFolder_type > r (
+        pathToAnalysisFolder_traits::create (i, f, this));
+
+      if (!pathToAnalysisFolder_.present ())
+      {
+        this->pathToAnalysisFolder_.set (::std::move (r));
+        continue;
+      }
+    }
+
+    // crystallization_r_c
+    //
+    if (n.name () == "crystallization_r_c" && n.namespace_ ().empty ())
+    {
+      if (!crystallization_r_c_.present ())
+      {
+        this->crystallization_r_c_.set (crystallization_r_c_traits::create (i, f, this));
+        continue;
+      }
+    }
+
+    // crystallization_r_l
+    //
+    if (n.name () == "crystallization_r_l" && n.namespace_ ().empty ())
+    {
+      if (!crystallization_r_l_.present ())
+      {
+        this->crystallization_r_l_.set (crystallization_r_l_traits::create (i, f, this));
+        continue;
+      }
+    }
+
     break;
   }
 
@@ -2860,13 +2813,6 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
   {
     throw ::xsd::cxx::tree::expected_element< char > (
       "baseNameOutputFiles",
-      "");
-  }
-
-  if (!particleContainerType_.present ())
-  {
-    throw ::xsd::cxx::tree::expected_element< char > (
-      "particleContainerType",
       "");
   }
 
@@ -2995,6 +2941,27 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "numberOfBins",
       "");
   }
+
+  if (!pathToAnalysisFolder_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "pathToAnalysisFolder",
+      "");
+  }
+
+  if (!crystallization_r_c_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "crystallization_r_c",
+      "");
+  }
+
+  if (!crystallization_r_l_.present ())
+  {
+    throw ::xsd::cxx::tree::expected_element< char > (
+      "crystallization_r_l",
+      "");
+  }
 }
 
 generalParams* generalParams::
@@ -3020,7 +2987,6 @@ operator= (const generalParams& x)
     this->gravDirection_ = x.gravDirection_;
     this->calcType_ = x.calcType_;
     this->baseNameOutputFiles_ = x.baseNameOutputFiles_;
-    this->particleContainerType_ = x.particleContainerType_;
     this->cutoffRadius_ = x.cutoffRadius_;
     this->gravInput_ = x.gravInput_;
     this->loadCheckpoint_ = x.loadCheckpoint_;
@@ -3039,6 +3005,9 @@ operator= (const generalParams& x)
     this->n_thermostat_ = x.n_thermostat_;
     this->useVelDensProfiling_ = x.useVelDensProfiling_;
     this->numberOfBins_ = x.numberOfBins_;
+    this->pathToAnalysisFolder_ = x.pathToAnalysisFolder_;
+    this->crystallization_r_c_ = x.crystallization_r_c_;
+    this->crystallization_r_l_ = x.crystallization_r_l_;
   }
 
   return *this;

@@ -64,6 +64,7 @@ protected:
 public:
     static const int GRAVITATION = 1;
     static const int LENNARDJONES = 2;
+    static const int SMOOTHEDLENNARDJONES = 3;
 
     static const int NOTPARALLEL = 0;
     static const int FIRSTPARALLEL = 1;

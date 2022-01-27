@@ -88,7 +88,7 @@ public:
     /**
      * @brief parsed particle container type from xml file (1=directSum, 2=linkedCells
      */
-    static int particleContainerType_p;
+    static int particleContainerType_p; // TODO delete?
 
     /**
      * @brief array of parsed domain sizes from xml file
@@ -168,27 +168,42 @@ public:
     /**
      * @brief type of parallelism for calculation
      */
-     static int parallelType_p;
+    static int parallelType_p;
 
-     /**
-      * @brief type of thermostat
-      */
-      static int thermostatType_p;
+    /**
+     * @brief type of thermostat
+     */
+    static int thermostatType_p;
 
-      /**
-       * @brief direction of gravitaion force being applied
-       */
-      static int gravDirection_p;
+    /**
+     * @brief direction of gravitaion force being applied
+     */
+    static int gravDirection_p;
 
-      /**
-       * @brief make density- and velocity-profile
-       */
-      static bool useVelDensProfiling_p;
+    /**
+    * @brief make density- and velocity-profile
+    */
+    static bool useVelDensProfiling_p;
 
-      /**
-       * @brief specify number of bins for density- and velocity-profile
-       */
-       static int numberOfBins_p;
+    /**
+    * @brief specify number of bins for density- and velocity-profile
+    */
+    static int numberOfBins_p;
+
+    /**
+     * @brief parsed value for r_c for crystalizaton
+     */
+     static double crystallization_r_c_p;
+
+    /**
+    * @brief parsed value for r_l for crystalizaton
+    */
+    static double crystallization_r_l_p;
+
+    /**
+    * @brief path to analysis folder
+    */
+    static std::string pathToAnalysisFolder_p;
 
     /**
      * @brief function for parsing xml input file

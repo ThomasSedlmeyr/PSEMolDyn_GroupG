@@ -565,7 +565,6 @@ namespace xml_schema
 //
 class bodyType;
 class calcType;
-class particleContainerType;
 class yesNo;
 class parallelType;
 class boundaryCondition;
@@ -754,7 +753,8 @@ class calcType: public ::xml_schema::string
   enum value
   {
     LJ,
-    G
+    G,
+    smoothedLJ
   };
 
   /**
@@ -879,153 +879,8 @@ class calcType: public ::xml_schema::string
   _xsd_calcType_convert () const;
 
   public:
-  static const char* const _xsd_calcType_literals_[2];
-  static const value _xsd_calcType_indexes_[2];
-
-  //@endcond
-};
-
-/**
- * @brief Enumeration class corresponding to the %particleContainerType
- * schema type.
- */
-class particleContainerType: public ::xml_schema::string
-{
-  public:
-
-  /**
-   * @brief Underlying enum type.
-   */
-  enum value
-  {
-    directSum,
-    linkedCell
-  };
-
-  /**
-   * @brief Create an instance from the underlying enum value.
-   *
-   * @param v A enum value.
-   */
-  particleContainerType (value v);
-
-  /**
-   * @brief Create an instance from a C string.
-   *
-   * @param v A string value.
-   */
-  particleContainerType (const char* v);
-
-  /**
-   * @brief Create an instance from a string.
-   *
-   * @param v A string value.
-   */
-  particleContainerType (const ::std::string& v);
-
-  /**
-   * @brief Create an instance from the base value.
-   *
-   * @param v A base value.
-   */
-  particleContainerType (const ::xml_schema::string& v);
-
-  /**
-   * @brief Create an instance from a DOM element.
-   *
-   * @param e A DOM element to extract the data from.
-   * @param f Flags to create the new instance with.
-   * @param c A pointer to the object that will contain the new
-   * instance.
-   */
-  particleContainerType (const ::xercesc::DOMElement& e,
-                         ::xml_schema::flags f = 0,
-                         ::xml_schema::container* c = 0);
-
-  /**
-   * @brief Create an instance from a DOM attribute.
-   *
-   * @param a A DOM attribute to extract the data from.
-   * @param f Flags to create the new instance with.
-   * @param c A pointer to the object that will contain the new
-   * instance.
-   */
-  particleContainerType (const ::xercesc::DOMAttr& a,
-                         ::xml_schema::flags f = 0,
-                         ::xml_schema::container* c = 0);
-
-  /**
-   * @brief Create an instance from a string fragment.
-   *
-   * @param s A string fragment to extract the data from.
-   * @param e A pointer to DOM element containing the string fragment.
-   * @param f Flags to create the new instance with.
-   * @param c A pointer to the object that will contain the new
-   * instance.
-   */
-  particleContainerType (const ::std::string& s,
-                         const ::xercesc::DOMElement* e,
-                         ::xml_schema::flags f = 0,
-                         ::xml_schema::container* c = 0);
-
-  /**
-   * @brief Copy constructor.
-   *
-   * @param x An instance to make a copy of.
-   * @param f Flags to create the copy with.
-   * @param c A pointer to the object that will contain the copy.
-   *
-   * For polymorphic object models use the @c _clone function instead.
-   */
-  particleContainerType (const particleContainerType& x,
-                         ::xml_schema::flags f = 0,
-                         ::xml_schema::container* c = 0);
-
-  /**
-   * @brief Copy the instance polymorphically.
-   *
-   * @param f Flags to create the copy with.
-   * @param c A pointer to the object that will contain the copy.
-   * @return A pointer to the dynamically allocated copy.
-   *
-   * This function ensures that the dynamic type of the instance is
-   * used for copying and should be used for polymorphic object
-   * models instead of the copy constructor.
-   */
-  virtual particleContainerType*
-  _clone (::xml_schema::flags f = 0,
-          ::xml_schema::container* c = 0) const;
-
-  /**
-   * @brief Assign the underlying enum value.
-   *
-   * @param v A enum value.
-   * @return A refernce to the instance.
-   */
-  particleContainerType&
-  operator= (value v);
-
-  /**
-   * @brief Implicit conversion operator to the underlying
-   * enum value.
-   *
-   * @return A enum value.
-   */
-  virtual
-  operator value () const
-  {
-    return _xsd_particleContainerType_convert ();
-  }
-
-  //@cond
-
-  protected:
-  value
-  _xsd_particleContainerType_convert () const;
-
-  public:
-  static const char* const _xsd_particleContainerType_literals_[2];
-  static const value _xsd_particleContainerType_indexes_[2];
+  static const char* const _xsd_calcType_literals_[3];
+  static const value _xsd_calcType_indexes_[3];
 
   //@endcond
 };
@@ -2594,64 +2449,6 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
-   * @name particleContainerType
-   *
-   * @brief Accessor and modifier functions for the %particleContainerType
-   * required element.
-   */
-  //@{
-
-  /**
-   * @brief Element type.
-   */
-  typedef ::particleContainerType particleContainerType_type;
-
-  /**
-   * @brief Element traits type.
-   */
-  typedef ::xsd::cxx::tree::traits< particleContainerType_type, char > particleContainerType_traits;
-
-  /**
-   * @brief Return a read-only (constant) reference to the element.
-   *
-   * @return A constant reference to the element.
-   */
-  const particleContainerType_type&
-  particleContainerType () const;
-
-  /**
-   * @brief Return a read-write reference to the element.
-   *
-   * @return A reference to the element.
-   */
-  particleContainerType_type&
-  particleContainerType ();
-
-  /**
-   * @brief Set the element value.
-   *
-   * @param x A new value to set.
-   *
-   * This function makes a copy of its argument and sets it as
-   * the new value of the element.
-   */
-  void
-  particleContainerType (const particleContainerType_type& x);
-
-  /**
-   * @brief Set the element value without copying.
-   *
-   * @param p A new value to use.
-   *
-   * This function will try to use the passed value directly
-   * instead of making a copy.
-   */
-  void
-  particleContainerType (::std::unique_ptr< particleContainerType_type > p);
-
-  //@}
-
-  /**
    * @name cutoffRadius
    *
    * @brief Accessor and modifier functions for the %cutoffRadius
@@ -3597,6 +3394,158 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
+   * @name pathToAnalysisFolder
+   *
+   * @brief Accessor and modifier functions for the %pathToAnalysisFolder
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::string pathToAnalysisFolder_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< pathToAnalysisFolder_type, char > pathToAnalysisFolder_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const pathToAnalysisFolder_type&
+  pathToAnalysisFolder () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  pathToAnalysisFolder_type&
+  pathToAnalysisFolder ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  pathToAnalysisFolder (const pathToAnalysisFolder_type& x);
+
+  /**
+   * @brief Set the element value without copying.
+   *
+   * @param p A new value to use.
+   *
+   * This function will try to use the passed value directly
+   * instead of making a copy.
+   */
+  void
+  pathToAnalysisFolder (::std::unique_ptr< pathToAnalysisFolder_type > p);
+
+  //@}
+
+  /**
+   * @name crystallization_r_c
+   *
+   * @brief Accessor and modifier functions for the %crystallization_r_c
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ crystallization_r_c_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< crystallization_r_c_type, char, ::xsd::cxx::tree::schema_type::double_ > crystallization_r_c_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const crystallization_r_c_type&
+  crystallization_r_c () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  crystallization_r_c_type&
+  crystallization_r_c ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  crystallization_r_c (const crystallization_r_c_type& x);
+
+  //@}
+
+  /**
+   * @name crystallization_r_l
+   *
+   * @brief Accessor and modifier functions for the %crystallization_r_l
+   * required element.
+   */
+  //@{
+
+  /**
+   * @brief Element type.
+   */
+  typedef ::xml_schema::double_ crystallization_r_l_type;
+
+  /**
+   * @brief Element traits type.
+   */
+  typedef ::xsd::cxx::tree::traits< crystallization_r_l_type, char, ::xsd::cxx::tree::schema_type::double_ > crystallization_r_l_traits;
+
+  /**
+   * @brief Return a read-only (constant) reference to the element.
+   *
+   * @return A constant reference to the element.
+   */
+  const crystallization_r_l_type&
+  crystallization_r_l () const;
+
+  /**
+   * @brief Return a read-write reference to the element.
+   *
+   * @return A reference to the element.
+   */
+  crystallization_r_l_type&
+  crystallization_r_l ();
+
+  /**
+   * @brief Set the element value.
+   *
+   * @param x A new value to set.
+   *
+   * This function makes a copy of its argument and sets it as
+   * the new value of the element.
+   */
+  void
+  crystallization_r_l (const crystallization_r_l_type& x);
+
+  //@}
+
+  /**
    * @name Constructors
    */
   //@{
@@ -3615,7 +3564,6 @@ class generalParams: public ::xml_schema::type
                  const gravDirection_type&,
                  const calcType_type&,
                  const baseNameOutputFiles_type&,
-                 const particleContainerType_type&,
                  const cutoffRadius_type&,
                  const gravInput_type&,
                  const loadCheckpoint_type&,
@@ -3633,7 +3581,10 @@ class generalParams: public ::xml_schema::type
                  const delta_T_type&,
                  const n_thermostat_type&,
                  const useVelDensProfiling_type&,
-                 const numberOfBins_type&);
+                 const numberOfBins_type&,
+                 const pathToAnalysisFolder_type&,
+                 const crystallization_r_c_type&,
+                 const crystallization_r_l_type&);
 
   /**
    * @brief Create an instance from a DOM element.
@@ -3715,7 +3666,6 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< gravDirection_type > gravDirection_;
   ::xsd::cxx::tree::one< calcType_type > calcType_;
   ::xsd::cxx::tree::one< baseNameOutputFiles_type > baseNameOutputFiles_;
-  ::xsd::cxx::tree::one< particleContainerType_type > particleContainerType_;
   ::xsd::cxx::tree::one< cutoffRadius_type > cutoffRadius_;
   ::xsd::cxx::tree::one< gravInput_type > gravInput_;
   ::xsd::cxx::tree::one< loadCheckpoint_type > loadCheckpoint_;
@@ -3734,6 +3684,9 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< n_thermostat_type > n_thermostat_;
   ::xsd::cxx::tree::one< useVelDensProfiling_type > useVelDensProfiling_;
   ::xsd::cxx::tree::one< numberOfBins_type > numberOfBins_;
+  ::xsd::cxx::tree::one< pathToAnalysisFolder_type > pathToAnalysisFolder_;
+  ::xsd::cxx::tree::one< crystallization_r_c_type > crystallization_r_c_;
+  ::xsd::cxx::tree::one< crystallization_r_l_type > crystallization_r_l_;
 
   //@endcond
 };

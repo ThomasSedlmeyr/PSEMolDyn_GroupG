@@ -18,13 +18,6 @@
         </xsd:restriction>
     </xsd:simpleType>
 
-    <xsd:simpleType name="particleContainerType">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="directSum"/>
-            <xsd:enumeration value="linkedCell"/>
-        </xsd:restriction>
-    </xsd:simpleType>
-
     <xsd:simpleType name="yesNo">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="yes"/>

@@ -26,7 +26,7 @@ std::array<double, 3> XMLParser::domainSize = {};
 double XMLParser::cutoffRadius;
 std::array<int, 6> XMLParser::boundaryConditions;
 particlesLJ::body_sequence XMLParser::bodySequence{};
-int XMLParser::particleContainerType_p;
+int XMLParser::particleContainerType_p = 2; // TODO delete? (default for now)
 double XMLParser::g_grav_p;
 bool XMLParser::useGravity_p;
 bool XMLParser::loadCheckpoint_p;
@@ -45,6 +45,9 @@ int XMLParser::thermostatType_p;
 int XMLParser::gravDirection_p;
 bool XMLParser::useVelDensProfiling_p;
 int XMLParser::numberOfBins_p;
+double XMLParser::crystallization_r_c_p;
+double XMLParser::crystallization_r_l_p;
+std::string XMLParser::pathToAnalysisFolder_p;
 
 bool XMLParser::parseXML(const std::string filename) {
     try {
@@ -78,9 +81,20 @@ bool XMLParser::parseXML(const std::string filename) {
             gravDirection_p = 0;
         }
 
-        calcType_p = [](calcType x) {if (x == calcType::G) return 1; else return 2;} (input_xml->generalParams().calcType());
+        switch (input_xml->generalParams().calcType()) {
+            case calcType::G:
+                calcType_p = 1;
+                break;
+            case calcType::LJ:
+                calcType_p = 2;
+                break;
+            case calcType::smoothedLJ:
+                calcType_p = 3;
+                break;
+            default:
+                calcType_p = 2;
+        }
         baseNameOutputFiles_p = input_xml->generalParams().baseNameOutputFiles();
-        particleContainerType_p = [](particleContainerType x) {if (x == particleContainerType::directSum) return 1; else return 2;} (input_xml->generalParams().particleContainerType());
         cutoffRadius = input_xml->generalParams().cutoffRadius();
         gravInput_p = input_xml->generalParams().gravInput();
 
@@ -103,6 +117,10 @@ bool XMLParser::parseXML(const std::string filename) {
 
         useVelDensProfiling_p = input_xml->generalParams().useVelDensProfiling();
         numberOfBins_p = input_xml->generalParams().numberOfBins();
+        pathToAnalysisFolder_p = input_xml->generalParams().pathToAnalysisFolder();
+
+        crystallization_r_c_p = input_xml->generalParams().crystallization_r_c();
+        crystallization_r_l_p = input_xml->generalParams().crystallization_r_l();
 
         if (input_xml->boundaryConditions().top() == "outflowType") {
             top_p = 1;
