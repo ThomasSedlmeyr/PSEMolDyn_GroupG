@@ -11,10 +11,10 @@
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
+        <gravDirection>z</gravDirection>
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>Lennard</baseNameOutputFiles>
-        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>2.5</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -37,6 +37,10 @@
 
         <useVelDensProfiling>no</useVelDensProfiling>
         <numberOfBins>1</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+
+        <crystallization_r_c>2.3</crystallization_r_c>
+        <crystallization_r_l>1.9</crystallization_r_l>
     </generalParams>
 
     <boundaryConditions>

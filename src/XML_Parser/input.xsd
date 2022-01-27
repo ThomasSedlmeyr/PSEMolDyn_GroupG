@@ -14,6 +14,7 @@
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="LJ"/>
             <xsd:enumeration value="G"/>
+            <xsd:enumeration value="smoothedLJ"/>
         </xsd:restriction>
     </xsd:simpleType>
 
@@ -91,7 +92,6 @@
 
             <xsd:element name="calcType" type="calcType"/>
             <xsd:element name="baseNameOutputFiles" type="xsd:string"/>
-            <xsd:element name="particleContainerType" type="particleContainerType"/>
             <xsd:element name="cutoffRadius" type="xsd:double"/>
             <xsd:element name="gravInput" type="xsd:string"/>
 
@@ -114,6 +114,10 @@
 
             <xsd:element name="useVelDensProfiling" type="yesNo"/>
             <xsd:element name="numberOfBins" type="xsd:int"/>
+            <xsd:element name="pathToAnalysisFolder" type="xsd:string"/>
+
+            <xsd:element name="crystallization_r_c" type="xsd:double"/>
+            <xsd:element name="crystallization_r_l" type="xsd:double"/>
         </xsd:sequence>
     </xsd:complexType>
 

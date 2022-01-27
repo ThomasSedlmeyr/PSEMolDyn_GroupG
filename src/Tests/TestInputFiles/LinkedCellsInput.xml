@@ -15,7 +15,6 @@
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>LinkedCellsTest</baseNameOutputFiles>
-        <particleContainerType>linkedCell</particleContainerType>
         <cutoffRadius>3</cutoffRadius>
         <gravInput></gravInput>
 
@@ -38,6 +37,10 @@
 
         <useVelDensProfiling>no</useVelDensProfiling>
         <numberOfBins>1</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+
+        <crystallization_r_c>0</crystallization_r_c>
+        <crystallization_r_l>0</crystallization_r_l>
     </generalParams>
 
     <boundaryConditions>
