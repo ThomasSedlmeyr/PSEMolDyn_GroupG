@@ -14,7 +14,8 @@ private:
      * @brief Total number of Particles involved in the simulation
      */
     int numberOfParticles{};
-    double meanVelocity{};
+    int numberOfFlowParticles{};
+    double totalVelocity{};
 public:
     MeanVelocityVisitor();
 
@@ -27,6 +28,7 @@ public:
      */
     int getNumberOfParticles() const;
 
+    int getNumberOfFlowParticles() const;
     /**
      * @brief Reset internal data
      */

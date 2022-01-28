@@ -5,7 +5,12 @@
 #include "ParticleCollector.h"
 
 void ParticleCollector::visitParticle(Particle &p) {
-    particles.push_back(p);
+    #ifdef _OPENMP
+    #pragma omp critical
+    #endif //_OPENMP
+    {
+        particles.push_back(p);
+    }
 }
 
 std::vector<Particle> &ParticleCollector::getParticles() {

@@ -225,6 +225,9 @@ void ParticleContainerLinkedCells::setRelativeDomainPositionsInCells() {
 }
 
 void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
+    #ifdef _OPENMP
+    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 10)
+    #endif //_OPENMP
     for (Cell &c: cells) {
         for (Particle &p: c.getParticles()) {
             visitor.visitParticle(p);
@@ -251,7 +254,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 2) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
+    #pragma omp parallel for default(none) shared(includesMembranes) schedule(dynamic, 10) if (XMLParser::parallelType_p == Simulation::FIRSTPARALLEL)
     #endif //_OPENMP
     for (Cell &c : cells) {
         auto &particles = c.getParticles();
@@ -260,7 +263,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
             //apply Gravitation
             if (useGrav){
                 auto *f = &it->getFRef();
+                #ifdef _OPENMP
                 #pragma omp atomic
+                #endif //_OPENMP
                 (*f)[gravDirection] += it->getM() * g_grav;
             }
             //calculate force between particles inside of cell
@@ -311,7 +316,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                 //apply Gravitation
                 if (useGrav) {
                     auto *f = &it->getFRef();
+                    #ifdef _OPENMP
                     #pragma omp atomic
+                    #endif //_OPENMP
                     (*f)[gravDirection] += it->getM() * g_grav;
                 }
                 //calculate force between particles inside of cell

@@ -28,9 +28,14 @@ inline void calculateHarmonicPotential(Particle &p1, Particle &p2){
         auto *f2 = &p2.getFRef();
         for (int i = 0; i < 3; ++i) {
             force = scalar * (diff[i] / norm);
+
+            #ifdef _OPENMP
             #pragma omp atomic
+            #endif //_OPENMP
             (*f1)[i] += force;
+            #ifdef _OPENMP
             #pragma omp atomic
+            #endif //_OPENMP
             (*f2)[i] -= force;
         }
     }

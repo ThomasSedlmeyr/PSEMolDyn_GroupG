@@ -4,6 +4,7 @@
 
 #include "KineticEnergyVisitor.h"
 #include "SimulationLogic/Thermostat.h"
+#include <iostream>
 
 void KineticEnergyVisitor::visitParticle(Particle &p) {
     double scalarProduct = 0;
@@ -12,9 +13,13 @@ void KineticEnergyVisitor::visitParticle(Particle &p) {
             scalarProduct += p.getV()[i] * p.getV()[i];
         }
     }else{
-        scalarProduct += p.getV()[0] * p.getV()[0];
-        scalarProduct += (p.getV()[1] - meanVelocity) * (p.getV()[1] - meanVelocity);
-        scalarProduct += p.getV()[2] * p.getV()[2];
+        if (p.getMovingAllowed()){
+            scalarProduct += p.getV()[0] * p.getV()[0];
+            double diff = p.getV()[1] - meanVelocity;
+            scalarProduct += diff * diff;
+            //std::cout << "Diff: " << diff << std::endl;
+            scalarProduct += p.getV()[2] * p.getV()[2];
+        }
     }
     totalEnergy += p.getM() * scalarProduct / 2;
 }

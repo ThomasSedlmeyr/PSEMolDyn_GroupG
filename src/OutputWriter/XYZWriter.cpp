@@ -11,6 +11,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 
 XYZWriter::XYZWriter() = default;
@@ -31,7 +32,7 @@ void XYZWriter :: writeParticlesToFile(const std::string &filename, int iteratio
          << std::endl;
 
 
-    for (const auto & particle : particles) {
+    for (const auto & particle : particlesSorted) {
         std::array<double, 3> x = particle.getX();
         file << "Ar ";
         file.setf(std::ios_base::showpoint);

@@ -47,9 +47,13 @@ inline void calculateLJForce(Particle &p1, Particle &p2, const std::array<double
     for (int j = 0; j < 3; ++j) {
         temp = diff[j];
         if (atomic){
+            #ifdef _OPENMP
             #pragma omp atomic
+            #endif //_OPENMP
             (*f1)[j] += temp;
+            #ifdef _OPENMP
             #pragma omp atomic
+            #endif //_OPENMP
             (*f2)[j] -= temp;
         }else{
             (*f1)[j] += temp;
