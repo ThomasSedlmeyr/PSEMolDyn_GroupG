@@ -4,6 +4,7 @@
 
 #include "CSVWriter.h"
 #include <fstream>
+#include <iostream>
 
 
 CSVWriter::CSVWriter() {

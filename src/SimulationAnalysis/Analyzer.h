@@ -64,5 +64,7 @@ public:
 
     virtual ~Analyzer();
 
+    void setParticleContainer(ParticleContainer* particleContainer_new);
+
 };
 #endif //PSEMOLDYN_GROUPG_ANALYZER_H

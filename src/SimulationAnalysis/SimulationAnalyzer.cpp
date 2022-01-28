@@ -12,8 +12,13 @@ SimulationAnalyzer::SimulationAnalyzer(ParticleContainer *particleContainer) : A
 std::string SimulationAnalyzer::calculationResultsToString() {
     calculateVelocityAndDensityProfile();
     std::string line = "";
+    int size = bins.size();
     for (Bin* bin : bins) {
-        line += "," + std::to_string(bin->getDensity()) + "," + std::to_string(bin->getMeanVelocity());
+        line += std::to_string(bin->getDensity()) + "," + std::to_string(bin->getMeanVelocity());
+        if (size > 1) {
+            line += ",";
+        }
+        size--;
     }
     return line;
 }

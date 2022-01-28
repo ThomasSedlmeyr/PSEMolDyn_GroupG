@@ -106,31 +106,55 @@ TEST(SimulationAnalysisTest, checkOutputCSVFile) {
     ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
 
     SimulationAnalyzer* analysis = new SimulationAnalyzer(particleContainer);
-    bool createCSV = analysis->createCSV();
-    EXPECT_EQ(createCSV, true);
-    analysis->calculateVelocityAndDensityProfile();
-    bool appendLine =  analysis->appendLineToCSVfile(0);
-    EXPECT_EQ(appendLine, true);
+    analysis->writeHeaderLineToCSVFile();
 
     lj.simulate(*w, particleContainer);
 
-    analysis->calculateVelocityAndDensityProfile();
-    appendLine = analysis->appendLineToCSVfile(20);
-    EXPECT_EQ(appendLine, true);
+    analysis->setParticleContainer(particleContainer);
+    analysis->appendLineToCSVFile();
 
     std::ifstream inFile;
     std::string tmp_string;
-    inFile.open("../SimulationAnalysis_Files/analysisFile.csv");
+    inFile.open("../Analysis_Files/velocity_density.csv");
     bool writeSuccess = false;
     if (inFile.is_open()) {
         getline(inFile, tmp_string);
         getline(inFile, tmp_string);
-        EXPECT_EQ(tmp_string, "0,0,0,0,0,0,0,0,0,0,0");
-        getline(inFile, tmp_string);
-        EXPECT_EQ(tmp_string, "20,0.326852,-0.395317,0.577778,-0.100323,0.580093,-0.0107589,0.583333,-0.24756,0.246759,-0.157414");
+        EXPECT_EQ(tmp_string, "0.326852,-0.395317,0.577778,-0.100323,0.580093,-0.010759,0.583333,-0.247560,0.246759,-0.157414");
 
         writeSuccess = true;
         inFile.close();
     }
     EXPECT_EQ(writeSuccess, true);
+}
+
+/**
+ * @brief test checking simulation analyzer calculation
+ */
+TEST(SimulationAnalysisTest, VelocityDensity) {
+    std::array<int, 6> fours = {4, 4, 4, 4, 4, 4};
+    ParticleContainerLinkedCells particleContainer(20, 40, 60, 3.0, fours);
+
+    Particle p1 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 1);
+    Particle p2 = Particle({2, 1.1, 1}, {1, 2, 3}, 23, 1, 2);
+    Particle p3 = Particle({11, 1.2, 1}, {1, -2, 3}, 23, 1, 3);
+    Particle p4 = Particle({14, 2, 4}, {1, 2, 3}, 23, 1, 4);
+    Particle p5 = Particle({19, 2, 4}, {0, 0, 0}, 23, 1, 5);
+    Particle p6 = Particle({19, 16, 4}, {0, -1, 0}, 23, 1, 6);
+
+    ParticleContainerLinkedCells::addParticle(p1);
+    ParticleContainerLinkedCells::addParticle(p2);
+    ParticleContainerLinkedCells::addParticle(p3);
+    ParticleContainerLinkedCells::addParticle(p4);
+    ParticleContainerLinkedCells::addParticle(p5);
+    ParticleContainerLinkedCells::addParticle(p6);
+
+    XMLParser::domainSize[0] = 20;
+    XMLParser::domainSize[1] = 40;
+    XMLParser::domainSize[2] = 60;
+    XMLParser::numberOfBins_p = 4;
+    SimulationAnalyzer* analysis = new SimulationAnalyzer(&particleContainer);
+    analysis->calculateVelocityAndDensityProfile();
+    std::string result = analysis->calculationResultsToString();
+    EXPECT_EQ(result, "0.000167,2.000000,0.000000,0.000000,0.000167,0.000000,0.000083,-1.000000");
 }

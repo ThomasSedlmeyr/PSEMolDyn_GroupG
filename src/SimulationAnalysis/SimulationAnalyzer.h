@@ -36,13 +36,13 @@ public:
      * @brief write in output file
      * @param timeStep used as timestamp
      */
-    bool appendLineToCSVfile(int timeStep);
+    //bool appendLineToCSVfile(int timeStep);
 
     /**
      * @brief create or reset CSV file
      * @return returns whether it worked
      */
-    bool createCSV();
+    //bool createCSV();
 
     explicit SimulationAnalyzer(ParticleContainer *particleContainer);
 

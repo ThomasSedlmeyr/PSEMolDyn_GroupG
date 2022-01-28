@@ -5,7 +5,7 @@
 #ifndef PSEMOLDYN_GROUPG_CSVWRITER_H
 #define PSEMOLDYN_GROUPG_CSVWRITER_H
 
-#include "Writer.h"
+#include <string>
 
 class CSVWriter{
 

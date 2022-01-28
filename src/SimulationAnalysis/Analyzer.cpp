@@ -34,4 +34,9 @@ void Analyzer::writeHeaderLineToCSVFile() {
     writer->writeToFile(pathToCSVfile, line);
 }
 
+void Analyzer::setParticleContainer(ParticleContainer* particleContainer_new) {
+    particleContainer = particleContainer_new;
+    getSimulationParticles();
+}
+
 Analyzer::~Analyzer() = default;
