@@ -3,7 +3,13 @@
 #include "../XML_Parser/XMLParser.h"
 
 void Bin::calculateDensity() {
-    density = particles.size() / ((XMLParser::domainSize[0] / XMLParser::numberOfBins_p) * XMLParser::domainSize[1] * XMLParser::domainSize[2]);
+    int size = particles.size();
+    if (size == 0) {
+        density = 0;
+    } else {
+        density = size / ((XMLParser::domainSize[0] / XMLParser::numberOfBins_p) * XMLParser::domainSize[1] *
+                          XMLParser::domainSize[2]);
+    }
 }
 
 void Bin::calculateVelocity() {
