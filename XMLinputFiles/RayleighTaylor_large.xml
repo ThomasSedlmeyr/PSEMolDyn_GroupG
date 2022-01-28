@@ -11,7 +11,7 @@
 
         <g_grav>-12.44</g_grav>
         <useGravity>yes</useGravity>
-        <gravDirection>z</gravDirection>
+        <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
         <baseNameOutputFiles>RayleighTaylor_large</baseNameOutputFiles>
