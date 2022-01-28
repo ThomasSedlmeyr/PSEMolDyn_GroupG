@@ -20,6 +20,8 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
     std::array<double, 3> f = {};
     std::array<double, 3> old_f = {};
     int id;
+    bool partOfMembrane;
+    std::array<short, 3> timesCrossedDomain = {};
     int num_particles = 0;
     std::string temp;
     auto filePath = "../Checkpoint_Files/" + fileName;
@@ -99,7 +101,13 @@ bool CheckpointReader::readCheckpointFile(const std::string &fileName, ParticleC
                 datastream >> old_fj;
             }
             datastream >> id;
+            datastream >> partOfMembrane;
+            for (auto &timesCrossedDomain_j: timesCrossedDomain) {
+                datastream >> timesCrossedDomain_j;
+            }
             Particle p = Particle(x, v, m, type, f, old_f, id);
+            p.isPartOfMembrane = partOfMembrane;
+            p.setNumberOfTimesCrossedWholeDomain(timesCrossedDomain);
             particleContainer->addParticleToContainer(p);
             particles.push_back(p);
 

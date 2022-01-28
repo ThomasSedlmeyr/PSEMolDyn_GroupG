@@ -71,6 +71,8 @@ private:
     * side of the domain the first element will be decremented.
     */
    std::array<short, 3> numberOfTimesCrossedWholeDomain{0, 0, 0};
+public:
+    void setNumberOfTimesCrossedWholeDomain(const std::array<short, 3> &numberOfTimesCrossedWholeDomain);
 
 public:
     [[nodiscard]] const std::array<short, 3> &getNumberOfTimesCrossedWholeDomain() const;
@@ -158,6 +160,7 @@ public:
 
     const std::vector<int> &getDirectNeighbourIDs() const;
 
+    bool isPartOfMembrane;
 
     /**
      * @brief decrements the number of times the particle crossed the domain in x-direction

@@ -71,6 +71,7 @@ void Sphere::generateParticles2d(int startID) {
             //If the new position is inside the sphere
             if (ArrayUtils::L2Norm(newPosition - position) <= radiusSize) {
                 particles[counter] = Particle(newPosition, initialV, massPerParticle, ID, startID);
+                particles[counter].isPartOfMembrane = false;
                 startID++;
                 counter++;
             }

@@ -16,14 +16,16 @@
 # * force (3 double values)
 # * old force (3 double values)
 # * ID (1 int value)
+# * partOfMembrane (1 bool value)
+# * crossedDomain (3 short values)
 #
-# xyz-coord      velocity        mass       type    force           old force       ID
+# xyz-coord      velocity        mass       type    force           old force       ID      partOfMembrane  crossedDomain
 4
 G
 0
 
 
-0.0 0.0 0.0      0.0 0.0 0.0     1.0        3       0.0 0.3 0.3     0.0 0.3 0.3     4
-0.0 1.0 0.0     -1.0 0.0 0.0     3.0e-6     3       0.5 0.5 0.5     0.4 0.4 0.4     3
-0.0 5.36 0.0    -0.425 0.0 0.0   9.55e-4    2       1.0 0.0 0.0     1.0 0.1 0.0     1
-34.75 0.0 0.0    0.0 0.0296 0.0  1.0e-14    1       0.0 0.0 0.0     0.0 0.0 0.0     2
+0.0 0.0 0.0      0.0 0.0 0.0     1.0        3       0.0 0.3 0.3     0.0 0.3 0.3     4       0       0.0 0.0 0.0
+0.0 1.0 0.0     -1.0 0.0 0.0     3.0e-6     3       0.5 0.5 0.5     0.4 0.4 0.4     3       0       0.0 0.0 0.0
+0.0 5.36 0.0    -0.425 0.0 0.0   9.55e-4    2       1.0 0.0 0.0     1.0 0.1 0.0     1       0       0.0 0.0 0.0
+34.75 0.0 0.0    0.0 0.0296 0.0  1.0e-14    1       0.0 0.0 0.0     0.0 0.0 0.0     2       0       0.0 0.0 0.0

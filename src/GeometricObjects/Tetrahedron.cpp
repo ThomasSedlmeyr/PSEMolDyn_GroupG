@@ -27,6 +27,7 @@ void Tetrahedron::generateParticles(int startID) {
             for (int k = 0; k < numberParticlesPerEdge-i-j; k++) {
                 currentPosition = position + k * vectorX + j * vectorXZ + i * vectorXYZ;
                 particles.emplace_back(currentPosition, initialV, massPerParticle, ID, startID, movingIsAllowed);
+                particles.back().isPartOfMembrane = false;
                 startID++;
             }
         }

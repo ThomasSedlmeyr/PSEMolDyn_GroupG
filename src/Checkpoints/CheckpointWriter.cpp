@@ -33,8 +33,10 @@ bool CheckpointWriter::writeCheckpointFile(const std::string &fileName, Particle
                       "# * force (3 double values)\n"
                       "# * old force (3 double values)\n"
                       "# * ID (1 int value)\n"
+                      "# * partOfMembrane (1 bool value)\n"
+                      "# * crossedDomain (3 short values)\n"
                       "#\n"
-                      "# xyz-coord\t\tvelocity\t\tmass\t\ttype\t\tforce\t\told force\t\tID\n";
+                      "# xyz-coord\t\tvelocity\t\tmass\t\ttype\t\tforce\t\told force\t\tID\t\tpartOfMembrane\t\tcrossedDomain\n";
 
         outputFile << std::to_string(particles.size()) + "\n";
 

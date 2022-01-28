@@ -38,7 +38,6 @@ Members:
     * gravDirection : direction of gravitational force
     * calcType : G for Gravitation Simulation, LJ for LennardJones Simulation
     * baseNameOutputFiles : specifies the output name
-    * particlesContainerType : directSum or linkedCell
     * cutoffRadius : corresponding calculated cuttoff radius for linked cells algorithm
     * gravInput : path to input file for Gravitation Simulation, can otherwise be left blank
     * loadCheckpoint : yes or no
@@ -55,6 +54,9 @@ Members:
     * n_thermostat : time steps after which thermostat is applied periodically
     * useVelDensProfiling : create CSV file every 1000 iterations about density and velocity downwards (not possible to be used with Gravitation simulation)
     * numberOfBins : number of bins that the domain is supposed to be grouped into (greater 0)
+    * pathToAnalysisFolder : path to folder for analysis files
+    * crystallization_r_c : only to be set for crystallization
+    * crystallization_r_l : only to be set for crystallization
   *boundaryConditions:
     * top, right, bottom, left, front, back : outflowType, reflectingType, betterReflectingType or periodicType
   * particles : specify as many bodies as needed here

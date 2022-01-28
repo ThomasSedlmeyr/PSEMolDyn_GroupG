@@ -125,6 +125,7 @@ void Membrane::generateParticles(int startIndex) {
                 newPosition[1] = position[1] + meshWidth * j;
                 newPosition[2] = position[2] + meshWidth * i;
                 particles[counter] = Particle(newPosition, initialV, massPerParticle, ID, startIndex, movingIsAllowed);
+                particles[counter].isPartOfMembrane = true;
                 startIndex++;
                 counter++;
             }
