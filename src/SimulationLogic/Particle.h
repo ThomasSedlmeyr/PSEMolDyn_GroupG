@@ -160,6 +160,9 @@ public:
 
     const std::vector<int> &getDirectNeighbourIDs() const;
 
+    /**
+     * @brief wheter particle is part of a membrane
+     */
     bool isPartOfMembrane;
 
     /**
