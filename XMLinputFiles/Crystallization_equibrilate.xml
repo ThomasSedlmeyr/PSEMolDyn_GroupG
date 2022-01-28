@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<input xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../src/XML_Parser/input.xsd">
+
+    <generalParams>
+        <t_end>150</t_end>
+        <delta_t>0.001</delta_t>
+        <writeFrequency>500</writeFrequency>
+        <dimensionType>3D</dimensionType>
+        <parallelType>first</parallelType>
+
+        <g_grav>0</g_grav>
+        <useGravity>no</useGravity>
+        <gravDirection>y</gravDirection>
+
+        <calcType>smoothedLJ</calcType>
+        <baseNameOutputFiles>Crystallization</baseNameOutputFiles>
+        <cutoffRadius>2.3</cutoffRadius>
+        <gravInput>../eingabe-sonne.txt</gravInput>
+
+        <loadCheckpoint>no</loadCheckpoint>
+        <makeCheckpoint>yes</makeCheckpoint>
+        <pathInCheckpoint>checkpoint_Crystal.txt</pathInCheckpoint>
+        <pathOutCheckpoint>checkpoint_Crystal.txt</pathOutCheckpoint>
+
+        <domainSizeX>9.2</domainSizeX>
+        <domainSizeY>9.2</domainSizeY>
+        <domainSizeZ>9.2</domainSizeZ>
+
+        <useThermostat>yes</useThermostat>
+        <thermostatType>regular</thermostatType>
+        <useBrownianMotion>yes</useBrownianMotion>
+        <T_init>0.01</T_init>
+        <T_target>3.00</T_target>
+        <delta_T>0.001</delta_T>
+        <n_thermostat>40</n_thermostat>
+
+        <useVelDensProfiling>no</useVelDensProfiling>
+        <numberOfBins>1</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+
+        <crystallization_r_c>2.3</crystallization_r_c>
+        <crystallization_r_l>1.9</crystallization_r_l>
+    </generalParams>
+
+    <boundaryConditions>
+        <top>periodicType</top>
+        <right>periodicType</right>
+        <bottom>periodicType</bottom>
+        <left>periodicType</left>
+        <front>periodicType</front>
+        <back>periodicType</back>
+    </boundaryConditions>
+
+    <particlesLJ>
+        <body>
+            <bodyType>Cuboid</bodyType>
+            <position>0.575,0.575,0.575</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>8,8,8</objectSpecificFormat>
+            <epsilon>1.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.15</h>
+            <bodyState>moving</bodyState>
+        </body>
+    </particlesLJ>
+</input>
