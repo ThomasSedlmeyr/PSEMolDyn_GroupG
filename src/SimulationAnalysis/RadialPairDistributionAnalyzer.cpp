@@ -1,5 +1,6 @@
 #include "RadialPairDistributionAnalyzer.h"
 #include "utils/ArrayUtils.h"
+#include "XML_Parser/XMLParser.h"
 #include <math.h>
 
 RadialPairDistributionAnalyzer::RadialPairDistributionAnalyzer(ParticleContainer *particleContainer,
@@ -8,11 +9,10 @@ RadialPairDistributionAnalyzer::RadialPairDistributionAnalyzer(ParticleContainer
         particleContainer), startOfIntervall(
         startOfIntervall), stepSize(stepSize), numberOfValues(numberOfValues), startTime(startTime), timeStepSize(timeStepSize) {
 
-    double currentValue = startOfIntervall;
     numberParticlesInIntervall = std::vector<int>(numberOfValues);
     localDensities = std::vector<double>(numberOfValues);
-    currentValue = startTime;
-
+    currentTime = startTime;
+    pathToCSVfile = XMLParser::pathToAnalysisFolder_p + "/radial_Pair_Distribution.csv";
 }
 
 void RadialPairDistributionAnalyzer::calculateLocalDensities() {
@@ -76,7 +76,7 @@ std::string RadialPairDistributionAnalyzer::createHeaderLine() {
     std::string headerLine = "Time,";
     double currentDistance = startOfIntervall;
     for(int i = 0; i < numberOfValues; i++){
-        headerLine += std::to_string(currentDistance) + ",";
+        headerLine += std::to_string((int) currentDistance) + ",";
         currentDistance += stepSize;
     }
     return headerLine;

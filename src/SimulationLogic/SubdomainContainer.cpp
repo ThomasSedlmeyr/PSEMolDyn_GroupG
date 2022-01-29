@@ -4,6 +4,7 @@
 
 #include "SubdomainContainer.h"
 #include "ParticleContainers/ParticleContainerLinkedCells.h"
+#include "OutputWriter/CSVWriter.h"
 
 void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdomains,
                                              const std::vector<int> &sizesZSubdomains) {
@@ -129,10 +130,32 @@ void SubdomainContainer::splitInNearlyEqualParts(int value, int numberOfParts, s
     }
 }
 
-int SubdomainContainer::getNumberSubdomains() const {
-    return numberSubdomains;
-}
+
 
 const std::vector<Subdomain *> &SubdomainContainer::getSubdomains() const {
     return subdomains;
+}
+
+void SubdomainContainer::writeNumberOfParticlesToFile(){
+    std::string lineForCSVFile = "";
+    std::string pathToCSVFile = XMLParser::pathToAnalysisFolder_p + "/NumberOfParticlesPerSubdomain.csv";
+    for(auto& subdomain : subdomains){
+        lineForCSVFile += std::to_string(subdomain->countNumberOfParticles()) + ",";
+    }
+    CSVWriter writer = CSVWriter();
+    writer.writeToFile(pathToCSVFile, lineForCSVFile);
+}
+
+void SubdomainContainer::writeHeaderFileForNumberParticles(){
+    std::string pathToCSVFile = XMLParser::pathToAnalysisFolder_p + "/NumberOfParticlesPerSubdomain.csv";
+    CSVWriter writer = CSVWriter();
+    writer.createCSV(pathToCSVFile);
+    std::string headerLine = "";
+
+    int counter = 0;
+    for(auto& subdomain : subdomains){
+        headerLine += "Subdomain_" + std::to_string(counter) + std::to_string(subdomain->countNumberOfParticles()) + ",";
+        counter++;
+    }
+    writer.writeToFile(pathToCSVFile, headerLine);
 }

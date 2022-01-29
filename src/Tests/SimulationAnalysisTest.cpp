@@ -8,7 +8,7 @@
 #include "SimulationAnalysis/RadialPairDistributionAnalyzer.h"
 #include <random>
 #include <fstream>
-#include "SimulationAnalysis/SimulationAnalyzer.h"
+#include "SimulationAnalysis/VelocityProfileAnalyzer.h"
 
 //Code adapted from
 //https://stackoverflow.com/questions/28768359/comparison-of-floating-point-arrays-using-google-test-and-google-mock
@@ -105,7 +105,7 @@ TEST(SimulationAnalysisTest, checkOutputCSVFile) {
     std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
     ParticleContainer* particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
 
-    SimulationAnalyzer* analysis = new SimulationAnalyzer(particleContainer);
+    VelocityProfileAnalyzer* analysis = new VelocityProfileAnalyzer(particleContainer);
     analysis->writeHeaderLineToCSVFile();
 
     lj.simulate(*w, particleContainer);
@@ -153,7 +153,7 @@ TEST(SimulationAnalysisTest, VelocityDensity) {
     XMLParser::domainSize[1] = 40;
     XMLParser::domainSize[2] = 60;
     XMLParser::numberOfBins_p = 4;
-    SimulationAnalyzer* analysis = new SimulationAnalyzer(&particleContainer);
+    VelocityProfileAnalyzer* analysis = new VelocityProfileAnalyzer(&particleContainer);
     analysis->calculateVelocityAndDensityProfile();
     std::string result = analysis->calculationResultsToString();
     EXPECT_EQ(result, "0.000167,2.000000,0.000000,0.000000,0.000167,0.000000,0.000083,-1.000000");

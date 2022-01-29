@@ -18,18 +18,16 @@ void Analyzer::getSimulationParticles() {
 
 Analyzer::Analyzer(ParticleContainer *particleContainer) : particleContainer(particleContainer) {
     getSimulationParticles();
-    writer = new CSVWriter(); // TODO CSV files for all?
+    writer = new CSVWriter();
 }
 
 void Analyzer::appendLineToCSVFile() {
     std::string line = calculationResultsToString();
-    //TODO Hier soll der CSV-Writer aufgerufen werden mit dem pathToCSVfile
     writer->writeToFile(pathToCSVfile, line);
 }
 
 void Analyzer::writeHeaderLineToCSVFile() {
     std::string line = createHeaderLine();
-    //TODO Hier soll der CSV-Writer aufgerufen werden mit dem pathToCSVfile
     writer->createCSV(pathToCSVfile);
     writer->writeToFile(pathToCSVfile, line);
 }

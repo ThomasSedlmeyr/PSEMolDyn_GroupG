@@ -52,6 +52,7 @@ DiffusionAnalyzer::~DiffusionAnalyzer() = default;
 
 DiffusionAnalyzer::DiffusionAnalyzer(ParticleContainer *particleContainer) : Analyzer(particleContainer) {
     initializeOldPositions();
+    pathToCSVfile = XMLParser::pathToAnalysisFolder_p + "/diffusion.csv";
 }
 
 std::string DiffusionAnalyzer::calculationResultsToString() {

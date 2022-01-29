@@ -50,8 +50,13 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
 
     if(Simulation::SECONDPARALLEL == XMLParser::parallelType_p){
         subdomainContainer = SubdomainContainer();
-        int numberOfThreads = omp_get_num_threads();
-        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberOfThreads);
+        const char* ev_val = getenv("OMP_NUM_THREADS");
+        if (ev_val == nullptr) {
+            throw std::runtime_error("Environment variable not defined");
+        }
+        std::string envValue = std::string(ev_val);
+        int numberThreads = std::stoi(envValue);
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberThreads);
     }
 }
 

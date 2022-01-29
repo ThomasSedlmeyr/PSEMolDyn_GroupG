@@ -35,20 +35,22 @@ private:
     int numberParticles;
 
 public:
+    /**
+     * @brief the Constructor for Subdomain
+     * @param cells the cells which were part of the subdomain
+     * @param dimensions the dimensions of the subdomain
+     * @param leftBottomBackPosition the left back position of the cell which is part of the Subdomain
+     */
     Subdomain(std::vector<SubdomainCell> *cells, std::array<int, 3> dimensions, std::array<int, 3> leftBottomBackPosition);
-
-    int getNumberParticles() const;
-
-    void calculateF();
-
-private:
-    void calculateNumberOfParticles();
-
-
-    void setSynchronizedSubdomainCells();
 
 
     bool checkIfOneValuesMatches(int value1, int value2, const std::array<int, 3> &array);
+
+    /**
+     * @brief Counts the number of particles which are located in the subdomain
+     * @return the number of particles
+     */
+    int countNumberOfParticles();
 };
 
 #endif //PSEMOLDYN_GROUPG_SUBDOMAIN_H

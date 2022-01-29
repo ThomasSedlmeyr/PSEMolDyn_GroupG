@@ -7,6 +7,9 @@
 #include "Checkpoints/CheckpointWriter.h"
 #include "Visitors/ParticleCollector.h"
 #include "GeometricObjects/Membrane.h"
+#include "SimulationAnalysis/VelocityProfileAnalyzer.h"
+#include "SimulationAnalysis/DiffusionAnalyzer.h"
+#include "SimulationAnalysis/RadialPairDistributionAnalyzer.h"
 
 void Simulation::calculateOneTimeStep(double currentTime) {
     particleContainer->updateParticlePositions(posCalcVisitor);
@@ -54,10 +57,33 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
 
     int iteration = 0;
     double currentTime = 0;
+    int numberOfTimeStepsToAnalyzeDiffusions = 100;
+    int numberOfTimeStepsToAnalyzeVelocityProfiles = 1000;
+    VelocityProfileAnalyzer velocityAnalyzer = VelocityProfileAnalyzer(partContainer);
+    DiffusionAnalyzer diffusionAnalyzer = DiffusionAnalyzer(partContainer);
+    RadialPairDistributionAnalyzer rdfAnalyzer = RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
+
+    XMLParser::useVelDensProfiling_p = true;
+    if(XMLParser::useVelDensProfiling_p){
+        velocityAnalyzer.writeHeaderLineToCSVFile();
+        diffusionAnalyzer.writeHeaderLineToCSVFile();
+        rdfAnalyzer.writeHeaderLineToCSVFile();
+    }
 
     writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     while (currentTime < endTime) {
+        if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0){
+            if(XMLParser::useVelDensProfiling_p){
+                velocityAnalyzer.appendLineToCSVFile();
+            }
+        }
+        if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0){
+            if(XMLParser::useVelDensProfiling_p){
+                diffusionAnalyzer.appendLineToCSVFile();
+                rdfAnalyzer.appendLineToCSVFile();
+            }
+        }
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
             std::cout << "Iteration: " << iteration << std::endl;

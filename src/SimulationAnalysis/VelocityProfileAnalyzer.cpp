@@ -1,15 +1,15 @@
-#include "SimulationAnalyzer.h"
+#include "VelocityProfileAnalyzer.h"
 #include "OutputWriter/CSVWriter.h"
 #include <fstream>
 
-SimulationAnalyzer::~SimulationAnalyzer() = default;
+VelocityProfileAnalyzer::~VelocityProfileAnalyzer() = default;
 
-SimulationAnalyzer::SimulationAnalyzer(ParticleContainer *particleContainer) : Analyzer(particleContainer) {
+VelocityProfileAnalyzer::VelocityProfileAnalyzer(ParticleContainer *particleContainer) : Analyzer(particleContainer) {
     binWidth = XMLParser::domainSize[0] / XMLParser::numberOfBins_p;
     pathToCSVfile = XMLParser::pathToAnalysisFolder_p + "/velocity_density.csv";
 }
 
-std::string SimulationAnalyzer::calculationResultsToString() {
+std::string VelocityProfileAnalyzer::calculationResultsToString() {
     calculateVelocityAndDensityProfile();
     std::string line = "";
     int size = bins.size();
@@ -23,7 +23,7 @@ std::string SimulationAnalyzer::calculationResultsToString() {
     return line;
 }
 
-std::string SimulationAnalyzer::createHeaderLine() {
+std::string VelocityProfileAnalyzer::createHeaderLine() {
     std::string line = "d1,v1";
     for (int i = 2; i <= XMLParser::numberOfBins_p; ++i) {
         line += ",d" + std::to_string(i) + ",v" + std::to_string(i);
@@ -31,7 +31,7 @@ std::string SimulationAnalyzer::createHeaderLine() {
     return line;
 }
 
-void SimulationAnalyzer::calculateVelocityAndDensityProfile() {
+void VelocityProfileAnalyzer::calculateVelocityAndDensityProfile() {
     bins.clear();
 
     for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
@@ -51,7 +51,7 @@ void SimulationAnalyzer::calculateVelocityAndDensityProfile() {
 }
 
 /*
-bool SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
+bool VelocityProfileAnalyzer::appendLineToCSVfile(int timeStep) {
 
     // append with timestamp
     std::ofstream outputFile;
@@ -73,7 +73,7 @@ bool SimulationAnalyzer::appendLineToCSVfile(int timeStep) {
  */
 
 /*
-bool SimulationAnalyzer::createCSV() {
+bool VelocityProfileAnalyzer::createCSV() {
     std::ofstream outputFile;
     outputFile.open("../Analysis_Files/analysisFile.csv", std::ios::trunc);
 

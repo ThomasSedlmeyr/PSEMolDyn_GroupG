@@ -2,8 +2,8 @@
 // Created by thomas on 04.01.22.
 //
 
-#ifndef PSEMOLDYN_GROUPG_SIMULATIONANALYZER_H
-#define PSEMOLDYN_GROUPG_SIMULATIONANALYZER_H
+#ifndef PSEMOLDYN_GROUPG_VELOCITYPROFILEANALYZER_H
+#define PSEMOLDYN_GROUPG_VELOCITYPROFILEANALYZER_H
 
 
 #include <array>
@@ -12,7 +12,7 @@
 #include "ParticleContainers/ParticleContainer.h"
 #include "Analyzer.h"
 
-class SimulationAnalyzer : public Analyzer{
+class VelocityProfileAnalyzer : public Analyzer{
 
 private:
 
@@ -44,9 +44,9 @@ public:
      */
     //bool createCSV();
 
-    explicit SimulationAnalyzer(ParticleContainer *particleContainer);
+    explicit VelocityProfileAnalyzer(ParticleContainer *particleContainer);
 
-    ~SimulationAnalyzer() override;
+    ~VelocityProfileAnalyzer() override;
 
     std::string calculationResultsToString() override;
 
@@ -54,4 +54,4 @@ public:
 };
 
 
-#endif //PSEMOLDYN_GROUPG_SIMULATIONANALYZER_H
+#endif //PSEMOLDYN_GROUPG_VELOCITYPROFILEANALYZER_H

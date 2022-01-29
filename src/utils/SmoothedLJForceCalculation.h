@@ -3,6 +3,7 @@
 //
 
 #include <XML_Parser/BodyBuilder.h>
+#include <XML_Parser/XMLParser.h>
 #include <cmath>
 #include "Visitors/LJForceVisitor.h"
 
@@ -34,29 +35,43 @@ inline void calculateSmoothedLJForce(Particle &p1, Particle &p2, const std::arra
         }
     }
 
-    double rl;
-    double rc;
-    double rlSquared = rl * rl;
+
+    double rl = XMLParser::crystallization_r_l_p;
+    double rc = XMLParser::crystallization_r_c_p;
     double rcSquared = rc * rc;
-    double scalar = 0.0;
-    if(squaredNorm <= rlSquared){
-        //Normal Lennard Jones-Caculation
-        double term1 = -24.0*epsilon/squaredNorm;
-        double term2 =  (rho*rho*rho*rho*rho*rho) / (squaredNorm * squaredNorm * squaredNorm);
-        double term3 =  term2 - 2 * term2 * term2;
-        scalar = term1 * term3;
-    }
-    else if(squaredNorm < rc){
+    if(squaredNorm < rcSquared) {
+        double rlSquared = rl * rl;
+        double scalar = 0.0;
         double rhoPoweredBySix = rho*rho*rho*rho*rho*rho;
         double distancePoweredBySix = squaredNorm * squaredNorm * squaredNorm;
         double distance = sqrt(squaredNorm);
 
-        scalar = rcSquared*(2*rhoPoweredBySix-distancePoweredBySix) + rc * (3*rl-distance) * (distancePoweredBySix - 2*rhoPoweredBySix) +
-                distance * (5 * rl * rhoPoweredBySix - 2 * rl * distancePoweredBySix - 3 * rhoPoweredBySix * distance + distance * distancePoweredBySix);
+        if (squaredNorm <= rlSquared) {
+            //Normal Lennard Jones-Caculation
+            double term1 = -24.0 * epsilon / squaredNorm;
+            double term2 = rhoPoweredBySix / (squaredNorm * squaredNorm * squaredNorm);
+            double term3 = term2 - 2 * term2 * term2;
+            double term4 = -24.0 * rhoPoweredBySix  * epsilon / (rc - distancePoweredBySix * distancePoweredBySix * squaredNorm );
+            double term5 = rc - distance;
+            scalar = term1 * term3 * term4 * term5;
+            for (int i = 0; i < 3; ++i) {
+                diff[i] = diff[i] * diff[i] * scalar;
+            }
+        }else{
+            scalar = rcSquared * (2 * rhoPoweredBySix - distancePoweredBySix) +
+                     rc * (3 * rl - distance) * (distancePoweredBySix - 2 * rhoPoweredBySix) +
+                     distance *
+                     (5 * rl * rhoPoweredBySix - 2 * rl * distancePoweredBySix - 3 * rhoPoweredBySix * distance +
+                      distance * distancePoweredBySix);
+            for (double &d: diff) {
+                d *= scalar;
+            }
+        }
+    }else{
+       diff = {0,0,0};
     }
-    for (double &d:diff) {
-        d *= scalar;
-    }
+
+
 
     double temp;
     //faster than using ArrayUtils
