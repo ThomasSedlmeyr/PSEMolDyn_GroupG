@@ -6,8 +6,8 @@
 #include <XML_Parser/XMLParser.h>
 #include <cmath>
 #include "Visitors/LJForceVisitor.h"
+#include "LJForceCalculation.h"
 
-const double threshholdFactor = pow(2, 1.0/6);
 
 inline void calculateSmoothedLJForce(Particle &p1, Particle &p2, const std::array<double, 3>& pos1, const std::array<double, 3>& pos2, bool atomic) {
     std::array<double, 3> diff{};
@@ -51,14 +51,14 @@ inline void calculateSmoothedLJForce(Particle &p1, Particle &p2, const std::arra
             double term1 = -24.0 * epsilon / squaredNorm;
             double term2 = rhoPoweredBySix / (squaredNorm * squaredNorm * squaredNorm);
             double term3 = term2 - 2 * term2 * term2;
-            double term4 = -24.0 * rhoPoweredBySix  * epsilon / (rc - distancePoweredBySix * distancePoweredBySix * squaredNorm );
-            double term5 = rc - distance;
-            scalar = term1 * term3 * term4 * term5;
+            scalar = term1 * term3;
             for (int i = 0; i < 3; ++i) {
-                diff[i] = diff[i] * diff[i] * scalar;
+                diff[i] = diff[i] * scalar;
             }
         }else{
-            scalar = rcSquared * (2 * rhoPoweredBySix - distancePoweredBySix) +
+            double term4 = -24.0 * rhoPoweredBySix  * epsilon / (rc - distancePoweredBySix * distancePoweredBySix * squaredNorm );
+            double term5 = rc - distance;
+            scalar = term4 * term5 * rcSquared * (2 * rhoPoweredBySix - distancePoweredBySix) +
                      rc * (3 * rl - distance) * (distancePoweredBySix - 2 * rhoPoweredBySix) +
                      distance *
                      (5 * rl * rhoPoweredBySix - 2 * rl * distancePoweredBySix - 3 * rhoPoweredBySix * distance +
