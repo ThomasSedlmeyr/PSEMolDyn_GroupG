@@ -64,9 +64,10 @@ RadialPairDistributionAnalyzer::~RadialPairDistributionAnalyzer() = default;
 
 
 std::string RadialPairDistributionAnalyzer::calculationResultsToString() {
-    std::string resultLine = "";
+    calculateLocalDensities();
+    std::string resultLine = std::to_string(currentTime) + ",";
     for(int i = 0; i < numberOfValues; i++){
-        resultLine += std::to_string(currentTime) + std::to_string(localDensities[i]) + ",";
+        resultLine += std::to_string(localDensities[i]) + ",";
     }
     currentTime += timeStepSize;
     return resultLine;

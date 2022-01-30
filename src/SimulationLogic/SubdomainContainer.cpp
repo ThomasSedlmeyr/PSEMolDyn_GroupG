@@ -139,8 +139,10 @@ const std::vector<Subdomain *> &SubdomainContainer::getSubdomains() const {
 void SubdomainContainer::writeNumberOfParticlesToFile(){
     std::string lineForCSVFile = "";
     std::string pathToCSVFile = XMLParser::pathToAnalysisFolder_p + "/NumberOfParticlesPerSubdomain.csv";
+    int numberParticles = 0;
     for(auto& subdomain : subdomains){
-        lineForCSVFile += std::to_string(subdomain->countNumberOfParticles()) + ",";
+        numberParticles = subdomain->countNumberOfParticles();
+        lineForCSVFile += std::to_string(numberParticles) + ",";
     }
     CSVWriter writer = CSVWriter();
     writer.writeToFile(pathToCSVFile, lineForCSVFile);
@@ -154,7 +156,7 @@ void SubdomainContainer::writeHeaderFileForNumberParticles(){
 
     int counter = 0;
     for(auto& subdomain : subdomains){
-        headerLine += "Subdomain_" + std::to_string(counter) + std::to_string(subdomain->countNumberOfParticles()) + ",";
+        headerLine += "Subdomain_" + std::to_string(counter) + ",";
         counter++;
     }
     writer.writeToFile(pathToCSVFile, headerLine);

@@ -56,13 +56,15 @@ inline void calculateSmoothedLJForce(Particle &p1, Particle &p2, const std::arra
                 diff[i] = diff[i] * scalar;
             }
         }else{
-            double term4 = -24.0 * rhoPoweredBySix  * epsilon / (rc - distancePoweredBySix * distancePoweredBySix * squaredNorm );
+            double term2 = rc - rl;
+            double term3 = term2 * term2 * term2;
+            double term4 = -24.0 * rhoPoweredBySix  * epsilon / (term3 * distancePoweredBySix * distancePoweredBySix * squaredNorm );
             double term5 = rc - distance;
-            scalar = term4 * term5 * rcSquared * (2 * rhoPoweredBySix - distancePoweredBySix) +
+            scalar = term4 * term5 * rcSquared * ((2 * rhoPoweredBySix - distancePoweredBySix) +
                      rc * (3 * rl - distance) * (distancePoweredBySix - 2 * rhoPoweredBySix) +
                      distance *
                      (5 * rl * rhoPoweredBySix - 2 * rl * distancePoweredBySix - 3 * rhoPoweredBySix * distance +
-                      distance * distancePoweredBySix);
+                      distance * distancePoweredBySix));
             for (double &d: diff) {
                 d *= scalar;
             }

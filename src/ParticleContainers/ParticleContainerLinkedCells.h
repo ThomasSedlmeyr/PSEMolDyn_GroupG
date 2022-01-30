@@ -301,6 +301,10 @@ public:
     void walkOverParticlePairs2(ParticlePairVisitor &visitor);
 
     static void clearAllParticles();
+
+    void writeHeaderFileOfParticlesCount();
+
+    void countParticlesInSubdomains();
 };
 
 

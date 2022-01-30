@@ -56,7 +56,7 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
         }
         std::string envValue = std::string(ev_val);
         int numberThreads = std::stoi(envValue);
-        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberThreads);
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(2);
     }
 }
 
@@ -610,4 +610,12 @@ void ParticleContainerLinkedCells::clearAllParticles(){
     for(auto& cell : cells){
         cell.clearParticles();
     }
+}
+
+void ParticleContainerLinkedCells::writeHeaderFileOfParticlesCount(){
+    subdomainContainer.writeHeaderFileForNumberParticles();
+}
+
+void ParticleContainerLinkedCells::countParticlesInSubdomains(){
+    subdomainContainer.writeNumberOfParticlesToFile();
 }
