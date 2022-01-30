@@ -11,6 +11,7 @@
 #include "utils/ArrayUtils.h"
 #include "utils/FastMath.h"
 #include "utils/HarmonicPotentialCalculator.h"
+#include "utils/SmoothedLJForceCalculation.h"
 #include "utils/LJForceCalculation.h"
 #include "SimulationLogic/Simulation.h"
 #include "omp.h"
@@ -231,7 +232,7 @@ void ParticleContainerLinkedCells::setRelativeDomainPositionsInCells() {
 
 void ParticleContainerLinkedCells::walkOverParticles(ParticleVisitor &visitor) {
     #ifdef _OPENMP
-    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 10)
+    #pragma omp parallel for default(none) shared(visitor) schedule(dynamic, 10) if (XMLParser::parallelType_p != Simulation::NOTPARALLEL)
     #endif //_OPENMP
     for (Cell &c: cells) {
         for (Particle &p: c.getParticles()) {
@@ -279,7 +280,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
                 if (includesMembranes){
                     calculateHarmonicPotential(*it, *it2);
                 }
-                calculateLJForce(*it, *it2, pos1, pos2, true);
+                if (forceCalculationStrategy == 2){
+                    calculateLJForce(*it, *it2, pos1, pos2, true);
+                }else{
+                    calculateSmoothedLJForce(*it, *it2, pos1, pos2, true);
+                }
                 //visitor.visitParticlePair(*it, *it2);
             }
         }
@@ -293,7 +298,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
                         calculateHarmonicPotential(particle, p2);
                     }
                     if (shouldCalculateForce(pos1, pos2, cutOffRadius)) {
-                        calculateLJForce(particle, p2, pos1, pos2, true);
+                        if (forceCalculationStrategy == 2){
+                            calculateLJForce(particle, p2, pos1, pos2, true);
+                        }else{
+                            calculateSmoothedLJForce(particle, p2, pos1, pos2, true);
+                        }
                         //visitor.visitParticlePair(particle, p2);
                     }
                 }
@@ -332,7 +341,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                         calculateHarmonicPotential(*it, *it2);
                     }
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
-                        calculateLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
+                        if (forceCalculationStrategy == 2){
+                            calculateLJForce(*it, *it2, it->getX(), it2->getX(), true);
+                        }else{
+                            calculateSmoothedLJForce(*it, *it2, it->getX(), it2->getX(), true);
+                        }
                     }
                 }
             }
@@ -344,7 +357,11 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
                             calculateHarmonicPotential(particle, p2);
                         }
                         if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
-                            calculateLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
+                            if (forceCalculationStrategy == 2){
+                                calculateLJForce(particle, p2, particle.getX(), p2.getX(), true);
+                            }else{
+                                calculateSmoothedLJForce(particle, p2, particle.getX(), p2.getX(), true);
+                            }
                         }
                     }
                 }

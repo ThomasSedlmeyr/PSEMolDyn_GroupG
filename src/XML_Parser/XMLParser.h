@@ -21,7 +21,7 @@ public:
     static double delta_t_p;
 
     /**
-     * @brief parsed calculation type from xml file (1=gravitationSimulation, 2=lennardJonesSimulation)
+     * @brief parsed calculation type from xml file (1=gravitationSimulation, 2=lennardJonesSimulation, 3=smoothedLennardJones)
      */
     static int calcType_p;
 

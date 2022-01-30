@@ -1,6 +1,7 @@
 //
 // Created by philip on 03.01.22.
 //
+#pragma once
 
 #include <XML_Parser/BodyBuilder.h>
 

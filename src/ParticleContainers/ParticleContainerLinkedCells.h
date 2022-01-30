@@ -58,6 +58,8 @@ private:
      */
     const double g_grav = XMLParser::g_grav_p;
 
+    const int forceCalculationStrategy = XMLParser::calcType_p;
+
     /**
      * @brief gravitation direction (0 for x, 1 for y and 2 for z)
      */

@@ -62,14 +62,7 @@ int main(int argc, char *argsv[]) {
             auto ljS = LennardJonesSimulation();
             ParticleContainer* particleContainer;
             if (XMLParser::dimensionType_p == 3){
-                if (XMLParser::particleContainerType_p == ParticleContainer::DIRECTSUM){
-                    particleContainer = new ParticleContainerDirectSum();
-                }else if (XMLParser::particleContainerType_p == ParticleContainer::LINKEDCELLS){
-                    particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
-                }else{
-                    spdlog::error("Unknown particle container type");
-                    exit(1);
-                }
+                particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
             }else{
                 std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
                 particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
