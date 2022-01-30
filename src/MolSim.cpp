@@ -51,29 +51,22 @@ int main(int argc, char *argsv[]) {
     // execution of simulation based to default or selection
     XMLParser::parseXML(inputFile);
     Writer *w = new VTKWriter();
-    switch (XMLParser::calcType_p) {
-        case Simulation::GRAVITATION: {
-            auto gS = GravitationSimulation();
-            ParticleContainer *particleContainer = new ParticleContainerDirectSum();
-            gS.simulate(*w, particleContainer);
-            break;
+    if (XMLParser::calcType_p == Simulation::GRAVITATION){
+        auto gS = GravitationSimulation();
+        ParticleContainer *particleContainer = new ParticleContainerDirectSum();
+        gS.simulate(*w, particleContainer);
+    }else if (XMLParser::calcType_p == Simulation::LENNARDJONES || XMLParser::calcType_p == Simulation::SMOOTHEDLENNARDJONES){
+        auto ljS = LennardJonesSimulation();
+        ParticleContainer* particleContainer;
+        if (XMLParser::dimensionType_p == 3){
+            particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
+        }else{
+            std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
+            particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
         }
-        case Simulation::LENNARDJONES: {
-            auto ljS = LennardJonesSimulation();
-            ParticleContainer* particleContainer;
-            if (XMLParser::dimensionType_p == 3){
-                particleContainer = new ParticleContainerLinkedCells(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::domainSize[2], XMLParser::cutoffRadius, XMLParser::boundaryConditions);
-            }else{
-                std::array<int, 4> boundaryConditions = {XMLParser::right_p, XMLParser::left_p, XMLParser::top_p, XMLParser::bottom_p};
-                particleContainer = new twoD::ParticleContainerLinkedCells2D(XMLParser::domainSize[0], XMLParser::domainSize[1], XMLParser::cutoffRadius, boundaryConditions);
-            }
-            ljS.simulate(*w, particleContainer);
-            break;
-        }
-        default: {
-            show_help();
-            return 0;
-        }
+        ljS.simulate(*w, particleContainer);
+    }else {
+        show_help();
     }
     return 0;
 }
