@@ -115,7 +115,7 @@ bool XMLParser::parseXML(const std::string filename) {
         delta_T_p = input_xml->generalParams().delta_T();
         n_thermostat_p = input_xml->generalParams().n_thermostat();
 
-        useVelDensProfiling_p = input_xml->generalParams().useVelDensProfiling();
+        useVelDensProfiling_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useVelDensProfiling());
         numberOfBins_p = input_xml->generalParams().numberOfBins();
         pathToAnalysisFolder_p = input_xml->generalParams().pathToAnalysisFolder();
 
