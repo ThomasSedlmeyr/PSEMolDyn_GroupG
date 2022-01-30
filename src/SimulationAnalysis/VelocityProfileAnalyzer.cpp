@@ -37,7 +37,7 @@ void VelocityProfileAnalyzer::calculateVelocityAndDensityProfile() {
     for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
         Bin* bin = new Bin();
         std::vector<Particle> particles_bin;
-        for (Particle particle : particles) {
+        for (Particle &particle : particles) {
             // get particles for specific bin that are moving
             if (particle.getX()[0] <= (i * binWidth) && particle.getX()[0] > ((i - 1) * binWidth) && particle.getMovingAllowed() && particle.getV()[1] != 0) {
                 particles_bin.push_back(particle);

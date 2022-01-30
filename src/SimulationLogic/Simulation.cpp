@@ -63,6 +63,9 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     DiffusionAnalyzer diffusionAnalyzer = DiffusionAnalyzer(partContainer);
     RadialPairDistributionAnalyzer rdfAnalyzer = RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
 
+    //TODO
+    XMLParser::useVelDensProfiling_p = true;
+
     if(XMLParser::useVelDensProfiling_p){
         velocityAnalyzer.writeHeaderLineToCSVFile();
         diffusionAnalyzer.writeHeaderLineToCSVFile();
