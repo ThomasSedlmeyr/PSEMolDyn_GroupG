@@ -155,5 +155,5 @@ TEST(SimulationAnalysisTest, VelocityDensity) {
     VelocityProfileAnalyzer* analysis = new VelocityProfileAnalyzer(&particleContainer);
     analysis->calculateVelocityAndDensityProfile();
     std::string result = analysis->calculationResultsToString();
-    EXPECT_EQ(result, "0.000167,2.000000,0.000000,0.000000,0.000167,0.000000,0.000083,-1.000000");
+    EXPECT_EQ(result, "0.000167,0.000000,0.000167,0.000083,2.000000,0.000000,0.000000,-1.000000");
 }
