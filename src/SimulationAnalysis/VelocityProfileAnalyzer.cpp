@@ -40,6 +40,7 @@ std::string VelocityProfileAnalyzer::createHeaderLine() {
 }
 
 void VelocityProfileAnalyzer::calculateVelocityAndDensityProfile() {
+    getSimulationParticles();
     bins.clear();
 
     for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
