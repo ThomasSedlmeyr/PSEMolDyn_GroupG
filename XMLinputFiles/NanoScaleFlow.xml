@@ -35,9 +35,9 @@
         <delta_T>10000</delta_T>
         <n_thermostat>10</n_thermostat>
 
-        <useProfiling>no</useProfiling>
-        <numberOfBins>1</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+        <useProfiling>yes</useProfiling>
+        <numberOfBins>50</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files/Nanoflow/</pathToAnalysisFolder>
 
         <crystallization_r_c>0</crystallization_r_c>
         <crystallization_r_l>0</crystallization_r_l>

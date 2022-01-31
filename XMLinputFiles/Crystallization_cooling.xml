@@ -14,7 +14,7 @@
         <gravDirection>y</gravDirection>
 
         <calcType>smoothedLJ</calcType>
-        <baseNameOutputFiles>Crystallization</baseNameOutputFiles>
+        <baseNameOutputFiles>CoolingArgon</baseNameOutputFiles>
         <cutoffRadius>2.3</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -35,9 +35,9 @@
         <delta_T>0.00078</delta_T>
         <n_thermostat>50</n_thermostat>
 
-        <useProfiling>no</useProfiling>
-        <numberOfBins>1</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+        <useProfiling>yes</useProfiling>
+        <numberOfBins>50</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files/Cooling</pathToAnalysisFolder>
 
         <crystallization_r_c>2.3</crystallization_r_c>
         <crystallization_r_l>1.9</crystallization_r_l>

@@ -14,7 +14,7 @@
         <gravDirection>y</gravDirection>
 
         <calcType>smoothedLJ</calcType>
-        <baseNameOutputFiles>Crystallization</baseNameOutputFiles>
+        <baseNameOutputFiles>SuperCooling</baseNameOutputFiles>
         <cutoffRadius>2.3</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -35,9 +35,9 @@
         <delta_T>0.0025</delta_T>
         <n_thermostat>25</n_thermostat>
 
-        <useProfiling>no</useProfiling>
-        <numberOfBins>1</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+        <useProfiling>yes</useProfiling>
+        <numberOfBins>50</numberOfBins>
+        <pathToAnalysisFolder>../SimulationAnalysis_Files/Supercooling/</pathToAnalysisFolder>
 
         <crystallization_r_c>2.3</crystallization_r_c>
         <crystallization_r_l>1.9</crystallization_r_l>
@@ -53,16 +53,5 @@
     </boundaryConditions>
 
     <particlesLJ>
-        <body>
-            <bodyType>Cuboid</bodyType>
-            <position>0.575,0.575,0.575</position>
-            <velocity>0,0,0</velocity>
-            <objectSpecificFormat>8,8,8</objectSpecificFormat>
-            <epsilon>1.0</epsilon>
-            <mass>1.0</mass>
-            <rho>1.0</rho>
-            <h>1.15</h>
-            <bodyState>moving</bodyState>
-        </body>
     </particlesLJ>
 </input>
