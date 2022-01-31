@@ -49,28 +49,28 @@ inline void calculateSmoothedLJForce(Particle &p1, Particle &p2, const std::arra
         if (squaredNorm <= rlSquared) {
             //Normal Lennard Jones-Caculation
             double term1 = -24.0 * epsilon / squaredNorm;
-            double term2 = rhoPoweredBySix / (squaredNorm * squaredNorm * squaredNorm);
+            double term2 = rhoPoweredBySix / distancePoweredBySix;
             double term3 = term2 - 2 * term2 * term2;
             scalar = term1 * term3;
             for (int i = 0; i < 3; ++i) {
-                diff[i] = diff[i] * scalar;
+                diff[i] *= scalar;
             }
         }else{
             double term2 = rc - rl;
             double term3 = term2 * term2 * term2;
             double term4 = -24.0 * rhoPoweredBySix  * epsilon / (term3 * distancePoweredBySix * distancePoweredBySix * squaredNorm );
             double term5 = rc - distance;
-            scalar = term4 * term5 * rcSquared * ((2 * rhoPoweredBySix - distancePoweredBySix) +
+            scalar = term4 * term5 * (rcSquared * (2 * rhoPoweredBySix - distancePoweredBySix) +
                      rc * (3 * rl - distance) * (distancePoweredBySix - 2 * rhoPoweredBySix) +
                      distance *
                      (5 * rl * rhoPoweredBySix - 2 * rl * distancePoweredBySix - 3 * rhoPoweredBySix * distance +
                       distance * distancePoweredBySix));
             for (double &d: diff) {
-                d *= scalar;
+                d *= -scalar;
             }
         }
     }else{
-       diff = {0,0,0};
+        diff = {0,0,0};
     }
 
 
