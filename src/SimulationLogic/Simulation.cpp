@@ -64,9 +64,9 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     RadialPairDistributionAnalyzer rdfAnalyzer = RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
 
     //TODO
-    XMLParser::useVelDensProfiling_p = true;
+    XMLParser::useProfiling_p = true;
 
-    if(XMLParser::useVelDensProfiling_p){
+    if(XMLParser::useProfiling_p){
         velocityAnalyzer.writeHeaderLineToCSVFile();
         diffusionAnalyzer.writeHeaderLineToCSVFile();
         rdfAnalyzer.writeHeaderLineToCSVFile();
@@ -83,12 +83,12 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         }
 
         if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0){
-            if(XMLParser::useVelDensProfiling_p){
+            if(XMLParser::useProfiling_p){
                 velocityAnalyzer.appendLineToCSVFile();
             }
         }
         if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0){
-            if(XMLParser::useVelDensProfiling_p){
+            if(XMLParser::useProfiling_p){
                 diffusionAnalyzer.appendLineToCSVFile();
                 //rdfAnalyzer.appendLineToCSVFile();
             }

@@ -35,7 +35,7 @@
         <delta_T>0.00078</delta_T>
         <n_thermostat>50</n_thermostat>
 
-        <useVelDensProfiling>no</useVelDensProfiling>
+        <useProfiling>no</useProfiling>
         <numberOfBins>1</numberOfBins>
         <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
 

@@ -35,7 +35,7 @@
         <delta_T>10000</delta_T>
         <n_thermostat>10</n_thermostat>
 
-        <useVelDensProfiling>yes</useVelDensProfiling>
+        <useProfiling>yes</useProfiling>
         <numberOfBins>5</numberOfBins>
         <pathToAnalysisFolder>../Analysis_Files</pathToAnalysisFolder>
 

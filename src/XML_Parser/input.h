@@ -3289,9 +3289,9 @@ class generalParams: public ::xml_schema::type
   //@}
 
   /**
-   * @name useVelDensProfiling
+   * @name useProfiling
    *
-   * @brief Accessor and modifier functions for the %useVelDensProfiling
+   * @brief Accessor and modifier functions for the %useProfiling
    * required element.
    */
   //@{
@@ -3299,28 +3299,28 @@ class generalParams: public ::xml_schema::type
   /**
    * @brief Element type.
    */
-  typedef ::yesNo useVelDensProfiling_type;
+  typedef ::yesNo useProfiling_type;
 
   /**
    * @brief Element traits type.
    */
-  typedef ::xsd::cxx::tree::traits< useVelDensProfiling_type, char > useVelDensProfiling_traits;
+  typedef ::xsd::cxx::tree::traits< useProfiling_type, char > useProfiling_traits;
 
   /**
    * @brief Return a read-only (constant) reference to the element.
    *
    * @return A constant reference to the element.
    */
-  const useVelDensProfiling_type&
-  useVelDensProfiling () const;
+  const useProfiling_type&
+  useProfiling () const;
 
   /**
    * @brief Return a read-write reference to the element.
    *
    * @return A reference to the element.
    */
-  useVelDensProfiling_type&
-  useVelDensProfiling ();
+  useProfiling_type&
+  useProfiling ();
 
   /**
    * @brief Set the element value.
@@ -3331,7 +3331,7 @@ class generalParams: public ::xml_schema::type
    * the new value of the element.
    */
   void
-  useVelDensProfiling (const useVelDensProfiling_type& x);
+  useProfiling (const useProfiling_type& x);
 
   /**
    * @brief Set the element value without copying.
@@ -3342,7 +3342,7 @@ class generalParams: public ::xml_schema::type
    * instead of making a copy.
    */
   void
-  useVelDensProfiling (::std::unique_ptr< useVelDensProfiling_type > p);
+  useProfiling (::std::unique_ptr< useProfiling_type > p);
 
   //@}
 
@@ -3580,7 +3580,7 @@ class generalParams: public ::xml_schema::type
                  const T_target_type&,
                  const delta_T_type&,
                  const n_thermostat_type&,
-                 const useVelDensProfiling_type&,
+                 const useProfiling_type&,
                  const numberOfBins_type&,
                  const pathToAnalysisFolder_type&,
                  const crystallization_r_c_type&,
@@ -3682,7 +3682,7 @@ class generalParams: public ::xml_schema::type
   ::xsd::cxx::tree::one< T_target_type > T_target_;
   ::xsd::cxx::tree::one< delta_T_type > delta_T_;
   ::xsd::cxx::tree::one< n_thermostat_type > n_thermostat_;
-  ::xsd::cxx::tree::one< useVelDensProfiling_type > useVelDensProfiling_;
+  ::xsd::cxx::tree::one< useProfiling_type > useProfiling_;
   ::xsd::cxx::tree::one< numberOfBins_type > numberOfBins_;
   ::xsd::cxx::tree::one< pathToAnalysisFolder_type > pathToAnalysisFolder_;
   ::xsd::cxx::tree::one< crystallization_r_c_type > crystallization_r_c_;

@@ -43,7 +43,7 @@ bool XMLParser::useBrownianMotion_p;
 int XMLParser::parallelType_p;
 int XMLParser::thermostatType_p;
 int XMLParser::gravDirection_p;
-bool XMLParser::useVelDensProfiling_p;
+bool XMLParser::useProfiling_p;
 int XMLParser::numberOfBins_p;
 double XMLParser::crystallization_r_c_p;
 double XMLParser::crystallization_r_l_p;
@@ -115,7 +115,7 @@ bool XMLParser::parseXML(const std::string filename) {
         delta_T_p = input_xml->generalParams().delta_T();
         n_thermostat_p = input_xml->generalParams().n_thermostat();
 
-        useVelDensProfiling_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useVelDensProfiling());
+        useProfiling_p = [](yesNo x) {if (x == yesNo::yes) return true; else return false;} (input_xml->generalParams().useProfiling());
         numberOfBins_p = input_xml->generalParams().numberOfBins();
         pathToAnalysisFolder_p = input_xml->generalParams().pathToAnalysisFolder();
 

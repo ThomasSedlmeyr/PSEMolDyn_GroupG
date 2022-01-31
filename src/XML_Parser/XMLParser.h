@@ -183,7 +183,7 @@ public:
     /**
     * @brief make density- and velocity-profile
     */
-    static bool useVelDensProfiling_p;
+    static bool useProfiling_p;
 
     /**
     * @brief specify number of bins for density- and velocity-profile

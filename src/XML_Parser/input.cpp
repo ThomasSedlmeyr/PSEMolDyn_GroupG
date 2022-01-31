@@ -1000,28 +1000,28 @@ n_thermostat (const n_thermostat_type& x)
   this->n_thermostat_.set (x);
 }
 
-const generalParams::useVelDensProfiling_type& generalParams::
-useVelDensProfiling () const
+const generalParams::useProfiling_type& generalParams::
+useProfiling () const
 {
-  return this->useVelDensProfiling_.get ();
+  return this->useProfiling_.get ();
 }
 
-generalParams::useVelDensProfiling_type& generalParams::
-useVelDensProfiling ()
+generalParams::useProfiling_type& generalParams::
+useProfiling ()
 {
-  return this->useVelDensProfiling_.get ();
-}
-
-void generalParams::
-useVelDensProfiling (const useVelDensProfiling_type& x)
-{
-  this->useVelDensProfiling_.set (x);
+  return this->useProfiling_.get ();
 }
 
 void generalParams::
-useVelDensProfiling (::std::unique_ptr< useVelDensProfiling_type > x)
+useProfiling (const useProfiling_type& x)
 {
-  this->useVelDensProfiling_.set (std::move (x));
+  this->useProfiling_.set (x);
+}
+
+void generalParams::
+useProfiling (::std::unique_ptr< useProfiling_type > x)
+{
+  this->useProfiling_.set (std::move (x));
 }
 
 const generalParams::numberOfBins_type& generalParams::
@@ -2221,7 +2221,7 @@ generalParams (const t_end_type& t_end,
                const T_target_type& T_target,
                const delta_T_type& delta_T,
                const n_thermostat_type& n_thermostat,
-               const useVelDensProfiling_type& useVelDensProfiling,
+               const useProfiling_type& useProfiling,
                const numberOfBins_type& numberOfBins,
                const pathToAnalysisFolder_type& pathToAnalysisFolder,
                const crystallization_r_c_type& crystallization_r_c,
@@ -2253,7 +2253,7 @@ generalParams (const t_end_type& t_end,
   T_target_ (T_target, this),
   delta_T_ (delta_T, this),
   n_thermostat_ (n_thermostat, this),
-  useVelDensProfiling_ (useVelDensProfiling, this),
+  useProfiling_ (useProfiling, this),
   numberOfBins_ (numberOfBins, this),
   pathToAnalysisFolder_ (pathToAnalysisFolder, this),
   crystallization_r_c_ (crystallization_r_c, this),
@@ -2292,7 +2292,7 @@ generalParams (const generalParams& x,
   T_target_ (x.T_target_, f, this),
   delta_T_ (x.delta_T_, f, this),
   n_thermostat_ (x.n_thermostat_, f, this),
-  useVelDensProfiling_ (x.useVelDensProfiling_, f, this),
+  useProfiling_ (x.useProfiling_, f, this),
   numberOfBins_ (x.numberOfBins_, f, this),
   pathToAnalysisFolder_ (x.pathToAnalysisFolder_, f, this),
   crystallization_r_c_ (x.crystallization_r_c_, f, this),
@@ -2331,7 +2331,7 @@ generalParams (const ::xercesc::DOMElement& e,
   T_target_ (this),
   delta_T_ (this),
   n_thermostat_ (this),
-  useVelDensProfiling_ (this),
+  useProfiling_ (this),
   numberOfBins_ (this),
   pathToAnalysisFolder_ (this),
   crystallization_r_c_ (this),
@@ -2682,16 +2682,16 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       }
     }
 
-    // useVelDensProfiling
+    // useProfiling
     //
-    if (n.name () == "useVelDensProfiling" && n.namespace_ ().empty ())
+    if (n.name () == "useProfiling" && n.namespace_ ().empty ())
     {
-      ::std::unique_ptr< useVelDensProfiling_type > r (
-        useVelDensProfiling_traits::create (i, f, this));
+      ::std::unique_ptr< useProfiling_type > r (
+        useProfiling_traits::create (i, f, this));
 
-      if (!useVelDensProfiling_.present ())
+      if (!useProfiling_.present ())
       {
-        this->useVelDensProfiling_.set (::std::move (r));
+        this->useProfiling_.set (::std::move (r));
         continue;
       }
     }
@@ -2928,10 +2928,10 @@ parse (::xsd::cxx::xml::dom::parser< char >& p,
       "");
   }
 
-  if (!useVelDensProfiling_.present ())
+  if (!useProfiling_.present ())
   {
     throw ::xsd::cxx::tree::expected_element< char > (
-      "useVelDensProfiling",
+      "useProfiling",
       "");
   }
 
@@ -3003,7 +3003,7 @@ operator= (const generalParams& x)
     this->T_target_ = x.T_target_;
     this->delta_T_ = x.delta_T_;
     this->n_thermostat_ = x.n_thermostat_;
-    this->useVelDensProfiling_ = x.useVelDensProfiling_;
+    this->useProfiling_ = x.useProfiling_;
     this->numberOfBins_ = x.numberOfBins_;
     this->pathToAnalysisFolder_ = x.pathToAnalysisFolder_;
     this->crystallization_r_c_ = x.crystallization_r_c_;

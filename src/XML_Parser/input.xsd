@@ -105,7 +105,7 @@
             <xsd:element name="delta_T" type="xsd:double"/>
             <xsd:element name="n_thermostat" type="xsd:double"/>
 
-            <xsd:element name="useVelDensProfiling" type="yesNo"/>
+            <xsd:element name="useProfiling" type="yesNo"/>
             <xsd:element name="numberOfBins" type="xsd:int"/>
             <xsd:element name="pathToAnalysisFolder" type="xsd:string"/>
 

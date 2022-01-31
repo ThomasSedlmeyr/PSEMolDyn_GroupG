@@ -14,7 +14,12 @@ std::string VelocityProfileAnalyzer::calculationResultsToString() {
     std::string line = "";
     int size = bins.size();
     for (Bin* bin : bins) {
-        line += std::to_string(bin->getDensity()) + "," + std::to_string(bin->getMeanVelocity());
+        line += std::to_string(bin->getDensity()) + ",";
+        size--;
+    }
+    size = bins.size();
+    for (Bin* bin : bins) {
+        line += std::to_string(bin->getMeanVelocity());
         if (size > 1) {
             line += ",";
         }
@@ -24,9 +29,12 @@ std::string VelocityProfileAnalyzer::calculationResultsToString() {
 }
 
 std::string VelocityProfileAnalyzer::createHeaderLine() {
-    std::string line = "d1,v1";
+    std::string line = "d1";
     for (int i = 2; i <= XMLParser::numberOfBins_p; ++i) {
-        line += ",d" + std::to_string(i) + ",v" + std::to_string(i);
+        line += ",d" + std::to_string(i);
+    }
+    for (int i = 1; i <= XMLParser::numberOfBins_p; ++i) {
+        line += ",v" + std::to_string(i);
     }
     return line;
 }
