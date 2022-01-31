@@ -14,7 +14,7 @@ private:
 
 public:
     /**
-     * @brief Constant values with describe the different types of ParticleContainer
+     * @brief Constant values which describe the different types of ParticleContainer
      */
     static const int DIRECTSUM = 1;
     static const int LINKEDCELLS = 2;
@@ -30,17 +30,28 @@ public:
      * @param visitor
      */
     virtual void walkOverParticles(ParticleVisitor &visitor) = 0;
+
     /**
      * Iterates over all distinct particle pairs and applies the visitor to them
      * @param visitor
      */
     virtual void walkOverParticlePairs(ParticlePairVisitor &visitor) = 0;
+
+    /**
+     * @brief Returns all particles which are part of the ParticleContainer
+     * @return the particles which are located in the ParticleContainer
+     */
     virtual std::vector<Particle> & getParticles() = 0;
+
     /**
      * @brief Adds the given particle to the internal representation of the particles
      * @param p Particle to be added
      */
     virtual void addParticleToContainer(Particle &p) = 0;
+
+    /**
+     * @brief TODO Kommentar für Philip
+     */
     virtual void applyFZUp() = 0;
 };
 

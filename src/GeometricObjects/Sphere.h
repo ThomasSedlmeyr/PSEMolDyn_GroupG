@@ -13,15 +13,17 @@ protected:
 public:
     Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadius, bool isMovingAllowed = true);
 
-    Sphere(int ID, double meshWidth, double massPerParticle);
-
     ~Sphere();
 
     /**
      * @brief specifies if the generated sphere is a disk
      */
     static bool is2D;
+
 private:
+    /**@brief
+     * The number of particles per radius
+     */
     int numberParticlesPerRadius;
 
     /**

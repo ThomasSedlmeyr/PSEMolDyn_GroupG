@@ -17,6 +17,7 @@ class Tetrahedron: public Body {
      * The length of every edge of the tetrahedron
      */
     double edgeLength;
+
     /**
      * The number of particles with which the edge
      */

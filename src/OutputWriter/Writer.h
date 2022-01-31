@@ -11,8 +11,7 @@
 #include <vector>
 
 class Writer {
-private:
-    std::string fileName;
+
 public:
     Writer();
     virtual ~Writer();

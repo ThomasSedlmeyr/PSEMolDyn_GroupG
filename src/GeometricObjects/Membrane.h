@@ -38,6 +38,9 @@ public:
     void parseStructure(const std::string& line) override;
     void generateParticles(int startID) override;
 
+    /**
+     * TODO Kommentar muss Philip schreiben
+     */
     void setNeighbourParticles();
 };
 

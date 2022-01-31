@@ -74,10 +74,8 @@ private:
 public:
     void setNumberOfTimesCrossedWholeDomain(const std::array<short, 3> &numberOfTimesCrossedWholeDomain);
 
-public:
     [[nodiscard]] const std::array<short, 3> &getNumberOfTimesCrossedWholeDomain() const;
 
-public:
     explicit Particle(int type = 0);
 
     Particle(const Particle &other);
@@ -115,6 +113,7 @@ public:
       int getType() const;
 
       bool operator==(Particle &other);
+
       bool operator==(const Particle &other);
 
       std::string toString() const;
@@ -128,8 +127,6 @@ public:
     void setOldF(const std::array<double, 3> &oldF);
 
     void setIsGhostParticle(const bool& b);
-
-
 
     /**
      * @brief sets old_f to f and sets f to zeroes to allow for new calculation of f
@@ -148,6 +145,7 @@ public:
 
     bool isGhostParticle = false;
 
+    //TODO Philip Kommentare
     void addParticleToNeighbours(int neighbourID);
 
     void addParticleToDirectNeighbours(int neighbourID);

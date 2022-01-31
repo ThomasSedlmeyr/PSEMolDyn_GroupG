@@ -18,6 +18,7 @@ private:
      * @brief Type of the thermostat
      */
     int type;
+
     /**
      * @brief ParticleContainer to use for thermostat
      */

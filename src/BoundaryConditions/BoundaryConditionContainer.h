@@ -67,6 +67,10 @@ public:
      */
     void doWorkAfterCalculationStep();
 
+    /**
+     * @brief Returns the six BoundaryConditions for each side of the domain
+     * @return The six BoundaryConditions
+     */
     [[nodiscard]] const std::array<BoundaryCondition *, 6> &getBoundaryConditions() const;
 };
 

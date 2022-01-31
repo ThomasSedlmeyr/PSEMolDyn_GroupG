@@ -59,39 +59,32 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     double currentTime = 0;
     int numberOfTimeStepsToAnalyzeDiffusions = 1000;
     int numberOfTimeStepsToAnalyzeVelocityProfiles = 10000;
-    VelocityProfileAnalyzer velocityAnalyzer = VelocityProfileAnalyzer(partContainer);
-    DiffusionAnalyzer diffusionAnalyzer = DiffusionAnalyzer(partContainer);
-    RadialPairDistributionAnalyzer rdfAnalyzer = RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
 
-    //TODO
-    XMLParser::useProfiling_p = true;
+    VelocityProfileAnalyzer* velocityAnalyzer = nullptr;
+    DiffusionAnalyzer* diffusionAnalyzer = nullptr;
+    RadialPairDistributionAnalyzer* rdfAnalyzer = nullptr;
 
     if(XMLParser::useProfiling_p){
-        velocityAnalyzer.writeHeaderLineToCSVFile();
-        diffusionAnalyzer.writeHeaderLineToCSVFile();
-        rdfAnalyzer.writeHeaderLineToCSVFile();
+        velocityAnalyzer = new VelocityProfileAnalyzer(partContainer);
+        diffusionAnalyzer = new DiffusionAnalyzer(partContainer);
+        rdfAnalyzer = new RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
+        velocityAnalyzer->writeHeaderLineToCSVFile();
+        diffusionAnalyzer->writeHeaderLineToCSVFile();
+        rdfAnalyzer->writeHeaderLineToCSVFile();
     }
-
     writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    ParticleContainerLinkedCells* particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
+    //ParticleContainerLinkedCells* particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
     //particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
 
     while (currentTime < endTime) {
-        if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0){
+        if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0 && XMLParser::useProfiling_p){
+            velocityAnalyzer->appendLineToCSVFile();
+        }
+        if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0 && XMLParser::useProfiling_p){
             //particleContainerLinkedCells->countParticlesInSubdomains();
-        }
-
-        if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0){
-            if(XMLParser::useProfiling_p){
-                velocityAnalyzer.appendLineToCSVFile();
-            }
-        }
-        if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0){
-            if(XMLParser::useProfiling_p){
-                diffusionAnalyzer.appendLineToCSVFile();
-                //rdfAnalyzer.appendLineToCSVFile();
-            }
+            diffusionAnalyzer->appendLineToCSVFile();
+            rdfAnalyzer->appendLineToCSVFile();
         }
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());

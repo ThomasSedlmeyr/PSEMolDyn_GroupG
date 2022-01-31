@@ -20,6 +20,10 @@ public:
     void parseStructure(const std::string& line) override;
     void generateParticles(int startID) override;
 
+    /**
+     * @brief Sets the dimensions of the cuboid
+     * @param dim the dimension in x-, y- and z-Direction
+     */
     void setStructure(const std::array<double, 3> &dim);
 };
 

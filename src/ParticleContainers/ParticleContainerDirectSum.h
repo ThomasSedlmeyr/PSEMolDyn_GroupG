@@ -15,12 +15,14 @@ class ParticleContainerDirectSum : public ParticleContainer{
 
 private:
     /**
-     * @brief vector containing all particles
+     * @brief Vector containing all particles
      */
     std::vector<Particle> particles;
 
+    /**
+     * @brief The particles on which a specific force in z-Direction is applied
+     */
     std::vector<Particle *> particlesWithFZUp;
-
 
 public:
     void updateParticlePositions(ParticleVisitor &visitor) override;

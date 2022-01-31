@@ -58,6 +58,9 @@ private:
      */
     const double g_grav = XMLParser::g_grav_p;
 
+    /**
+     * @brief the specific calculation of the force e.g. SmoothedLJ
+     */
     const int forceCalculationStrategy = XMLParser::calcType_p;
 
     /**
@@ -65,9 +68,20 @@ private:
      */
     const int gravDirection = XMLParser::gravDirection_p;
 
-
+    /**
+     * @brief the middle of the domain in x-Direction
+     */
     static double middleOfDomainInX;
+
+    /**
+     * @brief the middle of the domain in y-Direction
+     */
     static double middleOfDomainInY;
+
+
+    /**
+     * @brief the middle of the domain in z-Direction
+     */
     static double middleOfDomainInZ;
 
     /**
@@ -75,8 +89,14 @@ private:
      */
     std::array<double, 3> currentPosition{};
 
+    /**
+     * TODO Kommentar für Philip
+     */
     UpwardForceVisitor zGravVisitor{};
 
+    /**
+     * @brief The subdomainContainer is used for the parallelization-strategy second
+     */
     SubdomainContainer subdomainContainer;
 
     /**
@@ -199,8 +219,8 @@ public:
     static int numberCellsZ;
 
     /**
- * @brief the x-dimension of the domain
- */
+     * @brief the x-dimension of the domain
+     */
     static double domainSizeX;
 
     /**
@@ -213,12 +233,28 @@ public:
      */
     static double domainSizeZ;
 
+    /**
+     * @brief returns all LinkedCells
+     * @return all LinkedCells
+     */
     static const std::vector<Cell> &getCells();
 
+    /**
+     * @brief returns all BoundaryCells
+     * @return all BoundaryCells
+     */
     static const std::vector<Cell *> &getBoundaryCells();
 
+    /**
+     * @brief returns all HaloCells
+     * @return all HalloCells
+     */
     static const std::vector<Cell *> &getHaloCells();
 
+    /**
+     * @brief returns all InnerCells
+     * @return all innerCells
+     */
     static const std::vector<Cell *> &getInnerCells();
 
     std::vector<Particle> &getParticles() override;
@@ -262,6 +298,12 @@ public:
 
     void addParticleToContainer(Particle &p) override;
 
+    /**
+     * @brief Adds a new ghostParticle to the Container
+     * @param position the position of the ghostParticle
+     * @param m the mass of the ghostParticle
+     * @param type the type of the ghostParticle
+     */
     static void addGhostParticle(const std::array<double, 3> &position, const double m, const int type);
 
     void updateParticlePositions(ParticleVisitor &visitor) override;
@@ -290,22 +332,27 @@ public:
      */
     static void addParticle(Particle &particle);
 
-    static void reflectPositionInY(std::array<double, 3> &position);
+    /**
+     * @brief Carries out the force calculation for the domain which was split up into
+     * multiple Subdomains
+     * @param visitor
+     */
+    void walkOverParticlePairsParallelStrategy2(ParticlePairVisitor &visitor);
 
-    static void reflectPositionInZ(std::array<double, 3> &position);
-
-    static void reflectPositionInX(std::array<double, 3> &position);
-
-    static void
-    add9CellsAtRelativePositionsToNeighboursOfCell(const std::array<std::array<int, 3>, 9> &relativePositions,
-                                                   const std::array<double, 3> &positionOfCell);
-
-    void walkOverParticlePairs2(ParticlePairVisitor &visitor);
-
+    /**
+     * @brief Deletes all particles in the particle Container. This method is often used
+     * for testing
+     */
     static void clearAllParticles();
 
+    /**
+     * @brief invokes the same method on the SubdomainContainer.
+     */
     void writeHeaderFileOfParticlesCount();
 
+    /**
+     * @brief invokes the same methode on the SubdomainContainer
+     */
     void countParticlesInSubdomains();
 };
 

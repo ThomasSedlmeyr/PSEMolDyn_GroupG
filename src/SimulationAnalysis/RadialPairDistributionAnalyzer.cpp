@@ -6,8 +6,7 @@
 RadialPairDistributionAnalyzer::RadialPairDistributionAnalyzer(ParticleContainer *particleContainer,
                                                                double startOfIntervall, double stepSize,
                                                                int numberOfValues, int startTime, int timeStepSize) : Analyzer(
-        particleContainer), startOfIntervall(
-        startOfIntervall), stepSize(stepSize), numberOfValues(numberOfValues), startTime(startTime), timeStepSize(timeStepSize) {
+        particleContainer), startOfIntervall(startOfIntervall), stepSize(stepSize), timeStepSize(timeStepSize) {
 
     numberParticlesInIntervall = std::vector<int>(numberOfValues);
     localDensities = std::vector<double>(numberOfValues);
@@ -66,7 +65,7 @@ RadialPairDistributionAnalyzer::~RadialPairDistributionAnalyzer() = default;
 std::string RadialPairDistributionAnalyzer::calculationResultsToString() {
     calculateLocalDensities();
     std::string resultLine = std::to_string(currentTime) + ",";
-    for(int i = 0; i < numberOfValues; i++){
+    for(int i = 0; i < localDensities.size(); i++){
         resultLine += std::to_string(localDensities[i]) + ",";
     }
     currentTime += timeStepSize;
@@ -76,7 +75,7 @@ std::string RadialPairDistributionAnalyzer::calculationResultsToString() {
 std::string RadialPairDistributionAnalyzer::createHeaderLine() {
     std::string headerLine = "Time,";
     double currentDistance = startOfIntervall;
-    for(int i = 0; i < numberOfValues; i++){
+    for(int i = 0; i < localDensities.size(); i++){
         headerLine += std::to_string((int) currentDistance) + ",";
         currentDistance += stepSize;
     }

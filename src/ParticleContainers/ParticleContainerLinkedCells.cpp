@@ -52,12 +52,12 @@ ParticleContainerLinkedCells::ParticleContainerLinkedCells(double domainSizeXarg
     if(Simulation::SECONDPARALLEL == XMLParser::parallelType_p){
         subdomainContainer = SubdomainContainer();
         const char* ev_val = getenv("OMP_NUM_THREADS");
-        if (ev_val == nullptr) {
-            throw std::runtime_error("Environment variable not defined");
+        int numberThreads = 4;
+        if (ev_val != nullptr) {
+            std::string envValue = std::string(ev_val);
+            numberThreads = std::stoi(envValue);
         }
-        std::string envValue = std::string(ev_val);
-        int numberThreads = std::stoi(envValue);
-        subdomainContainer.generateSubdomainsWithNumberOfThreads(2);
+        subdomainContainer.generateSubdomainsWithNumberOfThreads(numberThreads);
     }
 }
 
@@ -254,7 +254,7 @@ inline bool shouldCalculateForce(const std::array<double, 3> &pos1, const std::a
 
 void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &visitor) {
     if (XMLParser::parallelType_p == Simulation::SECONDPARALLEL){
-        walkOverParticlePairs2(visitor);
+        walkOverParticlePairsParallelStrategy2(visitor);
         return;
     }
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
@@ -312,7 +312,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairs(ParticlePairVisitor &vi
     boundaryContainer->doWorkAfterCalculationStep();
 }
 
-void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &visitor) {
+void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(ParticlePairVisitor &visitor) {
     bool includesMembranes = !LJForceVisitor::membraneIDs.empty();
     boundaryContainer->calculateBoundaryConditions();
     #ifdef _OPENMP
@@ -323,9 +323,6 @@ void ParticleContainerLinkedCells::walkOverParticlePairs2(ParticlePairVisitor &v
             Cell* c = subdomainCell.getPointerToCell();
             auto &particles = c->getParticles();
             bool atomic = subdomainCell.getIsSynchronized();
-            if(atomic){
-                int sdfsd = 0;
-            }
             for (auto it = particles.begin(); it != particles.end(); it++) {
                 //apply Gravitation
                 if (useGrav) {
@@ -588,35 +585,6 @@ void ParticleContainerLinkedCells::addGhostParticle(const std::array<double, 3> 
 void ParticleContainerLinkedCells::addParticle(Particle &particle) {
     auto index = getCellIndexForParticle(particle);
     cells[index].getParticles().push_back(particle);
-}
-
-void ParticleContainerLinkedCells::reflectPositionInX(std::array<double, 3> &position) {
-    double difference = middleOfDomainInX - position[0];
-    position[0] += 2 * difference;
-}
-
-void ParticleContainerLinkedCells::reflectPositionInY(std::array<double, 3> &position) {
-    double difference = middleOfDomainInY - position[1];
-    position[1] += 2 * difference;
-}
-
-void ParticleContainerLinkedCells::reflectPositionInZ(std::array<double, 3> &position) {
-    double difference = middleOfDomainInZ - position[2];
-    position[2] += 2 * difference;
-}
-
-void ParticleContainerLinkedCells::add9CellsAtRelativePositionsToNeighboursOfCell(
-        const std::array<std::array<int, 3>, 9> &relativePositions, const std::array<double, 3> &positionOfCell) {
-    int indexCombined =
-            positionOfCell[0] + positionOfCell[1] * numberCellsX + positionOfCell[2] * numberCellsX * numberCellsY;
-    Cell *cell = &cells[indexCombined];
-    int numberOfCurrentNeighbourCells = cell->getNeighbourCells().size();
-    cell->getNeighbourCells().resize(numberOfCurrentNeighbourCells + 9);
-    for (int i = 0; i < static_cast<int>(relativePositions.size()); i++) {
-        indexCombined = relativePositions[i][0] + relativePositions[i][1] * numberCellsX +
-                        relativePositions[i][2] * numberCellsX * numberCellsY;
-        cell->getNeighbourCells()[numberOfCurrentNeighbourCells + i] = &cells[indexCombined];
-    }
 }
 
 void ParticleContainerLinkedCells::applyFZUp() {

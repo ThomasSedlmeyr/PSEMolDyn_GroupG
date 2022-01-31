@@ -11,25 +11,11 @@ private:
      * @brief average velocity in bin
      */
     double meanVelocity;
-public:
-    /**
-     * @brief getter for average velocity
-     */
-    double getMeanVelocity() const;
-
-private:
 
     /**
      * @brief average density in bin
      */
     double density;
-public:
-    /**
-     * @brief getter for average density
-     */
-    double getDensity() const;
-
-private:
 
     /**
      * @brief particles that lie in bin
@@ -37,6 +23,15 @@ private:
     std::vector<Particle> particles;
 
 public:
+    /**
+     * @brief getter for average velocity
+     */
+    [[nodiscard]] double getMeanVelocity() const;
+
+    /**
+     * @brief getter for average density
+     */
+    [[nodiscard]] double getDensity() const;
 
     /**
      * @brief calculate average density

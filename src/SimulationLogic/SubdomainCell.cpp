@@ -9,10 +9,6 @@ SubdomainCell::SubdomainCell(Cell *pointerToCell, std::array<int, 3> relativePos
 
 SubdomainCell::SubdomainCell() {}
 
-const std::array<int, 3> &SubdomainCell::getRelativePositionInSubdomain() const {
-    return relativePositionInSubdomain;
-}
-
 Cell *SubdomainCell::getPointerToCell() const {
     return pointerToCell;
 }

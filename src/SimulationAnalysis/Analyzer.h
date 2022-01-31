@@ -37,6 +37,9 @@ protected:
      */
     virtual std::string createHeaderLine() = 0;
 
+    /**
+     * @brief the CSV-Writer is used to write the information to a CSV-file
+     */
     CSVWriter *writer;
 
 public:
@@ -64,6 +67,10 @@ public:
 
     virtual ~Analyzer();
 
+    /**
+     * @brief Sets the ParticleContainer which will be analysed
+     * @param particleContainer_new
+     */
     void setParticleContainer(ParticleContainer* particleContainer_new);
 
 };

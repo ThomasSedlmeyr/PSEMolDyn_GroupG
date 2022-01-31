@@ -12,14 +12,31 @@
 #include "SimulationAnalysis/Analyzer.h"
 
 class DiffusionAnalyzer : public Analyzer{
+
 private:
+    /**
+     * @brief the diffusion which is calculated
+     */
     double diffusion;
+
+    /**
+     * @brief the positions of the particles of the previous time step
+     */
     std::vector<std::array<double, 3>> oldPositions;
+
+    /**
+     * @brief Sets the OldPositions to the current positions. This function is invoked
+     * in the Constructor
+     */
     void initializeOldPositions();
+
     std::string calculationResultsToString() override;
     std::string createHeaderLine();
 
 public:
+    /**
+     * @brief Calculates the diffusion between two timeSteps
+     */
     void calculateDiffusion();
 
     ~DiffusionAnalyzer() override;

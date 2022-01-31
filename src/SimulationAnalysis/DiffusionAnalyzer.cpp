@@ -34,9 +34,7 @@ double DiffusionAnalyzer::getDiffusion() const {
 void DiffusionAnalyzer::initializeOldPositions(){
     int size = particles.size();
     oldPositions = std::vector<std::array<double, 3>>(size);
-    oldPositions[2] = {0,2,2};
     for(int i = 0; i < particles.size(); i++){
-        //Hier möchte ich aber eine echte kopie
         std::array<double, 3> oldPosition = {0,0,0};
         oldPosition[0] = particles[i].getX()[0] +
                 particles[i].getNumberOfTimesCrossedWholeDomain()[0] * ParticleContainerLinkedCells::domainSizeX;
@@ -61,6 +59,6 @@ std::string DiffusionAnalyzer::calculationResultsToString() {
 }
 
 std::string DiffusionAnalyzer::createHeaderLine() {
-    return "Diffustion";
+    return "Diffusion";
 }
 

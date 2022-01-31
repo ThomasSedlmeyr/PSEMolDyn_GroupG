@@ -15,10 +15,7 @@ private:
      * @brief The dimensions in number of cells
      */
     std::vector<SubdomainCell>* cells;
-public:
-    std::vector<SubdomainCell> *getCells() const;
 
-private:
     /**
      * @brief The dimensions in number of cells
      */
@@ -43,14 +40,13 @@ public:
      */
     Subdomain(std::vector<SubdomainCell> *cells, std::array<int, 3> dimensions, std::array<int, 3> leftBottomBackPosition);
 
-
-    bool checkIfOneValuesMatches(int value1, int value2, const std::array<int, 3> &array);
-
     /**
      * @brief Counts the number of particles which are located in the subdomain
      * @return the number of particles
      */
     int countNumberOfParticles();
+
+    std::vector<SubdomainCell> *getCells() const;
 };
 
 #endif //PSEMOLDYN_GROUPG_SUBDOMAIN_H

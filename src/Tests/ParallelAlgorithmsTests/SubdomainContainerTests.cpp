@@ -18,6 +18,9 @@ TEST(ParallelAlgorithmsTests, TestForCorrectPartition) {
     EXPECT_EQ(28, subdomainContainer.getSubdomains().size());
 }
 
+/**
+ * @brief Test if the split in equal parts works as expected
+ */
 TEST(ParallelAlgorithmsTests, TestSplitInNearlyEqualParts) {
     SubdomainContainer subdomainContainer{};
     std::array<int, 31> testValues = {};
@@ -46,7 +49,10 @@ TEST(ParallelAlgorithmsTests, TestSplitInNearlyEqualParts) {
     }
 }
 
-TEST(ParallelAlgorithmsTests, TestForCorrectNumberOfComputationTasks) {
+/**
+ * @brief Tests if we get the correct number of Subdomains
+ */
+TEST(ParallelAlgorithmsTests, TestForCorrectNumberOfSubdomains) {
     std::array<int, 6> ones = {1,1,1,1,1,1};
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(60, 60, 60, 3.6, ones);
 
@@ -59,6 +65,9 @@ TEST(ParallelAlgorithmsTests, TestForCorrectNumberOfComputationTasks) {
     }
 }
 
+/**
+ * @brief Tests if the SubdomainCells were set correct to synchronized
+ */
 TEST(ParallelAlgorithmsTests, TestForCorrectSynchronizationOfSubdomains) {
     std::array<int, 6> ones = {1, 1, 1, 1, 1, 1};
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(35, 35, 35, 3.6, ones);

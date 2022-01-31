@@ -10,10 +10,6 @@ Sphere::Sphere(int ID, double meshWidth, double massPerParticle, int numberParti
     is2D = XMLParser::dimensionType_p==2;
 }
 
-Sphere::Sphere(int ID, double meshWidth, double massPerParticle) : Body(ID, meshWidth, massPerParticle) {
-    is2D = XMLParser::dimensionType_p==2;
-}
-
 void Sphere::parseStructure(const std::string &line) {
     numberParticlesPerRadius = std::stoi(line);
 }
