@@ -15,6 +15,7 @@ RadialPairDistributionAnalyzer::RadialPairDistributionAnalyzer(ParticleContainer
 }
 
 void RadialPairDistributionAnalyzer::calculateLocalDensities() {
+    getSimulationParticles();
     double difference = 0;
     int index = 0;
     for (auto it = particles.begin(); it != particles.end(); it++) {
@@ -23,11 +24,14 @@ void RadialPairDistributionAnalyzer::calculateLocalDensities() {
             Particle p2 = *it2;
             double distance = 0;
 
-            difference = p1.getX()[0] - p2.getX()[0];
+            std::array<double, 3> p1RealPosition = p1.getRealPosition();
+            std::array<double, 3> p2RealPosition = p2.getRealPosition();
+
+            difference = p1RealPosition[0] - p2RealPosition[0];
             distance = difference * difference;
-            difference = p1.getX()[1] - p2.getX()[1];
+            difference = p1RealPosition[1] - p2RealPosition[1];
             distance += difference * difference;
-            difference = p1.getX()[2] - p2.getX()[2];
+            difference = p1RealPosition[2] - p2RealPosition[2];
             distance += difference * difference;
 
             distance = sqrt(distance);

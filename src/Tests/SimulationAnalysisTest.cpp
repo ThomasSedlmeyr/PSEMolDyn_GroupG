@@ -33,7 +33,7 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     ParticleContainerLinkedCells particleContainer(20, 40, 60, 3.0, fours);
 
     Particle p1 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 1);
-    Particle p2 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 2);
+    Particle p2 = Particle({2, 1, 1}, {1, 2, 3}, 23, 1, 2);
     Particle p3 = Particle({1, 1, 1}, {1, 2, 3}, 23, 1, 3);
     Particle p4 = Particle({1, 1, 1}, {1, 2, 3}, 23, -1, 4, false);
     p4.isGhostParticle = true;
@@ -61,7 +61,7 @@ TEST(SimulationAnalysisTest, DiffusionCalculatorTest) {
     ParticleContainerLinkedCells::addParticle(p5);
 
     df.calculateDiffusion();
-    EXPECT_NEAR(df.getDiffusion(), (3 + 12 + 27)*1.0/3.0 , 0.00001);
+    EXPECT_NEAR(df.getDiffusion(), (3 + 9 + 27)*1.0/3.0 , 0.00001);
 }
 
 /**

@@ -10,6 +10,7 @@
 void Analyzer::getSimulationParticles() {
     particles.clear();
     std::vector<Particle> particlesWithGhostParticles = particleContainer->getParticles();
+    int numbersdfa = particlesWithGhostParticles.size();
     std::copy_if(begin(particlesWithGhostParticles), end(particlesWithGhostParticles), std::back_inserter(particles),
                  [&](Particle const &p) { return !p.isGhostParticle;});
 }
@@ -17,7 +18,6 @@ void Analyzer::getSimulationParticles() {
 
 
 Analyzer::Analyzer(ParticleContainer *particleContainer) : particleContainer(particleContainer) {
-    getSimulationParticles();
     writer = new CSVWriter();
 }
 
@@ -37,4 +37,9 @@ void Analyzer::setParticleContainer(ParticleContainer* particleContainer_new) {
     getSimulationParticles();
 }
 
+void Analyzer::sortParticles(){
+    std::sort(std::begin(particles),
+              std::end(particles),
+              [](const Particle &p1, const Particle &p2) { return p1.getId() < p2.getId(); });
+}
 Analyzer::~Analyzer() = default;

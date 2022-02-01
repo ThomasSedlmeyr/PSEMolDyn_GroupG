@@ -218,6 +218,12 @@ public:
      */
     void incrementNumberOfTimesCrossedDomainZ();
 
+    /**
+     * @brief Calculates the real position of the particles by using the counters of how often
+     * the particle crossed the Periodic boundaries.
+     * @return the real postion
+     */
+    std::array<double, 3> getRealPosition();
 };
 
 std::ostream &operator<<(std::ostream &stream, Particle &p);

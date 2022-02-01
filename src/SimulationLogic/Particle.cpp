@@ -211,8 +211,15 @@ void Particle::setNumberOfTimesCrossedWholeDomain(const std::array<short, 3> &nu
     Particle::numberOfTimesCrossedWholeDomain = numberOfTimesCrossedWholeDomain;
 }
 
-
 std::ostream &operator<<(std::ostream &stream, Particle &p) {
     stream << p.toString();
     return stream;
+}
+
+std::array<double, 3> Particle::getRealPosition(){
+    std::array<double, 3> realPosition = {0,0,0};
+    realPosition[0] = x[0] + numberOfTimesCrossedWholeDomain[0] * ParticleContainerLinkedCells::domainSizeX;
+    realPosition[1] = x[1] + numberOfTimesCrossedWholeDomain[1] * ParticleContainerLinkedCells::domainSizeY;
+    realPosition[2] = x[2] + numberOfTimesCrossedWholeDomain[2] * ParticleContainerLinkedCells::domainSizeZ;
+    return realPosition;
 }

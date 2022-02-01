@@ -73,5 +73,6 @@ public:
      */
     void setParticleContainer(ParticleContainer* particleContainer_new);
 
+    void sortParticles();
 };
 #endif //PSEMOLDYN_GROUPG_ANALYZER_H

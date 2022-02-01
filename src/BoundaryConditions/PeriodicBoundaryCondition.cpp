@@ -26,8 +26,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostBackZ(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.incrementNumberOfTimesCrossedDomainZ();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
@@ -37,8 +37,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostFrontZ(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.decrementNumberOfTimesCrossedDomainZ();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
@@ -48,8 +48,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostLeftX(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.incrementNumberOfTimesCrossedDomainX();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
@@ -59,8 +59,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostRightX(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.decrementNumberOfTimesCrossedDomainX();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
@@ -70,8 +70,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostBottomY(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.incrementNumberOfTimesCrossedDomainY();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
@@ -81,8 +81,8 @@ void PeriodicBoundaryCondition::calculateBoundaryCondition() {
                 for (auto &particle: haloCell->getParticles()) {
                     if (!particle.isGhostParticle) {
                         reflectPositionToGhostTopY(particle.getXRef());
-                        ParticleContainerLinkedCells::addParticle(particle);
                         particle.decrementNumberOfTimesCrossedDomainY();
+                        ParticleContainerLinkedCells::addParticle(particle);
                     }
                 }
             }
