@@ -5,7 +5,7 @@
     <generalParams>
         <t_end>500</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>500</writeFrequency>
+        <writeFrequency>1000</writeFrequency>
         <dimensionType>3D</dimensionType>
         <parallelType>first</parallelType>
 
@@ -14,7 +14,7 @@
         <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>NanoScaleFlow</baseNameOutputFiles>
+        <baseNameOutputFiles>NanoScaleFlowDifferentWall</baseNameOutputFiles>
         <cutoffRadius>2.75</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -37,7 +37,7 @@
 
         <useProfiling>yes</useProfiling>
         <numberOfBins>50</numberOfBins>
-        <pathToAnalysisFolder>../Analysis_Files</pathToAnalysisFolder>
+        <pathToAnalysisFolder>../Analysis_Files/NanoScaleFlowDifferentWall</pathToAnalysisFolder>
 
         <crystallization_r_c>0</crystallization_r_c>
         <crystallization_r_l>0</crystallization_r_l>
@@ -55,7 +55,7 @@
     <particlesLJ>
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>1.0,0.5,0.5</position>
+            <position>0.3,0.5,0.5</position>
             <velocity>0,0,0</velocity>
             <objectSpecificFormat>2,30,12</objectSpecificFormat>
             <epsilon>2.0</epsilon>
@@ -67,7 +67,7 @@
 
         <body>
             <bodyType>Cuboid</bodyType>
-            <position>27.2,0.5,0.5</position>
+            <position>27.9,0.5,0.5</position>
             <velocity>0,0,0</velocity>
             <objectSpecificFormat>2,30,12</objectSpecificFormat>
             <epsilon>2.0</epsilon>

@@ -35,9 +35,9 @@
         <delta_T>10000</delta_T>
         <n_thermostat>1000</n_thermostat>
 
-        <useProfiling>no</useProfiling>
+        <useProfiling>yes</useProfiling>
         <numberOfBins>1</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files</pathToAnalysisFolder>
+        <pathToAnalysisFolder>../Analysis_Files</pathToAnalysisFolder>
 
         <crystallization_r_c>0</crystallization_r_c>
         <crystallization_r_l>0</crystallization_r_l>

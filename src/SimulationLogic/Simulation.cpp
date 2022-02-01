@@ -73,8 +73,8 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         diffusionAnalyzer->writeHeaderLineToCSVFile();
         rdfAnalyzer->writeHeaderLineToCSVFile();
         if (XMLParser::parallelType_p == SECONDPARALLEL){
-            particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
-            particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
+            //particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
+            //particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
         }
     }
     writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
@@ -86,10 +86,10 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         }
         if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0 && XMLParser::useProfiling_p){
             if (XMLParser::parallelType_p == SECONDPARALLEL){
-                particleContainerLinkedCells->countParticlesInSubdomains();
+                //particleContainerLinkedCells->countParticlesInSubdomains();
             }
-            diffusionAnalyzer->appendLineToCSVFile();
-            rdfAnalyzer->appendLineToCSVFile();
+            //diffusionAnalyzer->appendLineToCSVFile();
+            //rdfAnalyzer->appendLineToCSVFile();
         }
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
