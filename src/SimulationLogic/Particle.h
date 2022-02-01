@@ -52,7 +52,7 @@ private:
   /**
    * @brief Determines if particle is allowed to be moved during Simulation
    */
-  bool movingIsAllowed;
+  bool movingIsAllowed = true;
 
   /**
    * @brief IDs of the neighbour particles; used for membranes
