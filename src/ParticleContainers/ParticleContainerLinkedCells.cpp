@@ -339,9 +339,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(Partic
                     }
                     if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
                         if (forceCalculationStrategy == 2){
-                            calculateLJForce(*it, *it2, it->getX(), it2->getX(), true);
+                            calculateLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
                         }else{
-                            calculateSmoothedLJForce(*it, *it2, it->getX(), it2->getX(), true);
+                            calculateSmoothedLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
                         }
                     }
                 }
@@ -355,9 +355,9 @@ void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(Partic
                         }
                         if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
                             if (forceCalculationStrategy == 2){
-                                calculateLJForce(particle, p2, particle.getX(), p2.getX(), true);
+                                calculateLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
                             }else{
-                                calculateSmoothedLJForce(particle, p2, particle.getX(), p2.getX(), true);
+                                calculateSmoothedLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
                             }
                         }
                     }
