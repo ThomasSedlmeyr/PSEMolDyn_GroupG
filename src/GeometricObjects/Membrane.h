@@ -39,7 +39,7 @@ public:
     void generateParticles(int startID) override;
 
     /**
-     * TODO Kommentar muss Philip schreiben
+     * @brief sets the neighbours and direct neighbours for every particle
      */
     void setNeighbourParticles();
 };

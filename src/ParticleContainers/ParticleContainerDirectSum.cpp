@@ -29,9 +29,4 @@ void ParticleContainerDirectSum::updateParticlePositions(ParticleVisitor &visito
 }
 
 void ParticleContainerDirectSum::applyFZUp() {
-    for (Particle *p : particlesWithFZUp) {
-        auto &fRef = p->getFRef();
-        //TODO faktor aus XML parsen
-        fRef[2] += p->getM() * -0.001;
-    }
 }

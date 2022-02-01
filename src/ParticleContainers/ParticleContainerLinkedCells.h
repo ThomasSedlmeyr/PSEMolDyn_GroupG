@@ -90,7 +90,7 @@ private:
     std::array<double, 3> currentPosition{};
 
     /**
-     * TODO Kommentar für Philip
+     * @brief Visitor that applies the upward force to the specified particles(only for membranes)
      */
     UpwardForceVisitor zGravVisitor{};
 

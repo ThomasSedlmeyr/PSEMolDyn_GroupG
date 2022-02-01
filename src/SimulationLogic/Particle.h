@@ -145,17 +145,42 @@ public:
 
     bool isGhostParticle = false;
 
-    //TODO Philip Kommentare
+    /**
+     * @brief Adds the given particle ID to the neighbourIDs vector(for membrane)
+     * @param neighbourID
+     */
     void addParticleToNeighbours(int neighbourID);
 
+    /**
+     * @brief Adds the given particle ID to the directNeighbourIDs vector(for membrane)
+     * @param neighbourID
+     */
     void addParticleToDirectNeighbours(int neighbourID);
 
+    /**
+     * @brief Checks if the two given particles are neighbour particles(for membrane)
+     * @param p1
+     * @param p2
+     * @return True if p1 and p2 are neighbours or direct neighbours, False otherwise
+     */
     static bool particlesAreNeighbours(const Particle &p1, const Particle &p2);
 
+    /**
+     * @brief Checks if the two given particles are direct neighbour particles(for membrane)
+     * @param p1
+     * @param p2
+     * @return True if p1 and p2 are direct neighbours, False otherwise
+     */
     static bool particlesAreDirectNeighbours(const Particle &p1, const Particle &p2);
 
+    /**
+     * @return Vector of neighbourIDs
+     */
     const std::vector<int> &getNeighbourIDs() const;
 
+    /**
+     * @return Vector of direct neighbourIDs
+     */
     const std::vector<int> &getDirectNeighbourIDs() const;
 
     /**

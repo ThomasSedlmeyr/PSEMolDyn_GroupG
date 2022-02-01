@@ -26,7 +26,6 @@ std::array<double, 3> XMLParser::domainSize = {};
 double XMLParser::cutoffRadius;
 std::array<int, 6> XMLParser::boundaryConditions;
 particlesLJ::body_sequence XMLParser::bodySequence{};
-int XMLParser::particleContainerType_p = 2; // TODO delete? (default for now)
 double XMLParser::g_grav_p;
 bool XMLParser::useGravity_p;
 bool XMLParser::loadCheckpoint_p;

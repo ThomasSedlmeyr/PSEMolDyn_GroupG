@@ -10,7 +10,7 @@
 #include "omp.h"
 
 /**
- * @TODO Philip
+ * @brief Generates a Reference File that can be used to check if Parallelization is correct
  */
 void generateReference(){
     XMLParser::parseXML("../src/Tests/TestInputFiles/RayleighTaylorTest.xml");
@@ -55,7 +55,6 @@ TEST(ParallelAlgorithmsTests, TestBasicParallelizationFirstParallel) {
 TEST(ParallelAlgorithmsTests, TestBasicParallelizationSecondParallel) {
     XMLParser::parallelType_p = Simulation::SECONDPARALLEL;
     XMLParser::parseXML("../src/Tests/TestInputFiles/RayleighTaylorTest.xml");
-    omp_set_num_threads(12);
     std::array<int, 6> reflectingConditions = {3,3,3,3,3,3};
     ParticleContainerLinkedCells particleContainerLinkedCells = ParticleContainerLinkedCells(100, 100, 100, 3.0, reflectingConditions);
     Writer *w = new XYZWriter();

@@ -5,7 +5,7 @@
     <generalParams>
         <t_end>100</t_end>
         <delta_t>0.001</delta_t>
-        <writeFrequency>500</writeFrequency>
+        <writeFrequency>50</writeFrequency>
         <dimensionType>3D</dimensionType>
         <parallelType>first</parallelType>
 
@@ -29,7 +29,7 @@
 
         <useThermostat>yes</useThermostat>
         <thermostatType>regular</thermostatType>
-        <useBrownianMotion>yes</useBrownianMotion>
+        <useBrownianMotion>no</useBrownianMotion>
         <T_init>3.0</T_init>
         <T_target>0.02</T_target>
         <delta_T>0.0025</delta_T>

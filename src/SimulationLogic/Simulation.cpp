@@ -63,6 +63,7 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     VelocityProfileAnalyzer* velocityAnalyzer = nullptr;
     DiffusionAnalyzer* diffusionAnalyzer = nullptr;
     RadialPairDistributionAnalyzer* rdfAnalyzer = nullptr;
+    ParticleContainerLinkedCells* particleContainerLinkedCells = nullptr;
 
     if(XMLParser::useProfiling_p){
         velocityAnalyzer = new VelocityProfileAnalyzer(partContainer);
@@ -71,18 +72,22 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
         velocityAnalyzer->writeHeaderLineToCSVFile();
         diffusionAnalyzer->writeHeaderLineToCSVFile();
         rdfAnalyzer->writeHeaderLineToCSVFile();
+        if (XMLParser::parallelType_p == SECONDPARALLEL){
+            particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
+            particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
+        }
     }
     writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    //ParticleContainerLinkedCells* particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
-    //particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
 
     while (currentTime < endTime) {
         if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0 && XMLParser::useProfiling_p){
             velocityAnalyzer->appendLineToCSVFile();
         }
         if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0 && XMLParser::useProfiling_p){
-            //particleContainerLinkedCells->countParticlesInSubdomains();
+            if (XMLParser::parallelType_p == SECONDPARALLEL){
+                particleContainerLinkedCells->countParticlesInSubdomains();
+            }
             diffusionAnalyzer->appendLineToCSVFile();
             rdfAnalyzer->appendLineToCSVFile();
         }

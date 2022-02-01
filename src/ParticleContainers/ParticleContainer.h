@@ -50,7 +50,7 @@ public:
     virtual void addParticleToContainer(Particle &p) = 0;
 
     /**
-     * @brief TODO Kommentar für Philip
+     * @brief Applies the upward force to the specified particles (only for membranes)
      */
     virtual void applyFZUp() = 0;
 };
