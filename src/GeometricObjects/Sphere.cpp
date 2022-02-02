@@ -4,9 +4,8 @@
 
 bool Sphere::is2D = true;
 
-Sphere::Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadiusArg, bool isMovingAllowed) : Body(ID, meshWidth,
-                                                                                                         massPerParticle, isMovingAllowed) {
-    numberParticlesPerRadius = numberParticlesPerRadiusArg;
+Sphere::Sphere(int ID, double meshWidth, double massPerParticle, bool isMovingAllowed) :
+    Body(ID, meshWidth, massPerParticle, isMovingAllowed) {
     is2D = XMLParser::dimensionType_p==2;
 }
 

@@ -37,7 +37,7 @@
 
         <useProfiling>yes</useProfiling>
         <numberOfBins>50</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files/Cooling</pathToAnalysisFolder>
+        <pathToAnalysisFolder>../Analysis_Files/Cooling</pathToAnalysisFolder>
 
         <crystallization_r_c>2.3</crystallization_r_c>
         <crystallization_r_l>1.9</crystallization_r_l>

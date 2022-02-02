@@ -5,7 +5,7 @@
     <generalParams>
         <t_end>500</t_end>
         <delta_t>0.0005</delta_t>
-        <writeFrequency>500</writeFrequency>
+        <writeFrequency>1000</writeFrequency>
         <dimensionType>3D</dimensionType>
         <parallelType>first</parallelType>
 
@@ -14,7 +14,7 @@
         <gravDirection>y</gravDirection>
 
         <calcType>LJ</calcType>
-        <baseNameOutputFiles>NanoScaleFlow</baseNameOutputFiles>
+        <baseNameOutputFiles>Tetrahedrons</baseNameOutputFiles>
         <cutoffRadius>2.75</cutoffRadius>
         <gravInput>../eingabe-sonne.txt</gravInput>
 
@@ -37,7 +37,7 @@
 
         <useProfiling>yes</useProfiling>
         <numberOfBins>50</numberOfBins>
-        <pathToAnalysisFolder>../Analysis_Files</pathToAnalysisFolder>
+        <pathToAnalysisFolder>../Analysis_Files/Tetrahedrons</pathToAnalysisFolder>
 
         <crystallization_r_c>0</crystallization_r_c>
         <crystallization_r_l>0</crystallization_r_l>
@@ -81,12 +81,36 @@
             <bodyType>Cuboid</bodyType>
             <position>3.2,0.6,0.6</position>
             <velocity>0,0,0</velocity>
-            <objectSpecificFormat>20,25,10</objectSpecificFormat>
+            <objectSpecificFormat>20,15,10</objectSpecificFormat>
             <epsilon>1.0</epsilon>
             <mass>1.0</mass>
             <rho>1.0</rho>
             <h>1.2</h>
             <bodyState>moving</bodyState>
+        </body>
+
+        <body>
+            <bodyType>Tetrahedron</bodyType>
+            <position>5,19,3</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>8</objectSpecificFormat>
+            <epsilon>1.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.2</h>
+            <bodyState>fixed</bodyState>
+        </body>
+
+        <body>
+            <bodyType>Tetrahedron</bodyType>
+            <position>16,19,3</position>
+            <velocity>0,0,0</velocity>
+            <objectSpecificFormat>8</objectSpecificFormat>
+            <epsilon>1.0</epsilon>
+            <mass>1.0</mass>
+            <rho>1.0</rho>
+            <h>1.2</h>
+            <bodyState>fixed</bodyState>
         </body>
     </particlesLJ>
 </input>

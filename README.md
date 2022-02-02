@@ -7,7 +7,7 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: c2513be44ddf32fcfa142493d3ee3caa400a2fac
+* Revision: e35c09534bb07ed2d353eb0eee21bff906be7311
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
@@ -83,9 +83,8 @@ Members:
       * h : mesh width of grid
       * bodyState : moving, fixed (membrane must be moving)
 
-* optional : when performing a 
-  * Gravitation Simulation : other tags in generalParams and boundaryConditions can all be put to 0, particlesLJ can be left empty
-  * LennardJones Simulation - direct Sum : cutoffRadius can be put to zero
+* optional : when performing a Gravitation Simulation 
+  * other tags in generalParams and boundaryConditions can all be put to 0, particlesLJ can be left empty
 
 ## Run with predefined xml-files ##
 ### Run of Gravitation Simulation ###
@@ -120,7 +119,7 @@ Members:
 
 ### Run of 'Simulation of the Rayleigh-Taylor instability' ###
 * compile with all options
-* run on f the following
+* run on of the following
   * run ./MolSim -input ../XMLinputFiles/RayleighTaylor_3D.xml
   * run ./MolSim -input ../XMLinputFiles/RayleighTaylor_large.xml
   * run ./MolSim -input ../XMLinputFiles/RayleighTaylor_small.xml
@@ -132,6 +131,14 @@ Members:
 ### Run of 'Nano-scale flow simulation' ###
 * compile with all options
 * run ./MolSim -input ../XMLinputFiles/NanoScaleFlow.xml
+
+### Run of 'Crystallization of Argon' ###
+* compile with all options
+* for equilibration
+  * run ./MolSim -input ../XMLinputFiles/Crystallization_equilibrate.xml
+* for cooling
+  * run ./MolSim -input ../Crystallization_cooling.xml
+  * run ./MolSim -input ../Crystallization_supercooling.xml
 
 ## Crating a doxygen ##
 * compile with BUILD_DOXYGEN=ON

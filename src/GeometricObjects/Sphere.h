@@ -11,7 +11,7 @@ protected:
     void generateParticles(int startID) override;
 
 public:
-    Sphere(int ID, double meshWidth, double massPerParticle, int numberParticlesPerRadius, bool isMovingAllowed = true);
+    Sphere(int ID, double meshWidth, double massPerParticle, bool isMovingAllowed = true);
 
     ~Sphere();
 

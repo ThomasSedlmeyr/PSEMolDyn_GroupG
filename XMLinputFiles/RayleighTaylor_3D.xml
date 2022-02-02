@@ -37,7 +37,7 @@
 
         <useProfiling>no</useProfiling>
         <numberOfBins>50</numberOfBins>
-        <pathToAnalysisFolder>../SimulationAnalysis_Files/RayleighTaylor/</pathToAnalysisFolder>
+        <pathToAnalysisFolder>../Analysis_Files</pathToAnalysisFolder>
 
         <crystallization_r_c>0</crystallization_r_c>
         <crystallization_r_l>0</crystallization_r_l>
