@@ -37,7 +37,6 @@ void LJForceVisitor::visitParticlePair(Particle &p1, Particle &p2) {
         std::cout << "suspiciously close\n";
     }
 
-    //TODO this only works for one membrane!
     if (!membraneIDs.empty()){
         if (p1Type == membraneIDs[0] && p1Type == p2Type){
             //Makes sure that only the repulsive part of the LJ potential is applied

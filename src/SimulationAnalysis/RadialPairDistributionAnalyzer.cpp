@@ -16,6 +16,9 @@ RadialPairDistributionAnalyzer::RadialPairDistributionAnalyzer(ParticleContainer
 
 void RadialPairDistributionAnalyzer::calculateLocalDensities() {
     getSimulationParticles();
+    for (int & i : numberParticlesInIntervall) {
+        i = 0;
+    }
     double difference = 0;
     int index = 0;
     for (auto it = particles.begin(); it != particles.end(); it++) {
@@ -35,7 +38,7 @@ void RadialPairDistributionAnalyzer::calculateLocalDensities() {
             distance += difference * difference;
 
             distance = sqrt(distance);
-            index = ((int) (distance - startOfIntervall) / stepSize);
+            index = int((distance - startOfIntervall) / stepSize);
 
             //We have to check if the index is in our intervall
             if(index < numberParticlesInIntervall.size()){

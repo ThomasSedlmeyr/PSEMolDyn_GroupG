@@ -86,11 +86,6 @@ public:
     static particlesLJ::body_sequence bodySequence;
 
     /**
-     * @brief parsed particle container type from xml file (1=directSum, 2=linkedCells
-     */
-    static int particleContainerType_p; // TODO delete?
-
-    /**
      * @brief array of parsed domain sizes from xml file
      */
     static std::array<double, 3> domainSize;

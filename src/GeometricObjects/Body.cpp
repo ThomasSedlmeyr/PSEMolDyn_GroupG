@@ -30,7 +30,6 @@ void Body::parsePosition(const std::string &line) {
 }
 
 void Body::parseMovingIsAllowed(){
-    //TODO: Here we have to parse the line of XML file
 }
 
 std::vector<Particle> & Body::getParticles() {

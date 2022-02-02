@@ -24,7 +24,6 @@ public:
      */
     static int checkpointReadCalcType;
 
-    // TODO static void resetCheckpointReaderData();
 };
 
 
