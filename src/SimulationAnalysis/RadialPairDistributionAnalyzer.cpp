@@ -41,7 +41,7 @@ void RadialPairDistributionAnalyzer::calculateLocalDensities() {
             index = int((distance - startOfIntervall) / stepSize);
 
             //We have to check if the index is in our intervall
-            if(index < numberParticlesInIntervall.size()){
+            if(index < static_cast<int>(numberParticlesInIntervall.size())){
                 //We increment the correct particle counter
                 numberParticlesInIntervall[index]++;
             }
@@ -49,7 +49,7 @@ void RadialPairDistributionAnalyzer::calculateLocalDensities() {
     }
     //calculation of the local densities
     double ri, riPlusStepSize, riCubic, riPlusStepSizeCubic;
-    for(int i = 0; i < localDensities.size(); i++) {
+    for(int i = 0; i < static_cast<int>(localDensities.size()); i++) {
         ri = startOfIntervall + i * stepSize;
         riPlusStepSize = ri + stepSize;
         riCubic = ri * ri * ri;
@@ -72,8 +72,8 @@ RadialPairDistributionAnalyzer::~RadialPairDistributionAnalyzer() = default;
 std::string RadialPairDistributionAnalyzer::calculationResultsToString() {
     calculateLocalDensities();
     std::string resultLine = std::to_string(currentTime) + ",";
-    for(int i = 0; i < localDensities.size(); i++){
-        resultLine += std::to_string(localDensities[i]) + ",";
+    for(double localDensity : localDensities){
+        resultLine += std::to_string(localDensity) + ",";
     }
     currentTime += timeStepSize;
     return resultLine;
@@ -82,7 +82,7 @@ std::string RadialPairDistributionAnalyzer::calculationResultsToString() {
 std::string RadialPairDistributionAnalyzer::createHeaderLine() {
     std::string headerLine = "Time,";
     double currentDistance = startOfIntervall;
-    for(int i = 0; i < localDensities.size(); i++){
+    for(int i = 0; i < static_cast<int>(localDensities.size()); i++){
         headerLine += std::to_string((int) currentDistance) + ",";
         currentDistance += stepSize;
     }

@@ -20,7 +20,7 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
     for (int i = 0; i < sizesXSubdomains.size(); ++i) {
         sizeSubdomainX = sizesXSubdomains[i];
         currentPositionZ = 0;
-        for (int j = 0; j < sizesZSubdomains.size(); ++j) {
+        for (int j = 0; j < static_cast<int>(sizesZSubdomains.size()); ++j) {
             sizeSubdomainZ = sizesZSubdomains[j];
 
             std::vector<SubdomainCell> *subdomainCells = new std::vector<SubdomainCell>(
@@ -39,9 +39,6 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
                                 relativePositionInDomain[2] != ParticleContainerLinkedCells::numberCellsZ - 1;
                         bool cellIsSynchronized = cellIsSynchronizedBecauseOfX || cellIsSynchronizedBecauseOfZ;
 
-                        if(cellIsSynchronized){
-                            int sdfsd = 0;
-                        }
                         (*subdomainCells)[counter] = SubdomainCell({x, y, z},
                                                                    &ParticleContainerLinkedCells::cells[indexInDomain],
                                                                    cellIsSynchronized);

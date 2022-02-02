@@ -68,28 +68,34 @@ void Simulation::simulateLogic(const double &endTime, const double &delta_t, Wri
     if(XMLParser::useProfiling_p){
         velocityAnalyzer = new VelocityProfileAnalyzer(partContainer);
         diffusionAnalyzer = new DiffusionAnalyzer(partContainer);
-        rdfAnalyzer = new RadialPairDistributionAnalyzer(partContainer, 1, 1, 50, 5, 20);
+        rdfAnalyzer = new RadialPairDistributionAnalyzer(partContainer, 0, 0.5, 50, 5, 20);
         velocityAnalyzer->writeHeaderLineToCSVFile();
         diffusionAnalyzer->writeHeaderLineToCSVFile();
         rdfAnalyzer->writeHeaderLineToCSVFile();
         if (XMLParser::parallelType_p == SECONDPARALLEL){
-            //particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
-            //particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
+            particleContainerLinkedCells = dynamic_cast<ParticleContainerLinkedCells*>(partContainer);
+            particleContainerLinkedCells->writeHeaderFileOfParticlesCount();
         }
     }
     writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
     while (currentTime < endTime) {
-        if(iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0 && XMLParser::useProfiling_p){
-            velocityAnalyzer->appendLineToCSVFile();
+        if(XMLParser::useProfiling_p && iteration % numberOfTimeStepsToAnalyzeVelocityProfiles == 0){
+            if (velocityAnalyzer != nullptr){
+                velocityAnalyzer->appendLineToCSVFile();
+            }
         }
         if(iteration % numberOfTimeStepsToAnalyzeDiffusions == 0 && XMLParser::useProfiling_p){
             if (XMLParser::parallelType_p == SECONDPARALLEL){
-                //particleContainerLinkedCells->countParticlesInSubdomains();
+                particleContainerLinkedCells->countParticlesInSubdomains();
             }
-            //diffusionAnalyzer->appendLineToCSVFile();
-            //rdfAnalyzer->appendLineToCSVFile();
+            if (diffusionAnalyzer != nullptr){
+                diffusionAnalyzer->appendLineToCSVFile();
+            }
+            if (rdfAnalyzer != nullptr){
+                rdfAnalyzer->appendLineToCSVFile();
+            }
         }
         if (iteration != 0 && iteration % numberSkippedPrintedIterations == 0) {
             writer.writeParticlesToFile(outputFileName, iteration, particleContainer->getParticles());

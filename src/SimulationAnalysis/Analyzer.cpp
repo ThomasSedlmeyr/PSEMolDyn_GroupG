@@ -10,7 +10,6 @@
 void Analyzer::getSimulationParticles() {
     particles.clear();
     std::vector<Particle> particlesWithGhostParticles = particleContainer->getParticles();
-    int numbersdfa = particlesWithGhostParticles.size();
     std::copy_if(begin(particlesWithGhostParticles), end(particlesWithGhostParticles), std::back_inserter(particles),
                  [&](Particle const &p) { return !p.isGhostParticle;});
 }
