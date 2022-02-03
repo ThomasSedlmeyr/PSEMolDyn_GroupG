@@ -7,7 +7,7 @@ Members:
 # Code #
 * Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
 * Branch:   main
-* Revision: e35c09534bb07ed2d353eb0eee21bff906be7311
+* Revision: 617c6bcb77f630c0d060157fa8a12b98d296dfcb
 * Compiler: g++ 11.1.0
 
 # Run Instructions #
