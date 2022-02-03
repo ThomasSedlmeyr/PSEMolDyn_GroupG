@@ -27,8 +27,9 @@ TEST(GeneratorTests, SphereGenerationTest) {
     double meshWidth = 1.0;
     double radiusSize = numberParticlesPerRadius * meshWidth;
 
-    Body *sphere = new Sphere(0, meshWidth, 1, numberParticlesPerRadius);
+    Body *sphere = new Sphere(0, meshWidth, 1, false);
     Sphere::is2D = false;
+    sphere->parseStructure("10");
     sphere->parsePosition("5,5,5");
     sphere->generateParticles(0);
     std::vector<Particle> particles = sphere->getParticles();
