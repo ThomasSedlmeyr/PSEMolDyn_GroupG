@@ -324,6 +324,7 @@ void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(Partic
             auto &particles = c->getParticles();
             bool atomic = subdomainCell.getIsSynchronized();
             for (auto it = particles.begin(); it != particles.end(); it++) {
+                const auto pos1 = it->getX();
                 //apply Gravitation
                 if (useGrav) {
                     auto *f = &it->getFRef();
@@ -334,14 +335,15 @@ void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(Partic
                 }
                 //calculate force between particles inside of cell
                 for (auto it2 = it + 1; it2 != particles.end(); it2++) {
+                    const auto &pos2 = it2->getX();
                     if (includesMembranes){
                         calculateHarmonicPotential(*it, *it2);
                     }
-                    if (shouldCalculateForce(it->getX(), it2->getX(), cutOffRadius)) {
+                    if (shouldCalculateForce(pos1, pos2, cutOffRadius)) {
                         if (forceCalculationStrategy == 2){
-                            calculateLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
+                            calculateLJForce(*it, *it2, pos1, pos2, atomic);
                         }else{
-                            calculateSmoothedLJForce(*it, *it2, it->getX(), it2->getX(), atomic);
+                            calculateSmoothedLJForce(*it, *it2, pos1, pos2, atomic);
                         }
                     }
                 }
@@ -349,15 +351,17 @@ void ParticleContainerLinkedCells::walkOverParticlePairsParallelStrategy2(Partic
             for (Cell *c2: c->getNeighbourCells()) {
                 auto &particles2 = c2->getParticles();
                 for (auto &particle: particles) {
+                    const auto &pos1 = particle.getX();
                     for (Particle &p2: particles2) {
+                        const auto &pos2 = p2.getX();
                         if (includesMembranes){
                             calculateHarmonicPotential(particle, p2);
                         }
-                        if (shouldCalculateForce(particle.getX(), p2.getX(), cutOffRadius)) {
+                        if (shouldCalculateForce(pos1, pos2, cutOffRadius)) {
                             if (forceCalculationStrategy == 2){
-                                calculateLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
+                                calculateLJForce(particle, p2, pos1, pos2, atomic);
                             }else{
-                                calculateSmoothedLJForce(particle, p2, particle.getX(), p2.getX(), atomic);
+                                calculateSmoothedLJForce(particle, p2, pos1, pos2, atomic);
                             }
                         }
                     }

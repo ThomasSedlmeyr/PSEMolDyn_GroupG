@@ -30,7 +30,7 @@ bool parseCommandLineArguments(int argc, char *argsv[]);
 
 int main(int argc, char *argsv[]) {
     //useful for testing performance
-    //spdlog::set_level(spdlog::level::off);
+    spdlog::set_level(spdlog::level::off);
 
     std::cout << "Hello from MolSim for PSE!" << std::endl;
     // cases in which correct programme call is not possible
