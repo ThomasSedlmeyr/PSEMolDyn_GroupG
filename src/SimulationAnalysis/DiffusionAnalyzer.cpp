@@ -7,7 +7,7 @@ void DiffusionAnalyzer::calculateDiffusion() {
 
     double difference;
     diffusion = 0;
-    for(int i = 0; i < particles.size(); i++){
+    for(int i = 0; i < static_cast<int>(particles.size()); i++){
         std::array<double, 3> currentPosition = particles[i].getRealPosition();
         double sumOfSquares = 0;
         for(int j = 0; j < 3; j++){
@@ -30,7 +30,7 @@ void DiffusionAnalyzer::initializeOldPositions(){
     sortParticles();
     int size = particles.size();
     oldPositions = std::vector<std::array<double, 3>>(size);
-    for(int i = 0; i < particles.size(); i++){
+    for(int i = 0; i < static_cast<int>(particles.size()); i++){
         oldPositions[i] = particles[i].getRealPosition();
     }
 }

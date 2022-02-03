@@ -17,7 +17,7 @@ void SubdomainContainer::generateSubdomains(const std::vector<int> &sizesXSubdom
     int indexInDomain = 0;
     subdomains.resize(sizesXSubdomains.size() * sizesZSubdomains.size());
     sizeSubdomainY = ParticleContainerLinkedCells::numberCellsY;
-    for (int i = 0; i < sizesXSubdomains.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(sizesXSubdomains.size()); ++i) {
         sizeSubdomainX = sizesXSubdomains[i];
         currentPositionZ = 0;
         for (int j = 0; j < static_cast<int>(sizesZSubdomains.size()); ++j) {
@@ -152,7 +152,7 @@ void SubdomainContainer::writeHeaderFileForNumberParticles(){
     std::string headerLine = "";
 
     int counter = 0;
-    for(auto& subdomain : subdomains){
+    for (int i = 0; i < static_cast<int>(subdomains.size()); ++i) {
         headerLine += "Subdomain_" + std::to_string(counter) + ",";
         counter++;
     }

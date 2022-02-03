@@ -5,7 +5,7 @@
 #include "SubdomainCell.h"
 
 SubdomainCell::SubdomainCell(Cell *pointerToCell, std::array<int, 3> relativePositionInSubdomain)
-        : pointerToCell(pointerToCell), relativePositionInSubdomain(relativePositionInSubdomain) {}
+        : relativePositionInSubdomain(relativePositionInSubdomain), pointerToCell(pointerToCell) {}
 
 SubdomainCell::SubdomainCell() {}
 

@@ -20,8 +20,6 @@ bool LennardJonesSimulation::readParticles(const std::string &fileName) {
                 if (particle.getMovingAllowed()){
                     particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(factor, dimensions));
                 }
-            }else{
-                //particle.setV(particle.getV() + maxwellBoltzmannDistributedVelocity(0.1, dimensions));
             }
             particleContainer->addParticleToContainer(particle);
         }

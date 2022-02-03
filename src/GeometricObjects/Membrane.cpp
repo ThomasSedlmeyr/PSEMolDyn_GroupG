@@ -156,7 +156,7 @@ void Membrane::setNeighbourParticles() {
     for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
         auto topNeighbour = i + int(dimensions[0]);
         auto bottomNeighbour = i - int(dimensions[0]);
-        if (topNeighbour >= particles.size()){
+        if (topNeighbour >= static_cast<int>(particles.size())){
             topNeighbour = -2;
         }
         if (bottomNeighbour < 0){
