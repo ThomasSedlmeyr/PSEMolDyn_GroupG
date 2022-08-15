@@ -1,14 +1,12 @@
-# Group G #
+# Description #
+This project was part of a practical course on molecular dynamics at TU Munich (IN0012). Based on a template provided at [TUM-I5/MolSim](https://github.com/TUM-I5/MolSim). For this project we implemented several algorithms for example the Linked Cell Algorithm and evaluated the results. All generated videos can be found here: https://youtube.com/playlist?list=PLHRoJMZN0Kf06ifBcb74CIgupYphcu4IW 
+
+
 Members:
 * Thomas Sedlmeyr
 * Philip Haitzer
 * Daniel Braun
 
-# Code #
-* Link:     https://github.com/ThomasSedlmeyr/PSEMolDyn_GroupG
-* Branch:   main
-* Revision: f1f640a66ce42e8146c13ee449a5a940590be5f9
-* Compiler: g++ 11.1.0
 
 # Run Instructions #
 ## Standard Run of default input file ##
